@@ -16,7 +16,7 @@ class HttpManager {
 
     _dio.interceptors.add(ErrorInterceptors(_dio));
 
-    // _dio.interceptors.add(HttpFormatter(logger: logger));
+    _dio.interceptors.add(HttpFormatter(logger: logger));
 
     _dio.interceptors.add(ResponseInterceptors());
   }

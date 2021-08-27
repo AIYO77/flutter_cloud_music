@@ -5,6 +5,7 @@ import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
+import 'package:flutter_cloud_music/routes/routes_utils.dart';
 import 'package:get/get.dart';
 
 Widget elementButtonWidget(ElementButton? elementButton) {
@@ -13,7 +14,7 @@ Widget elementButtonWidget(ElementButton? elementButton) {
   return MaterialButton(
     onPressed: () {
       //点击
-      Get.snackbar('Hi', elementButton.action.toString());
+      RouteUtils.routeFromActionStr(elementButton.action);
     },
     height: Dimens.gap_dp24,
     color: Colors.transparent,

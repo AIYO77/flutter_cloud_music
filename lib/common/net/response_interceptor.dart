@@ -13,7 +13,11 @@ class ResponseInterceptors extends InterceptorsWrapper {
 
       if (header != null && header.toString().contains("text") ||
           (response.statusCode! >= 200 && response.statusCode! < 300)) {
-        value = ResultData(response.data['data'], true, Code.SUCCESS);
+        if (response.request.path.contains('/playlist/hot')) {
+          value = ResultData(response.data['tags'], true, Code.SUCCESS);
+        } else {
+          value = ResultData(response.data['data'], true, Code.SUCCESS);
+        }
       } else {
         value = ResultData(response.data, false, response.data['code']);
       }
