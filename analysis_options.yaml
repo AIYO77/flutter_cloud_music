@@ -1,0 +1,24 @@
+include: package:lint/analysis_options.yaml
+
+analyzer:
+  strong-mode:
+    implicit-casts: false
+  errors:
+    import_of_legacy_library_into_null_safe: ignore
+    avoid_positional_boolean_parameters: ignore
+    invalid_dependency: ignore
+    argument_type_not_assignable: ignore
+    implicit_dynamic_map_literal: ignore
+    non_constant_identifier_names: ignore
+    require_trailing_commas: ignore
+    use_named_constants: ignore
+    depend_on_referenced_packages: ignore
+    
+linter:
+  rules:
+    public_member_api_docs: false
+    constant_identifier_names: false
+    # Back to the 80s
+    lines_longer_than_80_chars: true
+
+    sort_pub_dependencies: false
