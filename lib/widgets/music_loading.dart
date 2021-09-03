@@ -6,6 +6,10 @@ import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'frame_animation_image.dart';
 
 class MusicLoading extends StatelessWidget {
+  final Axis axis;
+
+  MusicLoading({this.axis = Axis.vertical});
+
   final List<String> list = [
     'ca_',
     'caa',
@@ -14,26 +18,37 @@ class MusicLoading extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: Center(
+    final bool ver = axis == Axis.vertical;
+    if (ver) {
+      return Center(
         child: Column(
-          children: [
-            FrameAnimationImage(
-              const Key('MusicLoading'),
-              list,
-              width: Dimens.gap_dp20,
-              height: Dimens.gap_dp20,
-              interval: 80,
-            ),
-            Gaps.vGap15,
-            Text(
-              '正在加载中...',
-              style: TextStyle(
-                  color: Colours.text_gray, fontSize: Dimens.font_sp14),
-            )
-          ],
+          children: _loadingContent(ver),
         ),
+      );
+    } else {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: _loadingContent(ver),
+      );
+    }
+  }
+
+  List<Widget> _loadingContent(bool ver) {
+    return [
+      if (!ver) const Expanded(child: Gaps.empty),
+      FrameAnimationImage(
+        const Key('MusicLoading'),
+        list,
+        width: Dimens.gap_dp18,
+        height: Dimens.gap_dp18,
+        interval: 80,
       ),
-    );
+      if (axis == Axis.vertical) Gaps.vGap15 else Gaps.hGap10,
+      Text(
+        '正在加载中...',
+        style: TextStyle(color: Colours.text_gray, fontSize: Dimens.font_sp13),
+      ),
+      if (!ver) const Expanded(child: Gaps.empty),
+    ];
   }
 }

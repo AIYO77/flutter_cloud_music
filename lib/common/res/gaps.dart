@@ -34,12 +34,14 @@ class Gaps {
   static Widget vGap2 = SizedBox(height: Dimens.gap_dp2);
   static Widget vGap4 = SizedBox(height: Dimens.gap_dp4);
   static Widget vGap5 = SizedBox(height: Dimens.gap_dp5);
+  static Widget vGap6 = SizedBox(height: Dimens.gap_dp6);
   static Widget vGap8 = SizedBox(height: Dimens.gap_dp8);
   static Widget vGap10 = SizedBox(height: Dimens.gap_dp10);
   static Widget vGap12 = SizedBox(height: Dimens.gap_dp12);
   static Widget vGap15 = SizedBox(height: Dimens.gap_dp15);
   static Widget vGap16 = SizedBox(height: Dimens.gap_dp16);
   static Widget vGap24 = SizedBox(height: Dimens.gap_dp24);
+  static Widget vGap20 = SizedBox(height: Dimens.gap_dp20);
   static Widget vGap50 = SizedBox(height: Dimens.gap_dp50);
 
   static Widget line = const Divider(height: 1);

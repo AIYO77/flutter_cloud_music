@@ -15,6 +15,8 @@ import 'package:flutter_cloud_music/pages/not_found/not_found_binding.dart';
 import 'package:flutter_cloud_music/pages/not_found/not_found_view.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/playlist_collection_binding.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/playlist_collection_view.dart';
+import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_binding.dart';
+import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_view.dart';
 import 'package:flutter_cloud_music/pages/podcast/podcast_binding.dart';
 import 'package:flutter_cloud_music/pages/podcast/podcast_view.dart';
 import 'package:flutter_cloud_music/pages/splash/splash_binding.dart';
@@ -71,6 +73,12 @@ class AppPages {
         binding: PlaylistCollectionBinding(),
         preventDuplicates: true),
 
+    //歌单详情
+    GetPage(
+        name: Routes.PLAYLIST_DETAIL,
+        page: () => const PlaylistDetailPage(),
+        binding: PlaylistDetailBinding()),
+
     // login
     GetPage(
       middlewares: [
@@ -79,6 +87,7 @@ class AppPages {
       name: Routes.LOGIN,
       page: () => const LoginPage(),
       binding: LoginBinding(),
+      transition: Transition.downToUp,
       preventDuplicates: true,
     ),
   ];

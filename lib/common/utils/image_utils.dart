@@ -7,8 +7,8 @@ class ImageUtils {
 
   static String getImageUrlFromSize(String? url, Size size) {
     //向上取整
-    final width = (size.width * 1.7).ceil();
-    final height = (size.height * 1.7).ceil();
+    final width = (size.width * 2).ceil();
+    final height = (size.height * 2).ceil();
     return '$url?param=${width}y$height';
   }
 }

@@ -30,9 +30,14 @@ class PlaylistCollectionController extends GetxController {
 
   @override
   void onReady() {
-    tags.value = box.read<List<PlayListTagModel>?>(PLAYLIST_TAGS);
+    if (box.hasData(PLAYLIST_TAGS)) {
+      tags.value = box
+          .read<List<dynamic>>(PLAYLIST_TAGS)!
+          .map((e) => PlayListTagModel.fromJson(e))
+          .toList();
+    }
     if (GetUtils.isNullOrBlank(tags.value) == true) {
-      //为空说明没有缓存过 请求接口
+      //没有缓存过 请求接口
       getHotTags();
     } else {
       Get.log('存在 ${tags.value?.map((e) => e.name).toString()}');

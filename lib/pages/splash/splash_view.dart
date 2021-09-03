@@ -33,7 +33,7 @@ class SplashPage extends GetView<SplashController> {
       );
     } else {
       return Image.asset(
-        ImageUtils.getImagePath('e18'),
+        ImageUtils.getImagePath('erq'),
         height: Adapt.px(100),
         width: Adapt.px(100),
       );

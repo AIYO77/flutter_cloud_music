@@ -9,6 +9,9 @@ class CreativeModel extends Object {
   @JsonKey(name: 'creativeType')
   String? creativeType;
 
+  @JsonKey(name: 'action')
+  String? action;
+
   @JsonKey(name: 'resources')
   List<Resources>? resources;
 
@@ -23,6 +26,7 @@ class CreativeModel extends Object {
 
   CreativeModel(
     this.creativeType,
+    this.action,
     this.uiElement,
     this.creativeExtInfoVO,
     this.resources,

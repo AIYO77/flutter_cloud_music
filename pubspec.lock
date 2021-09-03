@@ -42,7 +42,7 @@ packages:
       name: async
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.7.0"
+    version: "2.8.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -259,7 +259,7 @@ packages:
       name: dio
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.0.0-beta6"
+    version: "4.0.0"
   event_bus:
     dependency: "direct main"
     description:
@@ -352,6 +352,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.2.1"
+  flutter_ume_kit_dio:
+    dependency: "direct dev"
+    description:
+      name: flutter_ume_kit_dio
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.0"
   flutter_ume_kit_perf:
     dependency: "direct dev"
     description:
@@ -496,14 +503,14 @@ packages:
       name: lint
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.7.1"
+    version: "1.7.2"
   logger:
     dependency: "direct main"
     description:
       name: logger
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0"
   logging:
     dependency: transitive
     description:
@@ -517,7 +524,7 @@ packages:
       name: matcher
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.12.10"
+    version: "0.12.11"
   meta:
     dependency: transitive
     description:
@@ -552,7 +559,7 @@ packages:
       name: palette_generator
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.0"
+    version: "0.3.1"
   path:
     dependency: transitive
     description:
@@ -830,7 +837,7 @@ packages:
       name: test_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.4.2"
+    version: "0.4.3"
   timing:
     dependency: transitive
     description:
@@ -872,7 +879,7 @@ packages:
       name: vm_service
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "7.2.0"
+    version: "7.3.0"
   watcher:
     dependency: transitive
     description:
@@ -893,7 +900,7 @@ packages:
       name: win32
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.6"
+    version: "2.2.8"
   xdg_directories:
     dependency: transitive
     description:
@@ -916,5 +923,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.14.0-172.0.dev <3.0.0"
+  dart: ">=2.14.0-360.0.dev <3.0.0"
   flutter: ">=2.0.0"

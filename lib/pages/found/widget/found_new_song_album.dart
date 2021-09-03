@@ -19,7 +19,10 @@ class FoundNewSongAlbum extends StatelessWidget {
 
   final double itemHeight;
 
-  FoundNewSongAlbum(this.creatives, {required this.itemHeight});
+  final bool bottomRadius;
+
+  FoundNewSongAlbum(this.creatives,
+      {required this.itemHeight, required this.bottomRadius});
 
   final List<String> types = List.empty(growable: true);
   final List<Widget> tabs = List.empty(growable: true);
@@ -160,11 +163,13 @@ class FoundNewSongAlbum extends StatelessWidget {
     return Container(
         height: itemHeight,
         decoration: BoxDecoration(
-            color: Get.theme.cardColor,
-            borderRadius: BorderRadius.only(
+          color: Get.theme.cardColor,
+          borderRadius: BorderRadius.only(
               topLeft: Radius.circular(Dimens.gap_dp10),
               topRight: Radius.circular(Dimens.gap_dp10),
-            )),
+              bottomLeft: Radius.circular(bottomRadius ? Dimens.gap_dp10 : 0),
+              bottomRight: Radius.circular(bottomRadius ? Dimens.gap_dp10 : 0)),
+        ),
         child: Column(
           children: [
             //tab

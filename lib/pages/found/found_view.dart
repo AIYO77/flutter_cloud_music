@@ -27,7 +27,7 @@ class FoundPage extends GetView<FoundController> {
 
   final refreshController = RefreshController();
 
-  Widget _buildItem(Blocks blocks, int index) {
+  Widget _buildItem(Blocks blocks, int index, String? nextType) {
     final itemHeight = controller.itemHeightFromType[blocks.showType] ?? 0;
     Get.log('${blocks.showType} itemheight $itemHeight');
     switch (blocks.showType) {
@@ -52,6 +52,7 @@ class FoundPage extends GetView<FoundController> {
         return FoundNewSongAlbum(
           blocks.creatives!,
           itemHeight: itemHeight,
+          bottomRadius: nextType != SHOWTYPE_SLIDE_SINGLE_SONG,
         );
       case SHOWTYPE_SLIDE_SINGLE_SONG:
         return FoundSlideSingleSong(
@@ -79,11 +80,14 @@ class FoundPage extends GetView<FoundController> {
     }
   }
 
-  Widget _buildDivider(String type) {
+  Widget _buildDivider(String type, String? nextType) {
     switch (type) {
       case SHOWTYPE_BANNER:
-      case SHOWTYPE_HOMEPAGE_NEW_SONG_NEW_ALBUM:
         return Gaps.empty;
+      case SHOWTYPE_HOMEPAGE_NEW_SONG_NEW_ALBUM:
+        return nextType == SHOWTYPE_SLIDE_SINGLE_SONG
+            ? Gaps.empty
+            : Gaps.vGap10;
       case SHOWTYPE_BALL:
         return Gaps.line;
       default:
@@ -108,16 +112,22 @@ class FoundPage extends GetView<FoundController> {
             controller: listScroll,
             itemBuilder: (context, index) {
               final blocks = state!.blocks[index];
+              final nextType = index + 1 < state.blocks.length
+                  ? state.blocks[index + 1].showType
+                  : null;
               return FrameSeparateWidget(
                   index: index,
                   placeHolder: Container(
                     color: Get.theme.cardColor,
                     height: controller.itemHeightFromType[blocks.showType] ?? 0,
                   ),
-                  child: _buildItem(blocks, index));
+                  child: _buildItem(blocks, index, nextType));
             },
             separatorBuilder: (context, index) {
-              return _buildDivider(state!.blocks[index].showType);
+              final nextType = index + 1 < state!.blocks.length
+                  ? state.blocks[index + 1].showType
+                  : null;
+              return _buildDivider(state.blocks[index].showType, nextType);
             },
             itemCount: state != null ? state.blocks.length : 0));
   }

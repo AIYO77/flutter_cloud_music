@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class Colours {
   Colours._();
-  static const Color app_main = Color.fromARGB(255, 197, 25, 24);
+  static const Color app_main = Color.fromARGB(255, 208, 22, 25);
   static const Color app_main_light = Color.fromARGB(255, 219, 77, 77);
 
   static const Color bg_color = Color.fromARGB(255, 246, 245, 246);
@@ -30,9 +30,12 @@ class Colours {
   static const Color dark_caption_txt_color =
       Color.fromARGB(255, 195, 195, 195);
 
+  static Color indicator_color = const Color.fromARGB(255, 235, 80, 72);
+
   static const Color blue = Color.fromARGB(255, 55, 145, 235);
 
   static const Color white = Color(0xFFFFFFFF);
+  static const Color white_dark = Color(0xFFF0F0F0);
 
   static const Color text_label_gray = Color.fromARGB(255, 85, 85, 85);
   static const Color text_dark_label_gray = Color.fromARGB(255, 197, 197, 197);
@@ -42,6 +45,12 @@ class Colours {
 
   static const Color icon_color = Color.fromARGB(255, 39, 39, 39);
   static const Color dark_icon_color = Colors.white;
+
+  static const Color label_bg = Color.fromARGB(200, 239, 239, 239);
+  static const Color label_bg_dark = Colors.transparent;
+
+  static const Color btn_selectd_color = Color.fromARGB(255, 225, 53, 52);
+  static const Color btn_selectd_color_dark = Color.fromARGB(255, 97, 26, 26);
 
   static const Color text1 = Color(0xFF2B2F36);
 

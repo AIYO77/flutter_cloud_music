@@ -4,9 +4,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
-import 'package:flutter_cloud_music/common/res/gaps.dart';
-import 'package:flutter_cloud_music/common/utils/common_utils.dart';
+import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
+import 'package:flutter_cloud_music/widgets/playcount_widget.dart';
 
 class GenrralCoverPlayCount extends StatelessWidget {
   final String imageUrl;
@@ -15,10 +15,16 @@ class GenrralCoverPlayCount extends StatelessWidget {
 
   final Size coverSize;
 
+  final double coverRadius;
+
+  final String? rightTopTagIcon;
+
   const GenrralCoverPlayCount(
       {required this.imageUrl,
       required this.playCount,
-      required this.coverSize});
+      required this.coverSize,
+      this.coverRadius = 6.0,
+      this.rightTopTagIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +37,8 @@ class GenrralCoverPlayCount extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.grey.shade300.withOpacity(0.4),
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(Dimens.gap_dp12),
-                topRight: Radius.circular(Dimens.gap_dp12)),
+                topLeft: Radius.circular(Dimens.gap_dp16),
+                topRight: Radius.circular(Dimens.gap_dp16)),
           ),
         ),
         CachedNetworkImage(
@@ -44,60 +50,48 @@ class GenrralCoverPlayCount extends StatelessWidget {
               color: Colours.load_image_placeholder,
             );
           },
-          imageBuilder: (context, provider) {
-            return ClipRRect(
-              borderRadius: BorderRadius.all(
-                Radius.circular(Dimens.gap_dp6),
-              ),
-              child: Stack(
-                children: [
-                  Image(
-                    image: provider,
-                    fit: BoxFit.cover,
-                  ),
-                  //播放量
-                  Positioned(
-                      right: Dimens.gap_dp4,
-                      top: Dimens.gap_dp4,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(Dimens.gap_dp8),
-                        ),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                          child: Container(
-                            padding: EdgeInsets.only(
-                                left: Dimens.gap_dp7, right: Dimens.gap_dp7),
-                            height: Dimens.gap_dp16,
-                            color: Colors.black.withOpacity(0.2),
-                            child: _playcount(playCount),
-                          ),
-                        ),
-                      )),
-                ],
-              ),
-            );
-          },
+          imageBuilder: _buildConver,
         )
       ],
     );
   }
 
-  Widget _playcount(int count) {
-    return Row(
-      children: [
-        Image.asset(
-          ImageUtils.getImagePath('icon_playcount'),
-          width: Dimens.gap_dp8,
-          height: Dimens.gap_dp8,
-        ),
-        Gaps.hGap1,
-        Text(
-          getPlayCountStrFromInt(count),
-          style: TextStyle(
-              color: Colors.white.withOpacity(0.9), fontSize: Dimens.font_sp10),
-        )
-      ],
+  Widget _buildConver(BuildContext context, ImageProvider provider) {
+    return ClipRRect(
+      borderRadius: BorderRadius.all(
+        Radius.circular(Adapt.px(coverRadius)),
+      ),
+      child: Stack(
+        children: [
+          Image(
+            image: provider,
+            fit: BoxFit.cover,
+          ),
+          if (rightTopTagIcon != null)
+            Positioned(
+              left: 0,
+              top: 0,
+              child: Image.asset(
+                rightTopTagIcon!,
+                width: Dimens.gap_dp20,
+                height: Dimens.gap_dp20,
+                fit: BoxFit.fill,
+              ),
+            ),
+
+          //播放量
+          Positioned(
+            right: Dimens.gap_dp4,
+            top: Dimens.gap_dp4,
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(
+                Radius.circular(Dimens.gap_dp8),
+              ),
+              child: PlayCountWidget(playCount: playCount),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

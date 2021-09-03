@@ -9,6 +9,7 @@ part of 'creative_model.dart';
 CreativeModel _$CreativeModelFromJson(Map<String, dynamic> json) =>
     CreativeModel(
       json['creativeType'] as String?,
+      json['action'] as String?,
       json['uiElement'] == null
           ? null
           : UiElementModel.fromJson(json['uiElement'] as Map<String, dynamic>),
@@ -22,6 +23,7 @@ CreativeModel _$CreativeModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$CreativeModelToJson(CreativeModel instance) =>
     <String, dynamic>{
       'creativeType': instance.creativeType,
+      'action': instance.action,
       'resources': instance.resources,
       'uiElement': instance.uiElement,
       'creativeExtInfoVO': instance.creativeExtInfoVO,

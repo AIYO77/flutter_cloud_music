@@ -11,6 +11,7 @@ import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/shuffle_log_model.dart';
 import 'package:flutter_cloud_music/pages/found/widget/element_title_widget.dart';
+import 'package:flutter_cloud_music/widgets/playcount_widget.dart';
 import 'package:get/get.dart';
 
 class FoundShuffleMLOG extends StatelessWidget {
@@ -55,17 +56,8 @@ class FoundShuffleMLOG extends StatelessWidget {
                           borderRadius: BorderRadius.all(
                             Radius.circular(Dimens.gap_dp8),
                           ),
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                  left: Dimens.gap_dp7, right: Dimens.gap_dp7),
-                              height: Dimens.gap_dp16,
-                              color: Colors.black.withOpacity(0.2),
-                              child: _playcount(
-                                  model.resource.mlogExtVO.playCount),
-                            ),
-                          ),
+                          child: PlayCountWidget(
+                              playCount: model.resource.mlogExtVO.playCount),
                         )),
                     //播放图标
                     Positioned(
@@ -101,24 +93,6 @@ class FoundShuffleMLOG extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-
-  Widget _playcount(int count) {
-    return Row(
-      children: [
-        Image.asset(
-          ImageUtils.getImagePath('icon_playcount'),
-          width: Dimens.gap_dp8,
-          height: Dimens.gap_dp8,
-        ),
-        Gaps.hGap1,
-        Text(
-          getPlayCountStrFromInt(count),
-          style: TextStyle(
-              color: Colors.white.withOpacity(0.9), fontSize: Dimens.font_sp10),
-        )
-      ],
     );
   }
 

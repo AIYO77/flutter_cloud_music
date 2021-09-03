@@ -11,6 +11,8 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/found/model/creative_model.dart';
+import 'package:flutter_cloud_music/routes/routes_utils.dart';
+import 'package:flutter_cloud_music/widgets/playcount_widget.dart';
 import 'package:get/get.dart';
 import 'package:keframe/frame_separate_widget.dart';
 // import 'package:palette_generator/palette_generator.dart';
@@ -199,16 +201,7 @@ class FoundSliedPlaylist extends StatelessWidget {
             borderRadius: BorderRadius.all(
               Radius.circular(Dimens.gap_dp8),
             ),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: Container(
-                padding: EdgeInsets.only(
-                    left: Dimens.gap_dp7, right: Dimens.gap_dp7),
-                height: Dimens.gap_dp16,
-                color: Colors.black.withOpacity(0.2),
-                child: _playcount(count),
-              ),
-            ),
+            child: PlayCountWidget(playCount: count),
           ));
     } else {
       return Positioned(
@@ -218,27 +211,9 @@ class FoundSliedPlaylist extends StatelessWidget {
             padding:
                 EdgeInsets.only(left: Dimens.gap_dp7, right: Dimens.gap_dp7),
             height: Dimens.gap_dp16,
-            child: _playcount(count),
+            child: PlayCountWidget(playCount: count),
           ));
     }
-  }
-
-  Widget _playcount(int count) {
-    return Row(
-      children: [
-        Image.asset(
-          ImageUtils.getImagePath('icon_playcount'),
-          width: Dimens.gap_dp8,
-          height: Dimens.gap_dp8,
-        ),
-        Gaps.hGap1,
-        Text(
-          getPlayCountStrFromInt(count),
-          style: TextStyle(
-              color: Colors.white.withOpacity(0.9), fontSize: Dimens.font_sp10),
-        )
-      ],
-    );
   }
 
   @override
@@ -281,7 +256,12 @@ class FoundSliedPlaylist extends StatelessWidget {
                         width: Dimens.gap_dp109,
                         height: Dimens.gap_dp109,
                       ),
-                      child: _buildItem(model, thme),
+                      child: GestureDetector(
+                        onTap: () {
+                          RouteUtils.routeFromActionStr(model.action);
+                        },
+                        child: _buildItem(model, thme),
+                      ),
                     );
                   },
                   separatorBuilder: (context, index) {

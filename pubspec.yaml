@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   # getx https://pub.dev/packages/get
-  get:
+  get: ^4.1.4
   get_storage:
   flutter:
     sdk: flutter
@@ -26,7 +26,7 @@ dependencies:
   palette_generator: ^0.3.0
   fluttertoast: ^8.0.8
   keframe: ^2.0.2
-  dio: 4.0.0-beta6
+  dio: ^4.0.0
   connectivity: ^3.0.6
   event_bus: ^2.0.0
 
@@ -42,6 +42,7 @@ dev_dependencies:
   flutter_ume_kit_device: ^0.2.1  # null-safety 版本: ^0.2.0-dev.0
   flutter_ume_kit_perf: ^0.2.1  # null-safety 版本: ^0.2.0-dev.0
   flutter_ume_kit_console: ^0.2.1  # null-safety 版本: ^0.2.0-dev.0
+  flutter_ume_kit_dio: ^0.2.0  # 仅支持 null-safety 版本
   
   lint: ^1.3.0
 

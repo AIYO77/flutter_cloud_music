@@ -5,16 +5,23 @@ import 'package:get/instance_manager.dart';
 
 class ResponseInterceptors extends InterceptorsWrapper {
   @override
-  Future onResponse(Response response) {
-    final RequestOptions option = response.request;
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    final RequestOptions option = response.requestOptions;
     ResultData value;
     try {
       final header = response.headers[Headers.contentTypeHeader];
 
       if (header != null && header.toString().contains("text") ||
           (response.statusCode! >= 200 && response.statusCode! < 300)) {
-        if (response.request.path.contains('/playlist/hot')) {
+        if (option.path.contains('/playlist/hot') ||
+            option.path.contains('/playlist/highquality/tags')) {
           value = ResultData(response.data['tags'], true, Code.SUCCESS);
+        } else if (option.path.contains('/personalized')) {
+          value = ResultData(response.data['result'], true, Code.SUCCESS);
+        } else if (option.path.contains('/top/playlist') ||
+            option.path.contains('/top/playlist/highquality')) {
+          value = ResultData(response.data['playlists'], true, Code.SUCCESS,
+              total: response.data['total']);
         } else {
           value = ResultData(response.data['data'], true, Code.SUCCESS);
         }
@@ -25,6 +32,13 @@ class ResponseInterceptors extends InterceptorsWrapper {
       Get.log(e.toString() + option.path, isError: true);
       value = ResultData(response.data, false, response.statusCode!);
     }
-    return Future.value(value);
+    response.data = value;
+    super.onResponse(response, handler);
   }
+
+  // @override
+  // Future onResponse(Response response) {
+
+  //   return Future.value(value);
+  // }
 }

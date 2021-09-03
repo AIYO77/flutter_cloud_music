@@ -3,10 +3,15 @@ import 'package:flutter_cloud_music/services/auth_service.dart';
 
 class CookieInterceptors extends InterceptorsWrapper {
   @override
-  Future onRequest(RequestOptions options) {
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (AuthService.to.isLoggedInValue) {
       options.queryParameters['cookie'] = '';
     }
-    return super.onRequest(options);
+    super.onRequest(options, handler);
   }
+  // @override
+  // Future onRequest(RequestOptions options) {
+
+  //   return super.onRequest(options);
+  // }
 }

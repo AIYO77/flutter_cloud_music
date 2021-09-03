@@ -17,6 +17,9 @@ abstract class Routes {
 
   static const PLAYLIST_COLLECTION = _Paths.PLAYLIST_COLLECTION;
 
+  static const PLAYLIST_DETAIL = _Paths.PLAYLIST_DETAIL;
+  static String PLAYLIST_DETAIL_ID(String id) => '/playlist/$id';
+
   static String LOGIN_THEN(String afterSuccessfulLogin) =>
       '$LOGIN?then=${Uri.encodeQueryComponent(afterSuccessfulLogin)}';
 }
@@ -24,14 +27,17 @@ abstract class Routes {
 abstract class _Paths {
   static const ROUTES_HOST = '$APP_ROUTER_TAG://';
   static const NOT_FOUND = '/not_found';
-  static const SPLASH = '/${ROUTES_HOST}splash';
-  static const HOME = '/${ROUTES_HOST}home';
-  static const LOGIN = '/${ROUTES_HOST}login';
-  static const FOUND = '/${ROUTES_HOST}found';
-  static const PODCAST = '/${ROUTES_HOST}podcast';
-  static const MINE = '/${ROUTES_HOST}mine';
-  static const K_SONG = '/${ROUTES_HOST}k_song';
-  static const CLOUD_VILLAGE = '/${ROUTES_HOST}cloud_cillage';
+  static const SPLASH = '/splash';
+  static const HOME = '/home';
+  static const LOGIN = '/login';
+  static const FOUND = '/found';
+  static const PODCAST = '/podcast';
+  static const MINE = '/mine';
+  static const K_SONG = '/k_song';
+  static const CLOUD_VILLAGE = '/cloud_cillage';
   // 歌单广场
-  static const PLAYLIST_COLLECTION = '/${ROUTES_HOST}playlistCollection';
+  static const PLAYLIST_COLLECTION = '/playlistCollection';
+
+  //歌单详情 id:歌单ID
+  static const PLAYLIST_DETAIL = "/playlist/:id";
 }

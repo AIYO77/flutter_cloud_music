@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_cloud_music/common/net/init_dio.dart';
 import 'package:flutter_ume/flutter_ume.dart'; // UME 框架
-import 'package:flutter_ume_kit_console/flutter_ume_kit_console.dart'; // debugPrint 插件包
 import 'package:flutter_ume_kit_device/flutter_ume_kit_device.dart'; // 设备信息插件包
+import 'package:flutter_ume_kit_dio/flutter_ume_kit_dio.dart';
 import 'package:flutter_ume_kit_perf/flutter_ume_kit_perf.dart'; // 性能插件包
 import 'package:flutter_ume_kit_ui/flutter_ume_kit_ui.dart'; // UI 插件包
 import 'package:get/get_utils/get_utils.dart';
@@ -21,7 +22,8 @@ Future<void> main() async {
       ..register(const WidgetInfoInspector())
       ..register(const WidgetDetailInspector())
       ..register(const ColorSucker())
-      ..register(Console())
+      // ..register(Console())
+      ..register(DioInspector(dio: httpManager.getDio()))
       ..register(AlignRuler())
       ..register(Performance())
       ..register(const MemoryInfoPage())
