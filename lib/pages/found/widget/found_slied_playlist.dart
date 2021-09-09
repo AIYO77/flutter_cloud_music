@@ -52,21 +52,21 @@ class FoundSliedPlaylist extends StatelessWidget {
             ),
           ),
           //图片
-          CachedNetworkImage(
-            width: Dimens.gap_dp105,
-            height: Dimens.gap_dp105,
-            placeholder: (context, url) {
-              return Container(
-                color: Colours.load_image_placeholder,
-              );
-            },
-            imageUrl: ImageUtils.getImageUrlFromSize(
-                resource.uiElement.image?.imageUrl,
-                Size(Dimens.gap_dp105, Dimens.gap_dp105)),
-            imageBuilder: (image, provider) {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(Dimens.gap_dp10),
-                child: Stack(
+          ClipRRect(
+            borderRadius: BorderRadius.circular(Dimens.gap_dp10),
+            child: CachedNetworkImage(
+              width: Dimens.gap_dp105,
+              height: Dimens.gap_dp105,
+              placeholder: (context, url) {
+                return Container(
+                  color: Colours.load_image_placeholder,
+                );
+              },
+              imageUrl: ImageUtils.getImageUrlFromSize(
+                  resource.uiElement.image?.imageUrl,
+                  Size(Dimens.gap_dp105, Dimens.gap_dp105)),
+              imageBuilder: (image, provider) {
+                return Stack(
                   children: [
                     Image(
                       image: provider,
@@ -75,10 +75,11 @@ class FoundSliedPlaylist extends StatelessWidget {
                     //额外的样式 播放量等
                     _buildExtWidget(extInfo, provider),
                   ],
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
+
           Gaps.vGap5,
           //标题
           Text(
@@ -201,7 +202,10 @@ class FoundSliedPlaylist extends StatelessWidget {
             borderRadius: BorderRadius.all(
               Radius.circular(Dimens.gap_dp8),
             ),
-            child: PlayCountWidget(playCount: count),
+            child: PlayCountWidget(
+              playCount: count,
+              needBg: needBg,
+            ),
           ));
     } else {
       return Positioned(
@@ -211,7 +215,10 @@ class FoundSliedPlaylist extends StatelessWidget {
             padding:
                 EdgeInsets.only(left: Dimens.gap_dp7, right: Dimens.gap_dp7),
             height: Dimens.gap_dp16,
-            child: PlayCountWidget(playCount: count),
+            child: PlayCountWidget(
+              playCount: count,
+              needBg: needBg,
+            ),
           ));
     }
   }

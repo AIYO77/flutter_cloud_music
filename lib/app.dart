@@ -16,6 +16,7 @@ Widget musicApp() {
   final ThemeData _lightTheme = ThemeData.light().copyWith(
       scaffoldBackgroundColor: Colours.bg_color,
       dividerColor: Colours.diver_color,
+      shadowColor: Colours.shadow_color,
       iconTheme: const IconThemeData(color: Colours.icon_color),
       highlightColor: Colors.grey.shade300,
       cardColor: Colours.card_color,
@@ -26,6 +27,7 @@ Widget musicApp() {
       dividerColor: Colours.dark_diver_color,
       iconTheme: const IconThemeData(color: Colours.dark_icon_color),
       highlightColor: Colors.grey.shade300,
+      shadowColor: Colours.shadow_color_dark,
       scaffoldBackgroundColor: Colours.dark_bg_color,
       colorScheme:
           ColorScheme.fromSwatch().copyWith(secondary: Colors.transparent));

@@ -6,6 +6,7 @@ import 'package:flutter_cloud_music/pages/found/model/found_ball_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/model/list_more_model.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/model/play_list_tag_model.dart';
+import 'package:flutter_cloud_music/pages/playlist_detail/model/playlist_detail_model.dart';
 import 'package:get/get.dart';
 
 class MusicApi {
@@ -112,6 +113,16 @@ class MusicApi {
           .map((e) => SimplePlayListModel.fromJson(e))
           .toList();
       data = PlayListHasMoreModel(datas: list, totalCount: response.total);
+    }
+    return data;
+  }
+
+  //歌单详情
+  static Future<PlaylistDetailModel?> getPlaylistDetail(String id) async {
+    final response = await httpManager.get('/playlist/detail', {'id': id});
+    PlaylistDetailModel? data;
+    if (response.result) {
+      data = response.data as PlaylistDetailModel;
     }
     return data;
   }

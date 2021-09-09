@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_cloud_music/common/net/code.dart';
 import 'package:flutter_cloud_music/common/net/result_data.dart';
+import 'package:flutter_cloud_music/pages/playlist_detail/model/playlist_detail_model.dart';
 import 'package:get/instance_manager.dart';
 
 class ResponseInterceptors extends InterceptorsWrapper {
@@ -22,6 +23,9 @@ class ResponseInterceptors extends InterceptorsWrapper {
             option.path.contains('/top/playlist/highquality')) {
           value = ResultData(response.data['playlists'], true, Code.SUCCESS,
               total: response.data['total']);
+        } else if (option.path.contains('/playlist/detail')) {
+          value = ResultData(
+              PlaylistDetailModel.fromJson(response.data), true, Code.SUCCESS);
         } else {
           value = ResultData(response.data['data'], true, Code.SUCCESS);
         }

@@ -26,12 +26,12 @@ class FoundSlideGragonBall extends StatelessWidget {
       width: coverSize.width,
       child: Column(
         children: [
-          CachedNetworkImage(
-            imageUrl: ImageUtils.getImageUrlFromSize(
-                model.uiElement?.image?.imageUrl ?? '', coverSize),
-            imageBuilder: (context, provider) {
-              return ClipOval(
-                child: Stack(
+          ClipOval(
+            child: CachedNetworkImage(
+              imageUrl: ImageUtils.getImageUrlFromSize(
+                  model.uiElement?.image?.imageUrl ?? '', coverSize),
+              imageBuilder: (context, provider) {
+                return Stack(
                   alignment: Alignment.center,
                   children: [
                     Image(
@@ -49,9 +49,9 @@ class FoundSlideGragonBall extends StatelessWidget {
                       color: Colours.white.withOpacity(0.85),
                     )
                   ],
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
           Gaps.vGap10,
           Text(

@@ -27,20 +27,20 @@ class FoundShuffleMLOG extends StatelessWidget {
       width: coverSize.width,
       child: Column(
         children: [
-          CachedNetworkImage(
-            width: coverSize.width,
-            height: coverSize.height,
-            placeholder: (context, url) {
-              return Container(
-                color: Colours.load_image_placeholder,
-              );
-            },
-            imageUrl: ImageUtils.getImageUrlFromSize(
-                model.resource.mlogBaseData.coverUrl, coverSize),
-            imageBuilder: (context, provider) {
-              return ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(Dimens.gap_dp6)),
-                child: Stack(
+          ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(Dimens.gap_dp6)),
+            child: CachedNetworkImage(
+              width: coverSize.width,
+              height: coverSize.height,
+              placeholder: (context, url) {
+                return Container(
+                  color: Colours.load_image_placeholder,
+                );
+              },
+              imageUrl: ImageUtils.getImageUrlFromSize(
+                  model.resource.mlogBaseData.coverUrl, coverSize),
+              imageBuilder: (context, provider) {
+                return Stack(
                   children: [
                     Image(
                       image: provider,
@@ -80,9 +80,9 @@ class FoundShuffleMLOG extends StatelessWidget {
                               ),
                             )))
                   ],
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
           Gaps.vGap8,
           Text(

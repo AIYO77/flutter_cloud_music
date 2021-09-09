@@ -43,31 +43,26 @@ class GeneralAlbumItem extends StatelessWidget {
                 height: Adapt.px(4.5),
                 fit: BoxFit.fill,
               ),
-              CachedNetworkImage(
-                height: Dimens.gap_dp49,
-                width: Dimens.gap_dp49,
-                placeholder: (context, url) {
-                  return Container(
-                    color: Colours.load_image_placeholder,
-                  );
-                },
-                imageUrl: ImageUtils.getImageUrlFromSize(
-                    uiElementModel.image?.imageUrl,
-                    Size(Dimens.gap_dp49, Dimens.gap_dp49)),
-                imageBuilder: (context, provider) {
-                  return ClipRRect(
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(Dimens.gap_dp8)),
-                    child: Image(
-                      image: provider,
-                    ),
-                  );
-                },
+              ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(Dimens.gap_dp8)),
+                child: CachedNetworkImage(
+                  height: Dimens.gap_dp49,
+                  width: Dimens.gap_dp49,
+                  placeholder: (context, url) {
+                    return Container(
+                      color: Colours.load_image_placeholder,
+                    );
+                  },
+                  imageUrl: ImageUtils.getImageUrlFromSize(
+                      uiElementModel.image?.imageUrl,
+                      Size(Dimens.gap_dp49, Dimens.gap_dp49)),
+                ),
               )
             ],
           ),
           Gaps.hGap9,
-          Column(
+          Expanded(
+              child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -90,22 +85,25 @@ class GeneralAlbumItem extends StatelessWidget {
                         text: artists
                             .map((e) => e.name)
                             .toList()
-                            .reduce((value, element) => '$value/$element'),
+                            .reduce((value, element) => '$value/$element')
+                            .toString(),
                         style: TextStyle(
-                            fontSize: Dimens.font_sp10,
-                            color: const Color.fromARGB(255, 166, 166, 166)),
+                          fontSize: Dimens.font_sp10,
+                          color: const Color.fromARGB(255, 166, 166, 166),
+                        ),
                       ),
                     ],
                   )),
-              Text(
-                uiElementModel.subTitle?.title ?? "",
-                style: TextStyle(
-                  fontSize: Adapt.px(11),
-                  color: const Color.fromARGB(255, 166, 166, 166),
-                ),
-              )
+              if (uiElementModel.subTitle?.title != null)
+                Text(
+                  uiElementModel.subTitle!.title!,
+                  style: TextStyle(
+                    fontSize: Adapt.px(11),
+                    color: const Color.fromARGB(255, 166, 166, 166),
+                  ),
+                )
             ],
-          )
+          ))
         ],
       ),
     );

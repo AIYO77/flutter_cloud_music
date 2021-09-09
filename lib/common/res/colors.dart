@@ -2,9 +2,10 @@
  * @Author: XingWei 
  * @Date: 2021-07-23 13:39:32 
  * @Last Modified by: XingWei
- * @Last Modified time: 2021-08-20 20:14:24
+ * @Last Modified time: 2021-09-08 14:53:58
  */
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Colours {
   Colours._();
@@ -30,6 +31,9 @@ class Colours {
   static const Color dark_caption_txt_color =
       Color.fromARGB(255, 195, 195, 195);
 
+  static const Color shadow_color = Color.fromRGBO(235, 237, 242, 0.5);
+  static const Color shadow_color_dark = Color.fromRGBO(235, 237, 242, 0.1);
+
   static Color indicator_color = const Color.fromARGB(255, 235, 80, 72);
 
   static const Color blue = Color.fromARGB(255, 55, 145, 235);
@@ -52,9 +56,12 @@ class Colours {
   static const Color btn_selectd_color = Color.fromARGB(255, 225, 53, 52);
   static const Color btn_selectd_color_dark = Color.fromARGB(255, 97, 26, 26);
 
-  static const Color text1 = Color(0xFF2B2F36);
-
   static const Color text_gray = Color.fromARGB(255, 191, 190, 191);
 
-  static Color load_image_placeholder = Colors.grey.shade50.withOpacity(0.8);
+  static const Color color_109 = Color.fromARGB(255, 109, 109, 109);
+
+  static const Color color_245 = Color.fromARGB(255, 245, 245, 245);
+
+  static Color load_image_placeholder =
+      Get.isDarkMode ? white.withOpacity(0.1) : color_245;
 }

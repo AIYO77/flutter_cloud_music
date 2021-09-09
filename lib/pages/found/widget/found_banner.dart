@@ -50,22 +50,22 @@ class FoundBannerState extends State<FoundBanner> {
     return Container(
       margin: EdgeInsets.fromLTRB(
           Dimens.gap_dp15, Dimens.gap_dp5, Dimens.gap_dp15, 0),
-      child: CachedNetworkImage(
-        imageUrl: ImageUtils.getImageUrlFromSize(
-            banner.pic, Size(Adapt.screenW() - Adapt.px(30), Adapt.px(135))),
-        placeholder: (context, url) {
-          return Container(
-            color: Colours.load_image_placeholder,
-          );
-        },
-        imageBuilder: (context, imageProvider) {
-          if (!imageMap.containsValue(imageProvider)) {
-            _updatePaletteGenerator(imageProvider);
-            imageMap[index] = imageProvider;
-          }
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Stack(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(Dimens.gap_dp12),
+        child: CachedNetworkImage(
+          imageUrl: ImageUtils.getImageUrlFromSize(
+              banner.pic, Size(Adapt.screenW() - Adapt.px(30), Adapt.px(135))),
+          placeholder: (context, url) {
+            return Container(
+              color: Colours.load_image_placeholder,
+            );
+          },
+          imageBuilder: (context, imageProvider) {
+            if (!imageMap.containsValue(imageProvider)) {
+              _updatePaletteGenerator(imageProvider);
+              imageMap[index] = imageProvider;
+            }
+            return Stack(
               children: [
                 Positioned.fill(
                   child: Image(
@@ -98,9 +98,9 @@ class FoundBannerState extends State<FoundBanner> {
                         )),
                   )
               ],
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

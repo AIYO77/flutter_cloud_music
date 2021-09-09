@@ -15,7 +15,7 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final Widget leading = IconButton(
       icon: Icon(
-        Icons.menu,
+        Icons.menu_sharp,
         size: Dimens.gap_dp24,
         color: Get.isDarkMode ? Colors.white : Colors.black,
       ),
@@ -26,7 +26,7 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
     );
     return Container(
       decoration: bgDecoration,
-      padding: EdgeInsets.only(left: Adapt.px(1.0), right: Adapt.px(10)),
+      padding: EdgeInsets.only(left: Adapt.px(2), right: Adapt.px(10)),
       child: Column(
         // alignment: AlignmentDirectional.centerStart,
         mainAxisAlignment: MainAxisAlignment.center,

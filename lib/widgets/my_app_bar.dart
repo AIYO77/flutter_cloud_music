@@ -2,7 +2,7 @@
  * @Author: XingWei 
  * @Date: 2021-07-23 10:15:43 
  * @Last Modified by: XingWei
- * @Last Modified time: 2021-07-25 14:34:31
+ * @Last Modified time: 2021-09-08 11:56:40
  * 
  * 自定义AppBar
  */
@@ -20,7 +20,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.backgroundColor,
       this.title = '',
       this.centerTitle = '',
-      this.backImg = 'assets/images/br4.png',
+      this.backImg = 'assets/images/dij.png',
       this.onPressed,
       this.isBack = true})
       : super(key: key);
@@ -42,7 +42,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             ? SystemUiOverlayStyle.light
             : SystemUiOverlayStyle.dark;
 
-    final _foregroundColor = Get.isDarkMode ? Colours.white : Colors.black;
+    final _foregroundColor = Get.isDarkMode ? Colours.color_109 : Colors.black;
 
     final back = isBack
         ? IconButton(

@@ -7,14 +7,16 @@ import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 class PlayCountWidget extends StatelessWidget {
   final int playCount;
 
-  const PlayCountWidget({required this.playCount});
+  final bool needBg;
+
+  const PlayCountWidget({required this.playCount, this.needBg = true});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: Dimens.gap_dp7, right: Dimens.gap_dp7),
       height: Dimens.gap_dp16,
-      color: Colors.black.withOpacity(0.60),
+      color: needBg ? Colors.black.withOpacity(0.2) : Colors.transparent,
       child: _playcount(),
     );
   }

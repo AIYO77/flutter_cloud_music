@@ -35,20 +35,20 @@ class GeneralSongOne extends StatelessWidget {
       },
       child: Row(
         children: [
-          CachedNetworkImage(
-            height: Dimens.gap_dp49,
-            width: Dimens.gap_dp49,
-            placeholder: (context, url) {
-              return Container(
-                color: Colours.load_image_placeholder,
-              );
-            },
-            imageUrl: ImageUtils.getImageUrlFromSize(
-                songInfo.al.picUrl, Size(Dimens.gap_dp49, Dimens.gap_dp49)),
-            imageBuilder: (context, provider) {
-              return ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(Dimens.gap_dp8)),
-                child: Stack(
+          ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(Dimens.gap_dp8)),
+            child: CachedNetworkImage(
+              height: Dimens.gap_dp49,
+              width: Dimens.gap_dp49,
+              placeholder: (context, url) {
+                return Container(
+                  color: Colours.load_image_placeholder,
+                );
+              },
+              imageUrl: ImageUtils.getImageUrlFromSize(
+                  songInfo.al.picUrl, Size(Dimens.gap_dp49, Dimens.gap_dp49)),
+              imageBuilder: (context, provider) {
+                return Stack(
                   alignment: Alignment.center,
                   children: [
                     Image(image: provider),
@@ -67,9 +67,9 @@ class GeneralSongOne extends StatelessWidget {
                                 imgColor: Colors.white.withOpacity(0.8),
                               ))
                   ],
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
           Gaps.hGap9,
           Expanded(

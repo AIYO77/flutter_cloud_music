@@ -76,7 +76,7 @@ class AppPages {
     //歌单详情
     GetPage(
         name: Routes.PLAYLIST_DETAIL,
-        page: () => const PlaylistDetailPage(),
+        page: () => PlaylistDetailPage(),
         binding: PlaylistDetailBinding()),
 
     // login
