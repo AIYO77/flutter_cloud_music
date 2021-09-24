@@ -37,8 +37,13 @@ class HomeTopService extends GetxService {
                 margin: EdgeInsets.only(right: Adapt.px(10), left: Adapt.px(5)),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(Adapt.px(18))),
-                  color:
-                      to.isScrolled.value ? Colors.grey.shade100 : Colors.white,
+                  color: to.isScrolled.value
+                      ? Get.isDarkMode
+                          ? Colors.white.withOpacity(0.2)
+                          : Colors.grey.shade100
+                      : Get.isDarkMode
+                          ? Colors.white.withOpacity(0.2)
+                          : Colors.white,
                 ),
                 child: Row(
                   mainAxisAlignment: GetPlatform.isIOS
@@ -65,7 +70,7 @@ class HomeTopService extends GetxService {
         GestureDetector(
           child: Icon(
             Icons.keyboard_voice,
-            color: Colors.black,
+            color: Get.isDarkMode ? Colors.white : Colors.black,
             size: Dimens.gap_dp25,
           ),
           onTap: () {

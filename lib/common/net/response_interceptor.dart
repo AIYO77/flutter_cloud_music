@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_cloud_music/common/model/songs_model.dart';
 import 'package:flutter_cloud_music/common/net/code.dart';
 import 'package:flutter_cloud_music/common/net/result_data.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/model/playlist_detail_model.dart';
@@ -26,6 +27,9 @@ class ResponseInterceptors extends InterceptorsWrapper {
         } else if (option.path.contains('/playlist/detail')) {
           value = ResultData(
               PlaylistDetailModel.fromJson(response.data), true, Code.SUCCESS);
+        } else if (option.path.contains('/song/detail')) {
+          value = ResultData(
+              SongsModel.fromJson(response.data), true, Code.SUCCESS);
         } else {
           value = ResultData(response.data['data'], true, Code.SUCCESS);
         }

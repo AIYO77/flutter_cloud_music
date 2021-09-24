@@ -36,7 +36,8 @@ class FoundNewSong extends Object {
         songData.mvid,
         null,
         songPrivilege,
-        type);
+        type,
+        null);
   }
 }
 

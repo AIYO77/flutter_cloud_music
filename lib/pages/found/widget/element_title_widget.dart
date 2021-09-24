@@ -41,6 +41,7 @@ class ElementTitleWidget extends StatelessWidget {
                       children: [
                         CachedNetworkImage(
                           imageUrl: elementModel.subTitle!.titleImgUrl!,
+                          color: headlineStyle().color,
                           width: Adapt.px(18),
                           height: Adapt.px(18),
                         ),

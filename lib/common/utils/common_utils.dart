@@ -75,7 +75,8 @@ TextStyle subtitle1Style() {
       : TextStyle(color: Colours.subtitle_text, fontSize: Dimens.font_sp12);
 }
 
-List<Widget> getSongTags(Song song) {
+List<Widget> getSongTags(Song song,
+    {bool needOriginType = true, bool needNewType = true}) {
   final List<Widget> tags = List.empty(growable: true);
   final List<String> res = List.empty(growable: true);
 
@@ -88,10 +89,10 @@ List<Widget> getSongTags(Song song) {
   if (song.copyright == 1) {
     res.add(ImageUtils.getImagePath('dwg'));
   }
-  if (song.originCoverType == 1) {
+  if (song.originCoverType == 1 && needOriginType) {
     res.add(ImageUtils.getImagePath('dwr'));
   }
-  if (song.v <= 3) {
+  if (song.v <= 3 && needNewType) {
     res.add(ImageUtils.getImagePath('dwp'));
   }
   if (song.privilege?.preSell == true) {
@@ -118,4 +119,9 @@ List<Widget> getSongTags(Song song) {
   }
 
   return tags;
+}
+
+///验证中文
+bool isChinese(String value) {
+  return RegExp(r"[\u4e00-\u9fa5]").hasMatch(value);
 }

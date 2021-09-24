@@ -8,9 +8,11 @@ import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
+import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/shuffle_log_model.dart';
 import 'package:flutter_cloud_music/pages/found/widget/element_title_widget.dart';
+import 'package:flutter_cloud_music/routes/routes_utils.dart';
 import 'package:flutter_cloud_music/widgets/playcount_widget.dart';
 import 'package:get/get.dart';
 
@@ -25,73 +27,78 @@ class FoundShuffleMLOG extends StatelessWidget {
     final coverSize = Size(Adapt.px(105), Adapt.px(130));
     return SizedBox(
       width: coverSize.width,
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(Dimens.gap_dp6)),
-            child: CachedNetworkImage(
-              width: coverSize.width,
-              height: coverSize.height,
-              placeholder: (context, url) {
-                return Container(
-                  color: Colours.load_image_placeholder,
-                );
-              },
-              imageUrl: ImageUtils.getImageUrlFromSize(
-                  model.resource.mlogBaseData.coverUrl, coverSize),
-              imageBuilder: (context, provider) {
-                return Stack(
-                  children: [
-                    Image(
-                      image: provider,
-                      width: coverSize.width,
-                      height: coverSize.height,
-                      fit: BoxFit.cover,
-                    ),
-                    //播放量
-                    Positioned(
-                        right: Dimens.gap_dp4,
-                        top: Dimens.gap_dp4,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(Dimens.gap_dp8),
-                          ),
-                          child: PlayCountWidget(
-                              playCount: model.resource.mlogExtVO.playCount),
-                        )),
-                    //播放图标
-                    Positioned(
-                        right: Dimens.gap_dp8,
-                        bottom: Dimens.gap_dp8,
-                        child: Container(
-                            width: Dimens.gap_dp32,
-                            height: Dimens.gap_dp32,
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.85),
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(Dimens.gap_dp16)),
+      child: GestureDetector(
+        onTap: () {
+          // RouteUtils.routeFromActionStr(model.)
+        },
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(Dimens.gap_dp6)),
+              child: CachedNetworkImage(
+                width: coverSize.width,
+                height: coverSize.height,
+                placeholder: (context, url) {
+                  return Container(
+                    color: Colours.load_image_placeholder,
+                  );
+                },
+                imageUrl: ImageUtils.getImageUrlFromSize(
+                    model.resource.mlogBaseData.coverUrl, coverSize),
+                imageBuilder: (context, provider) {
+                  return Stack(
+                    children: [
+                      Image(
+                        image: provider,
+                        width: coverSize.width,
+                        height: coverSize.height,
+                        fit: BoxFit.cover,
+                      ),
+                      //播放量
+                      Positioned(
+                          right: Dimens.gap_dp4,
+                          top: Dimens.gap_dp4,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(Dimens.gap_dp8),
                             ),
-                            child: Center(
-                              child: Image.asset(
-                                ImageUtils.getImagePath('icon_play_small'),
-                                width: Dimens.gap_dp17,
-                                height: Dimens.gap_dp17,
-                                color: Colours.app_main_light,
+                            child: PlayCountWidget(
+                                playCount: model.resource.mlogExtVO.playCount),
+                          )),
+                      //播放图标
+                      Positioned(
+                          right: Dimens.gap_dp8,
+                          bottom: Dimens.gap_dp8,
+                          child: Container(
+                              width: Dimens.gap_dp32,
+                              height: Dimens.gap_dp32,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.85),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(Dimens.gap_dp16)),
                               ),
-                            )))
-                  ],
-                );
-              },
+                              child: Center(
+                                child: Image.asset(
+                                  ImageUtils.getImagePath('icon_play_small'),
+                                  width: Dimens.gap_dp17,
+                                  height: Dimens.gap_dp17,
+                                  color: Colours.app_main_light,
+                                ),
+                              )))
+                    ],
+                  );
+                },
+              ),
             ),
-          ),
-          Gaps.vGap8,
-          Text(
-            model.resource.mlogBaseData.text,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: captionStyle(),
-          )
-        ],
+            Gaps.vGap8,
+            Text(
+              model.resource.mlogBaseData.text,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: captionStyle(),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -121,7 +128,7 @@ class FoundShuffleMLOG extends StatelessWidget {
                   separatorBuilder: (context, index) {
                     return Gaps.hGap9;
                   },
-                  itemCount: listData.length))
+                  itemCount: listItemData.length))
         ],
       ),
     );

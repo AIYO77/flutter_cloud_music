@@ -6,6 +6,7 @@ import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/pages/found/model/creative_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
 import 'package:flutter_cloud_music/pages/found/widget/element_title_widget.dart';
+import 'package:flutter_cloud_music/routes/routes_utils.dart';
 import 'package:flutter_cloud_music/widgets/generral_cover_playcount.dart';
 import 'package:get/get.dart';
 
@@ -20,14 +21,18 @@ class FoundSlideVoiceList extends StatelessWidget {
     final coverSize = Size(Dimens.gap_dp105, Dimens.gap_dp105);
     return SizedBox(
       width: coverSize.width,
-      child: Column(
-        children: [
-          GenrralCoverPlayCount(
-              imageUrl: model.uiElement?.image?.imageUrl ?? "",
-              playCount: model.creativeExtInfoVO['playCount'] as int,
-              coverSize: coverSize),
-          Gaps.vGap5,
-          RichText(
+      child: GestureDetector(
+        onTap: () {
+          RouteUtils.routeFromActionStr(model.action);
+        },
+        child: Column(
+          children: [
+            GenrralCoverPlayCount(
+                imageUrl: model.uiElement?.image?.imageUrl ?? "",
+                playCount: model.creativeExtInfoVO['playCount'] as int,
+                coverSize: coverSize),
+            Gaps.vGap5,
+            RichText(
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               text: TextSpan(
@@ -65,8 +70,10 @@ class FoundSlideVoiceList extends StatelessWidget {
                     text: model.uiElement?.mainTitle?.title ?? '',
                   ),
                 ],
-              ))
-        ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

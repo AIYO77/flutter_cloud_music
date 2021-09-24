@@ -46,6 +46,7 @@ Playlist _$PlaylistFromJson(Map<String, dynamic> json) => Playlist(
       json['updateFrequency'] as String?,
       json['backgroundCoverUrl'] as String?,
       json['titleImageUrl'] as String?,
+      json['englishTitle'] as String?,
       json['tags'] as List<dynamic>,
       json['backgroundCoverId'] as int,
       (json['subscribers'] as List<dynamic>)
@@ -85,6 +86,7 @@ Map<String, dynamic> _$PlaylistToJson(Playlist instance) => <String, dynamic>{
       'description': instance.description,
       'updateFrequency': instance.updateFrequency,
       'titleImageUrl': instance.titleImageUrl,
+      'englishTitle': instance.englishTitle,
       'backgroundCoverUrl': instance.backgroundCoverUrl,
       'tags': instance.tags,
       'backgroundCoverId': instance.backgroundCoverId,

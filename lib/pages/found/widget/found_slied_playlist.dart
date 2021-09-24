@@ -122,7 +122,7 @@ class FoundSliedPlaylist extends StatelessWidget {
                     ),
                   ),
                   Image.asset(
-                    ImageUtils.getImagePath('xkd'),
+                    ImageUtils.getImagePath('d7o'),
                     width: Adapt.px(90),
                     height: Adapt.px(64),
                     fit: BoxFit.fill,

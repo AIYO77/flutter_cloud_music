@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter_cloud_music/common/model/privilege_model.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/model/user_info_model.dart';
+import 'package:flutter_cloud_music/common/utils/common_utils.dart';
+import 'package:get/get.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'playlist_detail_model.g.dart';
@@ -26,6 +30,11 @@ class PlaylistDetailModel extends Object {
       _$PlaylistDetailModelFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$PlaylistDetailModelToJson(this);
+
+  @override
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable()
@@ -93,6 +102,9 @@ class Playlist extends Object {
   @JsonKey(name: 'titleImageUrl')
   String? titleImageUrl;
 
+  @JsonKey(name: 'englishTitle')
+  String? englishTitle;
+
   @JsonKey(name: 'backgroundCoverUrl')
   String? backgroundCoverUrl;
 
@@ -146,6 +158,7 @@ class Playlist extends Object {
     this.updateFrequency,
     this.backgroundCoverUrl,
     this.titleImageUrl,
+    this.englishTitle,
     this.tags,
     this.backgroundCoverId,
     this.subscribers,
@@ -161,6 +174,33 @@ class Playlist extends Object {
       _$PlaylistFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$PlaylistToJson(this);
+
+  //最优解是裁掉四周的空白
+  double getTitleImgFactor() {
+    double factor = 1.0;
+
+    if (englishTitle == null) return factor;
+    if (englishTitle!.contains('Radar')) {
+      factor = 0.56;
+    } else if (englishTitle!.contains('Chinese')) {
+      factor = 0.86;
+    } else {
+      final indexOf = name.indexOf(' ');
+      final title = name.substring(0, indexOf);
+      if (isChinese(title)) {
+        final titleLength = title.length - 2;
+        Get.log(titleLength.toString());
+        factor = titleLength / 10 + 0.24;
+      }
+    }
+    return min(1.0, factor);
+  }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return toJson().toString();
+  }
 }
 
 @JsonSerializable()

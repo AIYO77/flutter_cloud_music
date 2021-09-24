@@ -1,12 +1,18 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_controller.dart';
+import 'package:flutter_cloud_music/pages/playlist_detail/widget/top_normal_info.dart';
+import 'package:flutter_cloud_music/pages/playlist_detail/widget/top_official_info.dart';
 import 'package:flutter_cloud_music/widgets/general_blur_image.dart';
-import 'package:flutter_cloud_music/widgets/generral_cover_playcount.dart';
 import 'package:get/get.dart';
 
 class PlaylistSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
@@ -54,7 +60,8 @@ class PlaylistSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
             height: expendHeight,
             child: controller.coverImage.value == null
                 ? Container(
-                    color: Colours.load_image_placeholder,
+                    color:
+                        Get.isDarkMode ? Colors.transparent : Colours.color_163,
                   )
                 : GeneralBlurImage(
                     image: controller.coverImage.value!,
@@ -64,42 +71,13 @@ class PlaylistSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
           //信息
           Positioned(
             bottom: 56,
+            right: Dimens.gap_dp26,
             left: Dimens.gap_dp15,
-            child: Opacity(
-              opacity: offset,
-              child: Row(
-                children: [
-                  Expanded(
-                      child: GenrralCoverPlayCount(
-                    imageUrl:
-                        controller.detail.value?.playlist.coverImgUrl ?? '',
-                    playCount: controller.detail.value?.playlist.playCount ?? 0,
-                    coverSize: const Size(122, 122),
-                    coverRadius: Dimens.gap_dp8,
-                    imageCallback: (provider) async {
-                      await Future.delayed(const Duration(milliseconds: 100));
-                      controller.coverImage.value = provider;
-                    },
-                  )),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          controller.detail.value?.playlist.name ?? '',
-                          style: TextStyle(
-                              fontSize: Dimens.font_sp16,
-                              color: Get.isDarkMode
-                                  ? Colours.color_109
-                                  : Colours.white),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            child: _buildClipContent(
+                TopNormalInfo(
+                  key: controller.topContentKey,
+                ),
+                offset),
           )
         ],
       ),
@@ -124,28 +102,68 @@ class PlaylistSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
                   color: Colours.load_image_placeholder,
                 );
               },
+              fit: BoxFit.cover,
+              height: expendHeight,
+              fadeInDuration: const Duration(milliseconds: 200),
               imageUrl:
                   controller.detail.value?.playlist.backgroundCoverUrl ?? '',
-              imageBuilder: (context, provider) {
-                return Stack(
-                  children: [
-                    Image(
-                      width: Adapt.screenW(),
-                      height: expendHeight,
-                      image: provider,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
-                );
-              },
             ),
           ),
+          if (controller.detail.value?.playlist.titleImageUrl != null)
+            Positioned(
+                left: 18,
+                right: 18,
+                bottom: Dimens.gap_dp40,
+                child: _buildClipContent(
+                    TopOfficialInfoWidget(
+                      key: controller.topContentKey,
+                    ),
+                    offset)),
         ],
+      ),
+    );
+  }
+
+  Widget _buildClipContent(Widget child, double offset) {
+    return ClipRect(
+      clipper: _MyContentRect(
+          yOffset: controller.clipOffset(), scrollOffset: offset),
+      clipBehavior: Clip.antiAlias,
+      child: Opacity(
+        opacity: offset,
+        child: child,
       ),
     );
   }
 }
 
+//滑动时 内容超过appbar裁剪
+class _MyContentRect extends CustomClipper<Rect> {
+  double yOffset;
+  double scrollOffset;
+  _MyContentRect({required this.yOffset, required this.scrollOffset});
+  @override
+  Rect getClip(Size size) {
+    double topClip = 0.0;
+    if (scrollOffset == 0.0) {
+      //收起
+      topClip = size.height;
+    } else if (scrollOffset == 1.0) {
+      //展开
+      topClip = 0.0;
+    } else {
+      //中间状态
+      topClip = yOffset <= 0 ? 0.0 : yOffset;
+    }
+
+    return Rect.fromLTRB(0, topClip, size.width, size.height);
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Rect> oldClipper) => true;
+}
+
+//底部弧线裁剪
 class _MyCoverRect extends CustomClipper<Path> {
   double offset;
 

@@ -9,6 +9,7 @@
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'dimens.dart';
 
 class Gaps {
@@ -16,6 +17,7 @@ class Gaps {
 
   /// 水平间隔
   static Widget hGap1 = SizedBox(width: Dimens.gap_dp1);
+  static Widget hGap2 = SizedBox(width: Dimens.gap_dp2);
   static Widget hGap3 = SizedBox(width: Dimens.gap_dp3);
   static Widget hGap4 = SizedBox(width: Dimens.gap_dp4);
   static Widget hGap5 = SizedBox(width: Dimens.gap_dp5);
@@ -23,6 +25,7 @@ class Gaps {
   static Widget hGap10 = SizedBox(width: Dimens.gap_dp10);
   static Widget hGap9 = SizedBox(width: Dimens.gap_dp9);
   static Widget hGap12 = SizedBox(width: Dimens.gap_dp12);
+  static Widget hGap14 = SizedBox(width: Dimens.gap_dp14);
   static Widget hGap15 = SizedBox(width: Dimens.gap_dp15);
   static Widget hGap16 = SizedBox(width: Dimens.gap_dp16);
   static Widget hGap20 = SizedBox(width: Dimens.gap_dp20);
@@ -49,4 +52,12 @@ class Gaps {
   /// 补充一种空Widget实现 https://github.com/letsar/nil
   /// https://github.com/flutter/flutter/issues/78159
   static const Widget empty = SizedBox.shrink();
+
+  static Widget ovalImgHolder(Size size) => ClipOval(
+        child: Container(
+          height: size.height,
+          width: size.width,
+          color: Colours.load_image_placeholder,
+        ),
+      );
 }

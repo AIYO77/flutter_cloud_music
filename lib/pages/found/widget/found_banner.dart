@@ -34,15 +34,13 @@ class FoundBannerState extends State<FoundBanner> {
 
   Future<void> _updatePaletteGenerator(ImageProvider image) async {
     await Future.delayed(const Duration(milliseconds: 500));
-    if (Get.isDarkMode) {
-      HomeTopService.to.appBarBgColors.value = Get.theme.backgroundColor;
-    } else {
-      final paletteGenerator = await PaletteGenerator.fromImageProvider(
-        image,
-      );
-      HomeTopService.to.appBarBgColors.value =
-          paletteGenerator.dominantColor?.color ?? Colors.transparent;
-    }
+    final paletteGenerator = await PaletteGenerator.fromImageProvider(
+      image,
+    );
+    final dominColor =
+        paletteGenerator.dominantColor?.color ?? Colors.transparent;
+    HomeTopService.to.appBarBgColors.value =
+        Get.isDarkMode ? dominColor.withOpacity(0.5) : dominColor;
   }
 
   Widget _buildItem(int index) {

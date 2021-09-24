@@ -34,15 +34,13 @@ class PlaylistFabCount extends StatelessWidget implements PreferredSizeWidget {
                       blurRadius: 8.0)
                 ],
           borderRadius: BorderRadius.all(Radius.circular(Dimens.gap_dp22)),
-          gradient: LinearGradient(
-              colors: Get.isDarkMode
-                  ? [
-                      const Color.fromRGBO(31, 26, 26, 1.0),
-                      const Color.fromRGBO(31, 26, 26, 1.0)
-                    ]
-                  : [Colours.white.withOpacity(0.9), Colours.white],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter)),
+          color: Get.isDarkMode ? Colors.grey.shade900 : null,
+          gradient: Get.isDarkMode
+              ? null
+              : LinearGradient(
+                  colors: [Colours.white.withOpacity(0.9), Colours.white],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter)),
       child: Obx(() => Row(
             children: [
               Expanded(

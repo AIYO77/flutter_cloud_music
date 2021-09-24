@@ -1,6 +1,9 @@
 import 'package:flutter_cloud_music/common/model/simple_play_list_model.dart';
+import 'package:flutter_cloud_music/common/model/song_model.dart';
+import 'package:flutter_cloud_music/common/model/songs_model.dart';
 import 'package:flutter_cloud_music/common/net/init_dio.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
+import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/pages/found/model/default_search_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_ball_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
@@ -17,13 +20,18 @@ class MusicApi {
     final response = await httpManager.post("/homepage/block/page",
         {'timestamp': DateTime.now().millisecondsSinceEpoch});
     if (response.result) {
-      data = FoundData.fromJson(response.data);
-      final responseBall = await httpManager.get("/homepage/dragon/ball", null);
-      final List<Ball> balls =
-          (responseBall.data as List).map((e) => Ball.fromJson(e)).toList();
+      try {
+        data = FoundData.fromJson(response.data);
+        final responseBall =
+            await httpManager.get("/homepage/dragon/ball", null);
+        final List<Ball> balls =
+            (responseBall.data as List).map((e) => Ball.fromJson(e)).toList();
 
-      data.blocks.insert(
-          1, Blocks("HOMEPAGE_BALL", SHOWTYPE_BALL, balls, null, null, false));
+        data.blocks.insert(1,
+            Blocks("HOMEPAGE_BALL", SHOWTYPE_BALL, balls, null, null, false));
+      } catch (e) {
+        logger.e(e.toString());
+      }
     }
     return data;
   }
@@ -125,5 +133,20 @@ class MusicApi {
       data = response.data as PlaylistDetailModel;
     }
     return data;
+  }
+
+  //获取歌曲详情 多个逗号隔开
+  static Future<List<Song>?> getSongsInfo(String ids) async {
+    final response =
+        await httpManager.get('/song/detail', Map.of({'ids': ids}));
+    SongsModel? data;
+    if (response.result) {
+      data = response.data as SongsModel;
+      for (final song in data.songs) {
+        song.privilege =
+            data.privileges.firstWhere((element) => element.id == song.id);
+      }
+    }
+    return data?.songs;
   }
 }

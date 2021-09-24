@@ -8,6 +8,7 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/typedef/function.dart';
 import 'package:flutter_cloud_music/widgets/playcount_widget.dart';
+import 'package:get/get.dart';
 
 class GenrralCoverPlayCount extends StatelessWidget {
   final String imageUrl;
@@ -33,13 +34,16 @@ class GenrralCoverPlayCount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         //突出的背景
         Container(
           height: Dimens.gap_dp4,
           width: coverSize.width - Dimens.gap_dp14,
           decoration: BoxDecoration(
-            color: Colors.grey.shade300.withOpacity(0.2),
+            color: Get.isDarkMode
+                ? Colors.white.withOpacity(0.1)
+                : Colors.grey.shade300.withOpacity(0.2),
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(Dimens.gap_dp16),
                 topRight: Radius.circular(Dimens.gap_dp16)),

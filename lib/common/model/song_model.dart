@@ -1,4 +1,5 @@
 import 'package:flutter_cloud_music/common/model/privilege_model.dart';
+import 'package:get/get.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'song_model.g.dart';
@@ -44,6 +45,9 @@ class Song extends Object {
   @JsonKey(name: 'actionType')
   String? actionType;
 
+  @JsonKey(name: 'originSongSimpleData')
+  OriginSongSimpleData? originSongSimpleData;
+
   Song(
       this.name,
       this.id,
@@ -57,12 +61,26 @@ class Song extends Object {
       this.mv,
       this.videoInfo,
       this.privilege,
-      this.actionType);
+      this.actionType,
+      this.originSongSimpleData);
 
   factory Song.fromJson(Map<String, dynamic> srcJson) =>
       _$SongFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$SongToJson(this);
+
+  String getSongCellSubTitle() {
+    final ars =
+        ar.map((e) => e.name!).reduce((value, element) => '$value/$element');
+    String str = '$ars - ${al.name}';
+    if (originSongSimpleData != null) {
+      final originArs = originSongSimpleData!.artists
+          .map((e) => e.name)
+          .reduce((value, element) => '$value/$element');
+      str += ' ｜ 原唱：$originArs';
+    }
+    return str;
+  }
 }
 
 @JsonSerializable()
@@ -165,4 +183,17 @@ class Video extends Object {
       _$VideoFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$VideoToJson(this);
+}
+
+@JsonSerializable()
+class OriginSongSimpleData extends Object {
+  @JsonKey(name: 'artists')
+  List<Ar> artists;
+
+  OriginSongSimpleData(this.artists);
+
+  factory OriginSongSimpleData.fromJson(Map<String, dynamic> srcJson) =>
+      _$OriginSongSimpleDataFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$OriginSongSimpleDataToJson(this);
 }

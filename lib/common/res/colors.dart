@@ -28,8 +28,8 @@ class Colours {
   static const Color dark_headline1_color = Color.fromARGB(255, 254, 254, 254);
 
   static const Color caption_txt_color = Color.fromARGB(255, 49, 49, 50);
-  static const Color dark_caption_txt_color =
-      Color.fromARGB(255, 195, 195, 195);
+
+  static Color dark_caption_txt_color = Colors.white.withOpacity(0.85);
 
   static const Color shadow_color = Color.fromRGBO(235, 237, 242, 0.5);
   static const Color shadow_color_dark = Color.fromRGBO(235, 237, 242, 0.1);
@@ -44,8 +44,8 @@ class Colours {
   static const Color text_label_gray = Color.fromARGB(255, 85, 85, 85);
   static const Color text_dark_label_gray = Color.fromARGB(255, 197, 197, 197);
 
-  static const Color subtitle_text = Color.fromARGB(255, 111, 111, 111);
-  static const Color dark_subtitle_text = Color.fromARGB(255, 198, 198, 198);
+  static const Color subtitle_text = Color.fromARGB(220, 111, 111, 111);
+  static Color dark_subtitle_text = Colors.white.withOpacity(0.85);
 
   static const Color icon_color = Color.fromARGB(255, 39, 39, 39);
   static const Color dark_icon_color = Colors.white;
@@ -61,6 +61,14 @@ class Colours {
   static const Color color_109 = Color.fromARGB(255, 109, 109, 109);
 
   static const Color color_245 = Color.fromARGB(255, 245, 245, 245);
+
+  static const Color color_163 = Color.fromARGB(255, 163, 163, 163);
+
+  static const Color color_150 = Color.fromARGB(255, 150, 150, 150);
+
+  static const Color color_156 = Color.fromARGB(255, 156, 156, 156);
+
+  static const Color color_187 = Color.fromARGB(255, 187, 187, 187);
 
   static Color load_image_placeholder =
       Get.isDarkMode ? white.withOpacity(0.1) : color_245;

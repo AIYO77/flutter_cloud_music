@@ -76,7 +76,7 @@ class HomePage extends GetView<HomeController> {
                 label: '雪花',
               )
             ],
-            backgroundColor: Colors.white,
+            backgroundColor: Get.theme.cardColor,
             selectedItemColor: Colors.pink,
             showUnselectedLabels: true,
             elevation: 0,

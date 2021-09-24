@@ -2,7 +2,7 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 
 class Dimens {
   Dimens._();
-
+  static double font_sp6 = Adapt.px(6.0);
   static double font_sp10 = Adapt.px(10.0);
   static double font_sp12 = Adapt.px(12.0);
   static double font_sp13 = Adapt.px(13.0);
@@ -11,6 +11,7 @@ class Dimens {
   static double font_sp16 = Adapt.px(16.0);
   static double font_sp17 = Adapt.px(17.0);
   static double font_sp18 = Adapt.px(18.0);
+  static double font_sp25 = Adapt.px(25.0);
 
   static double gap_dp1 = Adapt.px(1);
   static double gap_dp2 = Adapt.px(2);

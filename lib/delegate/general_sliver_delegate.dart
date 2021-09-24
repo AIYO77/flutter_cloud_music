@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class GeneralSliverDelegate extends SliverPersistentHeaderDelegate {
-  PreferredSize child;
+  PreferredSizeWidget child;
   GeneralSliverDelegate({required this.child});
   @override
   Widget build(

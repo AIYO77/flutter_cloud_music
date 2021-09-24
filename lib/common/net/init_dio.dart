@@ -22,7 +22,8 @@ class HttpManager {
       {bool noTip = false}) async {
     Response response;
     try {
-      response = await _dio.get(path, queryParameters: params);
+      response = await _dio.get(path,
+          queryParameters: Map<String, dynamic>.from(params));
     } on DioError catch (e) {
       return resultError(e, path, noTip);
     }

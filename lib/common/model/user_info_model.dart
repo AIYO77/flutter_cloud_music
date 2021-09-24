@@ -76,6 +76,9 @@ class UserInfo extends Object {
   @JsonKey(name: 'avatarImgIdStr')
   String avatarImgIdStr;
 
+  @JsonKey(name: 'avatarDetail')
+  AvatarDetail? avatarDetail;
+
   @JsonKey(name: 'backgroundImgIdStr')
   String backgroundImgIdStr;
 
@@ -104,6 +107,7 @@ class UserInfo extends Object {
     this.vipType,
     this.remarkName,
     this.avatarImgIdStr,
+    this.avatarDetail,
     this.backgroundImgIdStr,
   );
 
@@ -111,4 +115,23 @@ class UserInfo extends Object {
       _$UserInfoFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$UserInfoToJson(this);
+}
+
+@JsonSerializable()
+class AvatarDetail extends Object {
+  @JsonKey(name: 'userType')
+  int userType;
+
+  @JsonKey(name: 'identityLevel')
+  int identityLevel;
+
+  @JsonKey(name: 'identityIconUrl')
+  String identityIconUrl;
+
+  AvatarDetail(this.userType, this.identityIconUrl, this.identityLevel);
+
+  factory AvatarDetail.fromJson(Map<String, dynamic> srcJson) =>
+      _$AvatarDetailFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$AvatarDetailToJson(this);
 }

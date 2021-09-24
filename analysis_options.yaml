@@ -15,12 +15,14 @@ analyzer:
     depend_on_referenced_packages: ignore
     avoid_classes_with_only_static_members: ignore
     avoid_field_initializers_in_const_classes: ignore
+    must_be_immutable: ignore
+    lines_longer_than_80_chars: ignore
     
 linter:
   rules:
     public_member_api_docs: false
     constant_identifier_names: false
     # Back to the 80s
-    lines_longer_than_80_chars: true
+    # lines_longer_than_80_chars: true
 
     sort_pub_dependencies: false

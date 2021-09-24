@@ -26,6 +26,10 @@ Song _$SongFromJson(Map<String, dynamic> json) => Song(
           ? null
           : PrivilegeModel.fromJson(json['privilege'] as Map<String, dynamic>),
       json['actionType'] as String?,
+      json['originSongSimpleData'] == null
+          ? null
+          : OriginSongSimpleData.fromJson(
+              json['originSongSimpleData'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$SongToJson(Song instance) => <String, dynamic>{
@@ -42,6 +46,7 @@ Map<String, dynamic> _$SongToJson(Song instance) => <String, dynamic>{
       'videoInfo': instance.videoInfo,
       'privilege': instance.privilege,
       'actionType': instance.actionType,
+      'originSongSimpleData': instance.originSongSimpleData,
     };
 
 Ar _$ArFromJson(Map<String, dynamic> json) => Ar(
@@ -101,4 +106,18 @@ Map<String, dynamic> _$VideoToJson(Video instance) => <String, dynamic>{
       'playTime': instance.playTime,
       'coverUrl': instance.coverUrl,
       'publishTime': instance.publishTime,
+    };
+
+OriginSongSimpleData _$OriginSongSimpleDataFromJson(
+        Map<String, dynamic> json) =>
+    OriginSongSimpleData(
+      (json['artists'] as List<dynamic>)
+          .map((e) => Ar.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$OriginSongSimpleDataToJson(
+        OriginSongSimpleData instance) =>
+    <String, dynamic>{
+      'artists': instance.artists,
     };

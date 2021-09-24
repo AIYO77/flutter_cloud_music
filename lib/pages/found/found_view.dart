@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/banner_model.dart';
+import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_ball.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_cloud_music/pages/found/widget/found_slide_playable_drag
 import 'package:flutter_cloud_music/pages/found/widget/found_slide_single_song.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_slide_songlist_align.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_slide_voicelist.dart';
+import 'package:flutter_cloud_music/pages/found/widget/found_tab_mlog.dart';
 import 'package:flutter_cloud_music/services/home_top_service.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -29,7 +31,7 @@ class FoundPage extends GetView<FoundController> {
 
   Widget _buildItem(Blocks blocks, int index, String? nextType) {
     final itemHeight = controller.itemHeightFromType[blocks.showType] ?? 0;
-    Get.log('${blocks.showType} itemheight $itemHeight');
+    // Get.log('${blocks.showType} itemheight $itemHeight');
     switch (blocks.showType) {
       case SHOWTYPE_BANNER:
         return FoundBanner(
@@ -70,11 +72,21 @@ class FoundPage extends GetView<FoundController> {
           itemHeight: itemHeight,
         );
       case SHOWTYPE_SHUFFLE_MLOG:
+      case HOMEPAGE_SLIDE_PLAYABLE_MLOG:
         return FoundShuffleMLOG(blocks: blocks, itemHeight: itemHeight);
       case SHOWTYPE_SLIDE_VOICELIST:
+      case SLIDE_RCMDLIKE_VOICELIST:
         return FoundSlideVoiceList(blocks, itemHeight: itemHeight);
       case SHOWTYPE_SLIDE_PLAYABLE_DRAGON_BALL:
         return FoundSlideGragonBall(blocks, itemHeight: itemHeight);
+      case SLIDE_PLAYABLE_DRAGON_BALL_MORE_TAB:
+        return FoundTabMlogWidget(
+            creatives: blocks.creatives!, itemHeight: itemHeight);
+      // case SLIDE_RCMDLIKE_VOICELIST:
+      //   return Container(
+      //     height: itemHeight,
+      //     color: Colours.app_main,
+      //   );
       default:
         return Gaps.empty;
     }
