@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/banner_model.dart';
-import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_ball.dart';

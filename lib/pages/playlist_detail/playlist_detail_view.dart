@@ -1,10 +1,12 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
+import 'package:flutter_cloud_music/common/player/player.dart';
+import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
+import 'package:flutter_cloud_music/common/utils/common_utils.dart';
+import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/delegate/general_sliver_delegate.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/delegate/playlist_header_delegate.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/widget/fab_count.dart';
@@ -14,6 +16,8 @@ import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:flutter_cloud_music/widgets/playall_cell.dart';
 import 'package:flutter_cloud_music/widgets/sliver_fab.dart';
 import 'package:get/get.dart';
+import 'package:music_player/music_player.dart';
+
 import 'playlist_detail_controller.dart';
 
 class PlaylistDetailPage extends GetView<PlaylistDetailController> {
@@ -31,6 +35,7 @@ class PlaylistDetailPage extends GetView<PlaylistDetailController> {
           //appbar
           child: PlaylistTopAppbar(
             key: controller.appBarKey,
+            appBarHeight: appbarHeight,
           )),
       extendBodyBehindAppBar: true,
       backgroundColor: Get.theme.cardColor,
@@ -55,18 +60,17 @@ class PlaylistDetailPage extends GetView<PlaylistDetailController> {
                 minHeight: appbarHeight)),
         //间距
         SliverPersistentHeader(
-          delegate: GeneralSliverDelegate(
-            child: PreferredSize(
-                preferredSize: Size.fromHeight(Dimens.gap_dp32),
-                child: Gaps.empty),
-          ),
-        ),
+            delegate: GeneralSliverDelegate(
+          child: PreferredSize(
+              preferredSize: Size.fromHeight(Dimens.gap_dp32),
+              child: Gaps.empty),
+        )),
         //全部播放吸顶
         Obx(() => SliverPersistentHeader(
             pinned: true,
             delegate: GeneralSliverDelegate(
                 child: PlayAllCell(
-              playCount: controller.detail.value?.playlist.trackCount ?? 0,
+              playCount: controller.songs.value?.length ?? 0,
             )))),
         //歌曲列表
         Obx(() => _buildListContent(controller.songs.value)),
@@ -86,8 +90,57 @@ class PlaylistDetailPage extends GetView<PlaylistDetailController> {
     } else {
       return SliverList(
         delegate: SliverChildBuilderDelegate((context, index) {
-          return NumSongCell(song: songs.elementAt(index), index: index);
-        }, childCount: songs.length),
+          if (songs.length > index) {
+            return NumSongCell(
+              song: songs.elementAt(index),
+              index: index,
+              clickCallback: () {
+                context.player.playWithQueue(
+                    PlayQueue(
+                        queueId:
+                            controller.detail.value!.playlist.id.toString(),
+                        queueTitle: controller.detail.value!.playlist.name,
+                        queue: songs.map((e) => e.metadata).toList()),
+                    metadata: songs.elementAt(index).metadata);
+              },
+            );
+          } else {
+            final subs = controller.detail.value?.playlist.subscribers;
+            return Container(
+              height: Dimens.gap_dp58,
+              color: Get.theme.cardColor,
+              child: Row(
+                children: [
+                  Gaps.hGap10,
+                  Expanded(
+                    child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          final user = subs!.elementAt(index);
+                          return buildUserAvatar(user.avatarUrl,
+                              Size(Dimens.gap_dp30, Dimens.gap_dp30));
+                        },
+                        separatorBuilder: (context, index) {
+                          return Gaps.hGap10;
+                        },
+                        itemCount: subs?.length ?? 0),
+                  ),
+                  Text(
+                    '${getPlayCountStrFromInt(controller.detail.value?.playlist.subscribedCount ?? 0)}人收藏',
+                    style: TextStyle(
+                        color: Colours.color_177, fontSize: Dimens.font_sp13),
+                  ),
+                  Image.asset(
+                    ImageUtils.getImagePath('icon_more'),
+                    height: Dimens.gap_dp20,
+                    color: Colours.color_195,
+                  ),
+                  Gaps.hGap10,
+                ],
+              ),
+            );
+          }
+        }, childCount: songs.length + 1),
       );
     }
   }

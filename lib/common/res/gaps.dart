@@ -8,7 +8,6 @@
  * 官方做法：https://github.com/flutter/flutter/pull/54394
  */
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'dimens.dart';
 
@@ -57,7 +56,7 @@ class Gaps {
         child: Container(
           height: size.height,
           width: size.width,
-          color: Colours.load_image_placeholder,
+          color: Colours.load_image_placeholder(),
         ),
       );
 }

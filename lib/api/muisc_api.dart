@@ -11,6 +11,7 @@ import 'package:flutter_cloud_music/pages/playlist_collection/model/list_more_mo
 import 'package:flutter_cloud_music/pages/playlist_collection/model/play_list_tag_model.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/model/playlist_detail_model.dart';
 import 'package:get/get.dart';
+import 'package:music_player/music_player.dart';
 
 class MusicApi {
   //首页内容
@@ -30,7 +31,7 @@ class MusicApi {
         data.blocks.insert(1,
             Blocks("HOMEPAGE_BALL", SHOWTYPE_BALL, balls, null, null, false));
       } catch (e) {
-        logger.e(e.toString());
+        e.printError();
       }
     }
     return data;
@@ -127,7 +128,8 @@ class MusicApi {
 
   //歌单详情
   static Future<PlaylistDetailModel?> getPlaylistDetail(String id) async {
-    final response = await httpManager.get('/playlist/detail', {'id': id});
+    final response =
+        await httpManager.get('/playlist/detail', {'id': id, 's': '5'});
     PlaylistDetailModel? data;
     if (response.result) {
       data = response.data as PlaylistDetailModel;
@@ -148,5 +150,23 @@ class MusicApi {
       }
     }
     return data?.songs;
+  }
+
+  //获取歌曲播放地址
+  static Future<String> getPlayUrl(int id) async {
+    logger.d('request url id = $id');
+    final response = await httpManager.get('/song/url?id=$id', null);
+    if (response.result) {
+      final list = response.data as List;
+      if (list.isNotEmpty) {
+        return list.first['url'].toString();
+      }
+    }
+    return '';
+  }
+
+  //获取FM 音乐列表
+  static Future<List<MusicMetadata>?> getFmMusics() async {
+    final response = await httpManager.get('/personal_fm', null);
   }
 }

@@ -6,13 +6,17 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 class GeneralBlurImage extends StatelessWidget {
   final ImageProvider image;
 
+  final double height;
+
   final double sigma;
 
-  const GeneralBlurImage({required this.image, required this.sigma});
+  const GeneralBlurImage(
+      {required this.image, required this.sigma, required this.height});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: Alignment.topCenter,
       children: [
         Image(
           width: Adapt.screenW(),
@@ -22,7 +26,11 @@ class GeneralBlurImage extends StatelessWidget {
         ClipRect(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
-            child: Container(),
+            child: Container(
+              color: Colors.black12,
+              width: Adapt.screenW(),
+              height: height,
+            ),
           ),
         )
       ],

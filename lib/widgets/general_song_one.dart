@@ -17,7 +17,8 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/routes/routes_utils.dart';
-import 'package:flutter_cloud_music/services/player_service.dart';
+import 'package:flutter_cloud_music/common/player/player_service.dart';
+import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/widgets/frame_animation_image.dart';
 import 'package:get/get.dart';
 
@@ -42,7 +43,7 @@ class GeneralSongOne extends StatelessWidget {
               width: Dimens.gap_dp49,
               placeholder: (context, url) {
                 return Container(
-                  color: Colours.load_image_placeholder,
+                  color: Colours.load_image_placeholder(),
                 );
               },
               imageUrl: ImageUtils.getImageUrlFromSize(
@@ -52,20 +53,19 @@ class GeneralSongOne extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     Image(image: provider),
-                    Obx(() =>
-                        PlayerService.to.getCurPlayValue?.id != songInfo.id
-                            ? Image.asset(
-                                ImageUtils.getImagePath('icon_play_small'),
-                                width: Dimens.gap_dp20,
-                                height: Dimens.gap_dp20,
-                                color: Colors.white.withOpacity(0.8))
-                            : FrameAnimationImage(
-                                Key('$songInfo.id'),
-                                const ['c2t', 'c2u', 'c2v', 'c2w'],
-                                width: Dimens.gap_dp24,
-                                height: Dimens.gap_dp24,
-                                imgColor: Colors.white.withOpacity(0.8),
-                              ))
+                    Obx(() => context.playerService.curPlayId() != songInfo.id
+                        ? Image.asset(
+                            ImageUtils.getImagePath('icon_play_small'),
+                            width: Dimens.gap_dp20,
+                            height: Dimens.gap_dp20,
+                            color: Colors.white.withOpacity(0.8))
+                        : FrameAnimationImage(
+                            Key('$songInfo.id'),
+                            const ['c2t', 'c2u', 'c2v', 'c2w'],
+                            width: Dimens.gap_dp24,
+                            height: Dimens.gap_dp24,
+                            imgColor: Colors.white.withOpacity(0.8),
+                          ))
                   ],
                 );
               },

@@ -62,6 +62,7 @@ Playlist _$PlaylistFromJson(Map<String, dynamic> json) => Playlist(
       json['shareCount'] as int,
       json['commentCount'] as int,
       json['officialPlaylistType'] as String?,
+      json['subscribed'] as bool?,
     );
 
 Map<String, dynamic> _$PlaylistToJson(Playlist instance) => <String, dynamic>{
@@ -97,6 +98,7 @@ Map<String, dynamic> _$PlaylistToJson(Playlist instance) => <String, dynamic>{
       'shareCount': instance.shareCount,
       'commentCount': instance.commentCount,
       'officialPlaylistType': instance.officialPlaylistType,
+      'subscribed': instance.subscribed,
     };
 
 TrackIds _$TrackIdsFromJson(Map<String, dynamic> json) => TrackIds(

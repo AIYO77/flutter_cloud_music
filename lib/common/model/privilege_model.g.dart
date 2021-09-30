@@ -24,7 +24,7 @@ Map<String, dynamic> _$PrivilegeModelToJson(PrivilegeModel instance) =>
       'payed': instance.payed,
       'preSell': instance.preSell,
       'playMaxbr': instance.playMaxbr,
-      'freeTrialPrivilege': instance.freeTrialPrivilege,
+      'freeTrialPrivilege': instance.freeTrialPrivilege.toJson(),
     };
 
 FreeTrialPrivilege _$FreeTrialPrivilegeFromJson(Map<String, dynamic> json) =>

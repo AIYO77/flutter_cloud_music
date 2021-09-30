@@ -135,6 +135,9 @@ class Playlist extends Object {
   @JsonKey(name: 'officialPlaylistType')
   String? officialPlaylistType;
 
+  @JsonKey(name: 'subscribed')
+  bool? subscribed;
+
   Playlist(
     this.id,
     this.name,
@@ -168,6 +171,7 @@ class Playlist extends Object {
     this.shareCount,
     this.commentCount,
     this.officialPlaylistType,
+    this.subscribed,
   );
 
   factory Playlist.fromJson(Map<String, dynamic> srcJson) =>

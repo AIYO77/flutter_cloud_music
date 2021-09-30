@@ -5,7 +5,6 @@ import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:get/get.dart';
-import 'package:get/utils.dart' hide Get;
 
 // ignore: must_be_immutable
 class PlayAllCell extends StatelessWidget implements PreferredSizeWidget {

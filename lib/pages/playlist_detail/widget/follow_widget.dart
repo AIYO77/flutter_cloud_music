@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 
 class CreatorFollowWidget extends StatefulWidget {

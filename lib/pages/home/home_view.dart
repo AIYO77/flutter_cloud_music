@@ -1,13 +1,11 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/pages/home/widgets/drawer.dart';
 import 'package:flutter_cloud_music/pages/home/widgets/home_top_bar.dart';
 import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:flutter_cloud_music/services/home_top_service.dart';
 import 'package:get/get.dart';
-import 'package:get/utils.dart';
 import 'home_controller.dart';
 
 class HomePage extends GetView<HomeController> {

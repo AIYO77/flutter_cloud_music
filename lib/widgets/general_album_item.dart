@@ -50,7 +50,7 @@ class GeneralAlbumItem extends StatelessWidget {
                   width: Dimens.gap_dp49,
                   placeholder: (context, url) {
                     return Container(
-                      color: Colours.load_image_placeholder,
+                      color: Colours.load_image_placeholder(),
                     );
                   },
                   imageUrl: ImageUtils.getImageUrlFromSize(

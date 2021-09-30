@@ -59,7 +59,7 @@ class FoundSliedPlaylist extends StatelessWidget {
               height: Dimens.gap_dp105,
               placeholder: (context, url) {
                 return Container(
-                  color: Colours.load_image_placeholder,
+                  color: Colours.load_image_placeholder(),
                 );
               },
               imageUrl: ImageUtils.getImageUrlFromSize(

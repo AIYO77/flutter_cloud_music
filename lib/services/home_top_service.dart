@@ -6,8 +6,6 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/found/model/default_search_model.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/utils.dart';
 
 class HomeTopService extends GetxService {
   static HomeTopService get to => Get.find();

@@ -23,7 +23,8 @@ class HttpManager {
     Response response;
     try {
       response = await _dio.get(path,
-          queryParameters: Map<String, dynamic>.from(params));
+          queryParameters:
+              params == null ? null : Map<String, dynamic>.from(params));
     } on DioError catch (e) {
       return resultError(e, path, noTip);
     }

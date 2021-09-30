@@ -8,8 +8,8 @@ part of 'default_search_model.dart';
 
 DefaultSearchModel _$DefaultSearchModelFromJson(Map<String, dynamic> json) =>
     DefaultSearchModel(
-      json['showKeyword'] as String,
-      json['realkeyword'] as String,
+      json['showKeyword'] as String?,
+      json['realkeyword'] as String?,
       json['searchType'] as int,
     );
 

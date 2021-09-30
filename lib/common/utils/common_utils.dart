@@ -5,6 +5,7 @@
  * @Last Modified time: 2021-08-20 20:56:18
  */
 // 播放量格式化
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
@@ -76,7 +77,9 @@ TextStyle subtitle1Style() {
 }
 
 List<Widget> getSongTags(Song song,
-    {bool needOriginType = true, bool needNewType = true}) {
+    {bool needOriginType = true,
+    bool needNewType = true,
+    bool needCopyright = true}) {
   final List<Widget> tags = List.empty(growable: true);
   final List<String> res = List.empty(growable: true);
 
@@ -86,7 +89,7 @@ List<Widget> getSongTags(Song song,
       res.add(ImageUtils.getImagePath('dx1'));
     }
   }
-  if (song.copyright == 1) {
+  if (song.copyright == 1 && needCopyright) {
     res.add(ImageUtils.getImagePath('dwg'));
   }
   if (song.originCoverType == 1 && needOriginType) {
@@ -124,4 +127,40 @@ List<Widget> getSongTags(Song song,
 ///验证中文
 bool isChinese(String value) {
   return RegExp(r"[\u4e00-\u9fa5]").hasMatch(value);
+}
+
+Widget buildUserAvatar(String url, Size size) {
+  return SizedBox.fromSize(
+    size: size,
+    child: CircleAvatar(
+      radius: size.height / 2,
+      backgroundColor: Colors.transparent,
+      child: CachedNetworkImage(
+        imageUrl: url,
+        placeholder: (context, url) {
+          return _buildAvaterHolder(size);
+        },
+        errorWidget: (context, url, e) {
+          return _buildAvaterHolder(size);
+        },
+        imageBuilder: (context, provider) {
+          return ClipOval(
+            child: Image(image: provider),
+          );
+        },
+      ),
+    ),
+  );
+}
+
+Widget _buildAvaterHolder(Size size) {
+  return SizedBox(
+    width: size.width,
+    height: size.height,
+    child: Image.asset(
+      ImageUtils.getImagePath('ce2'),
+      fit: BoxFit.cover,
+      color: Colours.pink,
+    ),
+  );
 }

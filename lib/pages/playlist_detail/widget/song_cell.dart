@@ -1,19 +1,25 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
+import 'package:flutter_cloud_music/common/player/player_service.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
-import 'package:flutter_cloud_music/services/player_service.dart';
+import 'package:flutter_cloud_music/typedef/function.dart';
 import 'package:flutter_cloud_music/widgets/general_song_cell.dart';
 import 'package:get/get.dart';
+import 'package:flutter_cloud_music/common/player/player.dart';
 
 class NumSongCell extends StatelessWidget {
   final Song song;
   final int index;
+  final ParamVoidCallback clickCallback;
 
-  const NumSongCell({Key? key, required this.song, required this.index})
+  const NumSongCell(
+      {Key? key,
+      required this.song,
+      required this.index,
+      required this.clickCallback})
       : super(key: key);
 
   @override
@@ -24,7 +30,7 @@ class NumSongCell extends StatelessWidget {
         color: Get.theme.cardColor,
         child: InkWell(
           onTap: () {
-            PlayerService.to.curPlay.value = song;
+            clickCallback.call();
           },
           child: Row(
             children: [
@@ -35,7 +41,7 @@ class NumSongCell extends StatelessWidget {
                     left: Dimens.gap_dp4, right: Dimens.gap_dp4),
                 child: Center(
                   child: Obx(
-                    () => PlayerService.to.curPlay.value?.id == song.id
+                    () => context.playerService.curPlayId() == song.id
                         ? Image.asset(
                             ImageUtils.getImagePath('t_dragonball_icn_rank'),
                             color: Colours.btn_selectd_color,
@@ -45,7 +51,6 @@ class NumSongCell extends StatelessWidget {
                         : AutoSizeText(
                             '${index + 1}',
                             maxLines: 1,
-                            minFontSize: Dimens.font_sp10,
                             style: TextStyle(
                                 fontSize: Dimens.font_sp16,
                                 color: Get.isDarkMode

@@ -118,7 +118,7 @@ class PlaylistFabCount extends StatelessWidget implements PreferredSizeWidget {
           name,
           style: TextStyle(
               color: canClicked ? fColor : fColor.withOpacity(0.2),
-              fontSize: Dimens.font_sp12),
+              fontSize: Dimens.font_sp13),
         )
       ],
     );

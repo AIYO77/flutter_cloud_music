@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
@@ -58,11 +56,11 @@ class GenrralCoverPlayCount extends StatelessWidget {
             width: coverSize.width,
             height: coverSize.height,
             errorWidget: (context, url, e) => Container(
-              color: Colours.load_image_placeholder,
+              color: Colours.load_image_placeholder(),
             ),
             placeholder: (context, url) {
               return Container(
-                color: Colours.load_image_placeholder,
+                color: Colours.load_image_placeholder(),
               );
             },
             imageBuilder: _buildConver,

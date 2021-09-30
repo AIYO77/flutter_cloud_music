@@ -38,6 +38,8 @@ class Colours {
 
   static const Color blue = Color.fromARGB(255, 55, 145, 235);
 
+  static const Color pink = Color.fromARGB(255, 239, 210, 210);
+
   static const Color white = Color(0xFFFFFFFF);
   static const Color white_dark = Color(0xFFF0F0F0);
 
@@ -68,8 +70,12 @@ class Colours {
 
   static const Color color_156 = Color.fromARGB(255, 156, 156, 156);
 
+  static const Color color_177 = Color.fromARGB(255, 177, 177, 177);
+
   static const Color color_187 = Color.fromARGB(255, 187, 187, 187);
 
-  static Color load_image_placeholder =
+  static const Color color_195 = Color.fromARGB(255, 195, 195, 195);
+
+  static Color load_image_placeholder() =>
       Get.isDarkMode ? white.withOpacity(0.1) : color_245;
 }

@@ -1,6 +1,6 @@
 import 'package:flutter_cloud_music/common/model/privilege_model.dart';
-import 'package:get/get.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:music_player/music_player.dart';
 
 part 'song_model.g.dart';
 
@@ -80,6 +80,22 @@ class Song extends Object {
       str += ' ｜ 原唱：$originArs';
     }
     return str;
+  }
+
+  MusicMetadata? _metadata;
+
+  MusicMetadata get metadata {
+    _metadata ??= MusicMetadata(
+      mediaId: id.toString(),
+      title: name +
+          (alia.isNotEmpty
+              ? alia.reduce((value, element) => '$value $element')
+              : ''),
+      subtitle: getSongCellSubTitle(),
+      iconUri: al.picUrl,
+      extras: toJson(),
+    );
+    return _metadata!;
   }
 }
 

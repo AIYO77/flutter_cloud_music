@@ -39,6 +39,9 @@ class FoundTabMlogWidget extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: ImageUtils.getImageUrlFromSize(
                     model.uiElement.image?.imageUrl ?? '', coverSize),
+                placeholder: (context, url) {
+                  return Gaps.ovalImgHolder(coverSize);
+                },
                 imageBuilder: (context, provider) {
                   return Stack(
                     alignment: Alignment.center,

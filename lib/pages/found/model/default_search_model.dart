@@ -5,10 +5,10 @@ part 'default_search_model.g.dart';
 @JsonSerializable()
 class DefaultSearchModel extends Object {
   @JsonKey(name: 'showKeyword')
-  String showKeyword;
+  String? showKeyword;
 
   @JsonKey(name: 'realkeyword')
-  String realkeyword;
+  String? realkeyword;
 
   @JsonKey(name: 'searchType')
   int searchType;

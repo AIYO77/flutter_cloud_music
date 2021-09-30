@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
@@ -8,11 +6,9 @@ import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
-import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/shuffle_log_model.dart';
 import 'package:flutter_cloud_music/pages/found/widget/element_title_widget.dart';
-import 'package:flutter_cloud_music/routes/routes_utils.dart';
 import 'package:flutter_cloud_music/widgets/playcount_widget.dart';
 import 'package:get/get.dart';
 
@@ -40,7 +36,7 @@ class FoundShuffleMLOG extends StatelessWidget {
                 height: coverSize.height,
                 placeholder: (context, url) {
                   return Container(
-                    color: Colours.load_image_placeholder,
+                    color: Colours.load_image_placeholder(),
                   );
                 },
                 imageUrl: ImageUtils.getImageUrlFromSize(

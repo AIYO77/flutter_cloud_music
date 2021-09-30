@@ -3,7 +3,6 @@ import 'dart:collection';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_cloud_music/common/model/banner_model.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
@@ -55,7 +54,7 @@ class FoundBannerState extends State<FoundBanner> {
               banner.pic, Size(Adapt.screenW() - Adapt.px(30), Adapt.px(135))),
           placeholder: (context, url) {
             return Container(
-              color: Colours.load_image_placeholder,
+              color: Colours.load_image_placeholder(),
             );
           },
           imageBuilder: (context, imageProvider) {

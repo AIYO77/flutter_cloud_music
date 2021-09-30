@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
+import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
-import 'package:flutter_cloud_music/services/player_service.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class GeneralSongCellWidget extends StatelessWidget {
@@ -14,7 +15,7 @@ class GeneralSongCellWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titleStyle = captionStyle().copyWith(fontSize: Dimens.font_sp18);
+    final titleStyle = captionStyle().copyWith(fontSize: Dimens.font_sp17);
     return Row(
       children: [
         Expanded(
@@ -28,7 +29,7 @@ class GeneralSongCellWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 text: TextSpan(
                     text: song.name,
-                    style: PlayerService.to.getCurPlayValue?.id == song.id
+                    style: context.playerService.curPlayId() == song.id
                         ? titleStyle.copyWith(color: Colours.btn_selectd_color)
                         : titleStyle,
                     children: [
@@ -37,7 +38,7 @@ class GeneralSongCellWidget extends StatelessWidget {
                             text:
                                 '（${song.alia.reduce((value, element) => '$value $element')}）',
                             style: subtitle1Style()
-                                .copyWith(fontSize: Dimens.font_sp18)),
+                                .copyWith(fontSize: Dimens.font_sp17)),
                     ]),
               ),
             ),
@@ -46,7 +47,9 @@ class GeneralSongCellWidget extends StatelessWidget {
               children: [
                 Row(
                   children: getSongTags(song,
-                      needOriginType: false, needNewType: false),
+                      needOriginType: false,
+                      needNewType: false,
+                      needCopyright: false),
                 ),
                 Expanded(
                     child: Text(
@@ -59,26 +62,37 @@ class GeneralSongCellWidget extends StatelessWidget {
             )
           ],
         )),
-        Container(
-          width: Dimens.gap_dp20,
-          height: Dimens.gap_dp17,
-          padding: EdgeInsets.only(left: Dimens.gap_dp2),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(Dimens.gap_dp7),
-              ),
-              border: Border.all(
+        if (song.mv > 0)
+          GestureDetector(
+            onTap: () {
+              Fluttertoast.showToast(msg: song.mv.toString());
+            },
+            child: SizedBox(
+              height: Dimens.gap_dp32,
+              child: Center(
+                child: Image.asset(
+                  ImageUtils.getImagePath('video_selected'),
                   color: Get.isDarkMode
-                      ? Colours.white.withOpacity(0.6)
-                      : Colours.color_187.withOpacity(0.85),
-                  width: Dimens.gap_dp1)),
-          child: Center(
-            child: Image.asset(
-              ImageUtils.getImagePath('icon_play_small'),
-              width: Dimens.gap_dp10,
-              color: Get.isDarkMode
-                  ? Colours.white.withOpacity(0.6)
-                  : Colours.color_187,
+                      ? Colours.white.withOpacity(0.75)
+                      : Colours.color_187,
+                ),
+              ),
+            ),
+          ),
+        GestureDetector(
+          onTap: () {},
+          child: SizedBox(
+            width: Dimens.gap_dp36,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Image.asset(
+                ImageUtils.getImagePath('cb'),
+                height: Dimens.gap_dp24,
+                //
+                color: Get.isDarkMode
+                    ? Colours.white.withOpacity(0.6)
+                    : Colours.color_187,
+              ),
             ),
           ),
         )
