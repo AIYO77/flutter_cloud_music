@@ -2,6 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/player/player_service.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
+import 'package:flutter_cloud_music/common/values/server.dart';
+import 'package:get/get.dart';
 import 'package:music_player/music_player.dart';
 
 const String kFmPlayQueueId = "personal_fm";
@@ -11,7 +13,7 @@ extension QuitPlayerExt on BuildContext {
     try {
       return PlayerService.to;
     } catch (e, stacktrace) {
-      debugPrint(stacktrace.toString());
+      logger.e(stacktrace.toString());
       rethrow;
     }
   }
@@ -20,7 +22,7 @@ extension QuitPlayerExt on BuildContext {
     try {
       return PlayerService.to.player;
     } catch (e, stacktrace) {
-      debugPrint(stacktrace.toString());
+      logger.e(stacktrace.toString());
       rethrow;
     }
   }
@@ -28,6 +30,11 @@ extension QuitPlayerExt on BuildContext {
 
 extension MusicPlayerValueExt on MusicPlayerValue {
   int? get currentId => metadata == null ? null : int.parse(metadata!.mediaId);
+}
+
+extension PlayQueueExt on PlayQueue {
+  // 是否处于私人FM 播放模式
+  bool get isPlayingFm => queueId == kFmPlayQueueId;
 }
 
 extension PlayModeDescription on PlayMode {

@@ -15,6 +15,7 @@ import 'package:flutter_cloud_music/pages/playlist_detail/widget/top_appbar.dart
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:flutter_cloud_music/widgets/playall_cell.dart';
 import 'package:flutter_cloud_music/widgets/sliver_fab.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:music_player/music_player.dart';
 
@@ -95,13 +96,18 @@ class PlaylistDetailPage extends GetView<PlaylistDetailController> {
               song: songs.elementAt(index),
               index: index,
               clickCallback: () {
-                context.player.playWithQueue(
-                    PlayQueue(
-                        queueId:
-                            controller.detail.value!.playlist.id.toString(),
-                        queueTitle: controller.detail.value!.playlist.name,
-                        queue: songs.map((e) => e.metadata).toList()),
-                    metadata: songs.elementAt(index).metadata);
+                final clickSong = songs.elementAt(index);
+                if (clickSong.canPlay()) {
+                  context.player.playWithQueue(
+                      PlayQueue(
+                          queueId:
+                              controller.detail.value!.playlist.id.toString(),
+                          queueTitle: controller.detail.value!.playlist.name,
+                          queue: songs.map((e) => e.metadata).toList()),
+                      metadata: clickSong.metadata);
+                } else {
+                  Fluttertoast.showToast(msg: '该歌曲暂无法播放');
+                }
               },
             );
           } else {

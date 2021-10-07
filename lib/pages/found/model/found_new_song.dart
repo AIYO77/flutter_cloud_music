@@ -37,7 +37,8 @@ class FoundNewSong extends Object {
         null,
         songPrivilege,
         type,
-        null);
+        null,
+        1);
   }
 }
 

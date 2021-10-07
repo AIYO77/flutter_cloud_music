@@ -15,6 +15,13 @@ class GeneralSongCellWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Opacity(
+      opacity: !song.canPlay() ? 0.5 : 1.0,
+      child: _buildContent(context),
+    );
+  }
+
+  Widget _buildContent(BuildContext context) {
     final titleStyle = captionStyle().copyWith(fontSize: Dimens.font_sp17);
     return Row(
       children: [

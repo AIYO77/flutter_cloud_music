@@ -30,6 +30,9 @@ class ResponseInterceptors extends InterceptorsWrapper {
         } else if (option.path.contains('/song/detail')) {
           value = ResultData(
               SongsModel.fromJson(response.data), true, Code.SUCCESS);
+        } else if (option.path.contains('/check/music')) {
+          value = ResultData(response.data['message'],
+              response.data['success'] as bool, Code.SUCCESS);
         } else {
           value = ResultData(response.data['data'], true, Code.SUCCESS);
         }

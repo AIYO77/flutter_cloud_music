@@ -24,6 +24,9 @@ class Song extends Object {
   @JsonKey(name: 'v')
   int v;
 
+  @JsonKey(name: 'st')
+  int st;
+
   @JsonKey(name: 'al')
   AlbumSimple al;
 
@@ -49,20 +52,22 @@ class Song extends Object {
   OriginSongSimpleData? originSongSimpleData;
 
   Song(
-      this.name,
-      this.id,
-      this.ar,
-      this.alia,
-      this.fee,
-      this.v,
-      this.al,
-      this.copyright,
-      this.originCoverType,
-      this.mv,
-      this.videoInfo,
-      this.privilege,
-      this.actionType,
-      this.originSongSimpleData);
+    this.name,
+    this.id,
+    this.ar,
+    this.alia,
+    this.fee,
+    this.v,
+    this.al,
+    this.copyright,
+    this.originCoverType,
+    this.mv,
+    this.videoInfo,
+    this.privilege,
+    this.actionType,
+    this.originSongSimpleData,
+    this.st,
+  );
 
   factory Song.fromJson(Map<String, dynamic> srcJson) =>
       _$SongFromJson(srcJson);
@@ -93,9 +98,12 @@ class Song extends Object {
               : ''),
       subtitle: getSongCellSubTitle(),
       iconUri: al.picUrl,
-      extras: toJson(),
     );
     return _metadata!;
+  }
+
+  bool canPlay() {
+    return st == 0;
   }
 }
 

@@ -7,6 +7,7 @@ import 'package:flutter_cloud_music/services/home_top_service.dart';
 import 'package:flutter_cloud_music/common/player/player_service.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'common/res/colors.dart';
 import 'routes/app_pages.dart';
@@ -50,12 +51,20 @@ Widget musicApp() {
       color: Colours.bg_color,
       unknownRoute: AppPages.unknownRoute,
       initialBinding: BindingsBuilder(() {
-        Get.put(PlayerService());
         Get.put(AuthService());
+        Get.put(PlayerService());
         Get.put(HomeTopService());
         Get.put(EventService());
       }),
       getPages: AppPages.routes,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('zh', 'CH'),
+        Locale('en', 'US'),
+      ],
     ),
   );
 }

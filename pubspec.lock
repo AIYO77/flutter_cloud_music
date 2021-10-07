@@ -463,7 +463,7 @@ packages:
     source: hosted
     version: "3.0.5"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       url: "https://pub.flutter-io.cn"
@@ -559,7 +559,7 @@ packages:
       path: "."
       ref: "7ba0513153853f769e3789b37f9ef630c85740f6"
       resolved-ref: "7ba0513153853f769e3789b37f9ef630c85740f6"
-      url: "https://github.com/boyan01/flutter-music-player.git"
+      url: "https://gitee.com/master_xing/flutter-music-player.git"
     source: git
     version: "0.0.1"
   octo_image:

@@ -30,23 +30,25 @@ Song _$SongFromJson(Map<String, dynamic> json) => Song(
           ? null
           : OriginSongSimpleData.fromJson(
               json['originSongSimpleData'] as Map<String, dynamic>),
+      json['st'] as int,
     );
 
 Map<String, dynamic> _$SongToJson(Song instance) => <String, dynamic>{
       'name': instance.name,
       'id': instance.id,
-      'ar': instance.ar.map((e) => e.toJson()).toList(),
+      'ar': instance.ar,
       'alia': instance.alia,
       'fee': instance.fee,
       'v': instance.v,
-      'al': instance.al.toJson(),
+      'st': instance.st,
+      'al': instance.al,
       'copyright': instance.copyright,
       'originCoverType': instance.originCoverType,
       'mv': instance.mv,
-      'videoInfo': instance.videoInfo?.toJson(),
-      'privilege': instance.privilege?.toJson(),
+      'videoInfo': instance.videoInfo,
+      'privilege': instance.privilege,
       'actionType': instance.actionType,
-      'originSongSimpleData': instance.originSongSimpleData?.toJson(),
+      'originSongSimpleData': instance.originSongSimpleData,
     };
 
 Ar _$ArFromJson(Map<String, dynamic> json) => Ar(
@@ -119,5 +121,5 @@ OriginSongSimpleData _$OriginSongSimpleDataFromJson(
 Map<String, dynamic> _$OriginSongSimpleDataToJson(
         OriginSongSimpleData instance) =>
     <String, dynamic>{
-      'artists': instance.artists.map((e) => e.toJson()).toList(),
+      'artists': instance.artists,
     };
