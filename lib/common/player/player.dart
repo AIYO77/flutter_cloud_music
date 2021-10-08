@@ -26,6 +26,15 @@ extension QuitPlayerExt on BuildContext {
       rethrow;
     }
   }
+
+  Rx<MusicPlayerValue?> get playerValueRx {
+    try {
+      return PlayerService.to.watchPlayerValue;
+    } catch (e, stacktrace) {
+      logger.e(stacktrace.toString());
+      rethrow;
+    }
+  }
 }
 
 extension MusicPlayerValueExt on MusicPlayerValue {

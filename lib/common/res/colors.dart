@@ -18,7 +18,7 @@ class Colours {
   static const Color diver_color = Color.fromARGB(255, 224, 224, 224);
   static const Color dark_diver_color = Color.fromARGB(10, 255, 255, 255);
 
-  static const Color card_color = Color(0xFFFFFFFF);
+  static const Color card_color = Color.fromARGB(255, 251, 252, 252);
   static const Color dark_card_color = Color.fromARGB(255, 18, 17, 17);
 
   static const Color headline4_color = Color.fromARGB(255, 39, 38, 40);

@@ -14,6 +14,8 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:music_player/music_player.dart';
+import 'package:flutter_cloud_music/common/player/player.dart';
 
 final box = GetStorage();
 
@@ -167,4 +169,12 @@ Widget _buildAvaterHolder(Size size) {
 
 bool isSoftKeyboardDisplay(MediaQueryData data) {
   return data.viewInsets.bottom / data.size.height > 0.3;
+}
+
+Widget padingBottomBox(MusicPlayerValue? value) {
+  return SizedBox(
+      height: value?.currentId == null
+          ? Adapt.bottomPadding()
+          : Adapt.bottomPadding() +
+              (value!.queue.isPlayingFm ? Dimens.gap_dp48 : Dimens.gap_dp58));
 }
