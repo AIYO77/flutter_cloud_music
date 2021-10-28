@@ -96,7 +96,8 @@ class Song extends Object {
           (alia.isNotEmpty
               ? alia.reduce((value, element) => '$value $element')
               : ''),
-      subtitle: getSongCellSubTitle(),
+      subtitle:
+          ar.map((e) => e.name!).reduce((value, element) => '$value/$element'),
       iconUri: al.picUrl,
     );
     return _metadata!;

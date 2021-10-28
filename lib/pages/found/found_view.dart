@@ -144,7 +144,7 @@ class FoundPage extends GetView<FoundController> {
   }
 
   Future<void> _onRefresh() async {
-    controller.getFoundRecList();
+    controller.getFoundRecList(refresh: true);
   }
 
   @override

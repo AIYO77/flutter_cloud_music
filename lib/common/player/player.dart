@@ -35,10 +35,27 @@ extension QuitPlayerExt on BuildContext {
       rethrow;
     }
   }
+
+  TransportControls get transportControls => player.transportControls;
+
+  PlaybackState? get playbackState => playerValueRx.value?.playbackState;
 }
 
 extension MusicPlayerValueExt on MusicPlayerValue {
   int? get currentId => metadata == null ? null : int.parse(metadata!.mediaId);
+
+  int get currentIndex =>
+      queue.queue.indexWhere((element) => element.mediaId == metadata?.mediaId);
+}
+
+extension PlaybackStateExt on PlaybackState {
+  bool get hasError => state == PlayerState.Error;
+
+  bool get isPlaying => (state == PlayerState.Playing) && !hasError;
+
+  bool get isBuffering => state == PlayerState.Buffering;
+
+  bool get initialized => state != PlayerState.None;
 }
 
 extension PlayQueueExt on PlayQueue {

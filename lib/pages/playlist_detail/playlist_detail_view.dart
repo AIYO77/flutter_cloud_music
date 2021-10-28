@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cloud_music/common/player/bottom_player_widget.dart';
 import 'package:flutter_cloud_music/common/player/player.dart';
+import 'package:flutter_cloud_music/common/player/widgets/bottom_player_widget.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';

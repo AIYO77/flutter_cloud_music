@@ -44,7 +44,8 @@ class ResponseInterceptors extends InterceptorsWrapper {
       value = ResultData(response.data, false, response.statusCode!);
     }
     response.data = value;
-    super.onResponse(response, handler);
+    handler.next(response);
+    // super.onResponse(response, handler);
   }
 
   // @override

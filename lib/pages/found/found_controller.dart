@@ -26,8 +26,12 @@ class FoundController extends SuperController<FoundData?> {
   //刷新过期时间
   int expirationTime = -1;
 
-  Future<void> getFoundRecList() async {
-    append(() => MusicApi.getFoundRec);
+  Future<void> getFoundRecList({bool refresh = false}) async {
+    MusicApi.getFoundRec(refresh: refresh).then((newValue) {
+      change(newValue, status: RxStatus.success());
+    }, onError: (err) {
+      change(state, status: RxStatus.error(err.toString()));
+    });
   }
 
   Future<void> getDefaultSearch() async {
@@ -64,7 +68,7 @@ class FoundController extends SuperController<FoundData?> {
       if (DateTime.now().millisecondsSinceEpoch > expirationTime) {
         //当前时间大于失效时间 刷新
         Get.log("首页刷新时间到期，重新获取数据");
-        getFoundRecList();
+        getFoundRecList(refresh: true);
       }
     }
   }

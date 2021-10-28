@@ -17,8 +17,7 @@ class PlayerService extends GetxService {
   final curPlayId = Rx<int?>(null);
   //播放模式
   final playMode = Rx<PlayMode>(PlayMode.sequence);
-  //播放控制器
-  final transportControls = Rx<TransportControls?>(null);
+
   //播放属性
   final watchPlayerValue = Rx<MusicPlayerValue?>(null);
 
@@ -35,17 +34,21 @@ class PlayerService extends GetxService {
       box.write(_keyPlayMode, {"mode": player.playMode.index});
     });
     player.queueListenable.addListener(() {
-      box.write(_keyPlayQueue, player.queue.toMap());
+      final queueMap = player.queue.toMap();
+      logger.d('缓存列表 $queueMap');
+      box.write(_keyPlayQueue, queueMap);
     });
     player.isMusicServiceAvailable().then((available) {
-      if (available!) {
+      if (available != null && available) {
         return;
       }
+
       final MusicMetadata? metadata = _restoreMetadata();
       final PlayQueue? queue = _restorePlayQueue();
       if (metadata == null || queue == null) {
         return;
       }
+      logger.i('metadata = ${metadata.toMap()} queue = ${queue.queue.length}');
       player.setPlayQueue(queue);
       player.transportControls.prepareFromMediaId(metadata.mediaId);
       player.transportControls.setPlayMode(_restorePlayMode());
@@ -55,7 +58,6 @@ class PlayerService extends GetxService {
 
   void update() {
     playMode.value = player.playMode;
-    transportControls.value = player.transportControls;
     watchPlayerValue.value = player.value;
     curPlayId.value = int.tryParse(player.metadata?.mediaId ?? '-1');
   }
@@ -71,6 +73,7 @@ class PlayerService extends GetxService {
 
   PlayQueue? _restorePlayQueue() {
     final map = box.read<Map<dynamic, dynamic>>(_keyPlayQueue);
+    logger.d('读取列表 $map');
     if (map == null) {
       return null;
     } else {

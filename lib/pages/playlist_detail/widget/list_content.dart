@@ -44,6 +44,7 @@ class PlayListContent extends StatelessWidget {
                       PlayQueue(
                           queueId:
                               controller.detail.value!.playlist.id.toString(),
+                          // queueId: kFmPlayQueueId,
                           queueTitle: controller.detail.value!.playlist.name,
                           queue: songs!.map((e) => e.metadata).toList()),
                       metadata: clickSong.metadata);
@@ -91,6 +92,5 @@ class PlayListContent extends StatelessWidget {
         }, childCount: songs!.length + 1),
       );
     }
-    ;
   }
 }

@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/player/player.dart';
+import 'package:flutter_cloud_music/common/player/widgets/player_common_widget.dart';
+import 'package:flutter_cloud_music/common/player/widgets/player_progress_container.dart';
+import 'package:flutter_cloud_music/common/res/dimens.dart';
+import 'package:flutter_cloud_music/common/utils/adapt.dart';
+import 'package:flutter_cloud_music/common/utils/image_utils.dart';
+import 'package:get/get.dart';
+
+class CircularContollerbar extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => CircularContollerbarState();
+}
+
+class CircularContollerbarState extends State<CircularContollerbar> {
+  @override
+  Widget build(BuildContext context) {
+    return PlayerProgressContainer(builder: _buildBar, player: context.player);
+  }
+
+  Widget _buildBar(BuildContext context) {
+    final state = context.playbackState;
+    final color = Get.isDarkMode ? Colors.white : Colors.black;
+
+    final duration = context.playerValueRx.value?.metadata?.duration ?? 100;
+    final position = state?.computedPosition ?? 1;
+
+    final Widget progressIndicator = CircularProgressIndicator(
+      value: (state?.initialized == true && duration > 0)
+          ? (position / duration)
+          : 0,
+      backgroundColor: color.withOpacity(0.1),
+      strokeWidth: Adapt.px(1.5),
+      color: color,
+    );
+    return SizedBox(
+      height: Dimens.gap_dp29,
+      width: Dimens.gap_dp29,
+      child: Stack(
+        children: [
+          Positioned.fill(child: progressIndicator),
+          Center(
+            child: PlayingIndicator(
+              playing: GestureDetector(
+                onTap: () {
+                  context.transportControls.pause();
+                },
+                child: Image.asset(
+                  ImageUtils.getImagePath('bwq'),
+                  width: Dimens.gap_dp16,
+                  fit: BoxFit.cover,
+                  color: color,
+                ),
+              ),
+              pausing: GestureDetector(
+                onTap: () {
+                  context.transportControls.play();
+                },
+                child: Image.asset(
+                  ImageUtils.getImagePath('bwr'),
+                  width: Dimens.gap_dp16,
+                  fit: BoxFit.cover,
+                  color: color,
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

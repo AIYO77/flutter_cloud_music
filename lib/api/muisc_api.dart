@@ -19,11 +19,11 @@ import 'package:music_player/music_player.dart';
 
 class MusicApi {
   //首页内容
-  static Future<FoundData?> getFoundRec() async {
+  static Future<FoundData?> getFoundRec({bool refresh = false}) async {
     FoundData? data;
     Get.log("time ${DateTime.now().millisecondsSinceEpoch}");
-    final response = await httpManager.post("/homepage/block/page",
-        {'timestamp': DateTime.now().millisecondsSinceEpoch});
+    final response =
+        await httpManager.get("/homepage/block/page", {'refresh': refresh});
     if (response.result) {
       try {
         data = FoundData.fromJson(response.data);
