@@ -9,7 +9,7 @@ class ImageUtils {
   }
 
   static String getImageUrlFromSize(String? url, Size size) {
-    if (url == null) {
+    if (url == null || url.isEmpty) {
       return '';
     }
     //向上取整

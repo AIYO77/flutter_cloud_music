@@ -28,15 +28,20 @@ class PlayerService extends GetxService {
       update();
     });
     player.metadataListenable.addListener(() {
-      box.write(_keyCurrentPlaying, player.metadata!.toMap());
+      if (player.metadata != null) {
+        box.write(_keyCurrentPlaying, player.metadata!.toMap());
+      }
     });
     player.playModeListenable.addListener(() {
       box.write(_keyPlayMode, {"mode": player.playMode.index});
     });
     player.queueListenable.addListener(() {
-      final queueMap = player.queue.toMap();
-      logger.d('缓存列表 $queueMap');
-      box.write(_keyPlayQueue, queueMap);
+      final queue = player.queue;
+      if (GetUtils.isNullOrBlank(queue.queueId) != true) {
+        final queueMap = queue.toMap();
+        logger.d('缓存列表 ${queue.queueId}');
+        box.write(_keyPlayQueue, queueMap);
+      }
     });
     player.isMusicServiceAvailable().then((available) {
       if (available != null && available) {

@@ -41,7 +41,7 @@ class NumSongCell extends StatelessWidget {
                     left: Dimens.gap_dp4, right: Dimens.gap_dp4),
                 child: Center(
                   child: Obx(
-                    () => context.playerService.curPlayId() == song.id
+                    () => context.playerService.curPlayId.value == song.id
                         ? Image.asset(
                             ImageUtils.getImagePath('t_dragonball_icn_rank'),
                             color: Colours.btn_selectd_color,

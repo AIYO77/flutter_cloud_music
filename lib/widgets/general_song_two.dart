@@ -52,19 +52,20 @@ class GeneralSongTwo extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     Image(image: provider),
-                    Obx(() => context.playerService.curPlayId() != songInfo.id
-                        ? Image.asset(
-                            ImageUtils.getImagePath('icon_play_small'),
-                            width: Dimens.gap_dp20,
-                            height: Dimens.gap_dp20,
-                            color: Colors.white.withOpacity(0.8))
-                        : FrameAnimationImage(
-                            Key('$songInfo.id'),
-                            const ['c2t', 'c2u', 'c2v', 'c2w'],
-                            width: Dimens.gap_dp24,
-                            height: Dimens.gap_dp24,
-                            imgColor: Colors.white.withOpacity(0.8),
-                          ))
+                    Obx(() =>
+                        context.playerService.curPlayId.value != songInfo.id
+                            ? Image.asset(
+                                ImageUtils.getImagePath('icon_play_small'),
+                                width: Dimens.gap_dp20,
+                                height: Dimens.gap_dp20,
+                                color: Colors.white.withOpacity(0.8))
+                            : FrameAnimationImage(
+                                Key('$songInfo.id'),
+                                const ['c2t', 'c2u', 'c2v', 'c2w'],
+                                width: Dimens.gap_dp24,
+                                height: Dimens.gap_dp24,
+                                imgColor: Colors.white.withOpacity(0.8),
+                              ))
                   ],
                 );
               },

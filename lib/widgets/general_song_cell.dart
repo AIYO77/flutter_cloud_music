@@ -36,7 +36,7 @@ class GeneralSongCellWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 text: TextSpan(
                     text: song.name,
-                    style: context.playerService.curPlayId() == song.id
+                    style: context.playerService.curPlayId.value == song.id
                         ? titleStyle.copyWith(color: Colours.btn_selectd_color)
                         : titleStyle,
                     children: [

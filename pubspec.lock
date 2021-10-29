@@ -557,8 +557,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "7678fe7b51fd7a95f6b2aa61db2ea1aff97fdc7e"
-      resolved-ref: "7678fe7b51fd7a95f6b2aa61db2ea1aff97fdc7e"
+      ref: "47fec379cf29f8ba35aaf7f49686a26861742dd4"
+      resolved-ref: "47fec379cf29f8ba35aaf7f49686a26861742dd4"
       url: "https://gitee.com/master_xing/flutter-music-player.git"
     source: git
     version: "0.0.1"

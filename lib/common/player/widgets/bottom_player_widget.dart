@@ -4,6 +4,7 @@ import 'package:flutter_cloud_music/common/player/bottom_player_controller.dart'
 import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/player/widgets/player_circular_progress.dart';
 import 'package:flutter_cloud_music/common/player/player_service.dart';
+import 'package:flutter_cloud_music/common/player/widgets/rotation_cover_image.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
@@ -75,7 +76,8 @@ class BottomContentWidget extends StatelessWidget {
 
   Widget _buildContent(BuildContext context) {
     final curPlayId = PlayerService.to.curPlayId.value;
-    if (curPlayId == null) {
+    logger.d('curPlayId = $curPlayId');
+    if (curPlayId == null || curPlayId < 0) {
       return Gaps.empty;
     }
     final queue = PlayerService.to.watchPlayerValue.value?.queue;
@@ -133,7 +135,26 @@ class BottomContentWidget extends StatelessWidget {
                         },
                       ),
                     ),
-                    CircularContollerbar()
+                    CircularContollerbar(),
+                    Gaps.hGap12,
+                    Container(
+                      margin: EdgeInsets.only(
+                          top: isFmPlaying ? 0.0 : Dimens.gap_dp7),
+                      child: InkWell(
+                          onTap: () {
+                            Get.bottomSheet(Container(
+                              height: 200,
+                              color: Colors.white,
+                            ));
+                          },
+                          child: Image.asset(
+                            ImageUtils.getImagePath('epj'),
+                            width: Dimens.gap_dp40,
+                            height: Dimens.gap_dp40,
+                            color: Get.isDarkMode ? Colors.white : Colors.black,
+                          )),
+                    ),
+                    Gaps.hGap8
                   ],
                 ))
               ],
@@ -160,9 +181,9 @@ class BottomContentWidget extends StatelessWidget {
             width: Dimens.gap_dp36,
             height: Dimens.gap_dp36,
             placeholder: (context, url) =>
-                Image.asset(ImageUtils.getImagePath('emq')),
+                Image.asset(ImageUtils.getImagePath('ecf')),
             errorWidget: (context, url, e) =>
-                Image.asset(ImageUtils.getImagePath('emq')),
+                Image.asset(ImageUtils.getImagePath('ecf')),
           ),
         ),
         Gaps.hGap10,
@@ -176,36 +197,8 @@ class BottomContentWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Gaps.hGap16,
-        ClipRRect(
-          borderRadius: BorderRadius.circular(Dimens.gap_dp5),
-          child: CachedNetworkImage(
-            imageUrl: music.iconUri ?? '',
-            width: Dimens.gap_dp42,
-            height: Dimens.gap_dp42,
-            placeholder: (context, url) =>
-                Image.asset(ImageUtils.getImagePath('emq')),
-            errorWidget: (context, url, e) =>
-                Image.asset(ImageUtils.getImagePath('emq')),
-            imageBuilder: (context, provider) {
-              return Stack(
-                children: [
-                  Positioned.fill(
-                      child: Image.asset(ImageUtils.getImagePath('eng'))),
-                  Center(
-                    child: ClipOval(
-                      child: Image(
-                        image: provider,
-                        fit: BoxFit.cover,
-                        width: Dimens.gap_dp29,
-                        height: Dimens.gap_dp29,
-                      ),
-                    ),
-                  )
-                ],
-              );
-            },
-          ),
-        ),
+        Obx(() => RotationCoverImage(
+            rotating: controller.isPlaying.value, music: music)),
         Gaps.hGap10,
         Expanded(child: _buildTitle(music))
       ],

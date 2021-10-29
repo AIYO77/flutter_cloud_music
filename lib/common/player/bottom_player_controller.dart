@@ -11,6 +11,8 @@ class PlayerContoller extends GetxController {
 
   final isFmPlaying = false.obs;
 
+  final isPlaying = false.obs;
+
   bool isManual = false;
 
   @override
@@ -41,9 +43,9 @@ class PlayerContoller extends GetxController {
 
   void _onPlayerChanged() {
     isFmPlaying.value = PlayerService.to.player.queue.queueId == kFmPlayQueueId;
+    isPlaying.value = PlayerService.to.player.playbackState.isPlaying;
     final curPage = getCurPage(PlayerService.to.player.queue.queue,
         PlayerService.to.player.metadata?.mediaId);
-    logger.d('curPage = $curPage}');
     if (!isManual) {
       pageController.animateToPage(curPage,
           duration: const Duration(milliseconds: 16),

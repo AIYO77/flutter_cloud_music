@@ -34,7 +34,7 @@ dependencies:
   music_player:
     git:
       url: https://gitee.com/master_xing/flutter-music-player.git
-      ref: 7678fe7b51fd7a95f6b2aa61db2ea1aff97fdc7e
+      ref: 47fec379cf29f8ba35aaf7f49686a26861742dd4
   intl: ^0.17.0
 
 dev_dependencies:

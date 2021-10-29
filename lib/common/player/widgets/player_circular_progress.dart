@@ -6,6 +6,7 @@ import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:get/get.dart';
+import 'package:music_player/music_player.dart';
 
 class CircularContollerbar extends StatefulWidget {
   @override
@@ -29,43 +30,45 @@ class CircularContollerbarState extends State<CircularContollerbar> {
       value: (state?.initialized == true && duration > 0)
           ? (position / duration)
           : 0,
-      backgroundColor: color.withOpacity(0.1),
+      backgroundColor: color.withOpacity(0.08),
       strokeWidth: Adapt.px(1.5),
       color: color,
     );
-    return SizedBox(
+    return Container(
       height: Dimens.gap_dp29,
       width: Dimens.gap_dp29,
-      child: Stack(
-        children: [
-          Positioned.fill(child: progressIndicator),
-          Center(
-            child: PlayingIndicator(
-              playing: GestureDetector(
-                onTap: () {
-                  context.transportControls.pause();
-                },
-                child: Image.asset(
+      margin: EdgeInsets.only(
+          top: context.player.queue.isPlayingFm ? 0.0 : Dimens.gap_dp13),
+      child: GestureDetector(
+        onTap: () {
+          if (context.player.playbackStateListenable.value.state ==
+              PlayerState.Playing) {
+            context.transportControls.pause();
+          } else {
+            context.transportControls.play();
+          }
+        },
+        child: Stack(
+          children: [
+            Positioned.fill(child: progressIndicator),
+            Center(
+              child: PlayingIndicator(
+                playing: Image.asset(
                   ImageUtils.getImagePath('bwq'),
                   width: Dimens.gap_dp16,
                   fit: BoxFit.cover,
                   color: color,
                 ),
-              ),
-              pausing: GestureDetector(
-                onTap: () {
-                  context.transportControls.play();
-                },
-                child: Image.asset(
+                pausing: Image.asset(
                   ImageUtils.getImagePath('bwr'),
                   width: Dimens.gap_dp16,
                   fit: BoxFit.cover,
                   color: color,
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

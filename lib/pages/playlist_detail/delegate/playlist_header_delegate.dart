@@ -73,7 +73,7 @@ class PlaylistSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
         ),
         //信息
         Positioned(
-          bottom: 56,
+          bottom: 50,
           right: Dimens.gap_dp26,
           left: Dimens.gap_dp15,
           child: _buildClipContent(

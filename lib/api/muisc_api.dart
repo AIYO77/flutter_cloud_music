@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/simple_play_list_model.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/model/songs_model.dart';
