@@ -23,3 +23,15 @@ const APP_ROUTER_TAG = 'orpheus';
 
 //官方歌单标识
 const ALG_OP = 'ALG_OP';
+
+/* HERO  --------- start -----------   */
+
+const HERO_TAG_CUR_PLAY = 'currentPlay';
+
+/* HERO  --------- end ----------- */
+
+/* cache key  --------- start ----------- */
+
+const CACHE_FAVORITESONGIDS = 'favoriteSongIds';
+const CACHE_LOGIN_DATA = 'cache_login_data';
+/* cache key  --------- end ----------- */

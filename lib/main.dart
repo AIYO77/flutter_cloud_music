@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cloud_music/common/net/init_dio.dart';
 import 'package:flutter_cloud_music/common/player/player_interceptors.dart';
-import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_ume/flutter_ume.dart'; // UME 框架
 import 'package:flutter_ume_kit_device/flutter_ume_kit_device.dart'; // 设备信息插件包
 import 'package:flutter_ume_kit_dio/flutter_ume_kit_dio.dart';
@@ -21,6 +20,7 @@ import 'services/auth_service.dart';
 
 Future<void> main() async {
   await GetStorage.init();
+
   if (kDebugMode) {
     PluginManager.instance
       ..register(const WidgetInfoInspector())

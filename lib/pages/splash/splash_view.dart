@@ -12,8 +12,8 @@ class SplashPage extends GetView<SplashController> {
   Widget build(BuildContext context) {
     Adapt.initContext(context);
     return Scaffold(
+      backgroundColor: Colours.app_main,
       body: Container(
-        color: Colours.app_main,
         padding: EdgeInsets.only(top: controller.isFirst ? 100 : 255),
         height: Adapt.screenH(),
         width: Adapt.screenW(),

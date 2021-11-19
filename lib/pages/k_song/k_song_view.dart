@@ -4,8 +4,10 @@ import 'package:flutter_cloud_music/widgets/undeveloped.dart';
 import 'package:get/get.dart';
 import 'k_song_controller.dart';
 
-class KSongPage extends GetView<KSongController> {
-  const KSongPage({Key? key}) : super(key: key);
+class KSongPage extends StatelessWidget {
+  KSongPage({Key? key}) : super(key: key);
+
+  final controller = GetInstance().putOrFind(() => KSongController());
 
   @override
   Widget build(BuildContext context) {

@@ -9,6 +9,7 @@
  */
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
+import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'dimens.dart';
 
 class Gaps {
@@ -44,9 +45,12 @@ class Gaps {
   static Widget vGap15 = SizedBox(height: Dimens.gap_dp15);
   static Widget vGap16 = SizedBox(height: Dimens.gap_dp16);
   static Widget vGap24 = SizedBox(height: Dimens.gap_dp24);
+  static Widget vGap36 = SizedBox(height: Dimens.gap_dp36);
+  static Widget vGap40 = SizedBox(height: Dimens.gap_dp40);
   static Widget vGap20 = SizedBox(height: Dimens.gap_dp20);
   static Widget vGap50 = SizedBox(height: Dimens.gap_dp50);
-
+  static Widget vGap80 = SizedBox(height: Dimens.gap_dp80);
+  static Widget vGap100 = SizedBox(height: Adapt.px(100));
   static Widget line = const Divider(height: 1);
 
   /// 补充一种空Widget实现 https://github.com/letsar/nil

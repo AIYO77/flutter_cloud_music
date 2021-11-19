@@ -34,9 +34,9 @@ class _PlayerProgressContainerState extends State<PlayerProgressContainer>
   }
 
   void _onStateChanged() {
-    // final needTrack = widget.player.playbackStateListenable.value.state ==
-    //     PlayerState.Playing;
-    // if (_ticker.isActive == needTrack) return;
+    final needTrack = widget.player.playbackStateListenable.value.state ==
+        PlayerState.Playing;
+    if (_ticker.isActive == needTrack) return;
     if (_ticker.isActive) {
       _ticker.stop();
     } else {

@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_cloud_music/common/model/login_response.dart';
 import 'package:flutter_cloud_music/common/model/songs_model.dart';
 import 'package:flutter_cloud_music/common/net/code.dart';
 import 'package:flutter_cloud_music/common/net/result_data.dart';
+import 'package:flutter_cloud_music/common/values/server.dart';
+import 'package:flutter_cloud_music/pages/login/phone_login/model/phone_exist.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/model/playlist_detail_model.dart';
 import 'package:get/instance_manager.dart';
 
@@ -33,6 +36,19 @@ class ResponseInterceptors extends InterceptorsWrapper {
         } else if (option.path.contains('/check/music')) {
           value = ResultData(response.data['message'],
               response.data['success'] as bool, Code.SUCCESS);
+        } else if (option.path.contains('/lyric')) {
+          value = ResultData(response.data['lrc'], true, Code.SUCCESS);
+        } else if (option.path.contains('/cellphone/existence/check')) {
+          value = ResultData(
+              PhoneExist.fromJson(response.data), true, Code.SUCCESS);
+        } else if (option.path.contains('/login/cellphone')) {
+          if (response.data['code'].toString() != '200') {
+            value = ResultData(response.data, false, response.data['code'],
+                msg: response.data['msg'].toString());
+          } else {
+            value = ResultData(
+                LoginResponse.fromJson(response.data), true, Code.SUCCESS);
+          }
         } else {
           value = ResultData(response.data['data'], true, Code.SUCCESS);
         }
@@ -46,6 +62,12 @@ class ResponseInterceptors extends InterceptorsWrapper {
     response.data = value;
     handler.next(response);
     // super.onResponse(response, handler);
+  }
+
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    logger.d("request path ${options.path}");
+    super.onRequest(options, handler);
   }
 
   // @override

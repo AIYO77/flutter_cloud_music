@@ -3,6 +3,7 @@ import 'package:flutter_cloud_music/common/net/code.dart';
 import 'package:flutter_cloud_music/common/net/cookie_interceptor.dart';
 import 'package:flutter_cloud_music/common/net/response_interceptor.dart';
 import 'package:flutter_cloud_music/common/net/result_data.dart';
+import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
 
 class HttpManager {
@@ -31,7 +32,8 @@ class HttpManager {
     if (response.data is DioError) {
       return resultError(response.data, path, noTip);
     }
-    return response.data as ResultData;
+    final result = response.data as ResultData;
+    return result;
   }
 
   Future<ResultData> post(String path, dynamic params,
@@ -45,7 +47,8 @@ class HttpManager {
     if (response.data is DioError) {
       return resultError(response.data, path, noTip);
     }
-    return response.data as ResultData;
+    final result = response.data as ResultData;
+    return result;
   }
 
   ResultData resultError(DioError e, String path, bool noTip) {
@@ -61,7 +64,10 @@ class HttpManager {
       errorResponse.statusCode = Code.NETWORK_TIMEOUT;
     }
     return ResultData(
-        Code.errorHandleFunction(errorResponse.statusCode!, e.message, noTip),
+        Code.errorHandleFunction(
+            errorResponse.statusCode ?? 500,
+            e.response?.data['msg'] ?? e.response?.data['message'] ?? e.message,
+            noTip),
         false,
         errorResponse.statusCode!);
   }

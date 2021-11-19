@@ -17,7 +17,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   # lottie https://pub.dev/packages/lottie
   lottie: ^1.1.0
-  json_annotation: any
+  json_annotation: ^4.3.0
   pull_to_refresh: ^2.0.0
   logger: ^1.0.0
   card_swiper: ^1.0.4
@@ -31,15 +31,17 @@ dependencies:
   event_bus: ^2.0.0
   auto_size_text: ^3.0.0-nullsafety.0
   # marquee: ^2.2.0
+  sticky_headers: ^0.2.0
   music_player:
     git:
       url: https://gitee.com/master_xing/flutter-music-player.git
       ref: 47fec379cf29f8ba35aaf7f49686a26861742dd4
   intl: ^0.17.0
+  flutter_easyloading: ^3.0.3
 
 dev_dependencies:
-  build_runner: ^2.0.6
-  json_serializable: any
+  build_runner: ^2.1.5
+  json_serializable: ^6.0.1
 
   flutter_test:
     sdk: flutter

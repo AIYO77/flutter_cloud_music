@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/api/muisc_api.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
+import 'package:flutter_cloud_music/pages/found/model/default_search_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
-import 'package:flutter_cloud_music/services/home_top_service.dart';
 import 'package:get/get.dart';
 
 class FoundController extends SuperController<FoundData?> {
@@ -22,13 +23,21 @@ class FoundController extends SuperController<FoundData?> {
     SLIDE_PLAYABLE_DRAGON_BALL_MORE_TAB: Adapt.px(200),
     SLIDE_RCMDLIKE_VOICELIST: Adapt.px(220)
   };
+  //是否滚动
+  final isScrolled = Rx<bool>(false);
+  //默认搜索关键词
+  final defuleSearch = Rx<DefaultSearchModel?>(null);
 
   //刷新过期时间
   int expirationTime = -1;
 
+  //是否成功加载完数据
+  final isSucLoad = false.obs;
+
   Future<void> getFoundRecList({bool refresh = false}) async {
     MusicApi.getFoundRec(refresh: refresh).then((newValue) {
       change(newValue, status: RxStatus.success());
+      isSucLoad.value = true;
     }, onError: (err) {
       change(state, status: RxStatus.error(err.toString()));
     });
@@ -36,7 +45,7 @@ class FoundController extends SuperController<FoundData?> {
 
   Future<void> getDefaultSearch() async {
     final data = await MusicApi.getDefaultSearch();
-    HomeTopService.to.defuleSearch.value = data;
+    defuleSearch.value = data;
   }
 
   @override

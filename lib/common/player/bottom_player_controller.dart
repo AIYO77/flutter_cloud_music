@@ -9,8 +9,6 @@ import 'package:music_player/music_player.dart';
 class PlayerContoller extends GetxController {
   late PageController pageController;
 
-  final isFmPlaying = false.obs;
-
   final isPlaying = false.obs;
 
   bool isManual = false;
@@ -38,11 +36,12 @@ class PlayerContoller extends GetxController {
       isManual = true;
       await context.transportControls.playFromMediaId(music.mediaId);
     }
+    await Future.delayed(const Duration(milliseconds: 600));
     isManual = false;
   }
 
   void _onPlayerChanged() {
-    isFmPlaying.value = PlayerService.to.player.queue.queueId == kFmPlayQueueId;
+    logger.d('_onPlayerChanged');
     isPlaying.value = PlayerService.to.player.playbackState.isPlaying;
     final curPage = getCurPage(PlayerService.to.player.queue.queue,
         PlayerService.to.player.metadata?.mediaId);

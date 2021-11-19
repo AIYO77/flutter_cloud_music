@@ -4,10 +4,7 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:get/get.dart';
 
 class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
-  final BoxDecoration bgDecoration;
-  final Widget child;
-
-  const HomeTopBar({required this.bgDecoration, required this.child});
+  const HomeTopBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,20 +20,13 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
       tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
     );
     return Container(
-      decoration: bgDecoration,
+      // decoration: bgDecoration,
+      color: Colors.transparent,
       padding: EdgeInsets.only(left: Adapt.px(2), right: Adapt.px(10)),
-      child: Column(
-        // alignment: AlignmentDirectional.centerStart,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: context.mediaQueryPadding.top,
-          ),
-          Row(
-            children: [leading, Expanded(child: child)],
-          ),
-        ],
+      margin: EdgeInsets.only(top: context.mediaQueryPadding.top),
+      child: SizedBox(
+        height: Dimens.gap_dp56,
+        child: leading,
       ),
     );
   }

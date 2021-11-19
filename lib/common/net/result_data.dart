@@ -3,8 +3,9 @@ class ResultData {
   bool result;
   int code;
   int? total;
+  String? msg;
 
-  ResultData(this.data, this.result, this.code, {this.total});
+  ResultData(this.data, this.result, this.code, {this.total, this.msg});
 
   @override
   String toString() {

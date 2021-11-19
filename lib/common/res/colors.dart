@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 
 class Colours {
   Colours._();
-  static const Color app_main = Color.fromARGB(255, 208, 22, 25);
+  static const Color app_main = Color.fromARGB(255, 201, 61, 45);
   static const Color app_main_light = Color.fromARGB(255, 219, 77, 77);
 
   static const Color bg_color = Color.fromARGB(255, 246, 245, 246);
@@ -75,6 +75,10 @@ class Colours {
   static const Color color_187 = Color.fromARGB(255, 187, 187, 187);
 
   static const Color color_195 = Color.fromARGB(255, 195, 195, 195);
+
+  static const Color color_189 = Color.fromARGB(255, 189, 189, 189);
+
+  static const Color color_215 = Color.fromARGB(255, 215, 215, 215);
 
   static Color load_image_placeholder() =>
       Get.isDarkMode ? white.withOpacity(0.1) : color_245;

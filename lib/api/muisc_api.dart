@@ -43,7 +43,7 @@ class MusicApi {
   //默认搜索
   static Future<DefaultSearchModel?> getDefaultSearch() async {
     DefaultSearchModel? data;
-    final response = await httpManager.post('/search/default',
+    final response = await httpManager.get('/search/default',
         {'timestamp': DateTime.now().millisecondsSinceEpoch});
     if (response.result) {
       data = DefaultSearchModel.fromJson(response.data);
@@ -184,12 +184,48 @@ class MusicApi {
       }
     }
     if (url.isEmpty) {
-      Fluttertoast.showToast(msg: '播放异常');
+      toast('播放异常');
     }
     return url;
   }
 
-  //获取FM 音乐列表
+  ///根据音乐id获取歌词
+  static Future<String?> lyric(int id) async {
+    //有缓存 直接返回
+    final cached = box.read<String>(id.toString());
+    if (cached != null) {
+      return cached;
+    }
+    final result = await httpManager.get('/lyric', {"id": id});
+    if (!result.result) {
+      return Future.error(result.data);
+    }
+    final lyc = Map.from(result.data);
+    //歌词内容
+    final content = lyc["lyric"].toString();
+    //更新缓存
+    await box.write(id.toString(), content);
+    return content;
+  }
+
+  ///给歌曲加红心
+  static Future<bool> like(int? musicId, {required bool like}) async {
+    final response =
+        await httpManager.get("/like", {"id": musicId, "like": like});
+    return response.result;
+  }
+
+  ///获取用户红心歌曲id列表
+  static Future<List<int>?> likedList(int? userId) async {
+    final favorites = box.read<List>(CACHE_FAVORITESONGIDS)?.cast<int>();
+    if (favorites != null) {
+      return Future.value(favorites);
+    }
+    final response = await httpManager.get("/likelist", {"uid": userId});
+    return Future.value(null);
+  }
+
+  //获取FM 音乐列表 需要登录
   static Future<List<MusicMetadata>?> getFmMusics() async {
     final response = await httpManager.get('/personal_fm', null);
   }

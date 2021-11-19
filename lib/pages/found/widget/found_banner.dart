@@ -3,13 +3,14 @@ import 'dart:collection';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/event/index.dart';
 import 'package:flutter_cloud_music/common/model/banner_model.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
-import 'package:flutter_cloud_music/services/home_top_service.dart';
+import 'package:flutter_cloud_music/pages/found/found_controller.dart';
 import 'package:flutter_cloud_music/widgets/banner_pagination_builder.dart';
 import 'package:get/get.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -27,19 +28,21 @@ class FoundBanner extends StatefulWidget {
 }
 
 class FoundBannerState extends State<FoundBanner> {
-  final imageMap = HashMap<int, ImageProvider>();
+  final imageMap = HashMap<String?, ImageProvider>();
 
   late SwiperController controller;
 
-  Future<void> _updatePaletteGenerator(ImageProvider image) async {
-    await Future.delayed(const Duration(milliseconds: 500));
+  final foundController = GetInstance().find<FoundController>();
+
+  Future<void> _updatePaletteGenerator(String? bannerId) async {
+    if (!imageMap.containsKey(bannerId)) return;
+    await Future.delayed(const Duration(milliseconds: 300));
     final paletteGenerator = await PaletteGenerator.fromImageProvider(
-      image,
+      imageMap[bannerId]!,
     );
     final dominColor =
         paletteGenerator.dominantColor?.color ?? Colors.transparent;
-    HomeTopService.to.appBarBgColors.value =
-        Get.isDarkMode ? dominColor.withOpacity(0.5) : dominColor;
+    eventBus.fire(dominColor);
   }
 
   Widget _buildItem(int index) {
@@ -58,9 +61,9 @@ class FoundBannerState extends State<FoundBanner> {
             );
           },
           imageBuilder: (context, imageProvider) {
-            if (!imageMap.containsValue(imageProvider)) {
-              _updatePaletteGenerator(imageProvider);
-              imageMap[index] = imageProvider;
+            if (!imageMap.containsKey(banner.bannerId)) {
+              imageMap[banner.bannerId] = imageProvider;
+              _updatePaletteGenerator(banner.bannerId);
             }
             return Stack(
               children: [
@@ -132,37 +135,22 @@ class FoundBannerState extends State<FoundBanner> {
       height: widget.itemHeight,
       child: Stack(
         children: [
-          Obx(() => Container(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: [
-                  Get.theme.cardColor.withAlpha(10),
-                  Get.theme.cardColor
-                ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-                child: Container(
-                  decoration: HomeTopService.to.isScrolled.value
-                      ? BoxDecoration(color: Get.theme.cardColor)
-                      : BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [
-                                HomeTopService.to.appBarBgColors.value
-                                    .withAlpha(15),
-                                Colors.transparent
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter),
-                        ),
-                ),
-              )),
+          Positioned.fill(
+              child: Obx(() => Container(
+                    color: foundController.isScrolled.value
+                        ? Get.theme.cardColor
+                        : Colors.transparent,
+                  ))),
           Swiper(
               itemBuilder: (context, index) {
                 return _buildItem(index);
               },
+              index: 0,
               autoplay: true,
               autoplayDelay: 6000,
               onIndexChanged: (index) async {
-                if (imageMap.containsKey(index)) {
-                  _updatePaletteGenerator(imageMap[index]!);
-                }
+                _updatePaletteGenerator(
+                    widget.bannerModel.banner[index].bannerId);
               },
               pagination: SwiperPagination(
                 builder: BannerPaginationBuilder(

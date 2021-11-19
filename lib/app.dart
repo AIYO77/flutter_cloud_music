@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/player/player_service.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/services/auth_service.dart';
 import 'package:flutter_cloud_music/services/event_service.dart';
-import 'package:flutter_cloud_music/services/home_top_service.dart';
-import 'package:flutter_cloud_music/common/player/player_service.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'common/res/colors.dart';
 import 'routes/app_pages.dart';
@@ -41,30 +41,31 @@ Widget musicApp() {
       color: Colours.app_main,
       backgroundColor: Colors.white,
     ),
-    child: GetMaterialApp(
-      theme: _lightTheme,
-      darkTheme: _darkTheme,
-      debugShowCheckedModeBanner: false,
-      enableLog: kDebugMode,
-      logWriterCallback: logWriterCallback,
-      initialRoute: Routes.SPLASH,
-      color: Colours.bg_color,
-      unknownRoute: AppPages.unknownRoute,
-      initialBinding: BindingsBuilder(() {
-        Get.put(AuthService());
-        Get.put(PlayerService());
-        Get.put(HomeTopService());
-        Get.put(EventService());
-      }),
-      getPages: AppPages.routes,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('zh', 'CH'),
-        Locale('en', 'US'),
-      ],
+    child: FlutterEasyLoading(
+      child: GetMaterialApp(
+        theme: _lightTheme,
+        darkTheme: _darkTheme,
+        debugShowCheckedModeBanner: false,
+        enableLog: kDebugMode,
+        logWriterCallback: logWriterCallback,
+        initialRoute: Routes.SPLASH,
+        color: Colours.bg_color,
+        unknownRoute: AppPages.unknownRoute,
+        initialBinding: BindingsBuilder(() {
+          Get.put(AuthService());
+          Get.put(PlayerService());
+          Get.put(EventService());
+        }),
+        getPages: AppPages.routes,
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('zh', 'CH'),
+          Locale('en', 'US'),
+        ],
+      ),
     ),
   );
 }

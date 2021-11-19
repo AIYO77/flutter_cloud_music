@@ -1,10 +1,15 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
+import 'package:flutter_cloud_music/pages/cloud_village/cloud_village_view.dart';
+import 'package:flutter_cloud_music/pages/found/found_view.dart';
+import 'package:flutter_cloud_music/pages/home/widgets/bottom_bar.dart';
 import 'package:flutter_cloud_music/pages/home/widgets/drawer.dart';
 import 'package:flutter_cloud_music/pages/home/widgets/home_top_bar.dart';
-import 'package:flutter_cloud_music/routes/app_routes.dart';
-import 'package:flutter_cloud_music/services/home_top_service.dart';
+import 'package:flutter_cloud_music/pages/k_song/k_song_view.dart';
+import 'package:flutter_cloud_music/pages/mine/mine_view.dart';
+import 'package:flutter_cloud_music/pages/podcast/podcast_view.dart';
+import 'package:flutter_cloud_music/widgets/keep_alive_wrapper.dart';
 import 'package:get/get.dart';
 import 'home_controller.dart';
 
@@ -26,64 +31,37 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     Adapt.initContext(context);
-    return Obx(() => WillPopScope(
+    return WillPopScope(
         onWillPop: () {
           return _dialogExitApp(context);
         },
         child: Scaffold(
-          appBar: HomeTopBar(
-              bgDecoration: HomeTopService.to.isScrolled.value
-                  ? BoxDecoration(color: Get.theme.cardColor)
-                  : BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [
-                            HomeTopService.to.appBarBgColors.value
-                                .withAlpha(25),
-                            HomeTopService.to.appBarBgColors.value.withAlpha(15)
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter),
-                    ),
-              child: HomeTopService.to.appbarChild.value),
+          extendBodyBehindAppBar: true,
+          extendBody: true,
+          // appBar: const HomeTopBar(),
           drawer: const DrawerWidget(),
-          body: Navigator(
-            key: Get.nestedKey(1),
-            initialRoute: Routes.FOUND,
-            onGenerateRoute: controller.onGenerateRoute,
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.foundation),
-                label: '列表',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.details),
-                label: '详情',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.login),
-                label: '登录',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.label),
-                label: '测试',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.ac_unit),
-                label: '雪花',
+          body: Stack(
+            children: [
+              Positioned.fill(
+                  child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                onPageChanged: controller.changePage,
+                controller: controller.pageController,
+                children: [
+                  KeepAliveWrapper(child: FoundPage()),
+                  KeepAliveWrapper(child: PodcastPage()),
+                  KeepAliveWrapper(child: MinePage()),
+                  KeepAliveWrapper(child: KSongPage()),
+                  KeepAliveWrapper(child: CloudVillagePage()),
+                ],
+              )),
+              const Positioned(
+                top: 0,
+                child: HomeTopBar(),
               )
             ],
-            backgroundColor: Get.theme.cardColor,
-            selectedItemColor: Colors.pink,
-            showUnselectedLabels: true,
-            elevation: 0,
-            showSelectedLabels: true,
-            type: BottomNavigationBarType.fixed,
-            unselectedItemColor: Colors.grey,
-            currentIndex: controller.currentIndex.value,
-            onTap: controller.changePage,
           ),
-        )));
+          bottomNavigationBar: HomeBottomBar(),
+        ));
   }
 }

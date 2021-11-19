@@ -6,6 +6,7 @@ class Adapt {
   Adapt._();
   static double _width = 0;
   static double _height = 0;
+  static double _topPadding = 0;
   static double _bottomPadding = 0;
 
   static double? _ratio;
@@ -16,6 +17,7 @@ class Adapt {
     _width = size.width;
     _height = size.height;
     _bottomPadding = context.mediaQueryPadding.bottom;
+    _topPadding = context.mediaQueryPadding.top;
   }
 
   static void _init(int number) {
@@ -40,5 +42,9 @@ class Adapt {
 
   static double bottomPadding() {
     return _bottomPadding;
+  }
+
+  static double topPadding() {
+    return _topPadding;
   }
 }

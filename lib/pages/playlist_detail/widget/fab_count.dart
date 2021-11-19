@@ -47,11 +47,11 @@ class PlaylistFabCount extends StatelessWidget implements PreferredSizeWidget {
                   child: GestureDetector(
                 onTap: () {
                   if (controller.detail.value != null) {
-                    Fluttertoast.showToast(msg: '收藏');
+                    toast('收藏');
                   }
                 },
                 child: _buildItem(
-                    'edr',
+                    'btn_add',
                     controller.detail.value == null
                         ? '收藏'
                         : getPlayCountStrFromInt(
@@ -62,10 +62,10 @@ class PlaylistFabCount extends StatelessWidget implements PreferredSizeWidget {
               Expanded(
                   child: GestureDetector(
                 onTap: () {
-                  Fluttertoast.showToast(msg: '去评论');
+                  toast('去评论');
                 },
                 child: _buildItem(
-                    'ed9',
+                    'icn_cmt',
                     controller.detail.value == null
                         ? '评论'
                         : getPlayCountStrFromInt(
@@ -76,10 +76,10 @@ class PlaylistFabCount extends StatelessWidget implements PreferredSizeWidget {
               Expanded(
                   child: GestureDetector(
                 onTap: () {
-                  Fluttertoast.showToast(msg: '分享');
+                  toast('分享');
                 },
                 child: _buildItem(
-                    'enm',
+                    'icn_share',
                     controller.detail.value == null
                         ? '分享'
                         : getPlayCountStrFromInt(
@@ -93,27 +93,27 @@ class PlaylistFabCount extends StatelessWidget implements PreferredSizeWidget {
 
   Widget _buildItem(String iconName, String name, bool canClicked) {
     final fColor = Get.isDarkMode ? Colours.color_109 : Colours.headline4_color;
-    final imgSize = iconName == 'enm'
-        ? Dimens.gap_dp20
-        : iconName == 'ed9'
-            ? Dimens.gap_dp32
-            : Dimens.gap_dp32;
-    final gap = iconName == 'enm'
-        ? Gaps.hGap5
-        : iconName == 'ed9'
-            ? Gaps.hGap1
-            : Gaps.hGap3;
+    // final imgSize = iconName == 'enm'
+    //     ? Dimens.gap_dp20
+    //     : iconName == 'ed9'
+    //         ? Dimens.gap_dp32
+    //         : Dimens.gap_dp32;
+    // final gap = iconName == 'enm'
+    //     ? Gaps.hGap5
+    //     : iconName == 'ed9'
+    //         ? Gaps.hGap1
+    //         : Gaps.hGap3;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset(
           ImageUtils.getImagePath(iconName),
-          width: imgSize,
-          height: imgSize,
+          width: Dimens.gap_dp20,
+          height: Dimens.gap_dp20,
           colorBlendMode: BlendMode.srcIn,
           color: canClicked ? fColor : fColor.withOpacity(0.5),
         ),
-        gap,
+        Gaps.hGap5,
         Text(
           name,
           style: TextStyle(

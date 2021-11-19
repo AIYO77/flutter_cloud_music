@@ -42,10 +42,15 @@ extension QuitPlayerExt on BuildContext {
 }
 
 extension MusicPlayerValueExt on MusicPlayerValue {
-  int? get currentId => metadata == null ? null : int.parse(metadata!.mediaId);
+  Song? get current => (metadata == null) ? null : Song.fromMatedata(metadata!);
 
-  int get currentIndex =>
-      queue.queue.indexWhere((element) => element.mediaId == metadata?.mediaId);
+  // int? get currentId => metadata == null ? null : int.parse(metadata!.mediaId);
+
+  // int get currentIndex =>
+  //     queue.queue.indexWhere((element) => element.mediaId == metadata?.mediaId);
+
+  List<Song> get playingList =>
+      queue.queue.map((e) => Song.fromMatedata(e)).toList();
 }
 
 extension PlaybackStateExt on PlaybackState {

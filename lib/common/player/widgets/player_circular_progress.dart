@@ -59,11 +59,14 @@ class CircularContollerbarState extends State<CircularContollerbar> {
                   fit: BoxFit.cover,
                   color: color,
                 ),
-                pausing: Image.asset(
-                  ImageUtils.getImagePath('bwr'),
-                  width: Dimens.gap_dp16,
-                  fit: BoxFit.cover,
-                  color: color,
+                pausing: Padding(
+                  padding: EdgeInsets.only(left: Dimens.gap_dp2),
+                  child: Image.asset(
+                    ImageUtils.getImagePath('bwr'),
+                    width: Dimens.gap_dp16,
+                    fit: BoxFit.cover,
+                    color: color,
+                  ),
                 ),
               ),
             )

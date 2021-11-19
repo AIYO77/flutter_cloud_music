@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/banner_model.dart';
+import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
+import 'package:flutter_cloud_music/common/utils/adapt.dart';
+import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
+import 'package:flutter_cloud_music/pages/found/widget/found_appbar.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_ball.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_banner.dart';
+import 'package:flutter_cloud_music/pages/found/widget/found_header_bg.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_music_calendar.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_new_song_album.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_shuffle_mlog.dart';
@@ -12,9 +17,9 @@ import 'package:flutter_cloud_music/pages/found/widget/found_slide_single_song.d
 import 'package:flutter_cloud_music/pages/found/widget/found_slide_songlist_align.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_slide_voicelist.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_tab_mlog.dart';
-import 'package:flutter_cloud_music/services/home_top_service.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_cloud_music/common/player/player.dart';
 
 import 'package:get/get.dart';
 import 'package:keframe/frame_separate_widget.dart';
@@ -23,14 +28,15 @@ import 'found_controller.dart';
 import 'model/found_model.dart';
 import 'widget/found_slied_playlist.dart';
 
-class FoundPage extends GetView<FoundController> {
+class FoundPage extends StatelessWidget {
   FoundPage({Key? key}) : super(key: key);
+
+  final controller = GetInstance().putOrFind(() => FoundController());
 
   final refreshController = RefreshController();
 
   Widget _buildItem(Blocks blocks, int index, String? nextType) {
     final itemHeight = controller.itemHeightFromType[blocks.showType] ?? 0;
-    // Get.log('${blocks.showType} itemheight $itemHeight');
     switch (blocks.showType) {
       case SHOWTYPE_BANNER:
         return FoundBanner(
@@ -81,11 +87,6 @@ class FoundPage extends GetView<FoundController> {
       case SLIDE_PLAYABLE_DRAGON_BALL_MORE_TAB:
         return FoundTabMlogWidget(
             creatives: blocks.creatives!, itemHeight: itemHeight);
-      // case SLIDE_RCMDLIKE_VOICELIST:
-      //   return Container(
-      //     height: itemHeight,
-      //     color: Colours.app_main,
-      //   );
       default:
         return Gaps.empty;
     }
@@ -106,7 +107,7 @@ class FoundPage extends GetView<FoundController> {
     }
   }
 
-  Widget _buildListView(FoundData? state) {
+  Widget _buildListView(BuildContext context, FoundData? state) {
     Get.log("_buildListView $state");
     if (state != null) {
       controller.expirationTime = DateTime.now().millisecondsSinceEpoch +
@@ -114,11 +115,19 @@ class FoundPage extends GetView<FoundController> {
     }
     final listScroll = ScrollController();
     listScroll.addListener(() {
-      HomeTopService.to.isScrolled.value = listScroll.position.pixels >= 15.0;
+      controller.isScrolled.value = listScroll.position.pixels >= 15.0;
     });
     return SmartRefresher(
         controller: refreshController,
+        enablePullUp: true,
         onRefresh: _onRefresh,
+        footer: Obx(() => CustomFooter(
+            height: (context.playerValueRx.value?.current == null)
+                ? Dimens.gap_dp50 + Adapt.bottomPadding()
+                : Dimens.gap_dp95 + Adapt.bottomPadding(),
+            builder: (context, mode) {
+              return Container();
+            })),
         child: ListView.separated(
             controller: listScroll,
             itemBuilder: (context, index) {
@@ -150,20 +159,34 @@ class FoundPage extends GetView<FoundController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: controller.obx(
-        (state) {
-          Get.log("refresh finish");
-          refreshController.refreshCompleted();
-          return _buildListView(state);
-        },
-        onEmpty: const Text("empty"),
-        onError: (err) {
-          Get.log('refresh error $err');
-          Fluttertoast.showToast(msg: err.toString());
-          refreshController.refreshFailed();
-          return Gaps.empty;
-        },
-        onLoading: _buildLoading(),
+      appBar: FoundAppbar(),
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        children: [
+          //顶部跟随banner变动的背景
+          Positioned(
+            top: 0,
+            child: FoundHeaderColors(),
+          ),
+          Positioned.fill(
+            top: Dimens.gap_dp56 + context.mediaQueryPadding.top,
+            child: controller.obx(
+              (state) {
+                Get.log("refresh finish");
+                refreshController.refreshCompleted();
+                return _buildListView(context, state);
+              },
+              onEmpty: const Text("empty"),
+              onError: (err) {
+                Get.log('refresh error $err');
+                toast(err.toString());
+                refreshController.refreshFailed();
+                return Gaps.empty;
+              },
+              onLoading: _buildLoading(),
+            ),
+          ),
+        ],
       ),
     );
   }

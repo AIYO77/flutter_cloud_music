@@ -333,7 +333,7 @@ class PlayListContentView extends StatelessWidget {
       onEmpty: const Text("empty"),
       onError: (err) {
         Get.log('refresh error $err');
-        Fluttertoast.showToast(msg: err.toString());
+        toast(err.toString());
         refreshController.refreshFailed();
         return Gaps.empty;
       },

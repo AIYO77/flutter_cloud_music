@@ -49,7 +49,7 @@ class PlayListContent extends StatelessWidget {
                           queue: songs!.map((e) => e.metadata).toList()),
                       metadata: clickSong.metadata);
                 } else {
-                  Fluttertoast.showToast(msg: '该歌曲暂无法播放');
+                  toast('该歌曲暂无法播放');
                 }
               },
             );

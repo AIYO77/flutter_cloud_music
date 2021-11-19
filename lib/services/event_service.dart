@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_cloud_music/common/event/http_error_event.dart';
 import 'package:flutter_cloud_music/common/event/index.dart';
 import 'package:flutter_cloud_music/common/net/code.dart';
+import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -44,16 +45,13 @@ class EventService extends GetxService {
         showToast('请求超时');
         break;
       default:
-        showToast('其他异常' + " " + message);
+        showToast(message);
         break;
     }
   }
 
   void showToast(String message) {
     Get.log(message, isError: true);
-    Fluttertoast.showToast(
-        msg: message,
-        gravity: ToastGravity.CENTER,
-        toastLength: Toast.LENGTH_LONG);
+    toast(message);
   }
 }

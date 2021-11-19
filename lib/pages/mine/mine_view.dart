@@ -4,8 +4,10 @@ import 'package:flutter_cloud_music/widgets/undeveloped.dart';
 import 'package:get/get.dart';
 import 'mine_controller.dart';
 
-class MinePage extends GetView<MineController> {
-  const MinePage({Key? key}) : super(key: key);
+class MinePage extends StatelessWidget {
+  MinePage({Key? key}) : super(key: key);
+
+  final controller = GetInstance().putOrFind(() => MineController());
 
   @override
   Widget build(BuildContext context) {

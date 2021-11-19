@@ -69,10 +69,55 @@ class Song extends Object {
     this.st,
   );
 
-  factory Song.fromJson(Map<String, dynamic> srcJson) =>
-      _$SongFromJson(srcJson);
+  factory Song.fromMatedata(MusicMetadata metadata) {
+    return Song.fromJson(metadata.extras!.cast<String, dynamic>());
+  }
 
-  Map<String, dynamic> toJson() => _$SongToJson(this);
+  factory Song.fromJson(Map<String, dynamic> json) => Song(
+        json['name'] as String,
+        json['id'] as int,
+        (json['ar'] as List<dynamic>)
+            .map((e) => Ar.fromJson(Map<String, dynamic>.from(e)))
+            .toList(),
+        (json['alia'] as List<dynamic>).map((e) => e as String).toList(),
+        json['fee'] as int,
+        json['v'] as int,
+        AlbumSimple.fromJson(Map<String, dynamic>.from(json['al'])),
+        json['copyright'] as int,
+        json['originCoverType'] as int,
+        json['mv'] as int,
+        json['videoInfo'] == null
+            ? null
+            : VideoInfo.fromJson(Map<String, dynamic>.from(json['videoInfo'])),
+        json['privilege'] == null
+            ? null
+            : PrivilegeModel.fromJson(
+                Map<String, dynamic>.from(json['privilege'])),
+        json['actionType'] as String?,
+        json['originSongSimpleData'] == null
+            ? null
+            : OriginSongSimpleData.fromJson(
+                Map<String, dynamic>.from(json['originSongSimpleData'])),
+        json['st'] as int,
+      );
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'name': name,
+        'id': id,
+        'ar': ar.map((e) => e.toJson()).toList(),
+        'alia': alia,
+        'fee': fee,
+        'v': v,
+        'st': st,
+        'al': al.toJson(),
+        'copyright': copyright,
+        'originCoverType': originCoverType,
+        'mv': mv,
+        'videoInfo': videoInfo?.toJson(),
+        'privilege': privilege?.toJson(),
+        'actionType': actionType,
+        'originSongSimpleData': originSongSimpleData?.toJson(),
+      };
 
   String getSongCellSubTitle() {
     final ars =
@@ -91,20 +136,23 @@ class Song extends Object {
 
   MusicMetadata get metadata {
     _metadata ??= MusicMetadata(
-      mediaId: id.toString(),
-      title: name +
-          (alia.isNotEmpty
-              ? alia.reduce((value, element) => '$value $element')
-              : ''),
-      subtitle:
-          ar.map((e) => e.name!).reduce((value, element) => '$value/$element'),
-      iconUri: al.picUrl,
-    );
+        mediaId: id.toString(),
+        title: name +
+            (alia.isNotEmpty
+                ? alia.reduce((value, element) => '$value $element')
+                : ''),
+        subtitle: arString(),
+        iconUri: al.picUrl,
+        extras: toJson());
     return _metadata!;
   }
 
   bool canPlay() {
     return st == 0;
+  }
+
+  String arString() {
+    return ar.map((e) => e.name!).reduce((value, element) => '$value/$element');
   }
 }
 
@@ -172,7 +220,10 @@ class VideoInfo extends Object {
   factory VideoInfo.fromJson(Map<String, dynamic> srcJson) =>
       _$VideoInfoFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$VideoInfoToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'moreThanOne': moreThanOne,
+        'video': video?.toJson(),
+      };
 }
 
 @JsonSerializable()
@@ -220,5 +271,13 @@ class OriginSongSimpleData extends Object {
   factory OriginSongSimpleData.fromJson(Map<String, dynamic> srcJson) =>
       _$OriginSongSimpleDataFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$OriginSongSimpleDataToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'artists': artists.map((e) => e.toJson()).toList(),
+      };
+}
+
+extension MusicBuilder on MusicMetadata {
+  Song toMusic() {
+    return Song.fromMatedata(this);
+  }
 }

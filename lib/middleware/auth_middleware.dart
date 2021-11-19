@@ -1,24 +1,25 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:flutter_cloud_music/services/auth_service.dart';
 import 'package:get/get.dart';
 
 class EnsureAuthMiddleware extends GetMiddleware {
   @override
-  Future<GetNavConfig?> redirectDelegate(GetNavConfig route) async {
+  RouteSettings? redirect(String? route) {
     if (!AuthService.to.isLoggedInValue) {
-      final newRoute = Routes.LOGIN_THEN(route.location!);
-      return GetNavConfig.fromRoute(newRoute);
+      return const RouteSettings(name: Routes.LOGIN);
     }
-    return super.redirectDelegate(route);
+    return super.redirect(route);
   }
 }
 
 class EnsureNotAuthedMiddleware extends GetMiddleware {
   @override
-  Future<GetNavConfig?> redirectDelegate(GetNavConfig route) async {
+  RouteSettings? redirect(String? route) {
     if (AuthService.to.isLoggedInValue) {
       return null;
     }
-    return super.redirectDelegate(route);
+    return super.redirect(route);
   }
 }

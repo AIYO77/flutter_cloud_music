@@ -32,9 +32,24 @@ class PrivilegeModel extends Object {
   );
 
   factory PrivilegeModel.fromJson(Map<String, dynamic> srcJson) =>
-      _$PrivilegeModelFromJson(srcJson);
+      PrivilegeModel(
+        srcJson['id'] as int,
+        srcJson['fee'] as int,
+        srcJson['payed'] as int,
+        srcJson['preSell'] as bool,
+        srcJson['playMaxbr'] as int,
+        FreeTrialPrivilege.fromJson(
+            Map<String, dynamic>.from(srcJson['freeTrialPrivilege'])),
+      );
 
-  Map<String, dynamic> toJson() => _$PrivilegeModelToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+        'fee': fee,
+        'payed': payed,
+        'preSell': preSell,
+        'playMaxbr': playMaxbr,
+        'freeTrialPrivilege': freeTrialPrivilege.toJson(),
+      };
 }
 
 @JsonSerializable()

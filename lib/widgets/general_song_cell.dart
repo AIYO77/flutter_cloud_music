@@ -72,7 +72,7 @@ class GeneralSongCellWidget extends StatelessWidget {
         if (song.mv > 0)
           GestureDetector(
             onTap: () {
-              Fluttertoast.showToast(msg: song.mv.toString());
+              toast(song.mv.toString());
             },
             child: SizedBox(
               height: Dimens.gap_dp32,
