@@ -10,9 +10,9 @@ import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/model/play_list_tag_model.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/widget/playlist_content_controller.dart';
 import 'package:flutter_cloud_music/routes/app_routes.dart';
+import 'package:flutter_cloud_music/widgets/custom_tap.dart';
 import 'package:flutter_cloud_music/widgets/generral_cover_playcount.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -56,7 +56,7 @@ class PlayListContentView extends StatelessWidget {
                   crossAxisSpacing: Dimens.gap_dp9,
                   childAspectRatio: 0.69),
             ),
-          )
+          ),
         ],
       );
     } else {
@@ -83,8 +83,8 @@ class PlayListContentView extends StatelessWidget {
 
   //通用item
   Widget _buildItem(SimplePlayListModel item) {
-    return GestureDetector(
-      onTap: () {
+    return Bounce(
+      onPressed: () {
         Get.toNamed(Routes.PLAYLIST_DETAIL_ID(item.id.toString()));
       },
       child: Column(

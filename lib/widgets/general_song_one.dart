@@ -10,6 +10,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/model/ui_element_model.dart';
+import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
@@ -17,22 +18,28 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/routes/routes_utils.dart';
-import 'package:flutter_cloud_music/common/player/player_service.dart';
-import 'package:flutter_cloud_music/common/player/player.dart';
-import 'package:flutter_cloud_music/widgets/frame_animation_image.dart';
+import 'package:flutter_cloud_music/typedef/function.dart';
+import 'package:flutter_cloud_music/widgets/custom_tap.dart';
 import 'package:get/get.dart';
 
 class GeneralSongOne extends StatelessWidget {
   final Song songInfo;
   final UiElementModel uiElementModel;
 
-  const GeneralSongOne({required this.songInfo, required this.uiElementModel});
+  final ParamVoidCallback? onPressed;
+
+  const GeneralSongOne(
+      {required this.songInfo, required this.uiElementModel, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        RouteUtils.routeFromActionStr(songInfo.actionType);
+    return Bounce(
+      onPressed: () {
+        if (onPressed == null) {
+          RouteUtils.routeFromActionStr(songInfo.actionType);
+        } else {
+          onPressed!.call();
+        }
       },
       child: Row(
         children: [
@@ -60,12 +67,12 @@ class GeneralSongOne extends StatelessWidget {
                                 width: Dimens.gap_dp20,
                                 height: Dimens.gap_dp20,
                                 color: Colors.white.withOpacity(0.8))
-                            : FrameAnimationImage(
-                                Key('$songInfo.id'),
-                                const ['c2t', 'c2u', 'c2v', 'c2w'],
-                                width: Dimens.gap_dp24,
-                                height: Dimens.gap_dp24,
-                                imgColor: Colors.white.withOpacity(0.8),
+                            : Image.asset(
+                                ImageUtils.getPlayingMusicTag(),
+                                key: Key('$songInfo.id'),
+                                width: Dimens.gap_dp15,
+                                height: Dimens.gap_dp15,
+                                color: Colors.white.withOpacity(0.8),
                               ))
                   ],
                 );

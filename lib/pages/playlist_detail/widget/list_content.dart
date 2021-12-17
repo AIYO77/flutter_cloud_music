@@ -9,7 +9,6 @@ import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_controller.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/widget/song_cell.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:music_player/music_player.dart';
 

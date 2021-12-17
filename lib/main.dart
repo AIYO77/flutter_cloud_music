@@ -20,6 +20,7 @@ import 'services/auth_service.dart';
 
 Future<void> main() async {
   await GetStorage.init();
+  WidgetsFlutterBinding.ensureInitialized();
 
   if (kDebugMode) {
     PluginManager.instance
@@ -74,7 +75,6 @@ Future<void> main() async {
 @pragma('vm:entry-point')
 void playerBackgroundService() {
   Get.put(AuthService());
-  WidgetsFlutterBinding.ensureInitialized();
   runBackgroundService(
     imageLoadInterceptor: PlayerInterceptors.loadImageInterceptor,
     playUriInterceptor: PlayerInterceptors.playUriInterceptor,

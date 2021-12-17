@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/player/widgets/lyric/playing_lyric_view.dart';
+import 'package:flutter_cloud_music/common/player/widgets/player_common_widget.dart';
+import 'package:flutter_cloud_music/common/player/widgets/player_pregress.dart';
+import 'package:flutter_cloud_music/common/res/colors.dart';
+import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
+import 'package:flutter_cloud_music/pages/playing_list/page_playing_list.dart';
 import 'package:flutter_cloud_music/widgets/blur_background.dart';
 import 'package:flutter_cloud_music/widgets/comment_button.dart';
 import 'package:flutter_cloud_music/widgets/like_button.dart';
@@ -23,8 +28,8 @@ class PlayingPage extends GetView<PlayingController> {
       body: Stack(
         children: [
           //背景
-          Obx(() =>
-              BlurBackground(music: context.playerValueRx.value?.metadata)),
+          Obx(() => BlurBackground(
+              musicCoverUrl: context.playerValueRx.value?.current?.al.picUrl)),
           Material(
             color: Colors.transparent,
             child: Column(
@@ -35,7 +40,11 @@ class PlayingPage extends GetView<PlayingController> {
                 //唱片动画
                 _CenterSection(music: context.playerValueRx.value?.current),
                 //点赞等操作
-                _PlayingOperationBar()
+                _PlayingOperationBar(),
+                //进度条
+                DurationProgressBar(),
+                //控制器
+                PlayerControllerBar()
               ],
             ),
           )
@@ -48,31 +57,34 @@ class PlayingPage extends GetView<PlayingController> {
 class _PlayingOperationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final iconColor = Colors.white.withOpacity(0.9);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Obx(() => LikeButton(song: context.playerValueRx.value?.current)),
-        IconButton(
-            icon: Image.asset(
-              ImageUtils.getImagePath('icn_download'),
-              color: iconColor,
-            ),
-            onPressed: () {
-              notImplemented(context);
-            }),
-        Obx(() => CommentButton(
-              song: context.playerValueRx.value?.current,
-            )),
-        IconButton(
-            icon: Icon(
-              Icons.share,
-              color: iconColor,
-            ),
-            onPressed: () {
-              notImplemented(context);
-            }),
-      ],
+    final iconColor = Colours.color_217;
+    return Padding(
+      padding: EdgeInsets.only(bottom: Dimens.gap_dp6),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          FavoriteButton(),
+          IconButton(
+              icon: Image.asset(
+                ImageUtils.getImagePath('icn_download'),
+                color: iconColor,
+                width: Dimens.gap_dp24,
+              ),
+              onPressed: () {
+                notImplemented(context);
+              }),
+          CommentButton(),
+          IconButton(
+              iconSize: Dimens.gap_dp24,
+              icon: Image.asset(
+                ImageUtils.getImagePath('play_icn_more'),
+                color: iconColor,
+              ),
+              onPressed: () {
+                notImplemented(context);
+              }),
+        ],
+      ),
     );
   }
 }
@@ -127,5 +139,71 @@ class _CenterSectionState extends State<_CenterSection> {
                 });
               },
             )));
+  }
+}
+
+class PlayerControllerBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final iconPlayPause = PlayingIndicator(
+        playing: IconButton(
+            iconSize: Dimens.gap_dp80,
+            onPressed: () {
+              context.transportControls.pause();
+            },
+            icon: Image.asset(ImageUtils.getImagePath('btn_pause'))),
+        pausing: IconButton(
+            iconSize: Dimens.gap_dp80,
+            onPressed: () {
+              context.transportControls.play();
+            },
+            icon: Image.asset(ImageUtils.getImagePath('btn_play'))));
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        IconButton(
+          iconSize: Dimens.gap_dp40,
+          onPressed: () {
+            context.transportControls
+                .setPlayMode(context.playerValueRx.value!.playMode.next);
+          },
+          icon: Obx(
+            () => Image.asset(
+              context.playModelRx.value.iconPath,
+              color: Colours.color_217,
+              width: Dimens.gap_dp25,
+            ),
+          ),
+        ),
+        IconButton(
+            iconSize: Dimens.gap_dp40,
+            onPressed: () {
+              context.transportControls.skipToPrevious();
+            },
+            icon: Image.asset(
+              ImageUtils.getImagePath('play_btn_prev'),
+              color: Colours.color_217,
+            )),
+        iconPlayPause,
+        IconButton(
+            iconSize: Dimens.gap_dp40,
+            onPressed: () {
+              context.transportControls.skipToNext();
+            },
+            icon: Image.asset(
+              ImageUtils.getImagePath('play_btn_next'),
+              color: Colours.color_217,
+            )),
+        IconButton(
+            onPressed: () {
+              PlayingListDialog.show(context);
+            },
+            icon: Image.asset(
+              ImageUtils.getImagePath('play_btn_src'),
+              color: Colours.color_217,
+              width: Dimens.gap_dp28,
+            ))
+      ],
+    );
   }
 }

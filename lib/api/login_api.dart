@@ -4,13 +4,21 @@ import 'package:flutter_cloud_music/common/utils/encipher.dart';
 import 'package:flutter_cloud_music/pages/login/phone_login/model/country_list_model.dart';
 import 'package:flutter_cloud_music/pages/login/phone_login/model/phone_exist.dart';
 import 'package:flutter_cloud_music/services/auth_service.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+/*
+ * @Author: XingWei 
+ * @Date: 2021-11-23 14:03:36 
+ * @Last Modified by: XingWei
+ * @Last Modified time: 2021-11-23 18:00:27
+ * 登陆相关API
+ */
 class LoginApi {
   //获取国家和地区code
   static Future<List<CountryListModel>?> getCountries() async {
     final response = await httpManager.get('/countries/code/list', null);
     if (response.result) {
-      return (response.data as List)
+      return (response.data['data'] as List)
           .map((e) => CountryListModel.fromJson(e))
           .toList();
     }
@@ -23,7 +31,7 @@ class LoginApi {
     final response = await httpManager.get('/cellphone/existence/check',
         {'phone': phone, 'countrycode': countrycode});
     if (response.result) {
-      return response.data as PhoneExist;
+      return PhoneExist.fromJson(response.data);
     }
     return null;
   }
@@ -54,8 +62,23 @@ class LoginApi {
     }
     final resonse = await httpManager.post('/login/cellphone', data);
     if (resonse.result) {
-      final loginData = resonse.data as LoginResponse;
+      final loginData = LoginResponse.fromJson(resonse.data);
       AuthService.to.login(loginData);
+    } else {
+      EasyLoading.showError(resonse.msg ?? '登陆失败');
+    }
+    return resonse.result;
+  }
+
+  //邮箱登陆
+  static Future<bool> emailLogin(String email, String pwd) async {
+    final resonse = await httpManager.post(
+        '/login', {'email': email, 'md5_password': Encipher.generateMd5(pwd)});
+    if (resonse.result) {
+      final loginData = LoginResponse.fromJson(resonse.data);
+      AuthService.to.login(loginData);
+    } else {
+      EasyLoading.showError(resonse.msg ?? '登陆失败');
     }
     return resonse.result;
   }

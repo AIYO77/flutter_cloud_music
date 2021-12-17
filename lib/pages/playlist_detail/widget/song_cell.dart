@@ -1,14 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
-import 'package:flutter_cloud_music/common/player/player_service.dart';
+import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/typedef/function.dart';
 import 'package:flutter_cloud_music/widgets/general_song_cell.dart';
 import 'package:get/get.dart';
-import 'package:flutter_cloud_music/common/player/player.dart';
 
 class NumSongCell extends StatelessWidget {
   final Song song;
@@ -43,10 +42,9 @@ class NumSongCell extends StatelessWidget {
                   child: Obx(
                     () => context.playerService.curPlayId.value == song.id
                         ? Image.asset(
-                            ImageUtils.getImagePath('t_dragonball_icn_rank'),
+                            ImageUtils.getPlayingMusicTag(),
                             color: Colours.btn_selectd_color,
-                            width: Dimens.gap_dp25,
-                            height: Dimens.gap_dp25,
+                            width: Dimens.gap_dp13,
                           )
                         : AutoSizeText(
                             '${index + 1}',

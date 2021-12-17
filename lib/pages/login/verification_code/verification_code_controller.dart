@@ -64,16 +64,15 @@ class VerificationCodeController extends GetxController {
       LoginApi.phoneLogin(phone, countrycode, captcha: captcha).then((value) {
         EasyLoading.dismiss();
         if (value) {
-          //登陆成功 关闭所有登陆相关的页面
-          Get.offAllNamed(Routes.LOGIN);
+          Get.back();
         }
       });
     } else {
-      //账号不存在 检查验证码的正确性 如果正确 调整
+      //账号不存在 检查验证码的正确性
       LoginApi.verCode(phone, countrycode, captcha).then((value) {
         if (value) {
-          //正确
-
+          //正确 TODO注册逻辑
+          EasyLoading.dismiss();
         } else {
           EasyLoading.showError('验证码错误');
         }

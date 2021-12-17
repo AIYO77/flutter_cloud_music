@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/ext/ext.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
-import 'package:flutter_cloud_music/common/ext/ext.dart';
 import 'package:get/get.dart';
+
 import 'pwd_login_controller.dart';
 
 class PwdLoginPage extends GetView<PwdLoginController> {
@@ -58,7 +59,7 @@ class PwdLoginPage extends GetView<PwdLoginController> {
                     hintText: '输入密码',
                     focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Get.theme.dividerColor)),
-                    border: UnderlineInputBorder(
+                    errorBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Get.theme.dividerColor)),
                     contentPadding: const EdgeInsets.only(top: 0.1),
                     hintStyle: headlineStyle().copyWith(

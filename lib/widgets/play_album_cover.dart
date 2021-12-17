@@ -6,6 +6,7 @@ import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
+import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:music_player/music_player.dart';
 
 class PlayAlbumCover extends StatefulWidget {
@@ -213,9 +214,11 @@ class _PlayAlbumCoverState extends State<PlayAlbumCover>
                   //reset translateX to 0 when animation complete
                   _coverTranslateX = 0;
                   if (des > 0) {
+                    logger.d('animateCover _previous');
                     _current = _previous;
                     context.transportControls.skipToPrevious();
                   } else {
+                    logger.d('animateCover _next');
                     _current = _next;
                     context.transportControls.skipToNext();
                   }
@@ -231,10 +234,8 @@ class _PlayAlbumCoverState extends State<PlayAlbumCover>
           },
           child: Container(
               color: Colors.transparent,
-              padding: EdgeInsets.only(
-                  left: Adapt.px(23),
-                  right: Adapt.px(23),
-                  top: kHeightSpaceAlbumTop),
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(top: kHeightSpaceAlbumTop),
               child: Stack(
                 children: <Widget>[
                   Image.asset(

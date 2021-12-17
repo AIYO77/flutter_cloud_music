@@ -70,6 +70,8 @@ class Colours {
 
   static const Color color_156 = Color.fromARGB(255, 156, 156, 156);
 
+  static const Color color_173 = Color.fromARGB(255, 173, 173, 173);
+
   static const Color color_177 = Color.fromARGB(255, 177, 177, 177);
 
   static const Color color_187 = Color.fromARGB(255, 187, 187, 187);
@@ -79,6 +81,8 @@ class Colours {
   static const Color color_189 = Color.fromARGB(255, 189, 189, 189);
 
   static const Color color_215 = Color.fromARGB(255, 215, 215, 215);
+
+  static const Color color_217 = Color.fromARGB(255, 217, 217, 217);
 
   static Color load_image_placeholder() =>
       Get.isDarkMode ? white.withOpacity(0.1) : color_245;

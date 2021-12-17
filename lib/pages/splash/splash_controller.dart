@@ -28,6 +28,6 @@ class SplashController extends GetxController
 
   void toHome() {
     box.write('isFirst', false);
-    Get.offNamed(Routes.HOME);
+    Get.offAllNamed(Routes.HOME);
   }
 }

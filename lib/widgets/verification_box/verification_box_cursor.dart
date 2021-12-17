@@ -37,15 +37,15 @@ class _VerificationBoxCursorState extends State<VerificationBoxCursor>
 
   @override
   void initState() {
-    _controller =
-        AnimationController(duration: Duration(milliseconds: 500), vsync: this)
-          ..addStatusListener((status) {
-            if (status == AnimationStatus.completed) {
-              _controller.reverse();
-            } else if (status == AnimationStatus.dismissed) {
-              _controller.forward();
-            }
-          });
+    _controller = AnimationController(
+        duration: const Duration(milliseconds: 500), vsync: this)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _controller.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          _controller.forward();
+        }
+      });
     _controller.forward();
 
     super.initState();

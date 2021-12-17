@@ -80,7 +80,9 @@ class LoginPage extends GetView<LoginController> {
           Gaps.vGap100,
           Center(
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(Routes.EMAIL_LOGIN);
+              },
               child: ClipOval(
                 child: Container(
                   padding: EdgeInsets.all(Dimens.gap_dp4),

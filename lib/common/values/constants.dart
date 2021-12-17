@@ -32,6 +32,9 @@ const HERO_TAG_CUR_PLAY = 'currentPlay';
 
 /* cache key  --------- start ----------- */
 
+const CACHE_HOME_FOUND_DATA = 'home_fond_data';
 const CACHE_FAVORITESONGIDS = 'favoriteSongIds';
 const CACHE_LOGIN_DATA = 'cache_login_data';
+const CACHE_MUSIC_COMMENT_COUNT = 'cache_music_comment_count';
+
 /* cache key  --------- end ----------- */

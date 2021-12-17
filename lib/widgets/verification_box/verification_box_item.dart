@@ -20,7 +20,7 @@ enum VerificationBoxItemType {
 /// 单个输入框
 ///
 class VerificationBoxItem extends StatelessWidget {
-  VerificationBoxItem(
+  const VerificationBoxItem(
       {this.data = '',
       this.textStyle,
       this.type = VerificationBoxItemType.box,
@@ -103,8 +103,8 @@ class VerificationBoxItem extends StatelessWidget {
       alignment: Alignment.center,
       decoration: decoration ??
           BoxDecoration(
-              borderRadius: BorderRadius.circular(this.borderRadius),
-              border: Border.all(color: borderColor, width: this.borderWidth)),
+              borderRadius: BorderRadius.circular(borderRadius),
+              border: Border.all(color: borderColor, width: borderWidth)),
       child: child,
     );
   }
@@ -116,7 +116,7 @@ class VerificationBoxItem extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       decoration: UnderlineTabIndicator(
-          borderSide: BorderSide(width: this.borderWidth, color: borderColor)),
+          borderSide: BorderSide(width: borderWidth, color: borderColor)),
       child: child,
     );
   }
@@ -124,7 +124,7 @@ class VerificationBoxItem extends StatelessWidget {
   ///
   /// 文本
   ///
-  _buildText() {
+  Text _buildText() {
     return Text(
       '$data',
       style: textStyle,

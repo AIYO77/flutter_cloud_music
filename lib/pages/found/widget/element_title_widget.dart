@@ -12,6 +12,7 @@ import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
+import 'package:flutter_cloud_music/typedef/function.dart';
 import 'package:get/get.dart';
 
 import 'element_button_widget.dart';
@@ -19,7 +20,9 @@ import 'element_button_widget.dart';
 class ElementTitleWidget extends StatelessWidget {
   final UiElementModel elementModel;
 
-  const ElementTitleWidget({required this.elementModel});
+  final ParamVoidCallback? onPressed;
+
+  const ElementTitleWidget({required this.elementModel, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +63,10 @@ class ElementTitleWidget extends StatelessWidget {
                 ],
               )),
             if (!GetUtils.isNull(elementModel.button))
-              Expanded(flex: 0, child: elementButtonWidget(elementModel.button))
+              Expanded(
+                  flex: 0,
+                  child: elementButtonWidget(elementModel.button,
+                      onPressed: onPressed))
           ],
         ));
   }

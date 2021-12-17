@@ -11,7 +11,6 @@ import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../playlist_detail_controller.dart';
@@ -93,16 +92,7 @@ class PlaylistFabCount extends StatelessWidget implements PreferredSizeWidget {
 
   Widget _buildItem(String iconName, String name, bool canClicked) {
     final fColor = Get.isDarkMode ? Colours.color_109 : Colours.headline4_color;
-    // final imgSize = iconName == 'enm'
-    //     ? Dimens.gap_dp20
-    //     : iconName == 'ed9'
-    //         ? Dimens.gap_dp32
-    //         : Dimens.gap_dp32;
-    // final gap = iconName == 'enm'
-    //     ? Gaps.hGap5
-    //     : iconName == 'ed9'
-    //         ? Gaps.hGap1
-    //         : Gaps.hGap3;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

@@ -1,19 +1,16 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/ext/ext.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
-import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/pages/login/phone_login/widget/country_sheet.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_cloud_music/common/ext/ext.dart';
 import 'package:get/get.dart';
+
 import 'phone_login_controller.dart';
 
 class PhoneLoginPage extends GetView<PhoneLoginController> {

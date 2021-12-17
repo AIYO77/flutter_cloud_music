@@ -4,7 +4,6 @@ import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
-import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:flutter_cloud_music/widgets/verification_box/verification_box.dart';
 import 'package:flutter_cloud_music/widgets/verification_box/verification_box_item.dart';
@@ -99,7 +98,7 @@ class VerificationCodePage extends GetView<VerificationCodeController> {
   Widget _buildPwdAction() {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(Routes.PWD_LOGIN, arguments: {
+        Get.toNamed(Routes.PWD_LOGIN, parameters: {
           'phone': controller.phone,
           'countrycode': controller.countrycode
         });

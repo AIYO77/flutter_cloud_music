@@ -38,7 +38,6 @@ class HomePage extends GetView<HomeController> {
         child: Scaffold(
           extendBodyBehindAppBar: true,
           extendBody: true,
-          // appBar: const HomeTopBar(),
           drawer: const DrawerWidget(),
           body: Stack(
             children: [

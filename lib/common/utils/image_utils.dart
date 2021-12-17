@@ -22,6 +22,10 @@ class ImageUtils {
     return 'assets/anim/$name.$format';
   }
 
+  static String getPlayingMusicTag() {
+    return getImagePath('listen_music_tag_red', format: 'webp');
+  }
+
   static Future<ui.Image> loadImageByProvider(
     ImageProvider provider, {
     ImageConfiguration config = ImageConfiguration.empty,

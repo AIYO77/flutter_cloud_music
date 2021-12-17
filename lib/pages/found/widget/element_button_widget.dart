@@ -6,15 +6,20 @@ import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
 import 'package:flutter_cloud_music/routes/routes_utils.dart';
+import 'package:flutter_cloud_music/typedef/function.dart';
 import 'package:get/get.dart';
 
-Widget elementButtonWidget(ElementButton? elementButton) {
+Widget elementButtonWidget(ElementButton? elementButton,
+    {ParamVoidCallback? onPressed}) {
   if (elementButton == null) return Gaps.empty;
   final theme = Get.theme;
   return MaterialButton(
     onPressed: () {
-      //点击
-      RouteUtils.routeFromActionStr(elementButton.action);
+      if (onPressed == null) {
+        RouteUtils.routeFromActionStr(elementButton.action);
+      } else {
+        onPressed.call();
+      }
     },
     height: Dimens.gap_dp24,
     color: Colors.transparent,

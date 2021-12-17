@@ -11,6 +11,7 @@ import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/found/found_controller.dart';
+import 'package:flutter_cloud_music/routes/routes_utils.dart';
 import 'package:flutter_cloud_music/widgets/banner_pagination_builder.dart';
 import 'package:get/get.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -47,59 +48,66 @@ class FoundBannerState extends State<FoundBanner> {
 
   Widget _buildItem(int index) {
     final banner = widget.bannerModel.banner[index];
-    return Container(
-      margin: EdgeInsets.fromLTRB(
-          Dimens.gap_dp15, Dimens.gap_dp5, Dimens.gap_dp15, 0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(Dimens.gap_dp12),
-        child: CachedNetworkImage(
-          imageUrl: ImageUtils.getImageUrlFromSize(
-              banner.pic, Size(Adapt.screenW() - Adapt.px(30), Adapt.px(135))),
-          placeholder: (context, url) {
-            return Container(
-              color: Colours.load_image_placeholder(),
-            );
-          },
-          imageBuilder: (context, imageProvider) {
-            if (!imageMap.containsKey(banner.bannerId)) {
-              imageMap[banner.bannerId] = imageProvider;
-              _updatePaletteGenerator(banner.bannerId);
-            }
-            return Stack(
-              children: [
-                Positioned.fill(
-                  child: Image(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        if (banner.url != null) {
+          RouteUtils.routeFromActionStr(banner.url);
+        }
+      },
+      child: Container(
+        margin: EdgeInsets.fromLTRB(
+            Dimens.gap_dp15, Dimens.gap_dp5, Dimens.gap_dp15, 0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(Dimens.gap_dp12),
+          child: CachedNetworkImage(
+            imageUrl: ImageUtils.getImageUrlFromSize(banner.pic,
+                Size(Adapt.screenW() - Adapt.px(30), Adapt.px(135))),
+            placeholder: (context, url) {
+              return Container(
+                color: Colours.load_image_placeholder(),
+              );
+            },
+            imageBuilder: (context, imageProvider) {
+              if (!imageMap.containsKey(banner.bannerId)) {
+                imageMap[banner.bannerId] = imageProvider;
+                _updatePaletteGenerator(banner.bannerId);
+              }
+              return Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                if (!banner.showAdTag)
-                  Gaps.empty
-                else
-                  Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: Container(
-                        height: Dimens.gap_dp17,
-                        decoration: BoxDecoration(
-                            color: banner.titleColor == "red"
-                                ? Colours.app_main
-                                : Colours.blue,
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(12))),
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: Center(
-                          child: Text(
-                            banner.typeTitle!,
-                            style: TextStyle(
-                                color: Colours.white,
-                                fontSize: Dimens.font_sp12),
-                          ),
-                        )),
-                  )
-              ],
-            );
-          },
+                  if (!banner.showAdTag)
+                    Gaps.empty
+                  else
+                    Positioned(
+                      right: 0,
+                      bottom: 0,
+                      child: Container(
+                          height: Dimens.gap_dp17,
+                          decoration: BoxDecoration(
+                              color: banner.titleColor == "red"
+                                  ? Colours.app_main
+                                  : Colours.blue,
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(12))),
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: Center(
+                            child: Text(
+                              banner.typeTitle!,
+                              style: TextStyle(
+                                  color: Colours.white,
+                                  fontSize: Dimens.font_sp12),
+                            ),
+                          )),
+                    )
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

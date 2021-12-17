@@ -5,7 +5,7 @@ import 'package:flutter_cloud_music/common/event/index.dart';
 import 'package:flutter_cloud_music/common/net/code.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/routes/app_routes.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_cloud_music/services/auth_service.dart';
 import 'package:get/get.dart';
 
 class EventService extends GetxService {
@@ -32,6 +32,7 @@ class EventService extends GetxService {
         break;
       case 301:
         showToast('需要登录');
+        AuthService.to.logout();
         Get.toNamed(Routes.LOGIN);
         break;
       case 403:

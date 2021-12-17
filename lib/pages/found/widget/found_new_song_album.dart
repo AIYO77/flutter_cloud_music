@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/model/play_queue_with_music.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
@@ -6,20 +7,22 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/pages/found/model/creative_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_new_song.dart';
+import 'package:flutter_cloud_music/routes/routes_utils.dart';
 import 'package:flutter_cloud_music/widgets/general_album_item.dart';
 import 'package:flutter_cloud_music/widgets/general_song_one.dart';
 import 'package:get/get.dart';
+import 'package:music_player/music_player.dart';
 
 import 'element_button_widget.dart';
 
 class FoundNewSongAlbum extends StatelessWidget {
-// final CounterGetLogic logic = Get.put(CounterGetLogic());
-
   final List<CreativeModel> creatives;
 
   final double itemHeight;
 
   final bool bottomRadius;
+
+  PlayQueue? _playQueue;
 
   FoundNewSongAlbum(this.creatives,
       {required this.itemHeight, required this.bottomRadius});
@@ -42,7 +45,6 @@ class FoundNewSongAlbum extends StatelessWidget {
     for (var i = 0; i < types.length; i++) {
       final creative =
           creatives.firstWhere((e) => e.creativeType == types.elementAt(i));
-      final uielement = creative.uiElement!;
       tabs.add(Row(
         key: Key("tab_$i"),
         children: [
@@ -57,7 +59,7 @@ class FoundNewSongAlbum extends StatelessWidget {
           GestureDetector(
             child: Obx(
               () => Text(
-                uielement.mainTitle!.title.toString(),
+                creative.uiElement!.mainTitle!.title.toString(),
                 style: curSelectedIndex.value == i
                     ? headlineStyle()
                     : headlineStyle().copyWith(
@@ -122,10 +124,33 @@ class FoundNewSongAlbum extends StatelessWidget {
       var childView = Gaps.empty;
       switch (element.resourceType) {
         case 'song': //新歌
+          final song = FoundNewSong.fromJson(element.resourceExtInfo)
+              .buildSong(element.action);
           childView = GeneralSongOne(
-            songInfo: FoundNewSong.fromJson(element.resourceExtInfo)
-                .buildSong(element.action),
+            songInfo: song,
             uiElementModel: element.uiElement,
+            onPressed: () {
+              if (_playQueue == null) {
+                final listMusic = List<MusicMetadata>.empty(growable: true);
+                for (final creative in creatives) {
+                  if (creative.creativeType == 'NEW_SONG_HOMEPAGE') {
+                    creative.resources?.forEach((resource) {
+                      listMusic.add(
+                          FoundNewSong.fromJson(resource.resourceExtInfo)
+                              .buildSong(null)
+                              .metadata);
+                    });
+                  }
+                }
+                _playQueue = PlayQueue(
+                    queueId: 'NEW_SONG_HOMEPAGE',
+                    queueTitle: '新歌',
+                    queue: listMusic);
+              }
+              RouteUtils.routeFromActionStr(element.action,
+                  data: PlayQueueWithMusic(
+                      playQueue: _playQueue!, music: song.metadata));
+            },
           );
           break;
         case 'album': //新碟

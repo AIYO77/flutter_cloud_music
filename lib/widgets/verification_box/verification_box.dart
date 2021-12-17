@@ -118,7 +118,7 @@ class _VerificationBox extends State<VerificationBox> {
 
   late FocusNode _focusNode;
 
-  List _contentList = [];
+  final List _contentList = [];
 
   @override
   void initState() {

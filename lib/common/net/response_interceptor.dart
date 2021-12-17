@@ -18,39 +18,49 @@ class ResponseInterceptors extends InterceptorsWrapper {
 
       if (header != null && header.toString().contains("text") ||
           (response.statusCode! >= 200 && response.statusCode! < 300)) {
-        if (option.path.contains('/playlist/hot') ||
-            option.path.contains('/playlist/highquality/tags')) {
-          value = ResultData(response.data['tags'], true, Code.SUCCESS);
-        } else if (option.path.contains('/personalized')) {
-          value = ResultData(response.data['result'], true, Code.SUCCESS);
-        } else if (option.path.contains('/top/playlist') ||
-            option.path.contains('/top/playlist/highquality')) {
-          value = ResultData(response.data['playlists'], true, Code.SUCCESS,
-              total: response.data['total']);
-        } else if (option.path.contains('/playlist/detail')) {
-          value = ResultData(
-              PlaylistDetailModel.fromJson(response.data), true, Code.SUCCESS);
-        } else if (option.path.contains('/song/detail')) {
-          value = ResultData(
-              SongsModel.fromJson(response.data), true, Code.SUCCESS);
-        } else if (option.path.contains('/check/music')) {
-          value = ResultData(response.data['message'],
-              response.data['success'] as bool, Code.SUCCESS);
-        } else if (option.path.contains('/lyric')) {
-          value = ResultData(response.data['lrc'], true, Code.SUCCESS);
-        } else if (option.path.contains('/cellphone/existence/check')) {
-          value = ResultData(
-              PhoneExist.fromJson(response.data), true, Code.SUCCESS);
-        } else if (option.path.contains('/login/cellphone')) {
+        // if (option.path.contains('/playlist/hot') ||
+        //     option.path.contains('/playlist/highquality/tags')) {
+        //   value = ResultData(response.data['tags'], true, Code.SUCCESS);
+        // } else
+
+        // if (option.path.contains('/personalized')) {
+        //   value = ResultData(response.data['result'], true, Code.SUCCESS);
+        // } else
+
+        // if (option.path.contains('/top/playlist') ||
+        //     option.path.contains('/top/playlist/highquality')) {
+        //   value = ResultData(response.data['playlists'], true, Code.SUCCESS,
+        //       total: response.data['total']);
+        // } else
+
+        // if (option.path.contains('/playlist/detail')) {
+        //   value = ResultData(
+        //       PlaylistDetailModel.fromJson(response.data), true, Code.SUCCESS);
+        // } else
+
+        //  if (option.path.contains('/song/detail')) {
+        //   value = ResultData(
+        //       SongsModel.fromJson(response.data), true, Code.SUCCESS);
+        // } else
+
+        //  if (option.path.contains('/lyric')) {
+        //   value = ResultData(response.data['lrc'], true, Code.SUCCESS);
+        // } else
+
+        //  if (option.path.contains('/cellphone/existence/check')) {
+        //   value = ResultData(
+        //       PhoneExist.fromJson(response.data), true, Code.SUCCESS);
+        // } else
+
+        if (option.path.contains('/login/cellphone')) {
           if (response.data['code'].toString() != '200') {
             value = ResultData(response.data, false, response.data['code'],
                 msg: response.data['msg'].toString());
           } else {
-            value = ResultData(
-                LoginResponse.fromJson(response.data), true, Code.SUCCESS);
+            value = ResultData(response.data, true, Code.SUCCESS);
           }
         } else {
-          value = ResultData(response.data['data'], true, Code.SUCCESS);
+          value = ResultData(response.data, true, Code.SUCCESS);
         }
       } else {
         value = ResultData(response.data, false, response.data['code']);

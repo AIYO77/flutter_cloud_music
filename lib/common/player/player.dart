@@ -36,6 +36,15 @@ extension QuitPlayerExt on BuildContext {
     }
   }
 
+  Rx<PlayMode> get playModelRx {
+    try {
+      return PlayerService.to.playMode;
+    } catch (e, stacktrace) {
+      logger.e(stacktrace.toString());
+      rethrow;
+    }
+  }
+
   TransportControls get transportControls => player.transportControls;
 
   PlaybackState? get playbackState => playerValueRx.value?.playbackState;
@@ -71,11 +80,11 @@ extension PlayQueueExt on PlayQueue {
 extension PlayModeDescription on PlayMode {
   String get iconPath {
     if (this == PlayMode.single) {
-      return ImageUtils.getImagePath('eej');
+      return ImageUtils.getImagePath('play_btn_one');
     } else if (this == PlayMode.shuffle) {
-      return ImageUtils.getImagePath('ef2');
+      return ImageUtils.getImagePath('play_btn_shuffle');
     } else {
-      return ImageUtils.getImagePath('ee9');
+      return ImageUtils.getImagePath('play_btn_loop');
     }
   }
 
@@ -86,6 +95,16 @@ extension PlayModeDescription on PlayMode {
       return "随机播放";
     } else {
       return "列表循环";
+    }
+  }
+
+  PlayMode get next {
+    if (this == PlayMode.sequence) {
+      return PlayMode.shuffle;
+    } else if (this == PlayMode.shuffle) {
+      return PlayMode.single;
+    } else {
+      return PlayMode.sequence;
     }
   }
 }

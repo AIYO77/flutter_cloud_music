@@ -5,7 +5,6 @@ import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class GeneralSongCellWidget extends StatelessWidget {

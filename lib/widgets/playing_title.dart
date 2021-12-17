@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
-import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:get/get.dart';
 

@@ -1,3 +1,5 @@
+import 'package:flutter_cloud_music/common/event/index.dart';
+import 'package:flutter_cloud_music/common/event/login_event.dart';
 import 'package:flutter_cloud_music/common/model/login_response.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
@@ -13,6 +15,8 @@ class AuthService extends GetxService {
 
   String? cookie;
 
+  int? userId;
+
   final loginData = Rx<LoginResponse?>(null);
 
   @override
@@ -27,17 +31,25 @@ class AuthService extends GetxService {
 
   //登陆处理逻辑
   void login(LoginResponse loginResponse) {
-    isLoggedIn.value = true;
     refreshCookie(loginResponse.cookie);
+    userId = loginResponse.profile?.userId ?? loginResponse.account.id;
     loginData.value = loginResponse;
     box.write(CACHE_LOGIN_DATA, loginResponse.toJson());
+    isLoggedIn.value = true;
+    eventBus.fire(LoginEvent(true));
   }
 
+  /*退出登陆成功后 清除本地缓存*/
   void logout() {
+    loginData.value = null;
+    cookie = null;
+    box.remove(CACHE_LOGIN_DATA);
     isLoggedIn.value = false;
+    eventBus.fire(LoginEvent(false));
   }
 
   void refreshCookie(String s) {
     cookie = Uri.encodeComponent(s);
+    logger.d(cookie);
   }
 }

@@ -36,7 +36,14 @@ class CreativeModel extends Object {
   factory CreativeModel.fromJson(Map<String, dynamic> srcJson) =>
       _$CreativeModelFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$CreativeModelToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'creativeType': creativeType,
+        'action': action,
+        'resources': resources?.map((e) => e.toJson()).toList(),
+        'uiElement': uiElement?.toJson(),
+        'creativeExtInfoVO': creativeExtInfoVO,
+        'algReason': algReason,
+      };
 }
 
 @JsonSerializable()
@@ -75,7 +82,15 @@ class Resources extends Object {
   factory Resources.fromJson(Map<String, dynamic> srcJson) =>
       _$ResourcesFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$ResourcesToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'uiElement': uiElement.toJson(),
+        'resourceType': resourceType,
+        'resourceId': resourceId,
+        'resourceExtInfo': resourceExtInfo,
+        'action': action,
+        'actionType': actionType,
+        'valid': valid,
+      };
 }
 
 @JsonSerializable()

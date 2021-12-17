@@ -7,6 +7,7 @@ import 'package:flutter_cloud_music/pages/found/model/creative_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
 import 'package:flutter_cloud_music/pages/found/widget/element_title_widget.dart';
 import 'package:flutter_cloud_music/routes/routes_utils.dart';
+import 'package:flutter_cloud_music/widgets/custom_tap.dart';
 import 'package:flutter_cloud_music/widgets/generral_cover_playcount.dart';
 import 'package:get/get.dart';
 
@@ -21,8 +22,8 @@ class FoundSlideVoiceList extends StatelessWidget {
     final coverSize = Size(Dimens.gap_dp105, Dimens.gap_dp105);
     return SizedBox(
       width: coverSize.width,
-      child: GestureDetector(
-        onTap: () {
+      child: Bounce(
+        onPressed: () {
           RouteUtils.routeFromActionStr(model.action);
         },
         child: Column(

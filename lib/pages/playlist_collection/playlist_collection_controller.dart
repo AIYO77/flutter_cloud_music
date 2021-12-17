@@ -61,7 +61,7 @@ class PlaylistCollectionController extends GetxController {
 
   void resetTags(List<PlayListTagModel> data) {
     Get.log(data.map((e) => e.name).toString());
-    box.write(PLAYLIST_TAGS, data);
+    box.write(PLAYLIST_TAGS, data.map((e) => e.toJson()).toList());
     tags.value = data;
   }
 }

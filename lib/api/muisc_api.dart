@@ -1,3 +1,4 @@
+import 'package:flutter_cloud_music/common/model/comment_response.dart';
 import 'package:flutter_cloud_music/common/model/simple_play_list_model.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/model/songs_model.dart';
@@ -6,38 +7,73 @@ import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/pages/found/model/default_search_model.dart';
-import 'package:flutter_cloud_music/pages/found/model/found_ball_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/model/list_more_model.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/model/play_list_tag_model.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/model/playlist_detail_model.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_cloud_music/services/auth_service.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:music_player/music_player.dart';
 
 class MusicApi {
   //首页内容
-  static Future<FoundData?> getFoundRec({bool refresh = false}) async {
-    FoundData? data;
-    Get.log("time ${DateTime.now().millisecondsSinceEpoch}");
-    final response =
-        await httpManager.get("/homepage/block/page", {'refresh': refresh});
+  static Future<FoundData?> getFoundRec(
+      {bool refresh = false, Map<String, dynamic>? cacheData}) async {
+    FoundData? oldData;
+    if (cacheData != null) {
+      oldData = FoundData.fromJson(cacheData);
+    }
+    final response = await httpManager.get("/homepage/block/page", {
+      'refresh': refresh,
+      'cursor': oldData?.cursor,
+      'timestamp': DateTime.now().millisecondsSinceEpoch
+    });
     if (response.result) {
       try {
-        data = FoundData.fromJson(response.data);
+        final recmData = FoundData.fromJson(response.data['data']);
         final responseBall =
             await httpManager.get("/homepage/dragon/ball", null);
-        final List<Ball> balls =
-            (responseBall.data as List).map((e) => Ball.fromJson(e)).toList();
 
-        data.blocks.insert(1,
-            Blocks("HOMEPAGE_BALL", SHOWTYPE_BALL, balls, null, null, false));
+        recmData.blocks.insert(
+            1,
+            Blocks("HOMEPAGE_BALL", SHOWTYPE_BALL, responseBall.data['data'],
+                null, null, false));
+        return _diffData(recmData, oldData);
       } catch (e) {
         e.printError();
       }
     }
-    return data;
+    return null;
+  }
+
+  static Future<FoundData?> _diffData(
+      FoundData recmData, FoundData? oldData) async {
+    if (oldData == null) {
+      box.write(CACHE_HOME_FOUND_DATA, recmData.toJson());
+      return Future.value(recmData);
+    } else {
+      //有缓存过数据 进行比较差量更新
+      final List<Blocks> diffList = List.empty(growable: true);
+
+      final newBlocks = recmData.blocks;
+
+      for (final old in oldData.blocks) {
+        final index = newBlocks
+            .indexWhere((element) => element.blockCode == old.blockCode);
+        if (index != -1) {
+          //新的数据包含旧的数据 替换旧的数据
+          diffList.add(newBlocks.elementAt(index));
+        } else {
+          //新的数据不包含旧的数据 用换旧的数据
+          diffList.add(old);
+        }
+      }
+      //组装新的展示数据
+      final newData = FoundData(recmData.cursor, diffList, recmData.pageConfig);
+      box.write(CACHE_HOME_FOUND_DATA, newData.toJson());
+      return Future.value(newData);
+    }
   }
 
   //默认搜索
@@ -46,7 +82,7 @@ class MusicApi {
     final response = await httpManager.get('/search/default',
         {'timestamp': DateTime.now().millisecondsSinceEpoch});
     if (response.result) {
-      data = DefaultSearchModel.fromJson(response.data);
+      data = DefaultSearchModel.fromJson(response.data['data']);
     }
     return data;
   }
@@ -56,7 +92,7 @@ class MusicApi {
     List<PlayListTagModel>? data;
     final response = await httpManager.get('/playlist/hot', null);
     if (response.result) {
-      data = (response.data as List)
+      data = (response.data['tags'] as List)
           .map((e) => PlayListTagModel.fromJson(e))
           .toList();
     }
@@ -69,7 +105,7 @@ class MusicApi {
         {"limit": 99, 'timestamp': DateTime.now().millisecondsSinceEpoch});
     PlayListHasMoreModel? data;
     if (response.result) {
-      final list = (response.data as List)
+      final list = (response.data['result'] as List)
           .map((e) => SimplePlayListModel.fromJson(e))
           .toList();
       data = PlayListHasMoreModel(datas: list, totalCount: response.total);
@@ -90,10 +126,11 @@ class MusicApi {
     });
     PlayListHasMoreModel? data;
     if (response.result) {
-      final list = (response.data as List)
+      final list = (response.data['playlists'] as List)
           .map((e) => SimplePlayListModel.fromJson(e))
           .toList();
-      data = PlayListHasMoreModel(datas: list, totalCount: response.total);
+      data =
+          PlayListHasMoreModel(datas: list, totalCount: response.data['total']);
     }
     return data;
   }
@@ -103,7 +140,9 @@ class MusicApi {
     final response = await httpManager.get('/playlist/highquality/tags', null);
     List<String>? tags;
     if (response.result) {
-      tags = (response.data as List).map((e) => e['name'].toString()).toList();
+      tags = (response.data['tags'] as List)
+          .map((e) => e['name'].toString())
+          .toList();
     }
     return tags;
   }
@@ -121,10 +160,11 @@ class MusicApi {
     final response = await httpManager.get('/top/playlist/highquality', par);
     PlayListHasMoreModel? data;
     if (response.result) {
-      final list = (response.data as List)
+      final list = (response.data['playlists'] as List)
           .map((e) => SimplePlayListModel.fromJson(e))
           .toList();
-      data = PlayListHasMoreModel(datas: list, totalCount: response.total);
+      data =
+          PlayListHasMoreModel(datas: list, totalCount: response.data['total']);
     }
     return data;
   }
@@ -135,7 +175,7 @@ class MusicApi {
         await httpManager.get('/playlist/detail', {'id': id, 's': '5'});
     PlaylistDetailModel? data;
     if (response.result) {
-      data = response.data as PlaylistDetailModel;
+      data = PlaylistDetailModel.fromJson(response.data);
     }
     return data;
   }
@@ -146,7 +186,7 @@ class MusicApi {
         await httpManager.get('/song/detail', Map.of({'ids': ids}));
     SongsModel? data;
     if (response.result) {
-      data = response.data as SongsModel;
+      data = SongsModel.fromJson(response.data);
       for (final song in data.songs) {
         song.privilege =
             data.privileges.firstWhere((element) => element.id == song.id);
@@ -161,6 +201,7 @@ class MusicApi {
     String url = '';
     final his = box.read('${id}url');
     if (his != null) {
+      logger.i('url has cache $his');
       final endTime = int.parse(his['time']);
       final curTime =
           int.parse(DateFormat('yyyyMMddHHmmss').format(DateTime.now()));
@@ -172,10 +213,9 @@ class MusicApi {
       }
     }
 
-    final response = await httpManager
-        .get('/song/url', {'id': id, 'realIP': '116.25.146.177'});
+    final response = await httpManager.get('/song/url', {'id': id});
     if (response.result) {
-      final list = response.data as List;
+      final list = response.data['data'] as List;
       if (list.isNotEmpty && list.first['url'] != null) {
         url = list.first['url'].toString();
         box.write('${id}url',
@@ -184,7 +224,8 @@ class MusicApi {
       }
     }
     if (url.isEmpty) {
-      toast('播放异常');
+      //部分音乐可能获取不到播放地址 可以通过这种方式直接播放
+      url = 'https://music.163.com/song/media/outer/url?id=$id.mp3';
     }
     return url;
   }
@@ -197,10 +238,11 @@ class MusicApi {
       return cached;
     }
     final result = await httpManager.get('/lyric', {"id": id});
+    final lrcData = result.data['lrc'];
     if (!result.result) {
-      return Future.error(result.data);
+      return Future.error(lrcData);
     }
-    final lyc = Map.from(result.data);
+    final lyc = Map.from(lrcData);
     //歌词内容
     final content = lyc["lyric"].toString();
     //更新缓存
@@ -209,24 +251,72 @@ class MusicApi {
   }
 
   ///给歌曲加红心
-  static Future<bool> like(int? musicId, {required bool like}) async {
+  static Future<bool?> like(int? musicId, {required bool like}) async {
     final response =
         await httpManager.get("/like", {"id": musicId, "like": like});
-    return response.result;
+    if (response.isSucesse()) {
+      final favorites = box.read<List>(CACHE_FAVORITESONGIDS)?.cast<int>();
+      if (favorites != null) {
+        if (like) {
+          favorites.add(musicId!);
+        } else {
+          favorites.remove(musicId);
+        }
+
+        box.write(CACHE_FAVORITESONGIDS, favorites);
+      }
+      return true;
+    }
+    return null;
   }
 
   ///获取用户红心歌曲id列表
-  static Future<List<int>?> likedList(int? userId) async {
+  static Future<List<int>?> likedList() async {
     final favorites = box.read<List>(CACHE_FAVORITESONGIDS)?.cast<int>();
     if (favorites != null) {
       return Future.value(favorites);
     }
-    final response = await httpManager.get("/likelist", {"uid": userId});
+    final response =
+        await httpManager.get("/likelist", {"uid": AuthService.to.userId});
+    if (response.isSucesse()) {
+      final list = (response.data['ids'] as List)
+          .map((e) => int.parse(e.toString()))
+          .toList();
+      box.write(CACHE_FAVORITESONGIDS, list);
+      return Future.value(list);
+    }
     return Future.value(null);
+  }
+
+  //获取歌曲评论
+  static Future<CommentResponse?> getMusicComment(int id,
+      {int limit = 20, int offset = 0, int? time}) async {
+    final response = await httpManager.get('/comment/music',
+        {'id': id, 'limit': limit, 'offset': offset, 'before': time});
+    if (response.result) {
+      return CommentResponse.fromJson(response.data);
+    }
+    return null;
+  }
+
+  //获取歌曲评论数量
+  static Future<int> getMusicCommentCouunt(int id) async {
+    final count = box.read<int>('$id$CACHE_MUSIC_COMMENT_COUNT');
+    if (count != null) {
+      return count;
+    }
+    final coment = await getMusicComment(id, limit: 0);
+    if (coment != null) {
+      box.write('$id$CACHE_MUSIC_COMMENT_COUNT', coment.total);
+      return coment.total;
+    }
+    return 0;
   }
 
   //获取FM 音乐列表 需要登录
   static Future<List<MusicMetadata>?> getFmMusics() async {
     final response = await httpManager.get('/personal_fm', null);
+    if (response.result) {}
+    return null;
   }
 }

@@ -34,7 +34,14 @@ class UiElementModel extends Object {
   factory UiElementModel.fromJson(Map<String, dynamic> srcJson) =>
       _$UiElementModelFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$UiElementModelToJson(this);
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'mainTitle': mainTitle?.toJson(),
+        'subTitle': subTitle?.toJson(),
+        'image': image?.toJson(),
+        'button': button?.toJson(),
+        'labelTexts': labelTexts,
+        'rcmdShowType': rcmdShowType,
+      };
 }
 
 @JsonSerializable()

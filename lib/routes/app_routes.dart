@@ -12,6 +12,7 @@ abstract class Routes {
   static const PHONE_LOGIN = _Paths.PHONE_LOGIN;
   static const PWD_LOGIN = _Paths.PWD_LOGIN;
   static const VER_CODE = _Paths.VER_CODE;
+  static const EMAIL_LOGIN = _Paths.EMAIL_LOGIN;
 
   static const FOUND = _Paths.FOUND;
   static const PODCAST = _Paths.PODCAST;
@@ -27,6 +28,10 @@ abstract class Routes {
 
   static const PLAYING = _Paths.PLAYING;
 
+  static const WEB = _Paths.WEB;
+
+  static const NEW_SONG_ALBUM = _Paths.NEW_SONG_ALBUM;
+
   static String PLAYLIST_DETAIL_ID(String id) => '/playlist/$id';
 
   static String LOGIN_THEN(String afterSuccessfulLogin) =>
@@ -39,9 +44,10 @@ abstract class _Paths {
   static const SPLASH = '/splash';
   static const HOME = '/home';
   static const LOGIN = '/login';
-  static const PHONE_LOGIN = '$LOGIN/phone_login';
-  static const PWD_LOGIN = '$LOGIN/pwd_login';
-  static const VER_CODE = '$LOGIN/verification';
+  static const PHONE_LOGIN = '/phone_login';
+  static const PWD_LOGIN = '/pwd_login';
+  static const VER_CODE = '/verification';
+  static const EMAIL_LOGIN = '/email_login';
   static const FOUND = '/found';
   static const PODCAST = '/podcast';
   static const MINE = '/mine';
@@ -58,4 +64,10 @@ abstract class _Paths {
 
   //播放页面
   static const PLAYING = "/playing";
+
+  //html页面
+  static const WEB = "/openurl";
+
+  //新歌 新专辑
+  static const NEW_SONG_ALBUM = '/nm/discovery/newsongalbum';
 }

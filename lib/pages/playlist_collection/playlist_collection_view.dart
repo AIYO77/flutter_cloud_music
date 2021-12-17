@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/player/widgets/bottom_player_widget.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/model/play_list_tag_model.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/widget/playlist_content_view.dart';
@@ -16,7 +17,7 @@ class PlaylistCollectionPage extends GetView<PlaylistCollectionController> {
       appBar: const MyAppBar(
         centerTitle: '歌单广场',
       ),
-      body: Obx(() => controller.tags.value == null
+      body: BottomPlayerController(Obx(() => controller.tags.value == null
           ? Gaps.empty
           : TabWidget(
               tabItems: getTab(controller.tags.value!),
@@ -24,7 +25,7 @@ class PlaylistCollectionPage extends GetView<PlaylistCollectionController> {
               pageItemBuilder: (context, index) {
                 return _buildPage(context, index);
               },
-            )),
+            ))),
     );
   }
 

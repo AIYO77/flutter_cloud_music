@@ -7,18 +7,30 @@
 // 播放量格式化
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/ext/ext.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
+import 'package:flutter_cloud_music/routes/app_routes.dart';
+import 'package:flutter_cloud_music/services/auth_service.dart';
+import 'package:flutter_cloud_music/typedef/function.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:music_player/music_player.dart';
 
 final box = GetStorage();
+
+void afterLogin(ParamVoidCallback callback) {
+  AuthService.to.isLoggedInValue.yes(() {
+    callback.call();
+  }).no(() {
+    Get.toNamed(Routes.LOGIN);
+  });
+}
 
 Future toast(dynamic message) async {
   Fluttertoast.cancel();
@@ -35,6 +47,18 @@ String getPlayCountStrFromInt(int count) {
     return '${count ~/ 10000}万';
   } else {
     return '${(count / 100000000).toStringAsFixed(1)}亿';
+  }
+}
+
+String getCommentStrFromInt(int count) {
+  if (count < 1000) {
+    return count.toString();
+  } else if (1000 <= count && count < 10000) {
+    return '999+';
+  } else if (10000 <= count && count < 100000) {
+    return '1w+';
+  } else {
+    return '10w+';
   }
 }
 

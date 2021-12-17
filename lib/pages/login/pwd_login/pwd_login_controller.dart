@@ -15,8 +15,8 @@ class PwdLoginController extends GetxController {
     LoginApi.phoneLogin(phone, countrycode, password: pwd.value).then((value) {
       EasyLoading.dismiss();
       if (value) {
-        //登陆成功 关闭所有登陆相关的页面
-        Get.offAllNamed(Routes.LOGIN);
+        Get.offAllNamed(Routes.VER_CODE);
+        Get.offNamed(Routes.PWD_LOGIN);
       }
     });
   }

@@ -49,13 +49,19 @@ class FoundAppbar extends StatelessWidget implements PreferredSizeWidget {
                             height: Dimens.gap_dp15,
                           ),
                           Gaps.hGap5,
-                          Obx(() => Text(
+                          Expanded(
+                            child: Obx(
+                              () => Text(
                                 controller.defuleSearch.value?.showKeyword ??
                                     "搜索",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     color: Colours.text_gray,
                                     fontSize: Dimens.font_sp14),
-                              ))
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     )),

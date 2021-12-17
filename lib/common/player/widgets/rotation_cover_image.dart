@@ -3,10 +3,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
-import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
-import 'package:flutter_cloud_music/common/values/server.dart';
-import 'package:music_player/music_player.dart';
 
 class RotationCoverImage extends StatefulWidget {
   const RotationCoverImage(
@@ -32,7 +29,6 @@ class _RotationCoverImageState extends State<RotationCoverImage>
 
   @override
   void didUpdateWidget(covariant RotationCoverImage oldWidget) {
-    logger.d('rotating = ${widget.rotating}');
     if (widget.rotating) {
       controller.forward(from: controller.value);
     } else {

@@ -17,6 +17,7 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/routes/routes_utils.dart';
+import 'package:flutter_cloud_music/widgets/custom_tap.dart';
 
 class GeneralAlbumItem extends StatelessWidget {
   final List<Ar> artists;
@@ -30,8 +31,8 @@ class GeneralAlbumItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
+    return Bounce(
+      onPressed: () {
         RouteUtils.routeFromActionStr(action);
       },
       child: Row(

@@ -10,7 +10,7 @@ DefaultSearchModel _$DefaultSearchModelFromJson(Map<String, dynamic> json) =>
     DefaultSearchModel(
       json['showKeyword'] as String?,
       json['realkeyword'] as String?,
-      json['searchType'] as int,
+      json['searchType'] as int?,
     );
 
 Map<String, dynamic> _$DefaultSearchModelToJson(DefaultSearchModel instance) =>

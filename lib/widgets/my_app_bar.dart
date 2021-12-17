@@ -2,7 +2,7 @@
  * @Author: XingWei 
  * @Date: 2021-07-23 10:15:43 
  * @Last Modified by: XingWei
- * @Last Modified time: 2021-09-08 11:56:40
+ * @Last Modified time: 2021-12-13 19:55:01
  * 
  * 自定义AppBar
  */
@@ -49,7 +49,11 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         ? IconButton(
             onPressed: () async {
               FocusManager.instance.primaryFocus?.unfocus();
-              Get.back();
+              if (onPressed != null) {
+                onPressed!.call();
+              } else {
+                Get.back();
+              }
             },
             // tooltip: 'Back',
             padding: const EdgeInsets.only(left: 12.0),
@@ -72,6 +76,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         margin: const EdgeInsets.symmetric(horizontal: 44),
         child: Text(
           title.isEmpty ? centerTitle : title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
               color: _foregroundColor,
               fontSize: Dimens.font_sp16,

@@ -9,6 +9,7 @@ import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/found/model/creative_model.dart';
 import 'package:flutter_cloud_music/pages/found/widget/element_button_widget.dart';
 import 'package:flutter_cloud_music/routes/routes_utils.dart';
+import 'package:flutter_cloud_music/widgets/custom_tap.dart';
 import 'package:get/get.dart';
 
 class FoundTabMlogWidget extends StatelessWidget {
@@ -29,8 +30,8 @@ class FoundTabMlogWidget extends StatelessWidget {
   Widget _buildItem(Resources model) {
     return SizedBox(
       width: coverSize.width,
-      child: GestureDetector(
-        onTap: () {
+      child: Bounce(
+        onPressed: () {
           RouteUtils.routeFromActionStr(model.action);
         },
         child: Column(

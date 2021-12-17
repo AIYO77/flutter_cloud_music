@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/middleware/auth_middleware.dart';
 import 'package:flutter_cloud_music/middleware/playing_middleware.dart';
 import 'package:flutter_cloud_music/pages/home/home_binding.dart';
 import 'package:flutter_cloud_music/pages/home/home_view.dart';
+import 'package:flutter_cloud_music/pages/login/email_login/email_login_binding.dart';
+import 'package:flutter_cloud_music/pages/login/email_login/email_login_view.dart';
 import 'package:flutter_cloud_music/pages/login/login_binding.dart';
 import 'package:flutter_cloud_music/pages/login/login_view.dart';
 import 'package:flutter_cloud_music/pages/login/phone_login/phone_login_binding.dart';
@@ -11,6 +12,8 @@ import 'package:flutter_cloud_music/pages/login/pwd_login/pwd_login_binding.dart
 import 'package:flutter_cloud_music/pages/login/pwd_login/pwd_login_view.dart';
 import 'package:flutter_cloud_music/pages/login/verification_code/verification_code_binding.dart';
 import 'package:flutter_cloud_music/pages/login/verification_code/verification_code_view.dart';
+import 'package:flutter_cloud_music/pages/new_song_album/new_song_album_binding.dart';
+import 'package:flutter_cloud_music/pages/new_song_album/new_song_album_view.dart';
 import 'package:flutter_cloud_music/pages/not_found/not_found_binding.dart';
 import 'package:flutter_cloud_music/pages/not_found/not_found_view.dart';
 import 'package:flutter_cloud_music/pages/playing/playing_binding.dart';
@@ -23,6 +26,8 @@ import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_bindin
 import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_view.dart';
 import 'package:flutter_cloud_music/pages/splash/splash_binding.dart';
 import 'package:flutter_cloud_music/pages/splash/splash_view.dart';
+import 'package:flutter_cloud_music/pages/web/web_binding.dart';
+import 'package:flutter_cloud_music/pages/web/web_view.dart';
 import 'package:get/route_manager.dart';
 
 import 'app_routes.dart';
@@ -83,6 +88,18 @@ class AppPages {
       preventDuplicates: true,
     ),
 
+    //邮箱登陆
+    GetPage(
+      middlewares: [
+        EnsureNotAuthedMiddleware(),
+      ],
+      name: Routes.EMAIL_LOGIN,
+      page: () => const EmailLoginPage(),
+      binding: EmailLoginBinding(),
+      transition: Transition.cupertino,
+      preventDuplicates: true,
+    ),
+
     //密码登陆
     GetPage(
       middlewares: [
@@ -123,6 +140,21 @@ class AppPages {
       transition: Transition.downToUp,
       preventDuplicates: true,
     ),
+
+    //new song album
+    GetPage(
+      name: Routes.NEW_SONG_ALBUM,
+      page: () => const NewSongAlbumPage(),
+      binding: NewSongAlbumBinding(),
+      transition: Transition.rightToLeft,
+    ),
+
+    //web
+    GetPage(
+        name: Routes.WEB,
+        page: () => const WebPage(),
+        binding: WebBinding(),
+        preventDuplicates: true)
   ];
 
   //未知路由

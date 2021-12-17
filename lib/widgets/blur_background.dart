@@ -4,11 +4,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
-import 'package:music_player/music_player.dart';
 
 class BlurBackground extends StatelessWidget {
-  const BlurBackground({Key? key, this.music}) : super(key: key);
-  final MusicMetadata? music;
+  const BlurBackground({Key? key, this.musicCoverUrl}) : super(key: key);
+  final String? musicCoverUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +18,13 @@ class BlurBackground extends StatelessWidget {
             fit: StackFit.expand,
             children: <Widget>[
               Image(
-                image:
-                    CachedNetworkImageProvider(music?.iconUri.toString() ?? ""),
+                image: CachedNetworkImageProvider(musicCoverUrl ?? ""),
                 fit: BoxFit.fitHeight,
                 gaplessPlayback: true,
               ),
-              Container(
-                color: Colors.black38,
-              ),
+              // Container(
+              //   color: Colors.black38,
+              // ),
               Positioned(
                 top: 0,
                 left: 0,

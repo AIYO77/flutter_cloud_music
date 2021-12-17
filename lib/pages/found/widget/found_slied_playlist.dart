@@ -11,7 +11,9 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/found/model/creative_model.dart';
+import 'package:flutter_cloud_music/pages/found/widget/found_ver_scroll_playlist.dart';
 import 'package:flutter_cloud_music/routes/routes_utils.dart';
+import 'package:flutter_cloud_music/widgets/custom_tap.dart';
 import 'package:flutter_cloud_music/widgets/playcount_widget.dart';
 import 'package:get/get.dart';
 import 'package:keframe/frame_separate_widget.dart';
@@ -33,64 +35,71 @@ class FoundSliedPlaylist extends StatelessWidget {
 
   Widget _buildItem(CreativeModel model, ThemeData thme) {
     if (GetUtils.isNullOrBlank(model.resources) == true) return Gaps.empty;
-    final resource = model.resources![0];
-    final extInfo = ResourceExtInfoModel.fromJson(resource.resourceExtInfo);
-    return SizedBox(
-      width: Dimens.gap_dp109,
-      child: Column(
-        children: [
-          //突出的背景
-          Container(
-            height: Dimens.gap_dp4,
-            margin:
-                EdgeInsets.only(left: Dimens.gap_dp12, right: Dimens.gap_dp12),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300.withOpacity(0.4),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(Dimens.gap_dp12),
-                  topRight: Radius.circular(Dimens.gap_dp12)),
+    if (model.creativeType == 'scroll_playlist') {
+      //垂直滚动的歌单卡片
+      return FoundVerScrollPlayList(
+        resources: model.resources!,
+      );
+    } else {
+      final resource = model.resources![0];
+      final extInfo = ResourceExtInfoModel.fromJson(resource.resourceExtInfo);
+      return SizedBox(
+        width: Dimens.gap_dp109,
+        child: Column(
+          children: [
+            //突出的背景
+            Container(
+              height: Dimens.gap_dp4,
+              margin: EdgeInsets.only(
+                  left: Dimens.gap_dp12, right: Dimens.gap_dp12),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300.withOpacity(0.4),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(Dimens.gap_dp12),
+                    topRight: Radius.circular(Dimens.gap_dp12)),
+              ),
             ),
-          ),
-          //图片
-          ClipRRect(
-            borderRadius: BorderRadius.circular(Dimens.gap_dp10),
-            child: CachedNetworkImage(
-              width: Dimens.gap_dp105,
-              height: Dimens.gap_dp105,
-              placeholder: (context, url) {
-                return Container(
-                  color: Colours.load_image_placeholder(),
-                );
-              },
-              imageUrl: ImageUtils.getImageUrlFromSize(
-                  resource.uiElement.image?.imageUrl,
-                  Size(Dimens.gap_dp105, Dimens.gap_dp105)),
-              imageBuilder: (image, provider) {
-                return Stack(
-                  children: [
-                    Image(
-                      image: provider,
-                      fit: BoxFit.cover,
-                    ),
-                    //额外的样式 播放量等
-                    _buildExtWidget(extInfo, provider),
-                  ],
-                );
-              },
+            //图片
+            ClipRRect(
+              borderRadius: BorderRadius.circular(Dimens.gap_dp10),
+              child: CachedNetworkImage(
+                width: Dimens.gap_dp105,
+                height: Dimens.gap_dp105,
+                placeholder: (context, url) {
+                  return Container(
+                    color: Colours.load_image_placeholder(),
+                  );
+                },
+                imageUrl: ImageUtils.getImageUrlFromSize(
+                    resource.uiElement.image?.imageUrl,
+                    Size(Dimens.gap_dp105, Dimens.gap_dp105)),
+                imageBuilder: (image, provider) {
+                  return Stack(
+                    children: [
+                      Image(
+                        image: provider,
+                        fit: BoxFit.cover,
+                      ),
+                      //额外的样式 播放量等
+                      _buildExtWidget(extInfo, provider),
+                    ],
+                  );
+                },
+              ),
             ),
-          ),
 
-          Gaps.vGap5,
-          //标题
-          Text(
-            resource.uiElement.mainTitle?.title ?? "",
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: captionStyle(),
-          )
-        ],
-      ),
-    );
+            Gaps.vGap5,
+            //标题
+            Text(
+              resource.uiElement.mainTitle?.title ?? "",
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: captionStyle(),
+            )
+          ],
+        ),
+      );
+    }
   }
 
   Widget _buildExtWidget(ResourceExtInfoModel extInfo, ImageProvider provider) {
@@ -263,8 +272,8 @@ class FoundSliedPlaylist extends StatelessWidget {
                         width: Dimens.gap_dp109,
                         height: Dimens.gap_dp109,
                       ),
-                      child: GestureDetector(
-                        onTap: () {
+                      child: Bounce(
+                        onPressed: () {
                           RouteUtils.routeFromActionStr(model.action);
                         },
                         child: _buildItem(model, thme),

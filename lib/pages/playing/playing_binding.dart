@@ -1,4 +1,3 @@
-import 'package:flutter_cloud_music/common/player/widgets/lyric/lyric_controller.dart';
 import 'package:get/get.dart';
 import 'playing_controller.dart';
 

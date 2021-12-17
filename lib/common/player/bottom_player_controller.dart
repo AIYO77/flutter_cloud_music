@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:music_player/music_player.dart';
 
 class PlayerContoller extends GetxController {
-  late PageController pageController;
+  PageController? pageController;
 
   final isPlaying = false.obs;
 
@@ -45,8 +45,8 @@ class PlayerContoller extends GetxController {
     isPlaying.value = PlayerService.to.player.playbackState.isPlaying;
     final curPage = getCurPage(PlayerService.to.player.queue.queue,
         PlayerService.to.player.metadata?.mediaId);
-    if (!isManual) {
-      pageController.animateToPage(curPage,
+    if (!isManual && pageController != null) {
+      pageController?.animateToPage(curPage,
           duration: const Duration(milliseconds: 16),
           curve: Curves.fastOutSlowIn);
     }

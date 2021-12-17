@@ -1,7 +1,11 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:flutter_cloud_music/api/muisc_api.dart';
+import 'package:flutter_cloud_music/common/event/index.dart';
+import 'package:flutter_cloud_music/common/event/login_event.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
+import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
 import 'package:flutter_cloud_music/pages/found/model/default_search_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
@@ -34,8 +38,17 @@ class FoundController extends SuperController<FoundData?> {
   //是否成功加载完数据
   final isSucLoad = false.obs;
 
-  Future<void> getFoundRecList({bool refresh = false}) async {
-    MusicApi.getFoundRec(refresh: refresh).then((newValue) {
+  late StreamSubscription stream;
+
+  Future<void> getFoundRecList(
+      {bool refresh = false, bool isFirst = false}) async {
+    final cacheData = box.read<Map<String, dynamic>>(CACHE_HOME_FOUND_DATA);
+    if (cacheData != null) {
+      isSucLoad.value = true;
+      change(FoundData.fromJson(cacheData), status: RxStatus.success());
+    }
+    MusicApi.getFoundRec(refresh: refresh, cacheData: cacheData).then(
+        (newValue) {
       change(newValue, status: RxStatus.success());
       isSucLoad.value = true;
     }, onError: (err) {
@@ -51,7 +64,16 @@ class FoundController extends SuperController<FoundData?> {
   @override
   void onReady() {
     super.onReady();
-    getFoundRecList();
+    _requestData(true);
+    stream = eventBus.on<LoginEvent>().listen((event) {
+      if (event.isLogin) {
+        _requestData(false);
+      }
+    });
+  }
+
+  void _requestData(bool isFirst) {
+    getFoundRecList(isFirst: true);
     getDefaultSearch();
   }
 
@@ -66,6 +88,7 @@ class FoundController extends SuperController<FoundData?> {
 
   @override
   void onClose() {
+    stream.cancel();
     super.onClose();
   }
 

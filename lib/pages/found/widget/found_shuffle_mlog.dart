@@ -9,6 +9,7 @@ import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/shuffle_log_model.dart';
 import 'package:flutter_cloud_music/pages/found/widget/element_title_widget.dart';
+import 'package:flutter_cloud_music/widgets/custom_tap.dart';
 import 'package:flutter_cloud_music/widgets/playcount_widget.dart';
 import 'package:get/get.dart';
 
@@ -23,8 +24,8 @@ class FoundShuffleMLOG extends StatelessWidget {
     final coverSize = Size(Adapt.px(105), Adapt.px(130));
     return SizedBox(
       width: coverSize.width,
-      child: GestureDetector(
-        onTap: () {
+      child: Bounce(
+        onPressed: () {
           // RouteUtils.routeFromActionStr(model.)
         },
         child: Column(

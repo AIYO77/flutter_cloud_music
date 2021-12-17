@@ -11,4 +11,8 @@ class ResultData {
   String toString() {
     return '$data';
   }
+
+  bool isSucesse() {
+    return result && data['code'] == 200;
+  }
 }

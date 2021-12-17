@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/banner_model.dart';
+import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
+import 'package:flutter_cloud_music/pages/found/model/found_ball_model.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_appbar.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_ball.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_banner.dart';
@@ -18,12 +20,10 @@ import 'package:flutter_cloud_music/pages/found/widget/found_slide_songlist_alig
 import 'package:flutter_cloud_music/pages/found/widget/found_slide_voicelist.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_tab_mlog.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_cloud_music/common/player/player.dart';
-
 import 'package:get/get.dart';
 import 'package:keframe/frame_separate_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
 import 'found_controller.dart';
 import 'model/found_model.dart';
 import 'widget/found_slied_playlist.dart';
@@ -45,7 +45,7 @@ class FoundPage extends StatelessWidget {
         );
       case SHOWTYPE_BALL:
         return FoundBall(
-          blocks.extInfo,
+          (blocks.extInfo as List).map((e) => Ball.fromJson(e)).toList(),
           itemHeight: itemHeight,
         );
       case SHOWTYPE_HOMEPAGE_SLIDE_PLAYLIST:
@@ -154,6 +154,7 @@ class FoundPage extends StatelessWidget {
 
   Future<void> _onRefresh() async {
     controller.getFoundRecList(refresh: true);
+    controller.getDefaultSearch();
   }
 
   @override

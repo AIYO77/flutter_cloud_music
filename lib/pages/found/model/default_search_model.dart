@@ -11,7 +11,7 @@ class DefaultSearchModel extends Object {
   String? realkeyword;
 
   @JsonKey(name: 'searchType')
-  int searchType;
+  int? searchType;
 
   DefaultSearchModel(
     this.showKeyword,

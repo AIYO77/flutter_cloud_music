@@ -8,13 +8,14 @@ import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/player/player_service.dart';
 import 'package:flutter_cloud_music/common/player/widgets/player_circular_progress.dart';
 import 'package:flutter_cloud_music/common/player/widgets/rotation_cover_image.dart';
+import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
-import 'package:flutter_cloud_music/common/values/server.dart';
+import 'package:flutter_cloud_music/pages/playing_list/page_playing_list.dart';
 import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:get/get.dart';
 import 'package:music_player/music_player.dart';
@@ -48,7 +49,6 @@ class BottomPlayerBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.d('BottomPlayerBar');
     return InkWell(
       onTap: () {
         // context.playerService.watchPlayerValue.value?.queue.isPlayingFm
@@ -70,8 +70,8 @@ class BottomPlayerBar extends StatelessWidget {
   }
 }
 
-class BottomContentWidget extends StatelessWidget {
-  BottomContentWidget({
+class BottomContentWidget extends GetView<PlayerContoller> {
+  const BottomContentWidget({
     Key? key,
     required this.isFmPlaying,
     required this.bottomPadding,
@@ -80,9 +80,10 @@ class BottomContentWidget extends StatelessWidget {
   final bool isFmPlaying;
   final double bottomPadding;
   final int? curPlayId;
-  final controller = Get.find<PlayerContoller>();
+
   @override
   Widget build(BuildContext context) {
+    Get.put(PlayerContoller());
     return _buildContent(context);
   }
 
@@ -94,7 +95,6 @@ class BottomContentWidget extends StatelessWidget {
     final backgroundColor = Get.theme.cardColor;
 
     final initPage = controller.getCurPage(queue?.queue, curPlayId.toString());
-    logger.d('queue.size = ${queue?.queue.length}  initPage = $initPage');
     controller.pageController = PageController(initialPage: initPage);
 
     return SizedBox(
@@ -160,10 +160,7 @@ class BottomContentWidget extends StatelessWidget {
                         top: isFmPlaying ? 0.0 : Dimens.gap_dp7),
                     child: InkWell(
                         onTap: () {
-                          Get.bottomSheet(Container(
-                            height: 200,
-                            color: Colors.white,
-                          ));
+                          PlayingListDialog.show(context);
                         },
                         child: Image.asset(
                           ImageUtils.getImagePath('epj'),
@@ -225,30 +222,35 @@ class BottomContentWidget extends StatelessWidget {
 
   Widget _buildTitle(MusicMetadata music) {
     final titleStyle = captionStyle();
-    return RichText(
-      maxLines: 1,
-      text: TextSpan(
-          text: music.title,
-          style: titleStyle.copyWith(fontSize: Dimens.font_sp14),
-          children: [
-            WidgetSpan(child: Gaps.hGap4),
-            TextSpan(
-                text: '-',
-                style: titleStyle.copyWith(
-                    fontSize: Dimens.font_sp12,
-                    color: titleStyle.color?.withOpacity(0.6))),
-            WidgetSpan(child: Gaps.hGap4),
-            WidgetSpan(
-                child: Container(
-              margin: EdgeInsets.only(top: isFmPlaying ? 0 : Dimens.gap_dp20),
-              child: Text(
-                music.subtitle!,
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: RichText(
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        text: TextSpan(
+            text: music.title,
+            style: titleStyle.copyWith(fontSize: Dimens.font_sp14),
+            children: [
+              WidgetSpan(child: Gaps.hGap4),
+              TextSpan(
+                  text: '-',
+                  style: titleStyle.copyWith(
+                      fontSize: Dimens.font_sp12,
+                      color: titleStyle.color?.withOpacity(0.6))),
+              WidgetSpan(child: Gaps.hGap4),
+              TextSpan(
+                text: music.subtitle!,
                 style: titleStyle.copyWith(
                     fontSize: Dimens.font_sp12,
                     color: titleStyle.color?.withOpacity(0.6)),
-              ),
-            ))
-          ]),
+              )
+              // WidgetSpan(
+              //     child: Container(
+              //   // margin: EdgeInsets.only(top: isFmPlaying ? 0 : Dimens.gap_dp20),
+              //   child: ,
+              // ))
+            ]),
+      ),
     );
   }
 }

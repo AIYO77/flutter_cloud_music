@@ -17,7 +17,7 @@ class LoginResponse extends Object {
   String token;
 
   @JsonKey(name: 'profile')
-  Profile profile;
+  Profile? profile;
 
   @JsonKey(name: 'cookie')
   String cookie;
@@ -39,7 +39,7 @@ class LoginResponse extends Object {
         'code': code,
         'account': account.toJson(),
         'token': token,
-        'profile': profile.toJson(),
+        'profile': profile?.toJson(),
         'cookie': cookie,
       };
 }
