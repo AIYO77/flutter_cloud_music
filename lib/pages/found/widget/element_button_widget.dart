@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/ui_element_model.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
-import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
 import 'package:flutter_cloud_music/routes/routes_utils.dart';
@@ -43,7 +42,8 @@ Widget elementButtonWidget(ElementButton? elementButton,
             height: Dimens.gap_dp12),
       Text(
         elementButton.text.toString(),
-        style: subtitle1Style().copyWith(fontSize: Dimens.font_sp12),
+        style:
+            TextStyle(fontSize: Dimens.font_sp12, color: theme.iconTheme.color),
       ),
       if (elementButton.actionType == APP_ROUTER_TAG)
         Image.asset(ImageUtils.getImagePath('icon_more'),

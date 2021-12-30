@@ -139,11 +139,11 @@ List<Widget> getSongTags(Song song,
   if (song.privilege?.payed == 1) {
     res.add(ImageUtils.getImagePath('dw7'));
   }
-  if (song.privilege?.playMaxbr == 999000) {
+  if (song.privilege?.getMaxPlayBr() == 999000) {
     res.add(ImageUtils.getImagePath('dwz'));
   }
-  if (song.privilege?.freeTrialPrivilege.resConsumable == true ||
-      song.privilege?.freeTrialPrivilege.userConsumable == true) {
+  if (song.privilege?.freeTrialPrivilege?.resConsumable == true ||
+      song.privilege?.freeTrialPrivilege?.userConsumable == true) {
     res.add(ImageUtils.getImagePath('ck4'));
   }
   // Get.log('ressize ${res.length}');

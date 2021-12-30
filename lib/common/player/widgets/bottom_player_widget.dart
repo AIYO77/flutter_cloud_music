@@ -8,7 +8,6 @@ import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/player/player_service.dart';
 import 'package:flutter_cloud_music/common/player/widgets/player_circular_progress.dart';
 import 'package:flutter_cloud_music/common/player/widgets/rotation_cover_image.dart';
-import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
@@ -24,6 +23,7 @@ class BottomPlayerController extends StatelessWidget {
   const BottomPlayerController(this.child);
 
   final Widget child;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -32,6 +32,7 @@ class BottomPlayerController extends StatelessWidget {
         Positioned(
           bottom: 0,
           child: BottomPlayerBar(
+            // key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
             bottomPadding: Adapt.bottomPadding(),
           ),
         )
@@ -40,13 +41,17 @@ class BottomPlayerController extends StatelessWidget {
   }
 }
 
-class BottomPlayerBar extends StatelessWidget {
-  BottomPlayerBar({Key? key, this.bottomPadding = 0}) : super(key: key);
+class BottomPlayerBar extends StatefulWidget {
+  const BottomPlayerBar({Key? key, this.bottomPadding = 0}) : super(key: key);
 
   final double bottomPadding;
 
-  final controller = Get.put<PlayerContoller>(PlayerContoller());
+  @override
+  _BottomPlayerBarState createState() => _BottomPlayerBarState();
+}
 
+class _BottomPlayerBarState extends State<BottomPlayerBar>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -59,9 +64,10 @@ class BottomPlayerBar extends StatelessWidget {
           viewInsets: context.mediaQueryViewInsets.copyWith(bottom: 0),
         ),
         child: Obx(
-          () => BottomContentWidget(
-            isFmPlaying: context.playerService.isFmPlaying.value,
-            bottomPadding: bottomPadding,
+          () => _BottomContentWidget(
+            key: Key(context.playerService.queueIdValue.value),
+            listSize: context.playerService.queueSizeValue.value,
+            bottomPadding: widget.bottomPadding,
             curPlayId: context.playerService.curPlayId.value,
           ),
         ),
@@ -70,16 +76,19 @@ class BottomPlayerBar extends StatelessWidget {
   }
 }
 
-class BottomContentWidget extends GetView<PlayerContoller> {
-  const BottomContentWidget({
+class _BottomContentWidget extends GetView<PlayerContoller> {
+  _BottomContentWidget({
     Key? key,
-    required this.isFmPlaying,
+    required this.listSize,
     required this.bottomPadding,
     this.curPlayId,
   }) : super(key: key);
-  final bool isFmPlaying;
+
+  final bool isFmPlaying = PlayerService.to.isFmPlaying.value;
   final double bottomPadding;
   final int? curPlayId;
+
+  final int listSize;
 
   @override
   Widget build(BuildContext context) {
@@ -91,10 +100,9 @@ class BottomContentWidget extends GetView<PlayerContoller> {
     if (curPlayId == null || (curPlayId ?? -1) < 0) {
       return Gaps.empty;
     }
-    final queue = PlayerService.to.watchPlayerValue.value?.queue;
     final backgroundColor = Get.theme.cardColor;
-
-    final initPage = controller.getCurPage(queue?.queue, curPlayId.toString());
+    final queue = context.player.queue;
+    final initPage = controller.getCurPage(queue.queue, curPlayId.toString());
     controller.pageController = PageController(initialPage: initPage);
 
     return SizedBox(
@@ -137,7 +145,7 @@ class BottomContentWidget extends GetView<PlayerContoller> {
                   Expanded(
                     child: PageView.builder(
                       key: UniqueKey(),
-                      itemCount: queue?.queue.length ?? 0,
+                      itemCount: listSize,
                       controller: controller.pageController,
                       physics: isFmPlaying
                           ? const NeverScrollableScrollPhysics()
@@ -146,7 +154,7 @@ class BottomContentWidget extends GetView<PlayerContoller> {
                         controller.playFromIndex(context, page);
                       },
                       itemBuilder: (context, index) {
-                        final muisc = queue!.queue.elementAt(index);
+                        final muisc = queue.queue.elementAt(index);
                         return isFmPlaying
                             ? _buildFmWidget(muisc)
                             : _buildNormWidget(muisc);
@@ -208,11 +216,11 @@ class BottomContentWidget extends GetView<PlayerContoller> {
           size: Size(Dimens.gap_dp44, Dimens.gap_dp44),
           child: Hero(
               tag: HERO_TAG_CUR_PLAY,
-              child: Obx(() => RotationCoverImage(
-                    rotating: controller.isPlaying.value,
-                    music: music.toMusic(),
-                    pading: Dimens.gap_dp9,
-                  ))),
+              child: RotationCoverImage(
+                rotating: controller.isPlaying.value,
+                music: music.toMusic(),
+                pading: Dimens.gap_dp9,
+              )),
         ),
         Gaps.hGap10,
         Expanded(child: _buildTitle(music))
@@ -239,7 +247,7 @@ class BottomContentWidget extends GetView<PlayerContoller> {
                       color: titleStyle.color?.withOpacity(0.6))),
               WidgetSpan(child: Gaps.hGap4),
               TextSpan(
-                text: music.subtitle!,
+                text: music.subtitle,
                 style: titleStyle.copyWith(
                     fontSize: Dimens.font_sp12,
                     color: titleStyle.color?.withOpacity(0.6)),

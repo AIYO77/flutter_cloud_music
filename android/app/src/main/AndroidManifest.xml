@@ -10,7 +10,9 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
+            android:networkSecurityConfig="@xml/network_security_config"
             android:theme="@style/LaunchTheme"
+            android:usesCleartextTraffic="true"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">

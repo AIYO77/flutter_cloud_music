@@ -16,9 +16,9 @@ Song _$SongFromJson(Map<String, dynamic> json) => Song(
       json['fee'] as int,
       json['v'] as int,
       AlbumSimple.fromJson(json['al'] as Map<String, dynamic>),
-      json['copyright'] as int,
-      json['originCoverType'] as int,
-      json['mv'] as int,
+      json['copyright'] as int?,
+      json['originCoverType'] as int?,
+      json['mv'] as int?,
       json['videoInfo'] == null
           ? null
           : VideoInfo.fromJson(json['videoInfo'] as Map<String, dynamic>),

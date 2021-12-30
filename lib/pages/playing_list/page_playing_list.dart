@@ -105,7 +105,7 @@ class PlayingListDialogState extends State<PlayingListDialog> {
                     },
                     icon: Image.asset(
                       ImageUtils.getImagePath('ad_icn_download'),
-                      color: captionStyle().color!.withOpacity(0.5),
+                      color: captionStyle().color!.withOpacity(0.7),
                       width: Dimens.gap_dp20,
                     )),
                 IconButton(
@@ -114,16 +114,14 @@ class PlayingListDialogState extends State<PlayingListDialog> {
                     },
                     icon: Image.asset(
                       ImageUtils.getImagePath('btn_add'),
-                      color: captionStyle().color!.withOpacity(0.5),
+                      color: captionStyle().color!.withOpacity(0.7),
                       width: Dimens.gap_dp26,
                     )),
                 IconButton(
-                    onPressed: () {
-                      notImplemented(context);
-                    },
+                    onPressed: () {},
                     icon: Image.asset(
                       ImageUtils.getImagePath('playlist_icn_delete'),
-                      color: captionStyle().color!.withOpacity(0.5),
+                      color: captionStyle().color!.withOpacity(0.7),
                       width: Dimens.gap_dp26,
                     )),
               ],
@@ -200,11 +198,11 @@ class _SongItemCell extends StatelessWidget {
               IconButton(
                   onPressed: () {
                     //删除播放列表中的某一条
-                    // context.player.removeMusicItem(song.metadata);
-                    notImplemented(context);
+                    context.player.removeMusicItem(song.metadata);
                   },
                   icon: Image.asset(
                     ImageUtils.getImagePath('login_icn_back'),
+                    color: captionStyle().color!.withOpacity(0.7),
                     width: Dimens.gap_dp16,
                   ))
             ],

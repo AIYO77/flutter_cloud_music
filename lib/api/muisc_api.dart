@@ -1,13 +1,18 @@
+import 'package:flutter_cloud_music/common/model/album_cover_info.dart';
 import 'package:flutter_cloud_music/common/model/comment_response.dart';
 import 'package:flutter_cloud_music/common/model/simple_play_list_model.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/model/songs_model.dart';
+import 'package:flutter_cloud_music/common/model/top_album_cover_info.dart';
 import 'package:flutter_cloud_music/common/net/init_dio.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/pages/found/model/default_search_model.dart';
+import 'package:flutter_cloud_music/pages/found/model/found_ball_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
+import 'package:flutter_cloud_music/pages/found/model/found_new_song.dart';
+import 'package:flutter_cloud_music/pages/new_song_album/album/top_album_model.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/model/list_more_model.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/model/play_list_tag_model.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/model/playlist_detail_model.dart';
@@ -34,7 +39,18 @@ class MusicApi {
         final recmData = FoundData.fromJson(response.data['data']);
         final responseBall =
             await httpManager.get("/homepage/dragon/ball", null);
-
+        //缓存数字专辑Url
+        final url = box.read(CACHE_ALBUM_POLY_DETAIL_URL);
+        if (GetUtils.isNullOrBlank(url) == true) {
+          (responseBall.data['data'] as List)
+              .map((e) => Ball.fromJson(e))
+              .toList()
+              .forEach((element) {
+            if (element.id == 13000) {
+              box.write(CACHE_ALBUM_POLY_DETAIL_URL, element.url);
+            }
+          });
+        }
         recmData.blocks.insert(
             1,
             Blocks("HOMEPAGE_BALL", SHOWTYPE_BALL, responseBall.data['data'],
@@ -318,5 +334,67 @@ class MusicApi {
     final response = await httpManager.get('/personal_fm', null);
     if (response.result) {}
     return null;
+  }
+
+  ///获取推荐新歌
+  static Future<List<Song>?> getRecmNewSongs() async {
+    final response =
+        await httpManager.get('/personalized/newsong', {'limit': 50});
+    if (response.result) {
+      final list = response.data['result'] as List;
+      return list.map((e) => SongData.fromJson(e['song']).buildSong()).toList();
+    }
+    return null;
+  }
+
+  ///根据tag获取新歌
+  static Future<List<Song>?> getNewSongFromTag(int tag) async {
+    final response = await httpManager.get('/top/song', {'type': tag});
+    if (response.result) {
+      return (response.data['data'] as List)
+          .map((e) => SongData.fromJson(e).buildSong())
+          .toList();
+    }
+    return null;
+  }
+
+  ///获取最新数字专辑
+  static Future<List<AlbumCoverInfo>?> getNewAlbum({int limit = 3}) async {
+    final response = await httpManager.get('/album/list', {'limit': limit});
+    if (response.result) {
+      return (response.data['products'] as List)
+          .map((e) => AlbumCoverInfo.fromJson(e))
+          .toList();
+    }
+    return null;
+  }
+
+  ///获取新碟上架列表
+  static Future<List<TopAlbumModel>> getTopAlbum(int year, int month,
+      {List<TopAlbumModel>? oldData}) async {
+    final response =
+        await httpManager.get('/top/album', {'year': year, 'month': month});
+    final resultData = List<TopAlbumModel>.empty(growable: true);
+    if (oldData != null) {
+      resultData.addAll(oldData);
+    }
+    if (response.result) {
+      final weekData = response.data['weekData'];
+      final monthData = response.data['monthData'];
+      if (weekData != null) {
+        final list = (weekData as List)
+            .map((e) => TopAlbumCoverInfo.fromJson(e))
+            .toList();
+        resultData.add(TopAlbumModel(label: '本周新碟', data: list));
+      }
+      if (monthData != null) {
+        final list = (monthData as List)
+            .map((e) => TopAlbumCoverInfo.fromJson(e))
+            .toList();
+        resultData
+            .add(TopAlbumModel(dateTime: DateTime(year, month), data: list));
+      }
+    }
+    return resultData;
   }
 }

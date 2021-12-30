@@ -12,7 +12,9 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
       json['code'] as int,
       Account.fromJson(json['account'] as Map<String, dynamic>),
       json['token'] as String,
-      Profile.fromJson(json['profile'] as Map<String, dynamic>),
+      json['profile'] == null
+          ? null
+          : Profile.fromJson(json['profile'] as Map<String, dynamic>),
       json['cookie'] as String,
     );
 

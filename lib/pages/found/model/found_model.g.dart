@@ -7,7 +7,7 @@ part of 'found_model.dart';
 // **************************************************************************
 
 FoundData _$FoundDataFromJson(Map<String, dynamic> json) => FoundData(
-      json['cursor'].toString(),
+      json['cursor'] as String?,
       (json['blocks'] as List<dynamic>)
           .map((e) => Blocks.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -15,6 +15,7 @@ FoundData _$FoundDataFromJson(Map<String, dynamic> json) => FoundData(
     );
 
 Map<String, dynamic> _$FoundDataToJson(FoundData instance) => <String, dynamic>{
+      'cursor': instance.cursor,
       'blocks': instance.blocks,
       'pageConfig': instance.pageConfig,
     };

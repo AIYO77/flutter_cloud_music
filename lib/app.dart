@@ -28,8 +28,8 @@ Widget musicApp() {
   final ThemeData _darkTheme = ThemeData.dark().copyWith(
     cardColor: Colours.dark_card_color,
     dividerColor: Colours.dark_diver_color,
-    iconTheme: const IconThemeData(color: Colours.dark_icon_color),
-    highlightColor: Colors.grey.shade300,
+    iconTheme: IconThemeData(color: Colours.dark_icon_color),
+    highlightColor: Colors.grey.shade300.withOpacity(0.5),
     shadowColor: Colours.shadow_color_dark,
     scaffoldBackgroundColor: Colours.dark_bg_color,
     // textTheme: TextTheme(

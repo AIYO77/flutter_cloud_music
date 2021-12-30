@@ -68,7 +68,7 @@ class GeneralSongCellWidget extends StatelessWidget {
             )
           ],
         )),
-        if (song.mv > 0)
+        if ((song.mv ?? -1) > 0)
           GestureDetector(
             onTap: () {
               toast(song.mv.toString());

@@ -17,10 +17,13 @@ class PrivilegeModel extends Object {
   bool preSell;
 
   @JsonKey(name: 'playMaxbr')
-  int playMaxbr;
+  int? playMaxbr;
+
+  @JsonKey(name: 'maxbr')
+  int? maxbr;
 
   @JsonKey(name: 'freeTrialPrivilege')
-  FreeTrialPrivilege freeTrialPrivilege;
+  FreeTrialPrivilege? freeTrialPrivilege;
 
   PrivilegeModel(
     this.id,
@@ -28,6 +31,7 @@ class PrivilegeModel extends Object {
     this.payed,
     this.preSell,
     this.playMaxbr,
+    this.maxbr,
     this.freeTrialPrivilege,
   );
 
@@ -37,9 +41,12 @@ class PrivilegeModel extends Object {
         srcJson['fee'] as int,
         srcJson['payed'] as int,
         srcJson['preSell'] as bool,
-        srcJson['playMaxbr'] as int,
-        FreeTrialPrivilege.fromJson(
-            Map<String, dynamic>.from(srcJson['freeTrialPrivilege'])),
+        srcJson['playMaxbr'] as int?,
+        srcJson['maxbr'] as int?,
+        srcJson['freeTrialPrivilege'] == null
+            ? null
+            : FreeTrialPrivilege.fromJson(
+                Map<String, dynamic>.from(srcJson['freeTrialPrivilege'])),
       );
 
   Map<String, dynamic> toJson() => <String, dynamic>{
@@ -48,8 +55,13 @@ class PrivilegeModel extends Object {
         'payed': payed,
         'preSell': preSell,
         'playMaxbr': playMaxbr,
-        'freeTrialPrivilege': freeTrialPrivilege.toJson(),
+        'maxbr': maxbr,
+        'freeTrialPrivilege': freeTrialPrivilege?.toJson(),
       };
+
+  int? getMaxPlayBr() {
+    return playMaxbr ?? maxbr;
+  }
 }
 
 @JsonSerializable()

@@ -1,4 +1,5 @@
 import 'package:flutter_cloud_music/common/model/privilege_model.dart';
+import 'package:get/get.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:music_player/music_player.dart';
 
@@ -31,13 +32,13 @@ class Song extends Object {
   AlbumSimple al;
 
   @JsonKey(name: 'copyright')
-  int copyright;
+  int? copyright;
 
   @JsonKey(name: 'originCoverType')
-  int originCoverType;
+  int? originCoverType;
 
   @JsonKey(name: 'mv')
-  int mv;
+  int? mv;
 
   @JsonKey(name: 'videoInfo')
   VideoInfo? videoInfo;
@@ -83,9 +84,9 @@ class Song extends Object {
         json['fee'] as int,
         json['v'] as int,
         AlbumSimple.fromJson(Map<String, dynamic>.from(json['al'])),
-        json['copyright'] as int,
-        json['originCoverType'] as int,
-        json['mv'] as int,
+        json['copyright'] as int?,
+        json['originCoverType'] as int?,
+        json['mv'] as int?,
         json['videoInfo'] == null
             ? null
             : VideoInfo.fromJson(Map<String, dynamic>.from(json['videoInfo'])),
@@ -180,6 +181,11 @@ class Ar extends Object {
   factory Ar.fromJson(Map<String, dynamic> srcJson) => _$ArFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$ArToJson(this);
+
+  String? getNameStr() {
+    if (GetUtils.isNullOrBlank(alias) == true) return name;
+    return '$name${alias?.map((e) => e.toString()).join('/')}';
+  }
 }
 
 @JsonSerializable()

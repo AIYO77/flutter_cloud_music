@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
+import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 
 class RotationCoverImage extends StatefulWidget {
@@ -13,6 +14,7 @@ class RotationCoverImage extends StatefulWidget {
   final bool rotating;
   final Song? music;
   final double pading;
+
   // final bool is
 
   @override
@@ -63,11 +65,25 @@ class _RotationCoverImageState extends State<RotationCoverImage>
       controller.forward(from: controller.value);
     }
     super.initState();
+    context.player.addListener(_playerChanged);
+  }
+
+  void _playerChanged() {
+    if (context.player.playbackState.isPlaying) {
+      if (!controller.isAnimating) {
+        controller.forward(from: controller.value);
+      }
+    } else {
+      if (controller.isAnimating) {
+        controller.stop(canceled: false);
+      }
+    }
   }
 
   @override
   void dispose() {
     controller.dispose();
+    context.player.removeListener(_playerChanged);
     super.dispose();
   }
 

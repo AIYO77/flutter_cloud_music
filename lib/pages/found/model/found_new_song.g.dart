@@ -21,14 +21,17 @@ SongData _$SongDataFromJson(Map<String, dynamic> json) => SongData(
       json['name'] as String,
       json['id'] as int,
       json['fee'] as int,
-      json['copyright'] as int,
-      json['originCoverType'] as int,
+      json['copyright'] as int?,
+      json['originCoverType'] as int?,
       json['mvid'] as int,
       (json['alias'] as List<dynamic>).map((e) => e as String).toList(),
       (json['artists'] as List<dynamic>)
           .map((e) => Ar.fromJson(e as Map<String, dynamic>))
           .toList(),
       AlbumSimple.fromJson(json['album'] as Map<String, dynamic>),
+      json['privilege'] == null
+          ? null
+          : PrivilegeModel.fromJson(json['privilege'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$SongDataToJson(SongData instance) => <String, dynamic>{
@@ -41,4 +44,5 @@ Map<String, dynamic> _$SongDataToJson(SongData instance) => <String, dynamic>{
       'alias': instance.alias,
       'artists': instance.artists,
       'album': instance.album,
+      'privilege': instance.songPrivilege,
     };

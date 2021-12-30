@@ -13,9 +13,12 @@ class TabWidget extends StatefulWidget {
 
   final int initTabIndex;
 
+  final bool isScrollable;
+
   const TabWidget({
     Key? key,
     required this.tabItems,
+    this.isScrollable = true,
     this.initTabIndex = 0,
     required this.pageItemBuilder,
     this.onPageChanged,
@@ -57,7 +60,7 @@ class _PlayListTabBarState extends State<TabWidget>
 
   Widget _pageContent() {
     return PageView.builder(
-      physics: const BouncingScrollPhysics(),
+      physics: const ClampingScrollPhysics(),
       itemBuilder: widget.pageItemBuilder,
       itemCount: widget.tabItems.length,
       controller: _pageController,
@@ -76,7 +79,7 @@ class _PlayListTabBarState extends State<TabWidget>
             child: TabBar(
               labelPadding: EdgeInsets.only(
                   left: Dimens.gap_dp15, right: Dimens.gap_dp15),
-              isScrollable: true,
+              isScrollable: widget.isScrollable,
               padding: EdgeInsets.only(top: Dimens.gap_dp4),
               labelColor: Get.isDarkMode
                   ? Colors.white
@@ -114,5 +117,6 @@ class _PlayListTabBarState extends State<TabWidget>
 
   void _pageChanged(int index) {
     _tabController.animateTo(index);
+    widget.onPageChanged?.call(index);
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/player/player_service.dart';
-import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:get/get.dart';
 import 'package:music_player/music_player.dart';
 
@@ -41,11 +40,10 @@ class PlayerContoller extends GetxController {
   }
 
   void _onPlayerChanged() {
-    logger.d('_onPlayerChanged');
     isPlaying.value = PlayerService.to.player.playbackState.isPlaying;
     final curPage = getCurPage(PlayerService.to.player.queue.queue,
         PlayerService.to.player.metadata?.mediaId);
-    if (!isManual && pageController != null) {
+    if (!isManual && pageController != null && pageController!.hasClients) {
       pageController?.animateToPage(curPage,
           duration: const Duration(milliseconds: 16),
           curve: Curves.fastOutSlowIn);

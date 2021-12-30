@@ -15,21 +15,27 @@ class PlayerService extends GetxService {
 
   //是否是私人FM
   final isFmPlaying = false.obs;
+
   //当前播放的歌曲ID
   final curPlayId = Rx<int?>(null);
-  //是否有歌可以播放
-  final hasPlay = Rx<bool>(false);
+
   //播放模式
   final playMode = Rx<PlayMode>(PlayMode.sequence);
 
   //播放属性
   final watchPlayerValue = Rx<MusicPlayerValue?>(null);
 
+  //播放列表ID
+  final queueIdValue = ''.obs;
+
+  //播放列表大小
+  final queueSizeValue = 0.obs;
+
   @override
   void onInit() {
     player = MusicPlayer();
     player.addListener(() {
-      update();
+      _update();
     });
     player.metadataListenable.addListener(() {
       if (player.metadata != null) {
@@ -65,12 +71,13 @@ class PlayerService extends GetxService {
     super.onInit();
   }
 
-  void update() {
+  void _update() {
     playMode.value = player.playMode;
     watchPlayerValue.value = player.value;
     curPlayId.value = int.tryParse(player.metadata?.mediaId ?? '');
-    hasPlay.value = (curPlayId.value ?? -1) >= 0;
     isFmPlaying.value = player.queue.isPlayingFm;
+    queueIdValue.value = player.queue.queueId;
+    queueSizeValue.value = player.queue.queue.length;
   }
 
   MusicMetadata? _restoreMetadata() {

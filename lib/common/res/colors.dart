@@ -15,10 +15,10 @@ class Colours {
   static const Color bg_color = Color.fromARGB(255, 246, 245, 246);
   static const Color dark_bg_color = Color.fromARGB(255, 13, 13, 12);
 
-  static const Color diver_color = Color.fromARGB(255, 224, 224, 224);
+  static const Color diver_color = Color.fromARGB(178, 224, 224, 224);
   static const Color dark_diver_color = Color.fromARGB(10, 255, 255, 255);
 
-  static const Color card_color = Color.fromARGB(255, 251, 252, 252);
+  static const Color card_color = Color.fromARGB(255, 255, 255, 255);
   static const Color dark_card_color = Color.fromARGB(255, 18, 17, 17);
 
   static const Color headline4_color = Color.fromARGB(255, 39, 38, 40);
@@ -47,10 +47,10 @@ class Colours {
   static const Color text_dark_label_gray = Color.fromARGB(255, 197, 197, 197);
 
   static const Color subtitle_text = Color.fromARGB(220, 111, 111, 111);
-  static Color dark_subtitle_text = Colors.white.withOpacity(0.85);
+  static Color dark_subtitle_text = Colors.white.withOpacity(0.65);
 
   static const Color icon_color = Color.fromARGB(255, 39, 39, 39);
-  static const Color dark_icon_color = Colors.white;
+  static Color dark_icon_color = Colors.white.withOpacity(0.85);
 
   static const Color label_bg = Color.fromARGB(200, 239, 239, 239);
   static const Color label_bg_dark = Colors.transparent;

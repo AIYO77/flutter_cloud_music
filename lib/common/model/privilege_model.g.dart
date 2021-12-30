@@ -12,9 +12,12 @@ PrivilegeModel _$PrivilegeModelFromJson(Map<String, dynamic> json) =>
       json['fee'] as int,
       json['payed'] as int,
       json['preSell'] as bool,
-      json['playMaxbr'] as int,
-      FreeTrialPrivilege.fromJson(
-          json['freeTrialPrivilege'] as Map<String, dynamic>),
+      json['playMaxbr'] as int?,
+      json['maxbr'] as int?,
+      json['freeTrialPrivilege'] == null
+          ? null
+          : FreeTrialPrivilege.fromJson(
+              json['freeTrialPrivilege'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PrivilegeModelToJson(PrivilegeModel instance) =>
@@ -24,6 +27,7 @@ Map<String, dynamic> _$PrivilegeModelToJson(PrivilegeModel instance) =>
       'payed': instance.payed,
       'preSell': instance.preSell,
       'playMaxbr': instance.playMaxbr,
+      'maxbr': instance.maxbr,
       'freeTrialPrivilege': instance.freeTrialPrivilege,
     };
 

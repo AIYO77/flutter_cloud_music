@@ -54,10 +54,10 @@ class SongData extends Object {
   int fee;
 
   @JsonKey(name: 'copyright')
-  int copyright;
+  int? copyright;
 
   @JsonKey(name: 'originCoverType')
-  int originCoverType;
+  int? originCoverType;
 
   @JsonKey(name: 'mvid')
   int mvid;
@@ -71,20 +71,19 @@ class SongData extends Object {
   @JsonKey(name: 'album')
   AlbumSimple album;
 
-  SongData(
-    this.name,
-    this.id,
-    this.fee,
-    this.copyright,
-    this.originCoverType,
-    this.mvid,
-    this.alias,
-    this.artists,
-    this.album,
-  );
+  @JsonKey(name: 'privilege')
+  PrivilegeModel? songPrivilege;
+
+  SongData(this.name, this.id, this.fee, this.copyright, this.originCoverType,
+      this.mvid, this.alias, this.artists, this.album, this.songPrivilege);
 
   factory SongData.fromJson(Map<String, dynamic> srcJson) =>
       _$SongDataFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$SongDataToJson(this);
+
+  Song buildSong() {
+    return Song(name, id, artists, alias, fee, 100, album, copyright,
+        originCoverType, mvid, null, songPrivilege, null, null, 0);
+  }
 }
