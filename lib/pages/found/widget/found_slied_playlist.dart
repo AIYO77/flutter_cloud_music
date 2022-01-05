@@ -17,6 +17,7 @@ import 'package:flutter_cloud_music/widgets/custom_tap.dart';
 import 'package:flutter_cloud_music/widgets/playcount_widget.dart';
 import 'package:get/get.dart';
 import 'package:keframe/frame_separate_widget.dart';
+
 // import 'package:palette_generator/palette_generator.dart';
 
 import 'element_title_widget.dart';
@@ -94,7 +95,7 @@ class FoundSliedPlaylist extends StatelessWidget {
               resource.uiElement.mainTitle?.title ?? "",
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: captionStyle(),
+              style: body1Style(),
             )
           ],
         ),

@@ -1,6 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/player/player_service.dart';
+import 'package:flutter_cloud_music/common/res/themes.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/services/auth_service.dart';
 import 'package:flutter_cloud_music/services/event_service.dart';
@@ -14,28 +14,6 @@ import 'routes/app_pages.dart';
 import 'routes/app_routes.dart';
 
 Widget musicApp() {
-  final ThemeData _lightTheme = ThemeData.light().copyWith(
-    scaffoldBackgroundColor: Colours.bg_color,
-    dividerColor: Colours.diver_color,
-    shadowColor: Colours.shadow_color,
-    // textTheme: TextTheme(
-    //     subtitle2: TextStyle(
-    //         color: Colours.subtitle_text, fontSize: Dimens.font_sp12)),
-    iconTheme: const IconThemeData(color: Colours.icon_color),
-    highlightColor: Colors.grey.shade300,
-    cardColor: Colours.card_color,
-  );
-  final ThemeData _darkTheme = ThemeData.dark().copyWith(
-    cardColor: Colours.dark_card_color,
-    dividerColor: Colours.dark_diver_color,
-    iconTheme: IconThemeData(color: Colours.dark_icon_color),
-    highlightColor: Colors.grey.shade300.withOpacity(0.5),
-    shadowColor: Colours.shadow_color_dark,
-    scaffoldBackgroundColor: Colours.dark_bg_color,
-    // textTheme: TextTheme(
-    //     subtitle2: TextStyle(
-    //         color: Colours.dark_subtitle_text, fontSize: Dimens.font_sp12)),
-  );
   return RefreshConfiguration(
     headerBuilder: () => const MaterialClassicHeader(
       color: Colours.app_main,
@@ -43,10 +21,9 @@ Widget musicApp() {
     ),
     child: FlutterEasyLoading(
       child: GetMaterialApp(
-        theme: _lightTheme,
-        darkTheme: _darkTheme,
+        theme: Themes.lightTheme,
+        darkTheme: Themes.darkTheme,
         debugShowCheckedModeBanner: false,
-        enableLog: kDebugMode,
         logWriterCallback: logWriterCallback,
         initialRoute: Routes.SPLASH,
         color: Colours.bg_color,

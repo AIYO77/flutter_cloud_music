@@ -63,52 +63,23 @@ String getCommentStrFromInt(int count) {
 }
 
 TextStyle headlineStyle() {
-  return Get.isDarkMode
-      ? TextStyle(
-          color: Colours.dark_headline4_color,
-          fontSize: Dimens.font_sp17,
-          fontWeight: FontWeight.w600)
-      : TextStyle(
-          color: Colours.headline4_color,
-          fontSize: Dimens.font_sp17,
-          fontWeight: FontWeight.w600);
+  return Get.theme.textTheme.subtitle1 ?? const TextStyle();
 }
 
 TextStyle headline1Style() {
-  return Get.isDarkMode
-      ? TextStyle(
-          color: Colours.dark_headline1_color,
-          fontSize: Dimens.font_sp13,
-          fontWeight: FontWeight.w500)
-      : TextStyle(
-          color: Colours.headline1_color,
-          fontSize: Dimens.font_sp13,
-          fontWeight: FontWeight.w500);
+  return Get.theme.textTheme.headline1 ?? const TextStyle();
 }
 
 TextStyle headline2Style() {
-  return Get.isDarkMode
-      ? TextStyle(
-          color: Colours.dark_headline1_color,
-          fontSize: Dimens.font_sp15,
-          fontWeight: FontWeight.w500)
-      : TextStyle(
-          color: Colours.headline1_color,
-          fontSize: Dimens.font_sp15,
-          fontWeight: FontWeight.w500);
+  return Get.theme.textTheme.headline2 ?? const TextStyle();
+}
+
+TextStyle body1Style() {
+  return Get.theme.textTheme.bodyText1 ?? const TextStyle();
 }
 
 TextStyle captionStyle() {
-  return Get.isDarkMode
-      ? TextStyle(
-          color: Colours.dark_caption_txt_color, fontSize: Dimens.font_sp13)
-      : TextStyle(color: Colours.caption_txt_color, fontSize: Dimens.font_sp13);
-}
-
-TextStyle subtitle1Style() {
-  return Get.isDarkMode
-      ? TextStyle(color: Colours.dark_subtitle_text, fontSize: Dimens.font_sp12)
-      : TextStyle(color: Colours.subtitle_text, fontSize: Dimens.font_sp12);
+  return Get.theme.textTheme.caption ?? const TextStyle();
 }
 
 List<Widget> getSongTags(Song song,

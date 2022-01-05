@@ -1,4 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/album_cover_info.dart';
+import 'package:flutter_cloud_music/common/model/album_detail.dart';
+import 'package:flutter_cloud_music/common/model/album_dynamic_info.dart';
+import 'package:flutter_cloud_music/common/model/calendar_events.dart';
 import 'package:flutter_cloud_music/common/model/comment_response.dart';
 import 'package:flutter_cloud_music/common/model/simple_play_list_model.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
@@ -12,6 +16,7 @@ import 'package:flutter_cloud_music/pages/found/model/default_search_model.dart'
 import 'package:flutter_cloud_music/pages/found/model/found_ball_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_new_song.dart';
+import 'package:flutter_cloud_music/pages/music_calendar/content/calender_model.dart';
 import 'package:flutter_cloud_music/pages/new_song_album/album/top_album_model.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/model/list_more_model.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/model/play_list_tag_model.dart';
@@ -396,5 +401,61 @@ class MusicApi {
       }
     }
     return resultData;
+  }
+
+  ///获取专辑内容
+  static Future<AlbumDetail?> getAlbumDetail(String albumId) async {
+    final response = await httpManager.get('/album', {'id': albumId});
+    if (response.result) {
+      if (response.data['resourceState'] as bool) {
+        return AlbumDetail.fromJson(response.data);
+      }
+    }
+    return null;
+  }
+
+  ///可获得专辑动态信息,如是否收藏,收藏数,评论数,分享数
+  static Future<AlbumDynamicInfo> getAlbumDynamicInfo(String albumId) async {
+    final response =
+        await httpManager.get('/album/detail/dynamic', {'id': albumId});
+    if (response.result) {
+      return AlbumDynamicInfo.fromJson(response.data);
+    }
+    return AlbumDynamicInfo(0, 0, 0, false, 0);
+  }
+
+  ///音乐日历
+  static Future<List<CalenderModel>> getCalendarEvents(
+      DateTime startTime, DateTime endTime) async {
+    final response = await httpManager.get('/calendar', {
+      'startTime': startTime.millisecondsSinceEpoch,
+      'endTime': endTime.millisecondsSinceEpoch
+    });
+    final resultList = List<CalenderModel>.empty(growable: true);
+    if (response.result) {
+      final originalList = (response.data['data']['calendarEvents'] as List)
+          .map((e) => CalendarEvents.fromJson(e))
+          .toList();
+      for (final value in originalList) {
+        if (resultList.isNotEmpty) {
+          final data = resultList.last;
+          final isSameDay = DateUtils.isSameDay(
+              data.time, DateTime.fromMillisecondsSinceEpoch(value.onlineTime));
+          if (isSameDay) {
+            //同一天的日历
+            data.events.add(value);
+          } else {
+            //不是同一天的日历
+            resultList.add(CalenderModel(
+                DateTime.fromMillisecondsSinceEpoch(value.onlineTime),
+                [value]));
+          }
+        } else {
+          resultList.add(CalenderModel(
+              DateTime.fromMillisecondsSinceEpoch(value.onlineTime), [value]));
+        }
+      }
+    }
+    return resultList;
   }
 }

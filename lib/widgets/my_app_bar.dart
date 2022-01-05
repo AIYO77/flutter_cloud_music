@@ -18,6 +18,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar(
       {Key? key,
       this.backgroundColor,
+      this.foregroundColor,
       this.title = '',
       this.centerTitle = '',
       this.backImg = 'assets/images/dij.png',
@@ -26,6 +27,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       : super(key: key);
 
   final Color? backgroundColor;
+  final Color? foregroundColor;
   final String title;
   final String centerTitle;
   final String backImg;
@@ -42,8 +44,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             ? SystemUiOverlayStyle.light
             : SystemUiOverlayStyle.dark;
 
-    final _foregroundColor =
-        Get.isDarkMode ? Colours.white.withOpacity(0.9) : Colors.black;
+    final _foregroundColor = foregroundColor ??
+        (Get.isDarkMode ? Colours.white.withOpacity(0.9) : Colors.black);
 
     final back = isBack
         ? IconButton(

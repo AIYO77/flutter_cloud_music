@@ -7,6 +7,7 @@ import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:get/get.dart';
+
 import 'login_controller.dart';
 
 class LoginPage extends GetView<LoginController> {
@@ -73,7 +74,7 @@ class LoginPage extends GetView<LoginController> {
           Center(
             child: Text(
               "本项目仅供学习，请尊重版权",
-              style: captionStyle()
+              style: body1Style()
                   .copyWith(color: Colors.white54, fontSize: Dimens.font_sp13),
             ),
           ),

@@ -8,6 +8,7 @@ import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:flutter_cloud_music/widgets/verification_box/verification_box.dart';
 import 'package:flutter_cloud_music/widgets/verification_box/verification_box_item.dart';
 import 'package:get/get.dart';
+
 import 'verification_code_controller.dart';
 
 class VerificationCodePage extends GetView<VerificationCodeController> {
@@ -53,7 +54,7 @@ class VerificationCodePage extends GetView<VerificationCodeController> {
               children: [
                 Text(
                   '已发送至+${controller.countrycode}${controller.getPhoneSubStr()}',
-                  style: captionStyle(),
+                  style: body1Style(),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -69,7 +70,7 @@ class VerificationCodePage extends GetView<VerificationCodeController> {
                       style: TextStyle(
                           color: controller.countdownTime.value < 1
                               ? Colours.blue
-                              : captionStyle().color),
+                              : body1Style().color),
                     ),
                   ),
                 )

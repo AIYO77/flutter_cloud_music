@@ -13,6 +13,7 @@ import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
 import 'package:flutter_cloud_music/pages/new_song_album/album/new_album_controller.dart';
 import 'package:flutter_cloud_music/pages/new_song_album/album/top_album_model.dart';
+import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:flutter_cloud_music/routes/routes_utils.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:get/get.dart';
@@ -53,13 +54,13 @@ class NewAlbumPage extends GetView<NewAlbumController> {
               //加载数据失败
               body = Text(
                 "加载失败，稍后重试",
-                style: captionStyle().copyWith(fontSize: Dimens.font_sp14),
+                style: body1Style().copyWith(fontSize: Dimens.font_sp14),
               );
             } else {
               //没有数据
               body = Text(
                 "暂无更多专辑",
-                style: captionStyle().copyWith(fontSize: Dimens.font_sp14),
+                style: body1Style().copyWith(fontSize: Dimens.font_sp14),
               );
             }
             return Container(
@@ -158,7 +159,7 @@ class NewAlbumPage extends GetView<NewAlbumController> {
                   TextSpan(
                       text: ' /${section.dateTime?.year}',
                       style:
-                          subtitle1Style().copyWith(fontSize: Dimens.font_sp15))
+                          captionStyle().copyWith(fontSize: Dimens.font_sp15))
                 ],
               ),
             ),
@@ -176,7 +177,7 @@ class NewAlbumPage extends GetView<NewAlbumController> {
           crossAxisCount: 2,
           mainAxisSpacing: Dimens.gap_dp26,
           crossAxisSpacing: Dimens.gap_dp15,
-          childAspectRatio: 0.908,
+          childAspectRatio: 0.9,
         ),
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -225,7 +226,7 @@ class NewAlbumPage extends GetView<NewAlbumController> {
                       child: Center(
                         child: Text(
                           '更多热销专辑',
-                          style: subtitle1Style()
+                          style: captionStyle()
                               .copyWith(fontSize: Dimens.font_sp14),
                         ),
                       ),
@@ -242,49 +243,57 @@ class NewAlbumPage extends GetView<NewAlbumController> {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 crossAxisSpacing: Dimens.gap_dp10,
-                childAspectRatio: 0.678,
+                childAspectRatio: 0.67,
               ),
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 final item = list.elementAt(index);
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.asset(
-                      ImageUtils.getImagePath('cqb'),
-                      width: Dimens.gap_dp108,
-                      height: Dimens.gap_dp10,
-                      fit: BoxFit.fill,
-                    ),
-                    ClipRRect(
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(Dimens.gap_dp8)),
-                      child: CachedNetworkImage(
-                        imageUrl: ImageUtils.getImageUrlFromSize(
-                          item.coverUrl,
-                          Size(Dimens.gap_dp140, Dimens.gap_dp140),
-                        ),
-                        placeholder: (context, url) {
-                          return Container(
-                            color: Colours.load_image_placeholder(),
-                          );
-                        },
+                return GestureDetector(
+                  onTap: () {
+                    //
+                    Get.toNamed(
+                        "${Routes.WEB}?url=https://music.163.com/octave/m/album/detail?id=${item.albumId}");
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        ImageUtils.getImagePath('cqb'),
+                        width: Dimens.gap_dp108,
+                        height: Dimens.gap_dp10,
+                        fit: BoxFit.fill,
                       ),
-                    ),
-                    Gaps.vGap6,
-                    Text(
-                      item.albumName,
-                      style:
-                          captionStyle().copyWith(fontWeight: FontWeight.w500),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(item.artistName,
-                        style: subtitle1Style(),
+                      ClipRRect(
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(Dimens.gap_dp8)),
+                        child: CachedNetworkImage(
+                          imageUrl: ImageUtils.getImageUrlFromSize(
+                            item.coverUrl,
+                            Size(Dimens.gap_dp140, Dimens.gap_dp140),
+                          ),
+                          height: Dimens.gap_dp108,
+                          placeholder: (context, url) {
+                            return Container(
+                              color: Colours.load_image_placeholder(),
+                            );
+                          },
+                        ),
+                      ),
+                      Gaps.vGap6,
+                      Text(
+                        item.albumName,
+                        style:
+                            body1Style().copyWith(fontWeight: FontWeight.w500),
                         maxLines: 1,
-                        overflow: TextOverflow.ellipsis)
-                  ],
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(item.artistName,
+                          style: captionStyle(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis)
+                    ],
+                  ),
                 );
               },
               itemCount: list.length,
@@ -296,50 +305,57 @@ class NewAlbumPage extends GetView<NewAlbumController> {
   }
 
   Widget _buildItem(TopAlbumCoverInfo item) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Stack(
-          children: [
-            Image.asset(
-              ImageUtils.getImagePath('myfav_cover_alb'),
-              width: Dimens.gap_dp164,
-            ),
-            Positioned(
-                top: 0,
-                left: 0,
-                child: ClipRRect(
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(Dimens.gap_dp6)),
-                  child: CachedNetworkImage(
-                    height: Adapt.px(142),
-                    imageUrl: ImageUtils.getImageUrlFromSize(
-                      item.picUrl,
-                      Size(Dimens.gap_dp140, Dimens.gap_dp140),
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(Routes.ALBUM_DETAIL_ID(item.id.toString()));
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              Image.asset(
+                ImageUtils.getImagePath(GetPlatform.isAndroid
+                    ? 'ic_cover_alb_android'
+                    : 'ic_cover_alb_ios'),
+                width: Dimens.gap_dp164,
+              ),
+              Positioned(
+                  top: 0,
+                  left: 0,
+                  child: ClipRRect(
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(Dimens.gap_dp6)),
+                    child: CachedNetworkImage(
+                      height: Adapt.px(142),
+                      imageUrl: ImageUtils.getImageUrlFromSize(
+                        item.picUrl,
+                        Size(Dimens.gap_dp140, Dimens.gap_dp140),
+                      ),
+                      placeholder: (context, url) {
+                        return Container(
+                          color: Colours.load_image_placeholder(),
+                        );
+                      },
                     ),
-                    placeholder: (context, url) {
-                      return Container(
-                        color: Colours.load_image_placeholder(),
-                      );
-                    },
-                  ),
-                ))
-          ],
-        ),
-        Gaps.vGap5,
-        Text(
-          item.getAlbumName(),
-          style: captionStyle().copyWith(fontWeight: FontWeight.w500),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-        // Gaps.vGap4,
-        Text(item.getArName(),
-            style: subtitle1Style(),
+                  ))
+            ],
+          ),
+          Gaps.vGap5,
+          Text(
+            item.getAlbumName(),
+            style: body1Style().copyWith(fontWeight: FontWeight.w500),
             maxLines: 1,
-            overflow: TextOverflow.ellipsis)
-        // Text(data)
-      ],
+            overflow: TextOverflow.ellipsis,
+          ),
+          // Gaps.vGap4,
+          Text(item.getArName(),
+              style: captionStyle(),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis)
+          // Text(data)
+        ],
+      ),
     );
   }
 }

@@ -10,6 +10,8 @@ import 'package:flutter_cloud_music/pages/found/model/creative_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_music_calendar_model.dart';
 import 'package:flutter_cloud_music/pages/found/widget/element_title_widget.dart';
+import 'package:flutter_cloud_music/routes/routes_utils.dart';
+import 'package:flutter_cloud_music/widgets/custom_tap.dart';
 import 'package:get/get.dart';
 
 class FoundMusicCalendar extends StatelessWidget {
@@ -43,15 +45,21 @@ class FoundMusicCalendar extends StatelessWidget {
   Widget _createItem(List<CreativeModel>? creatives, int index) {
     if (GetUtils.isNullOrBlank(creatives) == true) return Gaps.empty;
     if (index <= creatives!.length - 1) {
-      return Container(
-        padding: EdgeInsets.only(left: Dimens.gap_dp15, right: Dimens.gap_dp15),
-        child: Column(
-          children: [
-            if (index > 0) Gaps.line,
-            _buildItem(creatives.elementAt(index).resources!.elementAt(0))
-          ],
-        ),
-      );
+      return Bounce(
+          child: Container(
+            padding:
+                EdgeInsets.only(left: Dimens.gap_dp15, right: Dimens.gap_dp15),
+            child: Column(
+              children: [
+                if (index > 0) Gaps.line,
+                _buildItem(creatives.elementAt(index).resources!.elementAt(0))
+              ],
+            ),
+          ),
+          onPressed: () {
+            RouteUtils.routeFromActionStr(
+                creatives.elementAt(index).resources!.elementAt(0).action);
+          });
     }
     return Gaps.empty;
   }

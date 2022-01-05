@@ -95,8 +95,7 @@ class PlayingListDialogState extends State<PlayingListDialog> {
                     ),
                     label: Text(
                       context.playModelRx.value.name,
-                      style:
-                          captionStyle().copyWith(fontSize: Dimens.font_sp15),
+                      style: body1Style().copyWith(fontSize: Dimens.font_sp15),
                     ))),
                 const Spacer(),
                 IconButton(
@@ -105,7 +104,7 @@ class PlayingListDialogState extends State<PlayingListDialog> {
                     },
                     icon: Image.asset(
                       ImageUtils.getImagePath('ad_icn_download'),
-                      color: captionStyle().color!.withOpacity(0.7),
+                      color: body1Style().color!.withOpacity(0.7),
                       width: Dimens.gap_dp20,
                     )),
                 IconButton(
@@ -114,14 +113,14 @@ class PlayingListDialogState extends State<PlayingListDialog> {
                     },
                     icon: Image.asset(
                       ImageUtils.getImagePath('btn_add'),
-                      color: captionStyle().color!.withOpacity(0.7),
+                      color: body1Style().color!.withOpacity(0.7),
                       width: Dimens.gap_dp26,
                     )),
                 IconButton(
                     onPressed: () {},
                     icon: Image.asset(
                       ImageUtils.getImagePath('playlist_icn_delete'),
-                      color: captionStyle().color!.withOpacity(0.7),
+                      color: body1Style().color!.withOpacity(0.7),
                       width: Dimens.gap_dp26,
                     )),
               ],
@@ -188,11 +187,11 @@ class _SongItemCell extends StatelessWidget {
                               fontSize: Dimens.font_sp16,
                               color: isPlaying
                                   ? Colours.app_main_light
-                                  : captionStyle().color),
+                                  : body1Style().color),
                           children: [
                             TextSpan(
                                 text: ' - ${song.arString()}',
-                                style: captionStyle()
+                                style: body1Style()
                                     .copyWith(color: Colours.color_173))
                           ]))),
               IconButton(
@@ -202,7 +201,7 @@ class _SongItemCell extends StatelessWidget {
                   },
                   icon: Image.asset(
                     ImageUtils.getImagePath('login_icn_back'),
-                    color: captionStyle().color!.withOpacity(0.7),
+                    color: body1Style().color!.withOpacity(0.7),
                     width: Dimens.gap_dp16,
                   ))
             ],

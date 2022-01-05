@@ -32,7 +32,13 @@ abstract class Routes {
 
   static const NEW_SONG_ALBUM = _Paths.NEW_SONG_ALBUM;
 
+  static const ALBUM_DETAIL = _Paths.ALBUM_DETAIL;
+
+  static const MUSIC_CALENDAR = _Paths.MUSIC_CALENDAR;
+
   static String PLAYLIST_DETAIL_ID(String id) => '/playlist/$id';
+
+  static String ALBUM_DETAIL_ID(String id) => '/album/$id';
 
   static String LOGIN_THEN(String afterSuccessfulLogin) =>
       '$LOGIN?then=${Uri.encodeQueryComponent(afterSuccessfulLogin)}';
@@ -70,4 +76,10 @@ abstract class _Paths {
 
   //新歌 新专辑
   static const NEW_SONG_ALBUM = '/nm/discovery/newsongalbum';
+
+  //专辑详情
+  static const ALBUM_DETAIL = '/album/:id';
+
+  //音乐日历
+  static const MUSIC_CALENDAR = '/nm/musicCalendar/detail';
 }

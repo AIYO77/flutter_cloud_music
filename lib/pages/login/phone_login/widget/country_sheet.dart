@@ -8,7 +8,6 @@ import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/login/phone_login/model/country_list_model.dart';
 import 'package:flutter_cloud_music/typedef/function.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
@@ -114,8 +113,7 @@ class CountryShaeet extends StatelessWidget {
                   ),
                   Text(
                     '+${e.code}',
-                    style:
-                        subtitle1Style().copyWith(fontSize: Dimens.font_sp13),
+                    style: captionStyle().copyWith(fontSize: Dimens.font_sp13),
                   )
                 ],
               )),

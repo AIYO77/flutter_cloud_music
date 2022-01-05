@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_cloud_music/common/model/simple_play_list_model.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
@@ -102,7 +101,7 @@ class PlayListContentView extends StatelessWidget {
             item.name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: captionStyle(),
+            style: body1Style(),
           )
         ],
       ),
@@ -116,7 +115,7 @@ class PlayListContentView extends StatelessWidget {
         Expanded(
           child: Obx(() => Text(
                 controller.cat.value ?? '全部精品',
-                style: captionStyle(),
+                style: body1Style(),
               )),
         ),
         GestureDetector(
@@ -156,7 +155,7 @@ class PlayListContentView extends StatelessWidget {
                                 child: Center(
                                   child: Image.asset(
                                     ImageUtils.getImagePath('brx'),
-                                    color: captionStyle().color,
+                                    color: body1Style().color,
                                   ),
                                 ),
                               ),
@@ -173,9 +172,9 @@ class PlayListContentView extends StatelessWidget {
                   child: Image.asset(
                 ImageUtils.getImagePath('cf'),
                 width: Dimens.gap_dp15,
-                color: captionStyle().color,
+                color: body1Style().color,
               )),
-              TextSpan(text: '筛选', style: captionStyle())
+              TextSpan(text: '筛选', style: body1Style())
             ])),
           ),
         )
@@ -189,7 +188,7 @@ class PlayListContentView extends StatelessWidget {
         Gaps.vGap16,
         Text(
           '所有精品歌单',
-          style: captionStyle().copyWith(
+          style: body1Style().copyWith(
               fontSize: Dimens.font_sp18, fontWeight: FontWeight.w500),
         ),
         Gaps.vGap20,
@@ -249,11 +248,11 @@ class PlayListContentView extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: isSelected
-                  ? captionStyle().copyWith(
+                  ? body1Style().copyWith(
                       fontSize: Dimens.font_sp14,
                       color:
                           Get.isDarkMode ? Colours.white_dark : Colours.white)
-                  : captionStyle().copyWith(fontSize: Dimens.font_sp14),
+                  : body1Style().copyWith(fontSize: Dimens.font_sp14),
             ),
           ),
         ),
@@ -305,13 +304,13 @@ class PlayListContentView extends StatelessWidget {
                   //加载数据失败
                   body = Text(
                     "加载失败，稍后重试",
-                    style: captionStyle().copyWith(fontSize: Dimens.font_sp14),
+                    style: body1Style().copyWith(fontSize: Dimens.font_sp14),
                   );
                 } else {
                   //没有数据
                   body = Text(
                     "暂无更多歌单",
-                    style: captionStyle().copyWith(fontSize: Dimens.font_sp14),
+                    style: body1Style().copyWith(fontSize: Dimens.font_sp14),
                   );
                 }
                 return SizedBox(

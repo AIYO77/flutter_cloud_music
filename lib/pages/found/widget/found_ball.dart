@@ -61,7 +61,7 @@ class FoundBall extends StatelessWidget {
           Gaps.vGap5,
           Text(
             ball.name,
-            style: captionStyle().copyWith(fontSize: Dimens.font_sp12),
+            style: body1Style().copyWith(fontSize: Dimens.font_sp12),
           )
         ],
       ),

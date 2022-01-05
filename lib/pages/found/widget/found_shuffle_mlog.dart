@@ -92,7 +92,7 @@ class FoundShuffleMLOG extends StatelessWidget {
               model.resource.mlogBaseData.text,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: captionStyle(),
+              style: body1Style(),
             )
           ],
         ),

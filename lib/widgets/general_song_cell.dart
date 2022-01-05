@@ -21,7 +21,7 @@ class GeneralSongCellWidget extends StatelessWidget {
   }
 
   Widget _buildContent(BuildContext context) {
-    final titleStyle = captionStyle().copyWith(fontSize: Dimens.font_sp17);
+    final titleStyle = body1Style().copyWith(fontSize: Dimens.font_sp17);
     return Row(
       children: [
         Expanded(
@@ -43,7 +43,7 @@ class GeneralSongCellWidget extends StatelessWidget {
                         TextSpan(
                             text:
                                 '（${song.alia.reduce((value, element) => '$value $element')}）',
-                            style: subtitle1Style()
+                            style: captionStyle()
                                 .copyWith(fontSize: Dimens.font_sp17)),
                     ]),
               ),
@@ -60,7 +60,7 @@ class GeneralSongCellWidget extends StatelessWidget {
                 Expanded(
                     child: Text(
                   song.getSongCellSubTitle(),
-                  style: subtitle1Style(),
+                  style: captionStyle(),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ))

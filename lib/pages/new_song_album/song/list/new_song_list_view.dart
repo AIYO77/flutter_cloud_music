@@ -238,13 +238,13 @@ class NewSongListViewState extends State<NewSongListView> {
                               ? Gaps.empty
                               : Image.asset(
                                   ImageUtils.getImagePath('icn_list_multi'),
-                                  color: subtitle1Style().color,
+                                  color: captionStyle().color,
                                   width: Dimens.gap_dp16,
                                 ),
                           label: !parentController.showCheck.value
                               ? Text(
                                   '多选',
-                                  style: captionStyle()
+                                  style: body1Style()
                                       .copyWith(fontSize: Dimens.font_sp15),
                                 )
                               : Text(

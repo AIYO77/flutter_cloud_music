@@ -4,7 +4,7 @@ import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetSingleTickerProviderStateMixin {
   final bool isFirst = box.read<bool>('isFirst') ?? true;
 
   @override

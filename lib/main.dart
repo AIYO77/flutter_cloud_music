@@ -21,7 +21,6 @@ import 'services/auth_service.dart';
 Future<void> main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
-
   if (kDebugMode) {
     PluginManager.instance
       ..register(const WidgetInfoInspector())

@@ -30,6 +30,7 @@ class PlayingTitle extends StatelessWidget {
             ),
           ),
           titleSpacing: 0,
+          centerTitle: true,
           title: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,

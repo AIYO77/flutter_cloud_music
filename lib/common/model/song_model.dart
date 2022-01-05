@@ -149,7 +149,8 @@ class Song extends Object {
   }
 
   bool canPlay() {
-    return st == 0;
+    return true;
+    // return st == 0 || st == 1;
   }
 
   String arString() {

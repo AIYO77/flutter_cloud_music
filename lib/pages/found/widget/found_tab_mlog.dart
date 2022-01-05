@@ -72,7 +72,7 @@ class FoundTabMlogWidget extends StatelessWidget {
               maxLines: 1,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
-              style: captionStyle(),
+              style: body1Style(),
             )
           ],
         ),

@@ -41,6 +41,7 @@ dependencies:
     git:
       url: https://gitee.com/master_xing/flutter-music-player.git
       ref: 4e4ff0e9ed26b3d1a7e254a0f652e6267da68785
+  scrollable_positioned_list: ^0.2.3
 
 
 

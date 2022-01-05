@@ -57,7 +57,7 @@ class FoundSlideGragonBall extends StatelessWidget {
             model.uiElement?.mainTitle?.title ?? '',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: captionStyle(),
+            style: body1Style(),
           )
         ],
       ),

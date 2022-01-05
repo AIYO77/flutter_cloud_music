@@ -37,7 +37,7 @@ class FoundSlideVoiceList extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               text: TextSpan(
-                style: captionStyle(),
+                style: body1Style(),
                 children: [
                   if (GetUtils.isNullOrBlank(model.algReason) != true)
                     WidgetSpan(

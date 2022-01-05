@@ -7,7 +7,6 @@ import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/found/model/creative_model.dart';
-import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:flutter_cloud_music/widgets/custom_tap.dart';
 import 'package:get/get.dart';
 
@@ -119,7 +118,7 @@ class FoundVerScrollPlayListState extends State<FoundVerScrollPlayList> {
                     res.value?.uiElement.mainTitle?.title ?? "",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: captionStyle(),
+                    style: body1Style(),
                   ))
             ],
           ),

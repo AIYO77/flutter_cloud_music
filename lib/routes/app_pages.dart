@@ -1,5 +1,7 @@
 import 'package:flutter_cloud_music/middleware/auth_middleware.dart';
 import 'package:flutter_cloud_music/middleware/playing_middleware.dart';
+import 'package:flutter_cloud_music/pages/album_detail/album_detail_binding.dart';
+import 'package:flutter_cloud_music/pages/album_detail/album_detail_view.dart';
 import 'package:flutter_cloud_music/pages/home/home_binding.dart';
 import 'package:flutter_cloud_music/pages/home/home_view.dart';
 import 'package:flutter_cloud_music/pages/login/email_login/email_login_binding.dart';
@@ -12,6 +14,8 @@ import 'package:flutter_cloud_music/pages/login/pwd_login/pwd_login_binding.dart
 import 'package:flutter_cloud_music/pages/login/pwd_login/pwd_login_view.dart';
 import 'package:flutter_cloud_music/pages/login/verification_code/verification_code_binding.dart';
 import 'package:flutter_cloud_music/pages/login/verification_code/verification_code_view.dart';
+import 'package:flutter_cloud_music/pages/music_calendar/music_calendar_binding.dart';
+import 'package:flutter_cloud_music/pages/music_calendar/music_calendar_view.dart';
 import 'package:flutter_cloud_music/pages/new_song_album/new_song_album_binding.dart';
 import 'package:flutter_cloud_music/pages/new_song_album/new_song_album_view.dart';
 import 'package:flutter_cloud_music/pages/not_found/not_found_binding.dart';
@@ -148,6 +152,22 @@ class AppPages {
       binding: NewSongAlbumBinding(),
       transition: Transition.rightToLeft,
     ),
+
+    //album detail
+    GetPage(
+      name: Routes.ALBUM_DETAIL,
+      page: () => const AlbumDetailPage(),
+      binding: AlbumDetailBinding(),
+      transition: Transition.rightToLeft,
+    ),
+
+    //Music Calendar
+    GetPage(
+        middlewares: [EnsureAuthMiddleware()],
+        name: Routes.MUSIC_CALENDAR,
+        page: () => const MusicCalendarPage(),
+        binding: MusicCalendarBinding(),
+        transition: Transition.rightToLeft),
 
     //web
     GetPage(

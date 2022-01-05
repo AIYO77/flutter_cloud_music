@@ -229,7 +229,7 @@ class _BottomContentWidget extends GetView<PlayerContoller> {
   }
 
   Widget _buildTitle(MusicMetadata music) {
-    final titleStyle = captionStyle();
+    final titleStyle = body1Style();
     return Container(
       alignment: Alignment.centerLeft,
       child: RichText(

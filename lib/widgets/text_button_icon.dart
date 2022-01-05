@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MyTextButtonWithIcon extends TextButton {
+  final AxisDirection axisDirection;
+
   MyTextButtonWithIcon({
     Key? key,
     required VoidCallback? onPressed,
@@ -10,6 +12,7 @@ class MyTextButtonWithIcon extends TextButton {
     bool? autofocus,
     Clip? clipBehavior,
     double? gap,
+    this.axisDirection = AxisDirection.left,
     required Widget icon,
     required Widget label,
   }) : super(
@@ -27,6 +30,7 @@ class MyTextButtonWithIcon extends TextButton {
             icon: icon,
             label: label,
             gap: gap ?? 4,
+            axisDirection: axisDirection,
           ),
         );
 }
@@ -37,17 +41,29 @@ class _TextButtonWithIconChild extends StatelessWidget {
     this.gap = 4,
     required this.label,
     required this.icon,
+    required this.axisDirection,
   }) : super(key: key);
 
   final Widget label;
   final Widget icon;
   final double gap;
+  final AxisDirection axisDirection;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: <Widget>[icon, SizedBox(width: gap), Flexible(child: label)],
+      children: <Widget>[
+        if (axisDirection == AxisDirection.left)
+          icon
+        else
+          Flexible(child: label),
+        SizedBox(width: gap),
+        if (axisDirection == AxisDirection.left)
+          Flexible(child: label)
+        else
+          icon
+      ],
     );
   }
 }

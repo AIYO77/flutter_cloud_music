@@ -3,7 +3,7 @@ import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:get/get.dart';
 
 class NewSongAlbumController extends GetxController
-    with SingleGetTickerProviderMixin {
+    with GetTickerProviderStateMixin {
   final List<Tab> myTabs = <Tab>[
     const Tab(text: '新歌'),
     const Tab(text: '新碟'),

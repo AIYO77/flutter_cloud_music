@@ -51,7 +51,7 @@ class PhoneLoginPage extends GetView<PhoneLoginController> {
             Gaps.vGap10,
             Text(
               '未注册手机号登陆后将自动创建账号',
-              style: captionStyle(),
+              style: body1Style(),
             ),
             Gaps.vGap16,
             Container(

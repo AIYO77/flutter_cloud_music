@@ -64,7 +64,7 @@ class PlaylistFabCount extends StatelessWidget implements PreferredSizeWidget {
                   toast('去评论');
                 },
                 child: _buildItem(
-                    'icn_cmt',
+                    'detail_icn_cmt',
                     controller.detail.value == null
                         ? '评论'
                         : getPlayCountStrFromInt(

@@ -21,11 +21,13 @@ class Adapt {
   }
 
   static void _init(int number) {
-    final int uiwidth = number;
-    _ratio = _width / uiwidth;
+    _ratio = _width / number;
   }
 
   static double px(double number) {
+    if (_ratio == null || (_ratio ?? 0) <= 0) {
+      Adapt._init(375);
+    }
     if (!(_ratio is double || _ratio is int)) {
       Adapt._init(375);
     }

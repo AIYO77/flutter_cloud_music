@@ -164,7 +164,7 @@ class NewSongAlbumPage extends GetView<NewSongAlbumController> {
                 ),
                 Text(
                   name,
-                  style: subtitle1Style(),
+                  style: captionStyle(),
                 )
               ],
             ),

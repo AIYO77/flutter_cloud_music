@@ -27,9 +27,8 @@ class Colours {
   static const Color headline1_color = Color.fromARGB(255, 40, 40, 42);
   static const Color dark_headline1_color = Color.fromARGB(255, 254, 254, 254);
 
-  static const Color caption_txt_color = Color.fromARGB(255, 49, 49, 50);
-
-  static Color dark_caption_txt_color = Colors.white.withOpacity(0.85);
+  static const Color body1_txt_color = Color.fromARGB(255, 49, 49, 50);
+  static Color dark_body1_txt_color = Colors.white.withOpacity(0.85);
 
   static const Color shadow_color = Color.fromRGBO(235, 237, 242, 0.5);
   static const Color shadow_color_dark = Color.fromRGBO(235, 237, 242, 0.1);
