@@ -10,6 +10,14 @@ class Themes {
       iconTheme: const IconThemeData(color: Colours.icon_color),
       highlightColor: Colors.grey.shade300,
       cardColor: Colours.card_color,
+      appBarTheme: const AppBarTheme(
+          toolbarHeight: 56.0,
+          backgroundColor: Colours.card_color,
+          titleTextStyle: TextStyle(
+              color: Colours.body2_txt_color,
+              fontSize: 17.0,
+              fontWeight: FontWeight.w600),
+          elevation: 0),
       textTheme: const TextTheme(
           headline1: TextStyle(
               color: Colours.headline1_color,
@@ -27,6 +35,10 @@ class Themes {
               color: Colours.body1_txt_color,
               fontSize: 13,
               fontWeight: FontWeight.normal),
+          bodyText2: TextStyle(
+              color: Colours.body2_txt_color,
+              fontSize: 16,
+              fontWeight: FontWeight.normal),
           caption: TextStyle(color: Colours.subtitle_text, fontSize: 12)));
 
   static final darkTheme = ThemeData.dark().copyWith(
@@ -36,6 +48,14 @@ class Themes {
     highlightColor: Colors.grey.shade300.withOpacity(0.5),
     shadowColor: Colours.shadow_color_dark,
     scaffoldBackgroundColor: Colours.dark_bg_color,
+    appBarTheme: AppBarTheme(
+        toolbarHeight: 56.0,
+        backgroundColor: Colours.dark_card_color,
+        titleTextStyle: TextStyle(
+            color: Colours.dark_body2_txt_color,
+            fontSize: 17.0,
+            fontWeight: FontWeight.w600),
+        elevation: 0),
     textTheme: TextTheme(
         headline1: const TextStyle(
             color: Colours.dark_headline1_color,
@@ -50,6 +70,10 @@ class Themes {
             fontSize: 17,
             fontWeight: FontWeight.w600),
         bodyText1: TextStyle(color: Colours.dark_body1_txt_color, fontSize: 13),
+        bodyText2: TextStyle(
+            color: Colours.dark_body2_txt_color,
+            fontSize: 16,
+            fontWeight: FontWeight.normal),
         caption: TextStyle(color: Colours.dark_subtitle_text, fontSize: 12)),
   );
 }

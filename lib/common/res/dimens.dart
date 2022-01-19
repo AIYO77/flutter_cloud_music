@@ -38,8 +38,13 @@ class Dimens {
   static double gap_dp56 = Adapt.px(56.0);
   static double gap_dp58 = Adapt.px(58.0);
   static double gap_dp60 = Adapt.px(60.0);
+  static double gap_dp64 = Adapt.px(64.0);
+  static double gap_dp68 = Adapt.px(68.0);
+  static double gap_dp69 = Adapt.px(69.0);
   static double gap_dp76 = Adapt.px(76.0);
+  static double gap_dp70 = Adapt.px(70.0);
   static double gap_dp80 = Adapt.px(80.0);
+  static double gap_dp85 = Adapt.px(85.0);
   static double gap_dp90 = Adapt.px(90.0);
   static double gap_dp95 = Adapt.px(95.0);
   static double gap_dp46 = Adapt.px(46.0);
@@ -47,6 +52,7 @@ class Dimens {
   static double gap_dp42 = Adapt.px(42.0);
   static double gap_dp43 = Adapt.px(43.0);
   static double gap_dp44 = Adapt.px(44.0);
+  static double gap_dp45 = Adapt.px(45.0);
   static double gap_dp40 = Adapt.px(40.0);
   static double gap_dp24 = Adapt.px(24.0);
   static double gap_dp25 = Adapt.px(25.0);

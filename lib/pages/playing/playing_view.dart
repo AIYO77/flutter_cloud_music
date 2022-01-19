@@ -38,7 +38,7 @@ class PlayingPage extends GetView<PlayingController> {
                 Obx(() =>
                     PlayingTitle(song: context.playerValueRx.value?.current)),
                 //唱片动画
-                _CenterSection(music: context.playerValueRx.value?.current),
+                Obx(() => _CenterSection(music: controller.curPlaying.value)),
                 //点赞等操作
                 _PlayingOperationBar(),
                 //进度条
@@ -57,7 +57,7 @@ class PlayingPage extends GetView<PlayingController> {
 class _PlayingOperationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final iconColor = Colours.color_217;
+    const iconColor = Colours.color_217;
     return Padding(
       padding: EdgeInsets.only(bottom: Dimens.gap_dp6),
       child: Row(

@@ -69,7 +69,9 @@ class FoundAppbar extends StatelessWidget implements PreferredSizeWidget {
               GestureDetector(
                 child: Icon(
                   Icons.keyboard_voice,
-                  color: Get.isDarkMode ? Colors.white : Colors.black,
+                  color: Get.isDarkMode
+                      ? Colours.dark_body2_txt_color
+                      : Colours.body2_txt_color,
                   size: Dimens.gap_dp25,
                 ),
                 onTap: () {
@@ -85,5 +87,6 @@ class FoundAppbar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(Dimens.gap_dp56);
+  Size get preferredSize =>
+      Size.fromHeight(Get.theme.appBarTheme.toolbarHeight ?? Dimens.gap_dp44);
 }

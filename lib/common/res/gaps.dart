@@ -10,6 +10,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
+
 import 'dimens.dart';
 
 class Gaps {
@@ -30,7 +31,7 @@ class Gaps {
   static Widget hGap16 = SizedBox(width: Dimens.gap_dp16);
   static Widget hGap20 = SizedBox(width: Dimens.gap_dp20);
   static Widget hGap24 = SizedBox(width: Dimens.gap_dp24);
-
+  static Widget hGap28 = SizedBox(width: Dimens.gap_dp28);
   static Widget hGap36 = SizedBox(width: Dimens.gap_dp36);
   static Widget hGap32 = SizedBox(width: Dimens.gap_dp32);
 
@@ -45,6 +46,7 @@ class Gaps {
   static Widget vGap15 = SizedBox(height: Dimens.gap_dp15);
   static Widget vGap16 = SizedBox(height: Dimens.gap_dp16);
   static Widget vGap24 = SizedBox(height: Dimens.gap_dp24);
+  static Widget vGap26 = SizedBox(height: Dimens.gap_dp26);
   static Widget vGap36 = SizedBox(height: Dimens.gap_dp36);
   static Widget vGap40 = SizedBox(height: Dimens.gap_dp40);
   static Widget vGap20 = SizedBox(height: Dimens.gap_dp20);

@@ -30,12 +30,16 @@ class Colours {
   static const Color body1_txt_color = Color.fromARGB(255, 49, 49, 50);
   static Color dark_body1_txt_color = Colors.white.withOpacity(0.85);
 
+  static const Color body2_txt_color = Color.fromARGB(255, 51, 51, 53);
+  static Color dark_body2_txt_color = Colors.white.withOpacity(0.85);
+
   static const Color shadow_color = Color.fromRGBO(235, 237, 242, 0.5);
   static const Color shadow_color_dark = Color.fromRGBO(235, 237, 242, 0.1);
 
   static Color indicator_color = const Color.fromARGB(255, 235, 80, 72);
 
   static const Color blue = Color.fromARGB(255, 55, 145, 235);
+  static const Color blue_dark = Color.fromARGB(255, 99, 132, 175);
 
   static const Color pink = Color.fromARGB(255, 239, 210, 210);
 
@@ -82,6 +86,10 @@ class Colours {
   static const Color color_215 = Color.fromARGB(255, 215, 215, 215);
 
   static const Color color_217 = Color.fromARGB(255, 217, 217, 217);
+
+  static const Color color_248 = Color.fromARGB(255, 248, 248, 248);
+
+  static const Color color_128 = Color.fromARGB(255, 128, 128, 128);
 
   static Color load_image_placeholder() =>
       Get.isDarkMode ? white.withOpacity(0.1) : color_245;

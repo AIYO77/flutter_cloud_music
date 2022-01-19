@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/album_cover_info.dart';
 import 'package:flutter_cloud_music/common/model/album_detail.dart';
 import 'package:flutter_cloud_music/common/model/album_dynamic_info.dart';
+import 'package:flutter_cloud_music/common/model/artists_model.dart';
 import 'package:flutter_cloud_music/common/model/calendar_events.dart';
 import 'package:flutter_cloud_music/common/model/comment_response.dart';
 import 'package:flutter_cloud_music/common/model/simple_play_list_model.dart';
@@ -457,5 +458,23 @@ class MusicApi {
       }
     }
     return resultList;
+  }
+
+  ///歌手分类列表
+  static Future<ArtistsModel> getArtists(
+      int page, String initial, int type, int area) async {
+    const limit = 20;
+
+    final response = await httpManager.get('/artist/list', {
+      'limit': limit,
+      'offset': limit * page,
+      'initial': initial,
+      'type': type,
+      'area': area
+    });
+    if (response.isSucesse()) {
+      return ArtistsModel.fromJson(response.data);
+    }
+    return ArtistsModel(List.empty(), false);
   }
 }

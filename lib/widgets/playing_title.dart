@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
+import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
+import 'package:flutter_cloud_music/widgets/marquee_on_demand.dart';
 import 'package:get/get.dart';
+import 'package:marquee/marquee.dart';
 
 class PlayingTitle extends StatelessWidget {
   final Song? song;
@@ -35,9 +38,20 @@ class PlayingTitle extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(
-                song?.name ?? "",
-                style: const TextStyle(fontSize: 17),
+              MarqueeOnDemand(
+                switchWidth: Adapt.screenW() * 2 / 3,
+                text: song?.name ?? "",
+                marqueeBuilder: (context, text, textStyle) => Marquee(
+                  text: text,
+                  style: textStyle,
+                  velocity: 25,
+                  blankSpace: 30,
+                ),
+                textBuilder: (context, text, textStyle) => Text(
+                  text,
+                  style: textStyle,
+                ),
+                textStyle: const TextStyle(fontSize: 17, color: Colors.white),
               ),
               InkWell(
                 onTap: () {},

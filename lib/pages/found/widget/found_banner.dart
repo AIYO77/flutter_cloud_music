@@ -17,7 +17,8 @@ import 'package:get/get.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 class FoundBanner extends StatefulWidget {
-  const FoundBanner(this.bannerModel, {required this.itemHeight});
+  const FoundBanner(Key? key, this.bannerModel, {required this.itemHeight})
+      : super(key: key);
 
   final BannerModel bannerModel;
   final double itemHeight;
@@ -133,8 +134,8 @@ class FoundBannerState extends State<FoundBanner> {
 
   @override
   void initState() {
-    controller = SwiperController();
     super.initState();
+    controller = SwiperController();
   }
 
   @override

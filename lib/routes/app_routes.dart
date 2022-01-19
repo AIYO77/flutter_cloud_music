@@ -69,7 +69,7 @@ abstract class _Paths {
   static const PRIVATE_FM = "/privatefm";
 
   //播放页面
-  static const PLAYING = "/playing";
+  static const PLAYING = "/song/:id";
 
   //html页面
   static const WEB = "/openurl";

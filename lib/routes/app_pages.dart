@@ -41,11 +41,12 @@ class AppPages {
 
   static final routes = [
     GetPage(
-        name: Routes.SPLASH,
-        page: () => const SplashPage(),
-        binding: SplashBinding(),
-        preventDuplicates: true,
-        transition: Transition.fade),
+      name: Routes.SPLASH,
+      page: () => const SplashPage(),
+      binding: SplashBinding(),
+      preventDuplicates: true,
+      transition: Transition.fade,
+    ),
 
     GetPage(
       name: Routes.HOME,
@@ -142,7 +143,7 @@ class AppPages {
       page: () => const PlayingPage(),
       binding: PlayingBinding(),
       transition: Transition.downToUp,
-      preventDuplicates: true,
+      // preventDuplicates: true,
     ),
 
     //new song album

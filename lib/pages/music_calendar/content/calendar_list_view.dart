@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cloud_music/common/model/calendar_events.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/pages/music_calendar/content/calendar_list_controller.dart';
+import 'package:flutter_cloud_music/pages/music_calendar/content/item.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -33,7 +33,9 @@ class CalenderListView extends StatelessWidget {
 
   Widget _buildContent() {
     if (GetUtils.isNullOrBlank(controller.data.value) == true) {
-      return Container();
+      return Container(
+        child: _showEmpty(''),
+      );
     } else {
       return ScrollablePositionedList.builder(
         padding: EdgeInsets.only(top: Dimens.gap_dp15),
@@ -47,28 +49,7 @@ class CalenderListView extends StatelessWidget {
   Widget _item(int index) {
     final data = controller.data.value!.elementAt(index);
     return Column(
-      children: [
-        Card(
-          shadowColor: Get.theme.shadowColor,
-          elevation: Dimens.gap_dp1,
-          color: Get.theme.cardColor,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(Dimens.gap_dp8))),
-          margin: EdgeInsets.symmetric(horizontal: Dimens.gap_dp15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: Dimens.gap_dp16,
-                width: double.infinity,
-              ),
-              _buildItemTimeTip(data.time),
-              Expanded(child: _buildItemListContent(data.events)),
-            ],
-          ),
-        ),
-        _separator(index)
-      ],
+      children: [CalenderItem(model: data), _separator(index)],
     );
   }
 
@@ -113,27 +94,7 @@ class CalenderListView extends StatelessWidget {
       }
       if (showFollow) {
         controller.showFollowDay ??= curDate.day;
-        return SizedBox(
-          height: Dimens.gap_dp48,
-          width: Adapt.screenW(),
-          child: Center(
-            child: RichText(
-                text: TextSpan(style: captionStyle(), children: [
-              TextSpan(text: '$headerTip 暂无内容，'),
-              WidgetSpan(
-                  child: GestureDetector(
-                onTap: () {
-                  toast('message');
-                },
-                child: Text(
-                  '关注歌手',
-                  style: captionStyle().copyWith(color: Colours.blue),
-                ),
-              )),
-              const TextSpan(text: '获取更多质询吧')
-            ])),
-          ),
-        );
+        return _showEmpty(headerTip);
       } else {
         return SizedBox(
           height: Dimens.gap_dp48,
@@ -148,6 +109,28 @@ class CalenderListView extends StatelessWidget {
       }
     }
     return null;
+  }
+
+  Widget _showEmpty(String headerTip) {
+    return SizedBox(
+      height: Dimens.gap_dp48,
+      width: Adapt.screenW(),
+      child: Center(
+        child: RichText(
+            text: TextSpan(style: captionStyle(), children: [
+          TextSpan(text: '$headerTip 暂无内容，'),
+          WidgetSpan(
+              child: GestureDetector(
+            onTap: () {},
+            child: Text(
+              '关注歌手',
+              style: captionStyle().copyWith(color: Colours.blue),
+            ),
+          )),
+          const TextSpan(text: '获取更多质询吧')
+        ])),
+      ),
+    );
   }
 
   Widget _buildFooter(DateTime lastItemTime) {
@@ -181,73 +164,5 @@ class CalenderListView extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Widget _buildItemTimeTip(DateTime time) {
-    String timeStr;
-    final now = DateTime.now();
-    switch (time.day - now.day) {
-      case 0:
-        //当天
-        timeStr = '今天';
-        break;
-      case 1:
-        //明天
-        timeStr = '明天';
-        break;
-      case 2:
-        //后天
-        timeStr = '后天';
-        break;
-      case -1:
-        timeStr = '昨天';
-        break;
-      case -2:
-        timeStr = '前天';
-        break;
-      default:
-        timeStr = DateFormat('MM-dd').format(time);
-        break;
-    }
-    final style = headlineStyle().copyWith(fontWeight: FontWeight.normal);
-    final timeColor = (time.day - now.day >= 0)
-        ? Colours.app_main_light
-        : Get.isDarkMode
-            ? Colours.dark_subtitle_text.withOpacity(0.6)
-            : Colours.subtitle_text.withOpacity(0.6);
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Dimens.gap_dp16),
-      child: Text(
-        timeStr,
-        style: style.copyWith(color: timeColor),
-      ),
-    );
-  }
-
-  Widget _buildItemListContent(List<CalendarEvents> events) {
-    return ListView.separated(
-        itemBuilder: (context, index) {
-          return SizedBox(
-            height: Dimens.gap_dp90,
-            width: Adapt.screenW(),
-            child: Material(
-              child: InkWell(
-                onTap: () {},
-                child: Row(
-                  children: [],
-                ),
-              ),
-            ),
-          );
-        },
-        separatorBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.symmetric(horizontal: Dimens.gap_dp16),
-            height: Dimens.gap_dp1,
-            color: Get.theme.dividerColor,
-            width: double.infinity,
-          );
-        },
-        itemCount: events.length);
   }
 }

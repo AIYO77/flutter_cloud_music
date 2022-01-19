@@ -1,13 +1,14 @@
 import 'package:flutter_cloud_music/common/model/play_queue_with_music.dart';
 import 'package:flutter_cloud_music/common/player/player_service.dart';
+import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:get/get.dart';
 import 'package:music_player/music_player.dart';
 
 class RouteUtils {
-  static void routeFromActionStr(String? action, {dynamic data}) {
+  static Future<void> routeFromActionStr(String? action, {dynamic data}) async {
     if (action == null) return;
-
+    logger.d(action);
     if (action.startsWith(Routes.ROUTES_HOST)) {
       //应用内跳转
       final path = action.substring(Routes.ROUTES_HOST.length, action.length);

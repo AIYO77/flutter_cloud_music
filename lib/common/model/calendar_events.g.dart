@@ -12,7 +12,7 @@ CalendarEvents _$CalendarEventsFromJson(Map<String, dynamic> json) =>
       json['eventType'] as String,
       json['onlineTime'] as int,
       json['offlineTime'] as int,
-      json['tag'] as String,
+      json['tag'] as String?,
       json['title'] as String,
       json['imgUrl'] as String,
       json['canRemind'] as bool,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,9 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
       icon: Icon(
         Icons.menu_sharp,
         size: Dimens.gap_dp24,
-        color: Get.isDarkMode ? Colors.white : Colors.black,
+        color: Get.isDarkMode
+            ? Colours.dark_body2_txt_color
+            : Colours.body2_txt_color,
       ),
       onPressed: () {
         Scaffold.of(context).openDrawer();
@@ -25,7 +28,7 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
       padding: EdgeInsets.only(left: Adapt.px(2), right: Adapt.px(10)),
       margin: EdgeInsets.only(top: context.mediaQueryPadding.top),
       child: SizedBox(
-        height: Dimens.gap_dp56,
+        height: Get.theme.appBarTheme.toolbarHeight,
         child: leading,
       ),
     );

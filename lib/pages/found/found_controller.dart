@@ -43,7 +43,7 @@ class FoundController extends SuperController<FoundData?> {
   Future<void> getFoundRecList(
       {bool refresh = false, bool isFirst = false}) async {
     final cacheData = box.read<Map<String, dynamic>>(CACHE_HOME_FOUND_DATA);
-    if (cacheData != null) {
+    if (cacheData != null && !refresh) {
       isSucLoad.value = true;
       change(FoundData.fromJson(cacheData), status: RxStatus.success());
     }

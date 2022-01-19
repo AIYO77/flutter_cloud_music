@@ -22,12 +22,12 @@ class CommentButton extends StatelessWidget {
             children: [
               Image.asset(
                 ImageUtils.getImagePath('cmt_number'),
-                width: Dimens.gap_dp24,
+                width: Dimens.gap_dp22,
                 color: Colours.color_217,
               ),
               Container(
                 height: Dimens.gap_dp24,
-                margin: EdgeInsets.only(left: Dimens.gap_dp15),
+                padding: EdgeInsets.only(left: Dimens.gap_dp16),
                 alignment: Alignment.topRight,
                 child: Text(
                   getCommentStrFromInt(controller.commentCount.value),

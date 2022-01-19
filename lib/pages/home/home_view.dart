@@ -11,6 +11,7 @@ import 'package:flutter_cloud_music/pages/mine/mine_view.dart';
 import 'package:flutter_cloud_music/pages/podcast/podcast_view.dart';
 import 'package:flutter_cloud_music/widgets/keep_alive_wrapper.dart';
 import 'package:get/get.dart';
+
 import 'home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -39,6 +40,7 @@ class HomePage extends GetView<HomeController> {
           extendBodyBehindAppBar: true,
           extendBody: true,
           drawer: const DrawerWidget(),
+          // appBar: AppBar(),
           body: Stack(
             children: [
               Positioned.fill(

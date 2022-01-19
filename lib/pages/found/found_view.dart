@@ -40,6 +40,7 @@ class FoundPage extends StatelessWidget {
     switch (blocks.showType) {
       case SHOWTYPE_BANNER:
         return FoundBanner(
+          Key(blocks.extInfo.hashCode.toString()),
           BannerModel.fromJson(blocks.extInfo),
           itemHeight: itemHeight,
         );

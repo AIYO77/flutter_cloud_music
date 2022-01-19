@@ -78,6 +78,10 @@ TextStyle body1Style() {
   return Get.theme.textTheme.bodyText1 ?? const TextStyle();
 }
 
+TextStyle body2Style() {
+  return Get.theme.textTheme.bodyText2 ?? const TextStyle();
+}
+
 TextStyle captionStyle() {
   return Get.theme.textTheme.caption ?? const TextStyle();
 }

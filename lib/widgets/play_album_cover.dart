@@ -139,7 +139,7 @@ class _PlayAlbumCoverState extends State<PlayAlbumCover>
     super.dispose();
   }
 
-  static double kHeightSpaceAlbumTop = Adapt.px(70);
+  static double kHeightSpaceAlbumTop = Adapt.px(72);
 
   void _animateCoverTranslateTo(double des, {void Function()? onCompleted}) {
     _translateController?.dispose();
@@ -172,7 +172,7 @@ class _PlayAlbumCoverState extends State<PlayAlbumCover>
           "the width of cover layout should be constrainted!");
       return ClipRect(
           child: Padding(
-        padding: const EdgeInsets.only(bottom: 20),
+        padding: EdgeInsets.only(bottom: Dimens.gap_dp20),
         child: _build(context, constraints.maxWidth),
       ));
     });
@@ -234,41 +234,45 @@ class _PlayAlbumCoverState extends State<PlayAlbumCover>
           },
           child: Container(
               color: Colors.transparent,
-              alignment: Alignment.center,
+              alignment: Alignment.topCenter,
               padding: EdgeInsets.only(top: kHeightSpaceAlbumTop),
-              child: Stack(
-                children: <Widget>[
-                  Image.asset(
-                    ImageUtils.getImagePath('play_disc_mask'),
-                    fit: BoxFit.cover,
-                  ),
-                  Transform.translate(
-                    offset: Offset(_coverTranslateX - layoutWidth, 0),
-                    child: RotationCoverImage(
-                      rotating: false,
-                      music: _previous,
-                      pading: Dimens.gap_dp60,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                    maxHeight: Adapt.px(310), maxWidth: Adapt.px(310)),
+                child: Stack(
+                  children: <Widget>[
+                    Image.asset(
+                      ImageUtils.getImagePath('play_disc_mask'),
+                      fit: BoxFit.cover,
                     ),
-                  ),
-                  Transform.translate(
-                    offset: Offset(_coverTranslateX, 0),
-                    child: Hero(
-                        tag: HERO_TAG_CUR_PLAY,
-                        child: RotationCoverImage(
-                          rotating: _coverRotating && !_beDragging,
-                          music: _current,
-                          pading: Dimens.gap_dp60,
-                        )),
-                  ),
-                  Transform.translate(
-                    offset: Offset(_coverTranslateX + layoutWidth, 0),
-                    child: RotationCoverImage(
-                      rotating: false,
-                      music: _next,
-                      pading: Dimens.gap_dp60,
+                    Transform.translate(
+                      offset: Offset(_coverTranslateX - layoutWidth, 0),
+                      child: RotationCoverImage(
+                        rotating: false,
+                        music: _previous,
+                        pading: Dimens.gap_dp60,
+                      ),
                     ),
-                  ),
-                ],
+                    Transform.translate(
+                      offset: Offset(_coverTranslateX, 0),
+                      child: Hero(
+                          tag: HERO_TAG_CUR_PLAY,
+                          child: RotationCoverImage(
+                            rotating: _coverRotating && !_beDragging,
+                            music: _current,
+                            pading: Dimens.gap_dp60,
+                          )),
+                    ),
+                    Transform.translate(
+                      offset: Offset(_coverTranslateX + layoutWidth, 0),
+                      child: RotationCoverImage(
+                        rotating: false,
+                        music: _next,
+                        pading: Dimens.gap_dp60,
+                      ),
+                    ),
+                  ],
+                ),
               )),
         ),
         ClipRect(

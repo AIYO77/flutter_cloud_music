@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   # getx https://pub.dev/packages/get
-  get: ^4.1.4
+  get: ^4.6.1
   get_storage:
   flutter:
     sdk: flutter
@@ -30,7 +30,7 @@ dependencies:
   connectivity: ^3.0.6
   event_bus: ^2.0.0
   auto_size_text: ^3.0.0-nullsafety.0
-  # marquee: ^2.2.0
+  marquee: ^2.2.0
   sticky_headers: ^0.2.0
   sticky_and_expandable_list: ^1.0.3
   intl: ^0.17.0

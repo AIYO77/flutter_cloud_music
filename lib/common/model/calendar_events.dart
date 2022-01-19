@@ -17,7 +17,7 @@ class CalendarEvents extends Object {
   int offlineTime;
 
   @JsonKey(name: 'tag')
-  String tag;
+  String? tag;
 
   @JsonKey(name: 'title')
   String title;
@@ -79,4 +79,8 @@ class CalendarEvents extends Object {
       _$CalendarEventsFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$CalendarEventsToJson(this);
+
+  bool isSong() {
+    return resourceType == 'SONG';
+  }
 }

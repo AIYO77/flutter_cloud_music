@@ -10,6 +10,7 @@ import 'package:flutter_cloud_music/pages/playlist_collection/model/play_list_ta
 import 'package:flutter_cloud_music/pages/playlist_collection/widget/playlist_content_controller.dart';
 import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:flutter_cloud_music/widgets/custom_tap.dart';
+import 'package:flutter_cloud_music/widgets/footer_loading.dart';
 import 'package:flutter_cloud_music/widgets/generral_cover_playcount.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:get/get.dart';
@@ -293,31 +294,9 @@ class PlayListContentView extends StatelessWidget {
             color: Get.theme.cardColor,
             child: SmartRefresher(
               controller: refreshController,
-              footer: CustomFooter(builder: (context, mode) {
-                Widget body;
-                if (mode == LoadStatus.idle || mode == LoadStatus.loading) {
-                  //加载状态
-                  body = MusicLoading(
-                    axis: Axis.horizontal,
-                  );
-                } else if (mode == LoadStatus.failed) {
-                  //加载数据失败
-                  body = Text(
-                    "加载失败，稍后重试",
-                    style: body1Style().copyWith(fontSize: Dimens.font_sp14),
-                  );
-                } else {
-                  //没有数据
-                  body = Text(
-                    "暂无更多歌单",
-                    style: body1Style().copyWith(fontSize: Dimens.font_sp14),
-                  );
-                }
-                return SizedBox(
-                  height: Dimens.gap_dp56,
-                  child: Center(child: body),
-                );
-              }),
+              footer: const FooterLoading(
+                noMoreTxt: "暂无更多歌单",
+              ),
               onLoading: () async {
                 controller.loadMore();
               },

@@ -5,7 +5,6 @@ import 'package:flutter_cloud_music/common/event/index.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
-import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/pages/found/found_controller.dart';
 import 'package:get/get.dart';
 
@@ -50,17 +49,16 @@ class _FoundHeaderColorsState extends State<FoundHeaderColors>
 
   @override
   Widget build(BuildContext context) {
-    final barHeight = Dimens.gap_dp56 + context.mediaQueryPadding.top;
     return Obx(
       () => SizedBox(
         width: Adapt.screenW(),
         height: controller.isScrolled.value
-            ? barHeight
-            : barHeight + Dimens.gap_dp140,
+            ? Dimens.gap_dp56 + Adapt.topPadding()
+            : Dimens.gap_dp56 + Adapt.topPadding() + Dimens.gap_dp140,
         child: controller.isScrolled.value
             ? Container(
                 color: Get.theme.cardColor,
-                height: barHeight,
+                height: Dimens.gap_dp56 + Adapt.topPadding(),
                 width: Adapt.screenW(),
               )
             : Stack(

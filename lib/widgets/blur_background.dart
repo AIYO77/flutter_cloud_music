@@ -2,8 +2,6 @@ import 'dart:ui' as ui;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cloud_music/common/utils/adapt.dart';
-import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 
 class BlurBackground extends StatelessWidget {
   const BlurBackground({Key? key, this.musicCoverUrl}) : super(key: key);
@@ -25,27 +23,43 @@ class BlurBackground extends StatelessWidget {
               // Container(
               //   color: Colors.black38,
               // ),
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: Adapt.screenH() / 2,
-                child: Image.asset(
-                  ImageUtils.getImagePath('cover_top_mask'),
-                  fit: BoxFit.fill,
-                  width: Adapt.screenW(),
-                ),
-              ),
-              Positioned(
-                  top: Adapt.screenH() / 2,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Image.asset(
-                    ImageUtils.getImagePath('cover_btm_mask'),
-                    width: Adapt.screenW(),
-                    fit: BoxFit.fill,
-                  ))
+              // Positioned(
+              //   top: 0,
+              //   left: 0,
+              //   right: 0,
+              //   bottom: Adapt.screenH() / 2,
+              //   child: Image.asset(
+              //     ImageUtils.getImagePath('cover_top_mask'),
+              //     fit: BoxFit.fill,
+              //     width: Adapt.screenW(),
+              //   ),
+              // ),
+              // Positioned(
+              //     top: Adapt.screenH() / 2,
+              //     left: 0,
+              //     right: 0,
+              //     bottom: 0,
+              //     child: Image.asset(
+              //       ImageUtils.getImagePath('cover_btm_mask'),
+              //       width: Adapt.screenW(),
+              //       fit: BoxFit.fill,
+              //     )),
+              Positioned.fill(
+                  child: Container(
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Colors.black12, Colors.black26])),
+              )),
+              // Positioned(
+              //     top: Adapt.screenH() / 2,
+              //     left: 0,
+              //     right: 0,
+              //     bottom: 0,
+              //     child: Container(
+              //       color: Colors.black26,
+              //     ))
             ],
           )),
     );
