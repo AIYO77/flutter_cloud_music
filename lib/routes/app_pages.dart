@@ -28,6 +28,8 @@ import 'package:flutter_cloud_music/pages/playlist_collection/playlist_collectio
 import 'package:flutter_cloud_music/pages/playlist_collection/playlist_collection_view.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_binding.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_view.dart';
+import 'package:flutter_cloud_music/pages/singer/singer.dart';
+import 'package:flutter_cloud_music/pages/singer_detail/view.dart';
 import 'package:flutter_cloud_music/pages/splash/splash_binding.dart';
 import 'package:flutter_cloud_music/pages/splash/splash_view.dart';
 import 'package:flutter_cloud_music/pages/web/web_binding.dart';
@@ -168,6 +170,19 @@ class AppPages {
         name: Routes.MUSIC_CALENDAR,
         page: () => const MusicCalendarPage(),
         binding: MusicCalendarBinding(),
+        transition: Transition.rightToLeft),
+
+    //Singer
+    GetPage(
+        name: Routes.SINGER_PAGE,
+        page: () => SingerPage(),
+        transition: Transition.rightToLeft),
+
+    //singer detail
+    GetPage(
+        name: Routes.SINGER_DETAIL,
+        page: () => SingerDetailPage(),
+        preventDuplicates: false,
         transition: Transition.rightToLeft),
 
     //web

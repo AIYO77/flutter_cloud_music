@@ -32,6 +32,12 @@ void afterLogin(ParamVoidCallback callback) {
   });
 }
 
+Future<void> toUserDetail({dynamic accountId, dynamic artistId}) async {
+  return Get.toNamed(Routes.SINGER_DETAIL,
+      arguments: {'accountId': accountId, 'artistId': artistId},
+      preventDuplicates: false);
+}
+
 Future toast(dynamic message) async {
   Fluttertoast.cancel();
   Fluttertoast.showToast(
@@ -45,6 +51,17 @@ String getPlayCountStrFromInt(int count) {
     return '$count';
   } else if (count >= 100000 && count <= 99999999) {
     return '${count ~/ 10000}万';
+  } else {
+    return '${(count / 100000000).toStringAsFixed(1)}亿';
+  }
+}
+
+String getFansCountStr(int? count) {
+  if (count == null) return '0';
+  if (count < 100000) {
+    return '$count';
+  } else if (count >= 100000 && count <= 99999999) {
+    return '${(count / 10000).toStringAsFixed(1)}万';
   } else {
     return '${(count / 100000000).toStringAsFixed(1)}亿';
   }

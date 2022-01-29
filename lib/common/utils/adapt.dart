@@ -49,4 +49,8 @@ class Adapt {
   static double topPadding() {
     return _topPadding;
   }
+
+  static double contentHeight() {
+    return screenH() - topPadding() - bottomPadding();
+  }
 }

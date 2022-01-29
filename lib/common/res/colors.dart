@@ -38,6 +38,8 @@ class Colours {
 
   static Color indicator_color = const Color.fromARGB(255, 235, 80, 72);
 
+  static Color btn_border_color = const Color(0xFFf3928d);
+
   static const Color blue = Color.fromARGB(255, 55, 145, 235);
   static const Color blue_dark = Color.fromARGB(255, 99, 132, 175);
 

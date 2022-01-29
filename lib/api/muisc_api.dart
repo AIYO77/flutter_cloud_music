@@ -6,9 +6,11 @@ import 'package:flutter_cloud_music/common/model/artists_model.dart';
 import 'package:flutter_cloud_music/common/model/calendar_events.dart';
 import 'package:flutter_cloud_music/common/model/comment_response.dart';
 import 'package:flutter_cloud_music/common/model/simple_play_list_model.dart';
+import 'package:flutter_cloud_music/common/model/singer_detail_model.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/model/songs_model.dart';
 import 'package:flutter_cloud_music/common/model/top_album_cover_info.dart';
+import 'package:flutter_cloud_music/common/model/user_detail_model.dart';
 import 'package:flutter_cloud_music/common/net/init_dio.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
@@ -476,5 +478,63 @@ class MusicApi {
       return ArtistsModel.fromJson(response.data);
     }
     return ArtistsModel(List.empty(), false);
+  }
+
+  /// 收藏/取消收藏歌手
+  /// t:操作,1 为收藏,其他为取消收藏
+  static Future<bool> subArtist(String id, int t) async {
+    final response = await httpManager.post('/artist/sub',
+        {'id': id, 't': t, 'timestamp': DateTime.now().millisecondsSinceEpoch});
+    return response.result;
+  }
+
+  /// 收藏/取消收藏用户
+  /// t:操作,1 为收藏,其他为取消收藏
+  static Future<bool> subUser(String id, int t) async {
+    final response = await httpManager.post('/follow',
+        {'id': id, 't': t, 'timestamp': DateTime.now().millisecondsSinceEpoch});
+    return response.result;
+  }
+
+  ///获取歌手信息
+  static Future<SingerDetailModel?> getSingerInfo(String id) async {
+    final response = await httpManager.get('/artist/detail',
+        {'id': id, 'timestamp': DateTime.now().millisecondsSinceEpoch});
+    if (response.result) {
+      final model = SingerDetailModel.fromJson(response.data['data']);
+      if (model.user == null) {
+        //如果user为空 则获取不到是否关注
+        //目前需要单独获取其他接口
+        final artistResponse = await httpManager.get('/artists',
+            {'id': id, 'timestamp': DateTime.now().millisecondsSinceEpoch});
+        if (artistResponse.result) {
+          model.artist.followed =
+              artistResponse.data['artist']['followed'] as bool?;
+        }
+      }
+      return model;
+    }
+    return null;
+  }
+
+  ///获取用户信息
+  static Future<UserDetailModel?> getUserDetail(String id) async {
+    final response = await httpManager.get('/user/detail',
+        {'uid': id, 'timestamp': DateTime.now().millisecondsSinceEpoch});
+    if (response.result) {
+      return UserDetailModel.fromJson(response.data);
+    }
+    return null;
+  }
+
+  ///获取相似歌手
+  static Future<List<Ar>?> getSimiArtist(String artistId) async {
+    final response = await httpManager.get('/simi/artist', {'id': artistId});
+    if (response.result) {
+      return (response.data['artists'] as List)
+          .map((e) => Ar.fromJson(e))
+          .toList();
+    }
+    return null;
   }
 }

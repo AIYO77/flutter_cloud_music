@@ -172,11 +172,27 @@ class Ar extends Object {
   @JsonKey(name: 'alias')
   List<dynamic>? alias;
 
+  @JsonKey(name: 'picUrl')
+  String? picUrl;
+
+  @JsonKey(name: 'followed')
+  bool? followed;
+
+  @JsonKey(name: 'accountId')
+  int? accountId;
+
+  @JsonKey(name: 'fansCount')
+  int? fansCount;
+
   Ar(
     this.id,
     this.name,
     this.tns,
     this.alias,
+    this.picUrl,
+    this.followed,
+    this.accountId,
+    this.fansCount,
   );
 
   factory Ar.fromJson(Map<String, dynamic> srcJson) => _$ArFromJson(srcJson);
@@ -185,7 +201,7 @@ class Ar extends Object {
 
   String? getNameStr() {
     if (GetUtils.isNullOrBlank(alias) == true) return name;
-    return '$name${alias?.map((e) => e.toString()).join('/')}';
+    return '$name(${alias?.map((e) => e.toString()).join('/')})';
   }
 }
 

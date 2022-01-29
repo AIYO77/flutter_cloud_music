@@ -155,20 +155,22 @@ class FoundBannerState extends State<FoundBanner> {
                 return _buildItem(index);
               },
               index: 0,
-              autoplay: true,
+              autoplay: widget.bannerModel.banner.length > 1,
               autoplayDelay: 6000,
               onIndexChanged: (index) async {
                 _updatePaletteGenerator(
                     widget.bannerModel.banner[index].bannerId);
               },
-              pagination: SwiperPagination(
-                builder: BannerPaginationBuilder(
-                    color: Colours.white.withAlpha(80),
-                    size: const Size(14, 3),
-                    activeSize: const Size(14, 3),
-                    space: 4,
-                    activeColor: Colours.white),
-              ),
+              pagination: widget.bannerModel.banner.length > 1
+                  ? SwiperPagination(
+                      builder: BannerPaginationBuilder(
+                          color: Colours.white.withAlpha(80),
+                          size: const Size(14, 3),
+                          activeSize: const Size(14, 3),
+                          space: 4,
+                          activeColor: Colours.white),
+                    )
+                  : null,
               controller: controller,
               itemCount: widget.bannerModel.banner.length),
         ],

@@ -72,7 +72,7 @@ class SingerListLogic extends SuperController<List<IndexArtists>>
   }
 
   Future<void> getList() async {
-    await resetData();
+    _resetData();
     _request();
   }
 
@@ -136,7 +136,7 @@ class SingerListLogic extends SuperController<List<IndexArtists>>
     super.onClose();
   }
 
-  Future<void> resetData() async {
+  void _resetData() {
     singerListState.page = 0;
     singerListState.curInitial = singerListState.initials.elementAt(0);
     change(null, status: RxStatus.loading());

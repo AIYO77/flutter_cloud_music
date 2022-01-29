@@ -36,6 +36,10 @@ abstract class Routes {
 
   static const MUSIC_CALENDAR = _Paths.MUSIC_CALENDAR;
 
+  static const SINGER_PAGE = _Paths.SINGER_PAGE;
+
+  static const SINGER_DETAIL = _Paths.SINGER_DETAIL;
+
   static String PLAYLIST_DETAIL_ID(String id) => '/playlist/$id';
 
   static String ALBUM_DETAIL_ID(String id) => '/album/$id';
@@ -82,4 +86,10 @@ abstract class _Paths {
 
   //音乐日历
   static const MUSIC_CALENDAR = '/nm/musicCalendar/detail';
+
+  //歌手分类列表
+  static const SINGER_PAGE = '/singer';
+
+  //歌手详情
+  static const SINGER_DETAIL = '/singer/detail';
 }

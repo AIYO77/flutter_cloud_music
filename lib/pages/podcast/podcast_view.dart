@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import 'podcast_controller.dart';
 
+///<博客>页面没有相关API 用歌手列表代替
 class PodcastPage extends StatelessWidget {
   PodcastPage({Key? key}) : super(key: key);
 

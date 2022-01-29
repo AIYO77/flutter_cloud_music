@@ -7,6 +7,7 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/pages/music_calendar/content/calendar_list_controller.dart';
 import 'package:flutter_cloud_music/pages/music_calendar/content/item.dart';
+import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -121,7 +122,9 @@ class CalenderListView extends StatelessWidget {
           TextSpan(text: '$headerTip 暂无内容，'),
           WidgetSpan(
               child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.toNamed(Routes.SINGER_PAGE);
+            },
             child: Text(
               '关注歌手',
               style: captionStyle().copyWith(color: Colours.blue),

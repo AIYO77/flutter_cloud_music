@@ -9,6 +9,7 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/singer_list/widget/filter_header.dart';
+import 'package:flutter_cloud_music/widgets/follow/follow_widget.dart';
 import 'package:flutter_cloud_music/widgets/footer_loading.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:get/get.dart';
@@ -90,7 +91,9 @@ class SingerListPage extends StatelessWidget {
           (ar) => Material(
             color: Get.theme.cardColor,
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                toUserDetail(accountId: ar.accountId, artistId: ar.id);
+              },
               child: SizedBox(
                 height: Dimens.gap_dp70,
                 width: double.infinity,
@@ -151,11 +154,16 @@ class SingerListPage extends StatelessWidget {
                       ]),
                     )),
                     Container(
-                      height: Dimens.gap_dp24,
+                      height: Dimens.gap_dp26,
                       width: Dimens.gap_dp64,
                       margin: EdgeInsets.only(
                           right: Dimens.gap_dp16, left: Dimens.gap_dp8),
-                      color: Colors.blue,
+                      child: FollowWidget(
+                        Key('${ar.id}'),
+                        id: ar.id.toString(),
+                        isFollowed: ar.followed,
+                        isSolidWidget: false,
+                      ),
                     ),
 
                     // CupertinoButton(child: child, onPressed: onPressed)
