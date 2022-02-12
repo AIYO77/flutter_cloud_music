@@ -52,14 +52,15 @@ Map<String, dynamic> _$SongToJson(Song instance) => <String, dynamic>{
     };
 
 Ar _$ArFromJson(Map<String, dynamic> json) => Ar(
-    json['id'] as int,
-    json['name'] as String?,
-    json['tns'] as List<dynamic>?,
-    json['alias'] as List<dynamic>?,
-    json['picUrl'] as String?,
-    json['followed'] as bool?,
-    json['accountId'] as int?,
-    json['fansCount'] as int?);
+      json['id'] as int,
+      json['name'] as String?,
+      json['tns'] as List<dynamic>?,
+      json['alias'] as List<dynamic>?,
+      json['picUrl'] as String?,
+      json['followed'] as bool?,
+      json['accountId'] as int?,
+      json['fansCount'] as int?,
+    );
 
 Map<String, dynamic> _$ArToJson(Ar instance) => <String, dynamic>{
       'id': instance.id,
@@ -69,7 +70,7 @@ Map<String, dynamic> _$ArToJson(Ar instance) => <String, dynamic>{
       'picUrl': instance.picUrl,
       'followed': instance.followed,
       'accountId': instance.accountId,
-      'fansCount': instance.fansCount
+      'fansCount': instance.fansCount,
     };
 
 AlbumSimple _$AlbumSimpleFromJson(Map<String, dynamic> json) => AlbumSimple(

@@ -20,7 +20,10 @@ UserDetailModel _$UserDetailModelFromJson(Map<String, dynamic> json) =>
           ? null
           : ProfileVillageInfo.fromJson(
               json['profileVillageInfo'] as Map<String, dynamic>),
-    );
+    )..singerModel = json['singerModel'] == null
+        ? null
+        : SingerDetailModel.fromJson(
+            json['singerModel'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$UserDetailModelToJson(UserDetailModel instance) =>
     <String, dynamic>{
@@ -31,6 +34,7 @@ Map<String, dynamic> _$UserDetailModelToJson(UserDetailModel instance) =>
       'createTime': instance.createTime,
       'createDays': instance.createDays,
       'profileVillageInfo': instance.profileVillageInfo,
+      'singerModel': instance.singerModel,
     };
 
 Profile _$ProfileFromJson(Map<String, dynamic> json) => Profile(

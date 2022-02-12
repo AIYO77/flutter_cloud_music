@@ -73,14 +73,8 @@ class UserInfo extends Object {
   @JsonKey(name: 'remarkName')
   String? remarkName;
 
-  @JsonKey(name: 'avatarImgIdStr')
-  String avatarImgIdStr;
-
   @JsonKey(name: 'avatarDetail')
   AvatarDetail? avatarDetail;
-
-  @JsonKey(name: 'backgroundImgIdStr')
-  String backgroundImgIdStr;
 
   UserInfo(
     this.defaultAvatar,
@@ -106,15 +100,21 @@ class UserInfo extends Object {
     this.djStatus,
     this.vipType,
     this.remarkName,
-    this.avatarImgIdStr,
     this.avatarDetail,
-    this.backgroundImgIdStr,
   );
 
   factory UserInfo.fromJson(Map<String, dynamic> srcJson) =>
       _$UserInfoFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$UserInfoToJson(this);
+
+  String getGenderStr() {
+    return gender == 2
+        ? '女'
+        : gender == 1
+            ? '男'
+            : '';
+  }
 }
 
 @JsonSerializable()

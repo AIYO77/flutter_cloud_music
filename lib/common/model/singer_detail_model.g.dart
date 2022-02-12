@@ -9,11 +9,17 @@ part of 'singer_detail_model.dart';
 SingerDetailModel _$SingerDetailModelFromJson(Map<String, dynamic> json) =>
     SingerDetailModel(
       json['videoCount'] as int,
-      Identify.fromJson(json['identify'] as Map<String, dynamic>),
+      json['identify'] == null
+          ? null
+          : Identify.fromJson(json['identify'] as Map<String, dynamic>),
       Artist.fromJson(json['artist'] as Map<String, dynamic>),
       json['user'] == null
           ? null
           : UserInfo.fromJson(json['user'] as Map<String, dynamic>),
+      (json['secondaryExpertIdentiy'] as List<dynamic>?)
+          ?.map(
+              (e) => SecondaryExpertIdentiy.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$SingerDetailModelToJson(SingerDetailModel instance) =>
@@ -22,6 +28,7 @@ Map<String, dynamic> _$SingerDetailModelToJson(SingerDetailModel instance) =>
       'identify': instance.identify,
       'artist': instance.artist,
       'user': instance.user,
+      'secondaryExpertIdentiy': instance.secondaryExpertIdentiy,
     };
 
 Identify _$IdentifyFromJson(Map<String, dynamic> json) => Identify(
@@ -56,4 +63,16 @@ Map<String, dynamic> _$ArtistToJson(Artist instance) => <String, dynamic>{
       'musicSize': instance.musicSize,
       'mvSize': instance.mvSize,
       'followed': instance.followed,
+    };
+
+SecondaryExpertIdentiy _$SecondaryExpertIdentiyFromJson(
+        Map<String, dynamic> json) =>
+    SecondaryExpertIdentiy(
+      json['expertIdentiyName'] as String,
+    );
+
+Map<String, dynamic> _$SecondaryExpertIdentiyToJson(
+        SecondaryExpertIdentiy instance) =>
+    <String, dynamic>{
+      'expertIdentiyName': instance.name,
     };

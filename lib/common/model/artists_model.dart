@@ -56,19 +56,22 @@ class Artists extends Object {
   @JsonKey(name: 'trans')
   String trans;
 
+  @JsonKey(name: 'mvSize')
+  int? mvSize;
+
   Artists(
-    this.accountId,
-    this.albumSize,
-    this.alias,
-    this.briefDesc,
-    this.followed,
-    this.id,
-    this.img1v1Url,
-    this.musicSize,
-    this.name,
-    this.topicPerson,
-    this.trans,
-  );
+      this.accountId,
+      this.albumSize,
+      this.alias,
+      this.briefDesc,
+      this.followed,
+      this.id,
+      this.img1v1Url,
+      this.musicSize,
+      this.name,
+      this.topicPerson,
+      this.trans,
+      this.mvSize);
 
   factory Artists.fromJson(Map<String, dynamic> srcJson) =>
       _$ArtistsFromJson(srcJson);

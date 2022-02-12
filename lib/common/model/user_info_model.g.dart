@@ -30,11 +30,9 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
       json['djStatus'] as int,
       json['vipType'] as int,
       json['remarkName'] as String?,
-      json['avatarImgIdStr'] as String,
       json['avatarDetail'] == null
           ? null
           : AvatarDetail.fromJson(json['avatarDetail'] as Map<String, dynamic>),
-      json['backgroundImgIdStr'] as String,
     );
 
 Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
@@ -61,9 +59,7 @@ Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
       'djStatus': instance.djStatus,
       'vipType': instance.vipType,
       'remarkName': instance.remarkName,
-      'avatarImgIdStr': instance.avatarImgIdStr,
       'avatarDetail': instance.avatarDetail,
-      'backgroundImgIdStr': instance.backgroundImgIdStr,
     };
 
 AvatarDetail _$AvatarDetailFromJson(Map<String, dynamic> json) => AvatarDetail(

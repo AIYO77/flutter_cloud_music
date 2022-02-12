@@ -24,9 +24,11 @@ class SingerDetailState {
   Animation<double>? animation;
   AnimationController? animController;
   final animValue = 0.0.obs;
+  final showSimiItems = false.obs;
 
   //tab key
   late GlobalKey tabKey;
+
   //bar Key
   late GlobalKey barKey;
   double? barBottom;
@@ -35,6 +37,9 @@ class SingerDetailState {
 
   //吸顶
   final isPinned = false.obs;
+
+  List<SingerTabModel>? tabs;
+  TabController? tabController;
 
   SingerDetailState() {
     tabKey = GlobalKey();
@@ -80,6 +85,36 @@ class SingerDetailState {
     return getArtistId() != null;
   }
 
+  int? getMusicSize() {
+    if (detailValue?.userDetail != null) {
+      return detailValue!.userDetail!.singerModel?.artist.musicSize;
+    }
+    if (detailValue?.singerDetail != null) {
+      return detailValue!.singerDetail!.artist.musicSize;
+    }
+    return null;
+  }
+
+  int? getAlbumSize() {
+    if (detailValue?.userDetail != null) {
+      return detailValue!.userDetail!.singerModel?.artist.albumSize;
+    }
+    if (detailValue?.singerDetail != null) {
+      return detailValue!.singerDetail!.artist.albumSize;
+    }
+    return null;
+  }
+
+  int? getMVSize() {
+    if (detailValue?.userDetail != null) {
+      return detailValue!.userDetail!.singerModel?.artist.mvSize;
+    }
+    if (detailValue?.singerDetail != null) {
+      return detailValue!.singerDetail!.artist.mvSize;
+    }
+    return null;
+  }
+
   int? getArtistId() {
     return detailValue?.userDetail?.profile.artistId ??
         detailValue?.singerDetail?.artist.id;
@@ -111,6 +146,67 @@ class SingerDetailState {
     }
     return extension;
   }
+
+  ///身份
+  String? getSecondaryIdentity() {
+    if (detailValue?.singerDetail?.secondaryExpertIdentiy != null) {
+      return detailValue!.singerDetail!.secondaryExpertIdentiy!
+          .map((e) => e.name)
+          .join('、');
+    }
+    if (detailValue?.userDetail?.singerModel?.secondaryExpertIdentiy != null) {
+      return detailValue!.userDetail!.singerModel!.secondaryExpertIdentiy!
+          .map((e) => e.name)
+          .join('、');
+    }
+    return null;
+  }
+
+  ///性别
+  String getGender() {
+    if (detailValue?.userDetail?.profile != null) {
+      return detailValue!.userDetail!.profile.getGenderStr();
+    }
+    if (detailValue?.singerDetail?.user != null) {
+      return detailValue!.singerDetail!.user!.getGenderStr();
+    }
+    return '';
+  }
+
+  ///生日和星座
+  String getBirthday() {
+    if (detailValue?.userDetail?.profile != null) {
+      final birthday = detailValue!.userDetail!.profile.birthday;
+      if (birthday > 0) {
+        final date = DateTime.fromMillisecondsSinceEpoch(birthday);
+        return '${date.year}-${date.month}-${date.day} ${getSignWithMd(m: date.month, d: date.day)}';
+      }
+    }
+    if (detailValue?.singerDetail?.user != null) {
+      final birthday = detailValue!.singerDetail!.user!.birthday;
+      if (birthday > 0) {
+        final date = DateTime.fromMillisecondsSinceEpoch(birthday);
+        return '${date.year}-${date.month}-${date.day} ${getSignWithMd(m: date.month, d: date.day)}';
+      }
+    }
+    return '';
+  }
+
+  ///简介
+  String getDes() {
+    if (isSinger()) {
+      return detailValue?.singerDetail?.artist.briefDesc ??
+          detailValue?.userDetail?.singerModel?.artist.briefDesc ??
+          '';
+    }
+    if (detailValue?.userDetail?.profile != null) {
+      return detailValue!.userDetail!.profile.description;
+    }
+    if (detailValue?.singerDetail?.user != null) {
+      return detailValue!.singerDetail!.user!.description ?? '';
+    }
+    return '';
+  }
 }
 
 class SingerOrUserDetail {
@@ -121,4 +217,22 @@ class SingerOrUserDetail {
   final UserDetailModel? userDetail;
 
   const SingerOrUserDetail(this.isSinger, this.singerDetail, this.userDetail);
+}
+
+class SingerTabModel {
+  final SingerTabType type;
+
+  final String title;
+
+  final int? num;
+
+  const SingerTabModel({required this.type, required this.title, this.num});
+}
+
+enum SingerTabType {
+  homePage,
+  songPage,
+  albumPage,
+  evenPage,
+  mvPage,
 }

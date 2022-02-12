@@ -201,3 +201,40 @@ Widget padingBottomBox(MusicPlayerValue? value, {double append = 0}) {
   return SizedBox(
       height: value?.current == null ? bottom : bottom + Dimens.gap_dp58);
 }
+
+///根据月份和天数来获取星座
+String getSignWithMd({required int m, required int d}) {
+  String res = "格式错误！";
+  final date = [20, 19, 21, 20, 21, 22, 23, 23, 23, 24, 23, 22];
+  final int index = m; //索引
+  final luckyData = [
+    '摩羯座',
+    '水瓶座',
+    '双鱼座',
+    '白羊座',
+    '金牛座',
+    '双子座',
+    '巨蟹座',
+    '狮子座',
+    '处女座',
+    '天秤座',
+    '天蝎座',
+    '射手座',
+    '摩羯座'
+  ];
+
+  if (m >= 1 && m <= 12) {
+    if (d >= 1 && d <= 31) {
+      if (d < date[m - 1]) {
+        res = luckyData[index - 1];
+      } else {
+        res = luckyData[index];
+      }
+    } else {
+      res = '天数格式错误!';
+    }
+  } else {
+    res = '月份格式错误!';
+  }
+  return res;
+}

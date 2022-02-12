@@ -505,14 +505,22 @@ class MusicApi {
       if (model.user == null) {
         //如果user为空 则获取不到是否关注
         //目前需要单独获取其他接口
-        final artistResponse = await httpManager.get('/artists',
-            {'id': id, 'timestamp': DateTime.now().millisecondsSinceEpoch});
-        if (artistResponse.result) {
-          model.artist.followed =
-              artistResponse.data['artist']['followed'] as bool?;
+        final artist = await getArtistsInfo(id);
+        if (artist != null) {
+          model.artist.followed = artist.followed;
         }
       }
       return model;
+    }
+    return null;
+  }
+
+  ///歌手部分信息
+  static Future<Artists?> getArtistsInfo(String id) async {
+    final artistResponse = await httpManager.get('/artists',
+        {'id': id, 'timestamp': DateTime.now().millisecondsSinceEpoch});
+    if (artistResponse.result) {
+      return Artists.fromJson(artistResponse.data['artist']);
     }
     return null;
   }
@@ -522,7 +530,13 @@ class MusicApi {
     final response = await httpManager.get('/user/detail',
         {'uid': id, 'timestamp': DateTime.now().millisecondsSinceEpoch});
     if (response.result) {
-      return UserDetailModel.fromJson(response.data);
+      final user = UserDetailModel.fromJson(response.data);
+      //如果是歌手 并且没有歌手信息
+      if (user.isSinger() && user.singerModel == null) {
+        user.singerModel =
+            await getSingerInfo(user.profile.artistId!.toString());
+      }
+      return user;
     }
     return null;
   }

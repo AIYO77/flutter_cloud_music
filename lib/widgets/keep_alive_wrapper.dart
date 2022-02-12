@@ -6,10 +6,10 @@ class KeepAliveWrapper extends StatefulWidget {
   const KeepAliveWrapper({Key? key, required this.child}) : super(key: key);
 
   @override
-  __KeepAliveWrapperState createState() => __KeepAliveWrapperState();
+  _KeepAliveWrapperState createState() => _KeepAliveWrapperState();
 }
 
-class __KeepAliveWrapperState extends State<KeepAliveWrapper>
+class _KeepAliveWrapperState extends State<KeepAliveWrapper>
     with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {

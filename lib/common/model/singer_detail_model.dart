@@ -10,7 +10,7 @@ class SingerDetailModel extends Object {
   int videoCount;
 
   @JsonKey(name: 'identify')
-  Identify identify;
+  Identify? identify;
 
   @JsonKey(name: 'artist')
   Artist artist;
@@ -18,11 +18,15 @@ class SingerDetailModel extends Object {
   @JsonKey(name: 'user')
   UserInfo? user;
 
+  @JsonKey(name: 'secondaryExpertIdentiy')
+  List<SecondaryExpertIdentiy>? secondaryExpertIdentiy;
+
   SingerDetailModel(
     this.videoCount,
     this.identify,
     this.artist,
     this.user,
+    this.secondaryExpertIdentiy,
   );
 
   factory SingerDetailModel.fromJson(Map<String, dynamic> srcJson) =>
@@ -106,4 +110,17 @@ class Artist extends Object {
       _$ArtistFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$ArtistToJson(this);
+}
+
+@JsonSerializable()
+class SecondaryExpertIdentiy extends Object {
+  @JsonKey(name: 'expertIdentiyName')
+  String name;
+
+  SecondaryExpertIdentiy(this.name);
+
+  factory SecondaryExpertIdentiy.fromJson(Map<String, dynamic> srcJson) =>
+      _$SecondaryExpertIdentiyFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$SecondaryExpertIdentiyToJson(this);
 }

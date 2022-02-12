@@ -27,6 +27,8 @@ class UserDetailModel extends Object {
   @JsonKey(name: 'profileVillageInfo')
   ProfileVillageInfo? profileVillageInfo;
 
+  SingerDetailModel? singerModel;
+
   UserDetailModel(
     this.identify,
     this.level,
@@ -47,6 +49,10 @@ class UserDetailModel extends Object {
   SingerOrUserDetail get detail {
     _detail ??= SingerOrUserDetail(profile.artistId != null, null, this);
     return _detail!;
+  }
+
+  bool isSinger() {
+    return profile.artistId != null;
   }
 }
 
@@ -135,6 +141,14 @@ class Profile extends Object {
       _$ProfileFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$ProfileToJson(this);
+
+  String getGenderStr() {
+    return gender == 2
+        ? '女'
+        : gender == 1
+            ? '男'
+            : '';
+  }
 }
 
 @JsonSerializable()

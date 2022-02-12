@@ -31,6 +31,7 @@ Artists _$ArtistsFromJson(Map<String, dynamic> json) => Artists(
       json['name'] as String,
       json['topicPerson'] as int,
       json['trans'] as String,
+      json['mvSize'] as int?,
     );
 
 Map<String, dynamic> _$ArtistsToJson(Artists instance) => <String, dynamic>{
@@ -45,4 +46,5 @@ Map<String, dynamic> _$ArtistsToJson(Artists instance) => <String, dynamic>{
       'name': instance.name,
       'topicPerson': instance.topicPerson,
       'trans': instance.trans,
+      'mvSize': instance.mvSize,
     };

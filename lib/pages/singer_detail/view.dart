@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/player/widgets/bottom_player_widget.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
+import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
+import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/delegate/general_sliver_delegate.dart';
 import 'package:flutter_cloud_music/pages/singer_detail/widget/singer_header.dart';
+import 'package:flutter_cloud_music/pages/singer_detail/widget/singer_tabs.dart';
+import 'package:flutter_cloud_music/widgets/follow/follow_widget.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
-import 'package:flutter_cloud_music/widgets/my_app_bar.dart';
 import 'package:get/get.dart';
 
 import 'logic.dart';
@@ -21,55 +25,85 @@ class SingerDetailPage extends StatelessWidget {
         tag: (Get.arguments['accountId'] ?? Get.arguments['artistId'])
             .toString());
     state = logic.state;
-    return Obx(
-      () => Scaffold(
-          extendBodyBehindAppBar: true,
-          appBar: MyAppBar(
-            key: state.barKey,
-            title: state.isPinned.value ? state.getName() : '',
-            foregroundColor: state.isPinned.value
-                ? Get.theme.appBarTheme.titleTextStyle?.color
-                : Colors.white,
-            backgroundColor: false ? Get.theme.cardColor : Colors.transparent,
-          ),
-          body: state.detail.value == null ? _buildLoading() : _buildBody()),
-    );
+    return Scaffold(
+        extendBodyBehindAppBar: true,
+        body: BottomPlayerController(Obx(() =>
+            state.detail.value == null ? _buildLoading() : _buildBody())));
   }
 
   Widget _buildBody() {
-    return CustomScrollView(
-      physics: const BouncingScrollPhysics(),
-      controller: state.scrollController,
-      slivers: [
-        SliverToBoxAdapter(
-          child: SingerHeader(logic),
-        ),
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: Dimens.gap_dp12,
-          ),
-        ),
-        SliverPersistentHeader(
-            pinned: true,
-            delegate: GeneralSliverDelegate(
-                child: PreferredSize(
-              preferredSize: Size.fromHeight(Dimens.gap_dp40),
-              child: Container(
-                height: Dimens.gap_dp40,
-                child: Container(
-                  key: state.tabKey,
-                  color: Colors.red,
-                ),
-              ),
-            ))),
-        SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-          return ListTile(
-            title: Text('item $index'),
-          );
-        }, childCount: 30))
-      ],
-    );
+    return NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return <Widget>[
+            Obx(() => SliverAppBar(
+                  expandedHeight:
+                      Adapt.px(state.accountId == null ? 348 : 401) +
+                          state.animValue.value * Adapt.px(152),
+                  toolbarHeight: Dimens.gap_dp44,
+                  collapsedHeight: Dimens.gap_dp44,
+                  pinned: true,
+                  backgroundColor: Get.theme.cardColor,
+                  automaticallyImplyLeading: false,
+                  leading: IconButton(
+                    onPressed: () async {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      Get.back();
+                    },
+                    icon: Image.asset(
+                      ImageUtils.getImagePath('dij'),
+                      color: Get.theme.appBarTheme.titleTextStyle?.color,
+                      width: Dimens.gap_dp25,
+                      height: Dimens.gap_dp25,
+                    ),
+                  ),
+                  titleSpacing: 0,
+                  title: state.isPinned.value ? Text(state.getName()) : null,
+                  titleTextStyle: Get.theme.appBarTheme.titleTextStyle,
+                  centerTitle: false,
+                  actions: [
+                    if (state.isPinned.value)
+                      Container(
+                        margin: EdgeInsets.only(right: Dimens.gap_dp16),
+                        padding: EdgeInsets.symmetric(vertical: Dimens.gap_dp9),
+                        child: SizedBox(
+                          height: Dimens.gap_dp26,
+                          width: Dimens.gap_dp60,
+                          child: FollowWidget(Key(state.getUserId().toString()),
+                              id: state.getUserId().toString(),
+                              isSolidWidget: true,
+                              isSinger: state.isSinger(),
+                              isFollowed: state.isFollow()),
+                        ),
+                      )
+                  ],
+                  elevation: 0.0,
+                  flexibleSpace: LayoutBuilder(builder: (context, constraints) {
+                    Future.delayed(const Duration(milliseconds: 10))
+                        .then((value) {
+                      state.isPinned.value = constraints.biggest.height <=
+                          (Adapt.topPadding() + Dimens.gap_dp44);
+                    });
+                    return FlexibleSpaceBar(
+                      collapseMode: CollapseMode.pin,
+                      background: SingerHeader(logic),
+                    );
+                  }),
+                )),
+            SliverToBoxAdapter(
+              child: Gaps.vGap10,
+            ),
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: GeneralSliverDelegate(
+                  child: PreferredSize(
+                preferredSize: Size.fromHeight(Dimens.gap_dp40),
+                child: SingerTabs(logic),
+              )),
+            )
+          ];
+        },
+        body: TabBarView(
+            controller: state.tabController, children: logic.getTabBarViews()));
   }
 
   Widget _buildLoading() {

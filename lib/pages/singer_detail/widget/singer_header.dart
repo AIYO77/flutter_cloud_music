@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
@@ -25,6 +24,9 @@ class SingerHeader extends StatelessWidget {
     return Stack(
       alignment: Alignment.topCenter,
       children: [
+        Container(
+          color: Get.theme.scaffoldBackgroundColor,
+        ),
         //顶部背景
         _buildTopBg(controller.state),
         //card
@@ -55,7 +57,6 @@ class SingerHeader extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(Dimens.gap_dp16))),
           child: _buildCardContent(),
         ),
-
         //头像
         if (controller.state.getAvatarUrl().isNotEmpty)
           Positioned(
@@ -213,95 +214,18 @@ class SingerHeader extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   height: Adapt.px(137 + 15),
+                  alignment: Alignment.center,
                   padding: EdgeInsets.only(top: Dimens.gap_dp15),
                   child: Opacity(
                     opacity: controller.state.animValue.value,
-                    child: _simiListView(controller.state.simiItems.value),
+                    child: controller
+                        .simiListView(controller.state.simiItems.value),
                   ),
                 ),
               ),
             ),
           )
       ],
-    );
-  }
-
-  ///相似歌手推荐listview
-  Widget _simiListView(List<Ar>? items) {
-    return ListView.separated(
-      padding: EdgeInsets.only(left: Dimens.gap_dp15, right: Dimens.gap_dp15),
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) {
-        final item = items!.elementAt(index);
-        return GestureDetector(
-          onTap: () {
-            toUserDetail(artistId: item.id, accountId: item.accountId);
-          },
-          child: Container(
-            height: Adapt.px(137),
-            width: Dimens.gap_dp95,
-            alignment: Alignment.topCenter,
-            decoration: BoxDecoration(
-              color:
-                  Get.isDarkMode ? const Color(0xff292929) : Colours.color_248,
-              borderRadius: BorderRadius.all(
-                Radius.circular(Dimens.gap_dp10),
-              ),
-            ),
-            child: Column(
-              children: [
-                Gaps.vGap10,
-                //头像
-                ClipOval(
-                  child: CachedNetworkImage(
-                    width: Dimens.gap_dp45,
-                    fit: BoxFit.cover,
-                    imageUrl: ImageUtils.getImageUrlFromSize(
-                        item.picUrl, Size(Dimens.gap_dp50, Dimens.gap_dp50)),
-                    placeholder: (context, url) {
-                      return Container(
-                        color: Colours.load_image_placeholder(),
-                      );
-                    },
-                  ),
-                ),
-                Gaps.vGap7,
-                //name
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: Dimens.gap_dp10, right: Dimens.gap_dp10),
-                  child: Text(
-                    item.getNameStr() ?? '',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style:
-                        headline1Style().copyWith(fontSize: Dimens.font_sp12),
-                  ),
-                ),
-                Gaps.vGap3,
-                //fansCount
-                Text(
-                  '${getFansCountStr(item.fansCount)}粉丝',
-                  style: captionStyle().copyWith(fontSize: Dimens.font_sp11),
-                ),
-                Gaps.vGap8,
-                //follow btn
-                SizedBox(
-                  width: Dimens.gap_dp60,
-                  height: Dimens.gap_dp26,
-                  child: FollowWidget(Key(item.accountId.toString()),
-                      id: item.id.toString(),
-                      isFollowed: item.followed ?? false),
-                )
-              ],
-            ),
-          ),
-        );
-      },
-      separatorBuilder: (context, index) {
-        return Gaps.hGap10;
-      },
-      itemCount: items?.length ?? 0,
     );
   }
 }
