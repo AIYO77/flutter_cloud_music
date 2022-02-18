@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
+import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
@@ -33,10 +34,14 @@ class FooterLoading extends StatelessWidget {
             );
           } else {
             //没有数据
-            body = Text(
-              noMoreTxt,
-              style: body1Style().copyWith(fontSize: Dimens.font_sp14),
-            );
+            if (noMoreTxt.isNotEmpty) {
+              body = Text(
+                noMoreTxt,
+                style: body1Style().copyWith(fontSize: Dimens.font_sp14),
+              );
+            } else {
+              body = Gaps.empty;
+            }
           }
           return SizedBox(
             height: Dimens.gap_dp50,

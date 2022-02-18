@@ -9,6 +9,7 @@ import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
+import 'package:flutter_cloud_music/pages/singer_detail/widget/album/singer_albums_view.dart';
 import 'package:flutter_cloud_music/pages/singer_detail/widget/home/singer_home_view.dart';
 import 'package:flutter_cloud_music/pages/singer_detail/widget/song/singer_songs_view.dart';
 import 'package:flutter_cloud_music/widgets/follow/follow_widget.dart';
@@ -133,7 +134,7 @@ class SingerDetailLogic extends GetxController
           break;
         case SingerTabType.albumPage:
           widgets.add(KeepAliveWrapper(
-            child: Container(),
+            child: SingerAlbumsView(state.getArtistId()!),
           ));
           break;
         case SingerTabType.evenPage:

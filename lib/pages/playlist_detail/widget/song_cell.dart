@@ -13,12 +13,13 @@ class NumSongCell extends StatelessWidget {
   final Song song;
   final int index;
   final ParamVoidCallback clickCallback;
-
+  final bool needBgColor;
   const NumSongCell(
       {Key? key,
       required this.song,
       required this.index,
-      required this.clickCallback})
+      required this.clickCallback,
+      this.needBgColor = true})
       : super(key: key);
 
   @override
@@ -26,7 +27,7 @@ class NumSongCell extends StatelessWidget {
     return SizedBox.fromSize(
       size: Size.fromHeight(Dimens.gap_dp60),
       child: Material(
-        color: Get.theme.cardColor,
+        color: needBgColor ? Get.theme.cardColor : Colors.transparent,
         child: InkWell(
           onTap: () {
             clickCallback.call();

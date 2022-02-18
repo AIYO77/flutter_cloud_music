@@ -56,7 +56,7 @@ class Gaps {
   static Widget vGap50 = SizedBox(height: Dimens.gap_dp50);
   static Widget vGap80 = SizedBox(height: Dimens.gap_dp80);
   static Widget vGap100 = SizedBox(height: Adapt.px(100));
-  static Widget line = const Divider(height: 1);
+  static Widget line = Divider(height: Dimens.gap_dp1);
 
   /// 补充一种空Widget实现 https://github.com/letsar/nil
   /// https://github.com/flutter/flutter/issues/78159

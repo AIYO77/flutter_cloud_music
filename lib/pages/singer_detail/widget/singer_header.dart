@@ -25,7 +25,15 @@ class SingerHeader extends StatelessWidget {
       alignment: Alignment.topCenter,
       children: [
         Container(
-          color: Get.theme.scaffoldBackgroundColor,
+          // color: Get.theme.cardColor,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                Get.theme.cardColor,
+                Get.theme.scaffoldBackgroundColor,
+              ])),
         ),
         //顶部背景
         _buildTopBg(controller.state),

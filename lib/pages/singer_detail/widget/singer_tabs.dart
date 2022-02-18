@@ -14,26 +14,10 @@ class SingerTabs extends StatefulWidget {
 }
 
 class _SingerTabsState extends State<SingerTabs> {
-  Color bgColor = Colors.transparent;
-
-  @override
-  void initState() {
-    super.initState();
-    widget.controller.state.isPinned.listen((p0) {
-      setState(() {
-        if (p0) {
-          bgColor = Get.theme.cardColor;
-        } else {
-          bgColor = Colors.transparent;
-        }
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: bgColor,
+      color: Get.theme.cardColor,
       child: TabBar(
         labelPadding: EdgeInsets.zero,
         padding: EdgeInsets.only(top: Dimens.gap_dp4),

@@ -27,6 +27,7 @@ class SingerDetailPage extends StatelessWidget {
     state = logic.state;
     return Scaffold(
         extendBodyBehindAppBar: true,
+        backgroundColor: Get.theme.cardColor,
         body: BottomPlayerController(Obx(() =>
             state.detail.value == null ? _buildLoading() : _buildBody())));
   }

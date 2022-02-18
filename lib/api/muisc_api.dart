@@ -6,6 +6,7 @@ import 'package:flutter_cloud_music/common/model/artists_model.dart';
 import 'package:flutter_cloud_music/common/model/calendar_events.dart';
 import 'package:flutter_cloud_music/common/model/comment_response.dart';
 import 'package:flutter_cloud_music/common/model/simple_play_list_model.dart';
+import 'package:flutter_cloud_music/common/model/singer_albums_model.dart';
 import 'package:flutter_cloud_music/common/model/singer_detail_model.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/model/songs_model.dart';
@@ -551,4 +552,34 @@ class MusicApi {
     }
     return null;
   }
+
+  ///获取歌手全部歌曲
+  static Future<List<Song>?> getArtistSongs(
+      {required int artistId, String order = 'hot', int offset = 0}) async {
+    final response = await httpManager.get('/artist/songs',
+        {'id': artistId, 'order': order, 'limit': 50, 'offset': offset});
+    if (response.result) {
+      return (response.data['songs'] as List)
+          .map((e) => Song.fromJson(e))
+          .toList();
+    } else {
+      toast('获取失败');
+    }
+    return List.empty();
+  }
+
+  ///获取歌手专辑 分页
+  static Future<SingerAlbumsModel?> getArtistAlbums(
+      {required int artistId, int offset = 0}) async {
+    final response = await httpManager
+        .get('/artist/album', {'id': artistId, 'limit': 50, 'offset': offset});
+
+    if (response.result) {
+      return SingerAlbumsModel.fromJson(response.data);
+    }
+    return null;
+  }
+
+  ///获取歌手全部视频 包含MV
+
 }

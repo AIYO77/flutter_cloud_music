@@ -10,12 +10,20 @@ import 'package:get/get.dart';
 class PlayAllCell extends StatelessWidget implements PreferredSizeWidget {
   int? playCount;
   List<Widget>? actions;
-  PlayAllCell({Key? key, this.playCount, this.actions}) : super(key: key);
+  String title;
+  bool needBgColor;
+  PlayAllCell(
+      {Key? key,
+      this.playCount,
+      this.actions,
+      this.title = '播放全部',
+      this.needBgColor = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Get.theme.cardColor,
+      color: needBgColor ? Get.theme.cardColor : null,
       child: Row(
         children: [Expanded(child: _buildPlayAll()), _buildActions()],
       ),
@@ -52,7 +60,7 @@ class PlayAllCell extends StatelessWidget implements PreferredSizeWidget {
             ),
             Gaps.hGap8,
             RichText(
-                text: TextSpan(text: '播放全部', style: headlineStyle(), children: [
+                text: TextSpan(text: title, style: headlineStyle(), children: [
               WidgetSpan(child: Gaps.hGap5),
               TextSpan(
                   text: '($playCount)',
