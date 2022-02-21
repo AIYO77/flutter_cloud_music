@@ -87,7 +87,7 @@ class MlogBaseData extends Object {
   String text;
 
   @JsonKey(name: 'desc')
-  String desc;
+  String? desc;
 
   @JsonKey(name: 'pubTime')
   int pubTime;
@@ -147,9 +147,6 @@ class MlogExtVO extends Object {
   @JsonKey(name: 'canCollect')
   bool canCollect;
 
-  @JsonKey(name: 'artistName')
-  String artistName;
-
   @JsonKey(name: 'artists')
   List<VideoArtists> artists;
 
@@ -159,7 +156,6 @@ class MlogExtVO extends Object {
     this.playCount,
     this.shareCount,
     this.canCollect,
-    this.artistName,
     this.artists,
   );
 

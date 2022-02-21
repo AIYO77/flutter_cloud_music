@@ -17,8 +17,8 @@ class FooterLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => CustomFooter(
         height: (context.playerValueRx.value?.current == null)
-            ? Dimens.gap_dp50 + Adapt.bottomPadding()
-            : Dimens.gap_dp140 + Adapt.bottomPadding(),
+            ? getContentHeight() + Adapt.bottomPadding()
+            : getContentHeight() + Dimens.gap_dp90 + Adapt.bottomPadding(),
         builder: (context, mode) {
           Widget body;
           if (mode == LoadStatus.idle || mode == LoadStatus.loading) {
@@ -44,9 +44,11 @@ class FooterLoading extends StatelessWidget {
             }
           }
           return SizedBox(
-            height: Dimens.gap_dp50,
+            height: getContentHeight(),
             child: Center(child: body),
           );
         }));
   }
+
+  double getContentHeight() => noMoreTxt.isNotEmpty ? Dimens.gap_dp50 : 0.0;
 }

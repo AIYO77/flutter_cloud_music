@@ -238,3 +238,7 @@ String getSignWithMd({required int m, required int d}) {
   }
   return res;
 }
+
+Widget placeholderWidget(BuildContext context, String url) => Container(
+      color: Colours.load_image_placeholder(),
+    );

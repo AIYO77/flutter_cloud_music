@@ -52,7 +52,7 @@ MlogBaseData _$MlogBaseDataFromJson(Map<String, dynamic> json) => MlogBaseData(
       json['id'] as String,
       json['type'] as int,
       json['text'] as String,
-      json['desc'] as String,
+      json['desc'] as String?,
       json['pubTime'] as int,
       json['coverUrl'] as String,
       json['greatCover'] as bool,
@@ -83,7 +83,6 @@ MlogExtVO _$MlogExtVOFromJson(Map<String, dynamic> json) => MlogExtVO(
       json['playCount'] as int,
       json['shareCount'] as int,
       json['canCollect'] as bool,
-      json['artistName'] as String,
       (json['artists'] as List<dynamic>)
           .map((e) => VideoArtists.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -95,7 +94,6 @@ Map<String, dynamic> _$MlogExtVOToJson(MlogExtVO instance) => <String, dynamic>{
       'playCount': instance.playCount,
       'shareCount': instance.shareCount,
       'canCollect': instance.canCollect,
-      'artistName': instance.artistName,
       'artists': instance.artists,
     };
 

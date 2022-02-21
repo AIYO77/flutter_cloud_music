@@ -12,6 +12,7 @@ import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/singer_detail/widget/album/singer_albums_view.dart';
 import 'package:flutter_cloud_music/pages/singer_detail/widget/home/singer_home_view.dart';
 import 'package:flutter_cloud_music/pages/singer_detail/widget/song/singer_songs_view.dart';
+import 'package:flutter_cloud_music/pages/singer_detail/widget/video/singer_video_view.dart';
 import 'package:flutter_cloud_music/widgets/follow/follow_widget.dart';
 import 'package:flutter_cloud_music/widgets/keep_alive_wrapper.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
@@ -144,7 +145,7 @@ class SingerDetailLogic extends GetxController
           break;
         case SingerTabType.mvPage:
           widgets.add(KeepAliveWrapper(
-            child: Container(),
+            child: SingerVideoView(state.getArtistId()!),
           ));
           break;
       }

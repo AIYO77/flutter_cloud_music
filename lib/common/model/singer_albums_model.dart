@@ -50,4 +50,9 @@ class HotAlbums extends Object {
       _$HotAlbumsFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$HotAlbumsToJson(this);
+
+  String getPublishTimeStr() {
+    final date = DateTime.fromMillisecondsSinceEpoch(publishTime);
+    return '${date.year}-${date.month}-${date.day}';
+  }
 }

@@ -50,6 +50,7 @@ class BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
     _scale = 1 - (_animate.value * scaleFactor);
     return GestureDetector(
         onTap: _onTap,
+        behavior: HitTestBehavior.translucent,
         child: Transform.scale(
           scale: _scale,
           child: Opacity(

@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 
 class Colours {
   Colours._();
+
   static const Color app_main = Color.fromARGB(255, 201, 61, 45);
   static const Color app_main_light = Color.fromARGB(255, 219, 77, 77);
 

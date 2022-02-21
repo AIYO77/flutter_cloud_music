@@ -8,6 +8,7 @@ import 'package:flutter_cloud_music/common/model/comment_response.dart';
 import 'package:flutter_cloud_music/common/model/simple_play_list_model.dart';
 import 'package:flutter_cloud_music/common/model/singer_albums_model.dart';
 import 'package:flutter_cloud_music/common/model/singer_detail_model.dart';
+import 'package:flutter_cloud_music/common/model/singer_videos_model.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/model/songs_model.dart';
 import 'package:flutter_cloud_music/common/model/top_album_cover_info.dart';
@@ -581,5 +582,13 @@ class MusicApi {
   }
 
   ///获取歌手全部视频 包含MV
-
+  static Future<SingerVideosModel?> getArtistVideos(
+      {required int artistId, required String cursor}) async {
+    final response = await httpManager
+        .get('/artist/video', {'id': artistId, 'cursor': cursor});
+    if (response.result) {
+      return SingerVideosModel.fromJson(response.data['data']);
+    }
+    return null;
+  }
 }
