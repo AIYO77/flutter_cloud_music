@@ -31,7 +31,7 @@ class SingerListPage extends StatelessWidget {
           child: logic.obx((model) {
             return SmartRefresher(
               controller: state.refreshController,
-              footer: const FooterLoading(
+              footer: FooterLoading(
                 noMoreTxt: "",
               ),
               onLoading: () async {

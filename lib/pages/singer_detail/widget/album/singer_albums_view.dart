@@ -39,7 +39,7 @@ class SingerAlbumsView extends StatelessWidget {
         }
         return SmartRefresher(
           controller: controller.refreshController,
-          footer: const FooterLoading(
+          footer: FooterLoading(
             noMoreTxt: '',
           ),
           onLoading: () async {
