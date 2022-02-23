@@ -18,6 +18,7 @@ class _SingerTabsState extends State<SingerTabs> {
   Widget build(BuildContext context) {
     return Container(
       color: Get.theme.cardColor,
+      height: Dimens.gap_dp40,
       child: TabBar(
         labelPadding: EdgeInsets.zero,
         padding: EdgeInsets.only(top: Dimens.gap_dp4),

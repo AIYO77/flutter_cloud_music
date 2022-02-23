@@ -24,6 +24,8 @@ abstract class Routes {
 
   static const PLAYLIST_DETAIL = _Paths.PLAYLIST_DETAIL;
 
+  static const RCMD_SONG_DAY = _Paths.RCMD_SONG_DAY;
+
   static const PRIVATE_FM = _Paths.PRIVATE_FM;
 
   static const PLAYING = _Paths.PLAYING;
@@ -68,6 +70,9 @@ abstract class _Paths {
 
   //歌单详情 id:歌单ID
   static const PLAYLIST_DETAIL = "/playlist/:id";
+
+  //每日推荐
+  static const RCMD_SONG_DAY = '/songrcmd';
 
   //私人FM播放页面
   static const PRIVATE_FM = "/privatefm";

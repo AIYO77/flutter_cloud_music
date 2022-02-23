@@ -28,6 +28,8 @@ import 'package:flutter_cloud_music/pages/playlist_collection/playlist_collectio
 import 'package:flutter_cloud_music/pages/playlist_collection/playlist_collection_view.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_binding.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_view.dart';
+import 'package:flutter_cloud_music/pages/rcmd_song_day/bindings.dart';
+import 'package:flutter_cloud_music/pages/rcmd_song_day/view.dart';
 import 'package:flutter_cloud_music/pages/singer/singer.dart';
 import 'package:flutter_cloud_music/pages/singer_detail/view.dart';
 import 'package:flutter_cloud_music/pages/splash/splash_binding.dart';
@@ -127,6 +129,15 @@ class AppPages {
       transition: Transition.cupertino,
       preventDuplicates: true,
     ),
+
+    //每日推荐
+    GetPage(
+        middlewares: [EnsureAuthMiddleware()],
+        name: Routes.RCMD_SONG_DAY,
+        page: () => const RcmdSongDayPage(),
+        binding: RcmdSongDayBinding(),
+        transition: Transition.cupertino,
+        preventDuplicates: true),
 
     //私人FM
     GetPage(

@@ -14,6 +14,7 @@ class Dimens {
   static double font_sp17 = Adapt.px(17.0);
   static double font_sp18 = Adapt.px(18.0);
   static double font_sp25 = Adapt.px(25.0);
+  static double font_sp35 = Adapt.px(35.0);
 
   static double gap_dp1 = Adapt.px(1);
   static double gap_dp2 = Adapt.px(2);

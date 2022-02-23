@@ -292,7 +292,11 @@ class OriginSongSimpleData extends Object {
   OriginSongSimpleData(this.artists);
 
   factory OriginSongSimpleData.fromJson(Map<String, dynamic> srcJson) =>
-      _$OriginSongSimpleDataFromJson(srcJson);
+      OriginSongSimpleData(
+        (srcJson['artists'] as List<dynamic>)
+            .map((e) => Ar.fromJson(Map<String, dynamic>.from(e)))
+            .toList(),
+      );
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'artists': artists.map((e) => e.toJson()).toList(),

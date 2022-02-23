@@ -50,6 +50,6 @@ class AuthService extends GetxService {
 
   void refreshCookie(String s) {
     cookie = Uri.encodeComponent(s);
-    logger.d(cookie);
+    logger.i(cookie);
   }
 }

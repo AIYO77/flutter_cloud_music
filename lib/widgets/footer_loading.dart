@@ -15,45 +15,41 @@ class FooterLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Container(
-          margin: EdgeInsets.only(
-            bottom: (context.playerValueRx.value?.current == null)
-                ? Adapt.bottomPadding()
-                : Dimens.gap_dp50 + Adapt.bottomPadding(),
-          ),
-          child: CustomFooter(
-            builder: (context, mode) {
-              Widget body;
-              if (mode == LoadStatus.idle || mode == LoadStatus.loading) {
-                //加载状态
-                body = MusicLoading(
-                  axis: Axis.horizontal,
-                );
-              } else if (mode == LoadStatus.failed) {
-                //加载数据失败
-                body = Text(
-                  "加载失败，稍后重试",
-                  style: body1Style().copyWith(fontSize: Dimens.font_sp14),
-                );
-              } else {
-                //没有数据
-                if (noMoreTxt.isNotEmpty) {
-                  body = Text(
-                    noMoreTxt,
-                    style: body1Style().copyWith(fontSize: Dimens.font_sp14),
-                  );
-                } else {
-                  body = Gaps.empty;
-                }
-              }
-              return SizedBox(
-                height: getContentHeight(),
-                child: Center(child: body),
+    return Obx(
+      () => CustomFooter(
+        height: (context.playerValueRx.value?.current == null)
+            ? Dimens.gap_dp50 + Adapt.bottomPadding()
+            : Dimens.gap_dp140 + Adapt.bottomPadding(),
+        builder: (context, mode) {
+          Widget body;
+          if (mode == LoadStatus.idle || mode == LoadStatus.loading) {
+            //加载状态
+            body = MusicLoading(
+              axis: Axis.horizontal,
+            );
+          } else if (mode == LoadStatus.failed) {
+            //加载数据失败
+            body = Text(
+              "加载失败，稍后重试",
+              style: body1Style().copyWith(fontSize: Dimens.font_sp14),
+            );
+          } else {
+            //没有数据
+            if (noMoreTxt.isNotEmpty) {
+              body = Text(
+                noMoreTxt,
+                style: body1Style().copyWith(fontSize: Dimens.font_sp14),
               );
-            },
-          ),
-        ));
+            } else {
+              body = Gaps.empty;
+            }
+          }
+          return SizedBox(
+            height: Dimens.gap_dp50,
+            child: Center(child: body),
+          );
+        },
+      ),
+    );
   }
-
-  double getContentHeight() => noMoreTxt.isNotEmpty ? Dimens.gap_dp50 : 0.0;
 }

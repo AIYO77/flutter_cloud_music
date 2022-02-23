@@ -6,7 +6,7 @@ import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
-import 'package:flutter_cloud_music/pages/new_song_album/new_song_album_controller.dart';
+import 'package:flutter_cloud_music/common/utils/list_song_check_controller.dart';
 import 'package:flutter_cloud_music/typedef/function.dart';
 import 'package:flutter_cloud_music/widgets/general_song_cell.dart';
 import 'package:flutter_cloud_music/widgets/round_checkbox.dart';
@@ -17,7 +17,7 @@ class CheckSongCell extends StatelessWidget {
 
   final ParamSingleCallback<Song> cellClickCallback;
 
-  final NewSongAlbumController parentController;
+  final CheckSongController parentController;
 
   const CheckSongCell(
       {required this.song,

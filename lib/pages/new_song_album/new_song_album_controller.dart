@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cloud_music/common/model/song_model.dart';
+import 'package:flutter_cloud_music/common/utils/list_song_check_controller.dart';
 import 'package:get/get.dart';
 
-class NewSongAlbumController extends GetxController
+class NewSongAlbumController extends CheckSongController
     with GetTickerProviderStateMixin {
   final List<Tab> myTabs = <Tab>[
     const Tab(text: '新歌'),
@@ -10,14 +10,6 @@ class NewSongAlbumController extends GetxController
   ];
 
   late TabController tabController;
-
-  //底部歌曲控制栏动画
-  late AnimationController controller;
-  late Animation<Offset> animation;
-  //是否展示编辑
-  final showCheck = false.obs;
-  //已选中的歌曲
-  final selectedSong = Rx<List<Song>?>(null);
 
   @override
   void onInit() {
@@ -30,29 +22,13 @@ class NewSongAlbumController extends GetxController
       showCheck.value = false;
       selectedSong.value = null;
     });
-    controller = AnimationController(
-        duration: const Duration(milliseconds: 200), vsync: this);
-    //从下到上
-    animation = Tween(begin: const Offset(0.0, 1.0), end: Offset.zero)
-        .animate(controller);
+
     super.onInit();
   }
 
   @override
-  void onReady() {
-    showCheck.listen((p0) {
-      selectedSong.value = null;
-      if (p0) {
-        controller.forward();
-      } else {
-        controller.reverse();
-      }
-    });
-  }
-
-  @override
   void onClose() {
+    super.onClose();
     tabController.dispose();
-    controller.dispose();
   }
 }

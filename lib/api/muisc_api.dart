@@ -5,6 +5,7 @@ import 'package:flutter_cloud_music/common/model/album_dynamic_info.dart';
 import 'package:flutter_cloud_music/common/model/artists_model.dart';
 import 'package:flutter_cloud_music/common/model/calendar_events.dart';
 import 'package:flutter_cloud_music/common/model/comment_response.dart';
+import 'package:flutter_cloud_music/common/model/rcmd_song_daily_model.dart';
 import 'package:flutter_cloud_music/common/model/simple_play_list_model.dart';
 import 'package:flutter_cloud_music/common/model/singer_albums_model.dart';
 import 'package:flutter_cloud_music/common/model/singer_detail_model.dart';
@@ -337,6 +338,16 @@ class MusicApi {
       return coment.total;
     }
     return 0;
+  }
+
+  ///获取每日推荐
+  static Future<RcmdSongDailyModel?> getRcmdSongs() async {
+    final response = await httpManager.get('/recommend/songs', null);
+
+    if (response.result) {
+      return RcmdSongDailyModel.fromJson(response.data['data']);
+    }
+    return null;
   }
 
   //获取FM 音乐列表 需要登录
