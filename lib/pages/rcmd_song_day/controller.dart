@@ -24,6 +24,15 @@ class RcmdSongDayController extends CheckSongController {
 
   Future<void> _requestData() async {
     MusicApi.getRcmdSongs().then((value) {
+      if (value != null) {
+        for (final reason in value.recommendReasons) {
+          final index = value.dailySongs
+              .indexWhere((element) => element.id == reason.songId);
+          if (index != -1) {
+            value.dailySongs.elementAt(index).reason = reason.reason;
+          }
+        }
+      }
       state.rcmdModel.value = value;
     });
   }
@@ -34,9 +43,7 @@ class RcmdSongDayController extends CheckSongController {
             queueId:
                 DateFormat(DateFormat.YEAR_MONTH_DAY).format(DateTime.now()),
             queueTitle: '每日推荐',
-            queue: state.rcmdModel.value!.dailySongs
-                .map((e) => e.metadata)
-                .toList()),
+            queue: items().map((e) => e.metadata).toList()),
         metadata: song?.metadata);
   }
 }

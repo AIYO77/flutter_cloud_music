@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/utils/list_song_check_controller.dart';
 import 'package:get/get.dart';
 
-class NewSongAlbumController extends CheckSongController
-    with GetTickerProviderStateMixin {
+class NewSongAlbumController extends CheckSongController {
   final List<Tab> myTabs = <Tab>[
     const Tab(text: '新歌'),
     const Tab(text: '新碟'),

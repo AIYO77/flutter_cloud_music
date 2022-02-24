@@ -9,6 +9,8 @@ import 'package:flutter_cloud_music/widgets/check_song_cell.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:get/get.dart';
 
+import '../../../common/res/gaps.dart';
+import '../../../delegate/general_sliver_delegate.dart';
 import '../index.dart';
 
 class RcmdDailyWidget extends GetView<RcmdSongDayController> {
@@ -19,6 +21,13 @@ class RcmdDailyWidget extends GetView<RcmdSongDayController> {
     return CustomScrollView(
       slivers: [
         _buildSliverHeader(),
+        //间距
+        SliverPersistentHeader(
+            delegate: GeneralSliverDelegate(
+          child: PreferredSize(
+              preferredSize: Size.fromHeight(Dimens.gap_dp16),
+              child: Gaps.empty),
+        )),
         _buildPlayAllBtn(context),
         _buildContent(context),
         //pading bottom
@@ -56,9 +65,8 @@ class RcmdDailyWidget extends GetView<RcmdSongDayController> {
   Widget _buildList(BuildContext context) {
     return SliverFixedExtentList(
         delegate: SliverChildBuilderDelegate((context, index) {
-          return _buildItem(context,
-              controller.state.rcmdModel.value!.dailySongs.elementAt(index));
-        }, childCount: controller.state.rcmdModel.value!.dailySongs.length),
+          return _buildItem(context, controller.items().elementAt(index));
+        }, childCount: controller.items().length),
         itemExtent: Dimens.gap_dp60);
   }
 

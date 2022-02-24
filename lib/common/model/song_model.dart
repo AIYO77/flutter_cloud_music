@@ -52,6 +52,8 @@ class Song extends Object {
   @JsonKey(name: 'originSongSimpleData')
   OriginSongSimpleData? originSongSimpleData;
 
+  String? reason;
+
   Song(
     this.name,
     this.id,

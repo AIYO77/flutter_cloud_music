@@ -13,7 +13,6 @@ class RecmHeader extends GetView<RcmdSongDayController> {
   @override
   Widget build(BuildContext context) {
     final expandHeight = Adapt.px(237) + Adapt.topPadding();
-
     return SliverPersistentHeader(
         pinned: true,
         delegate: _MySliverDelegate(

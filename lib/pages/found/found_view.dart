@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_cloud_music/common/model/banner_model.dart';
 import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
@@ -160,35 +161,40 @@ class FoundPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: FoundAppbar(),
-      extendBodyBehindAppBar: true,
-      body: Stack(
-        children: [
-          //顶部跟随banner变动的背景
-          Positioned(
-            top: 0,
-            child: FoundHeaderColors(),
-          ),
-          Positioned.fill(
-            top: Dimens.gap_dp56 + context.mediaQueryPadding.top,
-            child: controller.obx(
-              (state) {
-                Get.log("refresh finish");
-                refreshController.refreshCompleted();
-                return _buildListView(context, state);
-              },
-              onEmpty: const Text("empty"),
-              onError: (err) {
-                Get.log('refresh error $err');
-                toast(err.toString());
-                refreshController.refreshFailed();
-                return Gaps.empty;
-              },
-              onLoading: _buildLoading(),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: Get.isDarkMode
+          ? SystemUiOverlayStyle.light
+          : SystemUiOverlayStyle.dark,
+      child: Scaffold(
+        appBar: FoundAppbar(),
+        extendBodyBehindAppBar: true,
+        body: Stack(
+          children: [
+            //顶部跟随banner变动的背景
+            Positioned(
+              top: 0,
+              child: FoundHeaderColors(),
             ),
-          ),
-        ],
+            Positioned.fill(
+              top: Dimens.gap_dp56 + context.mediaQueryPadding.top,
+              child: controller.obx(
+                (state) {
+                  Get.log("refresh finish");
+                  refreshController.refreshCompleted();
+                  return _buildListView(context, state);
+                },
+                onEmpty: const Text("empty"),
+                onError: (err) {
+                  Get.log('refresh error $err');
+                  toast(err.toString());
+                  refreshController.refreshFailed();
+                  return Gaps.empty;
+                },
+                onLoading: _buildLoading(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

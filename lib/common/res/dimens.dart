@@ -80,6 +80,8 @@ class Dimens {
   static double gap_dp164 = Adapt.px(164.0);
   static double gap_dp120 = Adapt.px(120.0);
   static double gap_dp122 = Adapt.px(122.0);
+  static double gap_dp222 = Adapt.px(222.0);
+  static double gap_dp232 = Adapt.px(232.0);
   static double gap_dp240 = Adapt.px(240.0);
   static double gap_dp260 = Adapt.px(260.0);
 
