@@ -45,7 +45,7 @@ class PlayListContent extends StatelessWidget {
                               controller.detail.value!.playlist.id.toString(),
                           // queueId: kFmPlayQueueId,
                           queueTitle: controller.detail.value!.playlist.name,
-                          queue: songs!.map((e) => e.metadata).toList()),
+                          queue: songs!.toMetadataList()),
                       metadata: clickSong.metadata);
                 } else {
                   toast('该歌曲暂无法播放');

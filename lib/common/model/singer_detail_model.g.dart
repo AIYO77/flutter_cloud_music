@@ -13,6 +13,7 @@ SingerDetailModel _$SingerDetailModelFromJson(Map<String, dynamic> json) =>
           ? null
           : Identify.fromJson(json['identify'] as Map<String, dynamic>),
       Artist.fromJson(json['artist'] as Map<String, dynamic>),
+      json['eventCount'] as int?,
       json['user'] == null
           ? null
           : UserInfo.fromJson(json['user'] as Map<String, dynamic>),
@@ -27,6 +28,7 @@ Map<String, dynamic> _$SingerDetailModelToJson(SingerDetailModel instance) =>
       'videoCount': instance.videoCount,
       'identify': instance.identify,
       'artist': instance.artist,
+      'eventCount': instance.eventCount,
       'user': instance.user,
       'secondaryExpertIdentiy': instance.secondaryExpertIdentiy,
     };

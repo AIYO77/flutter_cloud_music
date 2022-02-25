@@ -30,7 +30,6 @@ import 'package:flutter_cloud_music/pages/playlist_detail/model/playlist_detail_
 import 'package:flutter_cloud_music/services/auth_service.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:music_player/music_player.dart';
 
 class MusicApi {
   //首页内容
@@ -350,11 +349,22 @@ class MusicApi {
     return null;
   }
 
-  //获取FM 音乐列表 需要登录
-  static Future<List<MusicMetadata>?> getFmMusics() async {
-    final response = await httpManager.get('/personal_fm', null);
-    if (response.result) {}
+  ///获取FM 音乐列表 需要登录
+  static Future<List<Song>?> getFmMusics() async {
+    final response = await httpManager.get(
+        '/personal_fm', {'timestamp': DateTime.now().millisecondsSinceEpoch});
+    if (response.result) {
+      return (response.data['data'] as List)
+          .map((e) => SongData.fromJson(e).buildSong())
+          .toList();
+    }
     return null;
+  }
+
+  /// 音乐从私人 FM 中移除至垃圾桶
+  static Future<bool> trashMusic(dynamic id) async {
+    final response = await httpManager.post('/fm_trash', {'id': id});
+    return response.result;
   }
 
   ///获取推荐新歌
@@ -522,6 +532,11 @@ class MusicApi {
         if (artist != null) {
           model.artist.followed = artist.followed;
         }
+      } else {
+        //是入驻歌手
+        model.userDetailModel = await getUserDetail(
+            model.user!.userId.toString(),
+            haveSingerInfo: true);
       }
       return model;
     }
@@ -539,13 +554,14 @@ class MusicApi {
   }
 
   ///获取用户信息
-  static Future<UserDetailModel?> getUserDetail(String id) async {
+  static Future<UserDetailModel?> getUserDetail(String id,
+      {bool haveSingerInfo = false}) async {
     final response = await httpManager.get('/user/detail',
         {'uid': id, 'timestamp': DateTime.now().millisecondsSinceEpoch});
     if (response.result) {
       final user = UserDetailModel.fromJson(response.data);
       //如果是歌手 并且没有歌手信息
-      if (user.isSinger() && user.singerModel == null) {
+      if (user.isSinger() && user.singerModel == null && !haveSingerInfo) {
         user.singerModel =
             await getSingerInfo(user.profile.artistId!.toString());
       }

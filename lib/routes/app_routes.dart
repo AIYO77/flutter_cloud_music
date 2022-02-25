@@ -42,9 +42,13 @@ abstract class Routes {
 
   static const SINGER_DETAIL = _Paths.SINGER_DETAIL;
 
+  static const PAGE_MID_LOADING = _Paths.PAGE_MID_LOADING;
+
   static String PLAYLIST_DETAIL_ID(String id) => '/playlist/$id';
 
   static String ALBUM_DETAIL_ID(String id) => '/album/$id';
+
+  static String PAGE_LOADING_THEN(String route) => '/page_mid_loading$route';
 
   static String LOGIN_THEN(String afterSuccessfulLogin) =>
       '$LOGIN?then=${Uri.encodeQueryComponent(afterSuccessfulLogin)}';
@@ -65,6 +69,10 @@ abstract class _Paths {
   static const MINE = '/mine';
   static const K_SONG = '/k_song';
   static const CLOUD_VILLAGE = '/cloud_cillage';
+
+  //pageLoading
+  static const PAGE_MID_LOADING = '/page_mid_loading/:route';
+
   // 歌单广场
   static const PLAYLIST_COLLECTION = '/playlistCollection';
 

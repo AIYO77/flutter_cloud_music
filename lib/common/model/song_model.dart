@@ -158,6 +158,10 @@ class Song extends Object {
   String arString() {
     return ar.map((e) => e.name!).reduce((value, element) => '$value/$element');
   }
+
+  List<int> arIds() {
+    return ar.map((e) => e.id).toList();
+  }
 }
 
 @JsonSerializable()
@@ -308,5 +312,11 @@ class OriginSongSimpleData extends Object {
 extension MusicBuilder on MusicMetadata {
   Song toMusic() {
     return Song.fromMatedata(this);
+  }
+}
+
+extension MusicListExt on List<Song> {
+  List<MusicMetadata> toMetadataList() {
+    return map((e) => e.metadata).toList();
   }
 }

@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_cloud_music/api/muisc_api.dart';
+import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
@@ -49,7 +50,8 @@ class QuietPlayQueueInterceptor extends PlayQueueInterceptor {
   Future<List<MusicMetadata>> fetchMoreMusic(
       BackgroundPlayQueue queue, PlayMode playMode) async {
     if (queue.queueId == kFmPlayQueueId) {
-      return await MusicApi.getFmMusics() ?? List.empty();
+      final data = await MusicApi.getFmMusics();
+      return data?.toMetadataList() ?? List.empty();
     }
     return super.fetchMoreMusic(queue, playMode);
   }

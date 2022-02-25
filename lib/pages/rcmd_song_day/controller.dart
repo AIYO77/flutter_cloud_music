@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/api/muisc_api.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/utils/list_song_check_controller.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:music_player/music_player.dart';
 
@@ -14,6 +17,9 @@ class RcmdSongDayController extends CheckSongController {
   final state = RcmdSongDayState();
 
   List<Song> items() => state.rcmdModel.value?.dailySongs ?? List.empty();
+
+  //列表中随机一直图当背景
+  final randomPic = ''.obs;
 
   @override
   void onReady() {
@@ -32,6 +38,8 @@ class RcmdSongDayController extends CheckSongController {
             value.dailySongs.elementAt(index).reason = reason.reason;
           }
         }
+        final index = Random().nextInt(value.dailySongs.length);
+        randomPic.value = value.dailySongs.elementAt(index).al.picUrl ?? '';
       }
       state.rcmdModel.value = value;
     });
@@ -43,7 +51,7 @@ class RcmdSongDayController extends CheckSongController {
             queueId:
                 DateFormat(DateFormat.YEAR_MONTH_DAY).format(DateTime.now()),
             queueTitle: '每日推荐',
-            queue: items().map((e) => e.metadata).toList()),
+            queue: items().toMetadataList()),
         metadata: song?.metadata);
   }
 }

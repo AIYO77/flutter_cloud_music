@@ -1,14 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_cloud_music/common/player/player_service.dart';
 import 'package:flutter_cloud_music/common/player/widgets/bottom_player_widget.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/home/home_controller.dart';
-import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:get/get.dart';
 
 class HomeBottomBar extends StatelessWidget {
@@ -19,7 +17,7 @@ class HomeBottomBar extends StatelessWidget {
     if (index == 0) {
       path = 'icn_discovery';
     } else if (index == 1) {
-      path = 'icn_radio';
+      path = 'icn_friend';
     } else if (index == 2) {
       path = 'icn_music_new';
     } else if (index == 3) {
@@ -62,7 +60,7 @@ class HomeBottomBar extends StatelessWidget {
     if (index == 0) {
       return Text("发现", style: TextStyle(fontSize: Dimens.font_sp11));
     } else if (index == 1) {
-      return Text("播客", style: TextStyle(fontSize: Dimens.font_sp11));
+      return Text("歌手", style: TextStyle(fontSize: Dimens.font_sp11));
     } else if (index == 2) {
       return Text("我的", style: TextStyle(fontSize: Dimens.font_sp11));
     } else if (index == 3) {
@@ -89,7 +87,7 @@ class HomeBottomBar extends StatelessWidget {
             unFocusColor: Colours.color_189,
             onTap: controller.changePage,
             items: List<BottomBarItem>.generate(
-              5,
+              3,
               (index) => BottomBarItem(
                 icon: _getBarIcon(index, false),
                 title: _getBarText(index),

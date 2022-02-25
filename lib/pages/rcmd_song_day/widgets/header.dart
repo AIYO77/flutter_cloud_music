@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
@@ -16,17 +17,21 @@ class RecmHeader extends GetView<RcmdSongDayController> {
     return SliverPersistentHeader(
         pinned: true,
         delegate: _MySliverDelegate(
-          maxHeight: expandHeight,
-          minHeight: Dimens.gap_dp45 + Adapt.topPadding(),
-        ));
+            maxHeight: expandHeight,
+            minHeight: Dimens.gap_dp45 + Adapt.topPadding(),
+            controller: controller));
   }
 }
 
 class _MySliverDelegate extends SliverPersistentHeaderDelegate {
   final double maxHeight;
   final double minHeight;
+  final RcmdSongDayController controller;
 
-  const _MySliverDelegate({required this.maxHeight, required this.minHeight});
+  const _MySliverDelegate(
+      {required this.maxHeight,
+      required this.minHeight,
+      required this.controller});
 
   @override
   Widget build(
@@ -40,61 +45,56 @@ class _MySliverDelegate extends SliverPersistentHeaderDelegate {
         child: Stack(
           children: [
             Positioned.fill(
-                child: Image.asset(
-              ImageUtils.getImagePath('icn_rcmd_bg', format: 'jpg'),
-              height: maxHeight,
-              fit: BoxFit.cover,
-            )),
+              child: Obx(
+                () => CachedNetworkImage(
+                  imageUrl: controller.randomPic.value,
+                  height: maxHeight,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) {
+                    return _holder();
+                  },
+                  errorWidget: (context, url, e) {
+                    return _holder();
+                  },
+                ),
+              ),
+            ),
             Positioned(
-                top: 0,
-                child: SizedBox(
-                  width: Adapt.screenW(),
-                  height: minHeight,
-                  child: AppBar(
-                    toolbarHeight: minHeight,
-                    centerTitle: true,
-                    backgroundColor: Colors.transparent,
-                    title: Opacity(
-                        opacity: 1.0 - offset,
-                        child: Text(
-                          '每日推荐',
-                          style: Get.theme.appBarTheme.titleTextStyle
-                              ?.copyWith(color: Colors.white),
-                        )),
-                  ),
-                )),
+              top: 0,
+              child: SizedBox(
+                width: Adapt.screenW(),
+                height: minHeight,
+                child: AppBar(
+                  toolbarHeight: minHeight,
+                  centerTitle: true,
+                  backgroundColor: Colors.transparent,
+                  title: Opacity(
+                      opacity: 1.0 - offset,
+                      child: Text(
+                        '每日推荐',
+                        style: Get.theme.appBarTheme.titleTextStyle
+                            ?.copyWith(color: Colors.white),
+                      )),
+                ),
+              ),
+            ),
             Positioned(
-                left: Dimens.gap_dp16,
-                bottom: Dimens.gap_dp45,
-                child: Opacity(
-                  opacity: offset == 1.0
-                      ? 1.0
-                      : offset <= 0.6
-                          ? 0
-                          : 0.5,
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                            text: DateTime.now().day.toString(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: Dimens.font_sp35,
-                                shadows: const [
-                                  BoxShadow(
-                                      color: Colors.black12,
-                                      blurRadius: 10,
-                                      spreadRadius: 5,
-                                      offset: Offset(0, 4))
-                                ],
-                                fontWeight: FontWeight.w700)),
-                        TextSpan(
-                            text:
-                                ' / ${DateFormat('MM').format(DateTime.now())}',
-                            style: TextStyle(
+              left: Dimens.gap_dp16,
+              bottom: Dimens.gap_dp45,
+              child: Opacity(
+                opacity: offset == 1.0
+                    ? 1.0
+                    : offset <= 0.6
+                        ? 0
+                        : 0.5,
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                          text: DateTime.now().day.toString(),
+                          style: TextStyle(
                               color: Colors.white,
-                              fontSize: Dimens.font_sp15,
-                              fontWeight: FontWeight.w500,
+                              fontSize: Dimens.font_sp35,
                               shadows: const [
                                 BoxShadow(
                                     color: Colors.black12,
@@ -102,11 +102,27 @@ class _MySliverDelegate extends SliverPersistentHeaderDelegate {
                                     spreadRadius: 5,
                                     offset: Offset(0, 4))
                               ],
-                            ))
-                      ],
-                    ),
+                              fontWeight: FontWeight.w700)),
+                      TextSpan(
+                        text: ' / ${DateFormat('MM').format(DateTime.now())}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: Dimens.font_sp15,
+                          fontWeight: FontWeight.w500,
+                          shadows: const [
+                            BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 10,
+                                spreadRadius: 5,
+                                offset: Offset(0, 4))
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                ))
+                ),
+              ),
+            )
           ],
         ),
       ),
@@ -122,6 +138,14 @@ class _MySliverDelegate extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(covariant _MySliverDelegate oldDelegate) {
     return false;
+  }
+
+  Widget _holder() {
+    return Image.asset(
+      ImageUtils.getImagePath('icn_rcmd_bg', format: 'jpg'),
+      height: maxHeight,
+      fit: BoxFit.cover,
+    );
   }
 }
 

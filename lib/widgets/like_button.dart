@@ -2,7 +2,6 @@ import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/api/muisc_api.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
-import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/player/player_service.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
@@ -23,7 +22,7 @@ class FavoriteButton extends StatelessWidget {
           isLiked: controller.isFavorite.value,
           likeBuilder: (isLiked) {
             return Image.asset(
-              ImageUtils.getImagePath(isLiked ? 'cjj' : 'cih'),
+              ImageUtils.getImagePath(isLiked ? 'cij' : 'cih'),
               width: Dimens.gap_dp24,
             );
           },
@@ -60,11 +59,11 @@ class FavoriteController extends GetxController {
   @override
   void onInit() {
     PlayerService.to.player.addListener(() {
-      _updateFavoriteState(PlayerService.to.player.value.current);
+      _updateFavoriteState(PlayerService.to.curPlay.value);
     });
     // curSong = PlayerService.to.player.value.current;
     super.onInit();
-    _updateFavoriteState(PlayerService.to.player.value.current);
+    _updateFavoriteState(PlayerService.to.curPlay.value);
   }
 
   void _updateFavoriteState(Song? song) {

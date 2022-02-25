@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/album_cover_info.dart';
 import 'package:flutter_cloud_music/common/model/top_album_cover_info.dart';
-import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
@@ -121,9 +120,9 @@ class NewAlbumPage extends GetView<NewAlbumController> {
                       return _buildItem(item);
                     })),
         //pading bottom
-        Obx(() => SliverToBoxAdapter(
-              child: padingBottomBox(context.playerValueRx.value),
-            ))
+        SliverToBoxAdapter(
+          child: padingBottomBox(),
+        )
       ],
     );
   }

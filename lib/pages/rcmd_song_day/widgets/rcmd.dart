@@ -25,7 +25,7 @@ class RcmdDailyWidget extends GetView<RcmdSongDayController> {
         SliverPersistentHeader(
             delegate: GeneralSliverDelegate(
           child: PreferredSize(
-              preferredSize: Size.fromHeight(Dimens.gap_dp16),
+              preferredSize: Size.fromHeight(Dimens.gap_dp12),
               child: Gaps.empty),
         )),
         _buildPlayAllBtn(context),
@@ -33,9 +33,9 @@ class RcmdDailyWidget extends GetView<RcmdSongDayController> {
         //pading bottom
         SliverToBoxAdapter(
             child: Obx(
-          () => padingBottomBox(context.playerValueRx.value,
+          () => padingBottomBox(
               append: (controller.showCheck.value &&
-                      context.playerValueRx.value == null)
+                      context.curPlayRx.value == null)
                   ? Dimens.gap_dp60
                   : 0),
         ))
@@ -44,6 +44,8 @@ class RcmdDailyWidget extends GetView<RcmdSongDayController> {
   }
 
   Widget _buildSliverHeader() {
+    controller.items().length;
+    // return Obx(()=> controller.state.rcmdModel.value);
     return RecmHeader();
   }
 

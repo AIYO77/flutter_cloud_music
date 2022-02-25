@@ -124,7 +124,7 @@ class FoundPage extends StatelessWidget {
         enablePullUp: true,
         onRefresh: _onRefresh,
         footer: Obx(() => CustomFooter(
-            height: (context.playerValueRx.value?.current == null)
+            height: (context.curPlayRx.value == null)
                 ? Dimens.gap_dp50 + Adapt.bottomPadding()
                 : Dimens.gap_dp95 + Adapt.bottomPadding(),
             builder: (context, mode) {

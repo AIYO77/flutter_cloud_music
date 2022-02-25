@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 
 class BlurBackground extends StatelessWidget {
   const BlurBackground({Key? key, this.musicCoverUrl}) : super(key: key);
@@ -15,35 +16,21 @@ class BlurBackground extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: <Widget>[
-              Image(
-                image: CachedNetworkImageProvider(musicCoverUrl ?? ""),
+              CachedNetworkImage(
+                imageUrl: musicCoverUrl ?? '',
                 fit: BoxFit.fitHeight,
-                gaplessPlayback: true,
+                // useOldImageOnUrlChange: true,
+                placeholder: (context, url) {
+                  return Image.asset(
+                      ImageUtils.getImagePath('fm_bg', format: 'jpg'),
+                      fit: BoxFit.fitHeight);
+                },
+                errorWidget: (context, url, e) {
+                  return Image.asset(
+                      ImageUtils.getImagePath('fm_bg', format: 'jpg'),
+                      fit: BoxFit.fitHeight);
+                },
               ),
-              // Container(
-              //   color: Colors.black38,
-              // ),
-              // Positioned(
-              //   top: 0,
-              //   left: 0,
-              //   right: 0,
-              //   bottom: Adapt.screenH() / 2,
-              //   child: Image.asset(
-              //     ImageUtils.getImagePath('cover_top_mask'),
-              //     fit: BoxFit.fill,
-              //     width: Adapt.screenW(),
-              //   ),
-              // ),
-              // Positioned(
-              //     top: Adapt.screenH() / 2,
-              //     left: 0,
-              //     right: 0,
-              //     bottom: 0,
-              //     child: Image.asset(
-              //       ImageUtils.getImagePath('cover_btm_mask'),
-              //       width: Adapt.screenW(),
-              //       fit: BoxFit.fill,
-              //     )),
               Positioned.fill(
                   child: Container(
                 decoration: const BoxDecoration(
@@ -52,14 +39,6 @@ class BlurBackground extends StatelessWidget {
                         end: Alignment.bottomCenter,
                         colors: [Colors.black12, Colors.black26])),
               )),
-              // Positioned(
-              //     top: Adapt.screenH() / 2,
-              //     left: 0,
-              //     right: 0,
-              //     bottom: 0,
-              //     child: Container(
-              //       color: Colors.black26,
-              //     ))
             ],
           )),
     );

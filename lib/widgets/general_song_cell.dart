@@ -3,6 +3,7 @@ import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
+import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:get/get.dart';
@@ -29,50 +30,56 @@ class GeneralSongCellWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
+            Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Obx(
-                  () => RichText(
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    text: TextSpan(
-                        text: song.name,
-                        style: context.playerService.curPlayId.value == song.id
-                            ? titleStyle.copyWith(
-                                color: Colours.btn_selectd_color)
-                            : titleStyle,
-                        children: [
-                          if (song.alia.isNotEmpty)
-                            TextSpan(
-                                text:
-                                    '（${song.alia.reduce((value, element) => '$value $element')}）',
-                                style: captionStyle()
-                                    .copyWith(fontSize: Dimens.font_sp17)),
-                        ]),
-                  ),
-                ),
+                Obx(() => ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: Adapt.px(232)),
+                      child: RichText(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        text: TextSpan(
+                            text: song.name,
+                            style:
+                                context.playerService.curPlayId.value == song.id
+                                    ? titleStyle.copyWith(
+                                        color: Colours.btn_selectd_color)
+                                    : titleStyle,
+                            children: [
+                              if (song.alia.isNotEmpty)
+                                TextSpan(
+                                    text:
+                                        '（${song.alia.reduce((value, element) => '$value $element')}）',
+                                    style: captionStyle()
+                                        .copyWith(fontSize: Dimens.font_sp17)),
+                            ]),
+                      ),
+                    )),
                 if (GetUtils.isNullOrBlank(song.reason) != true)
-                  Container(
+                  Expanded(
+                      child: Container(
                     height: Dimens.gap_dp15,
-                    width: 70,
                     margin: EdgeInsets.only(left: Dimens.gap_dp4),
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: Dimens.gap_dp3),
-                    decoration: BoxDecoration(
-                      color: Colours.app_main.withOpacity(0.15),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(Dimens.gap_dp4),
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: Dimens.gap_dp3),
+                      decoration: BoxDecoration(
+                        color: Colours.app_main.withOpacity(0.15),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(Dimens.gap_dp4),
+                        ),
+                      ),
+                      child: Text(
+                        song.reason!,
+                        style: TextStyle(
+                            color: Colours.app_main,
+                            fontSize: Dimens.font_sp10),
                       ),
                     ),
-                    child: Text(
-                      song.reason!,
-                      style: TextStyle(
-                          color: Colours.app_main, fontSize: Dimens.font_sp10),
-                    ),
-                  )
+                  )),
               ],
             ),
+
             //subtitle
             Row(
               children: [

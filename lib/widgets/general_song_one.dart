@@ -102,10 +102,7 @@ class GeneralSongOne extends StatelessWidget {
                         ),
                         WidgetSpan(child: Gaps.hGap4),
                         TextSpan(
-                          text: songInfo.ar
-                              .map((e) => e.name)
-                              .toList()
-                              .reduce((value, element) => '$value/$element'),
+                          text: songInfo.arString(),
                           style: TextStyle(
                               fontSize: Dimens.font_sp10,
                               color: const Color.fromARGB(255, 166, 166, 166)),

@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 class SingerDetailState {
   //用户ID 如果是入驻歌手 也有用户ID
-  String? accountId;
+  final accountId = Rx<String?>(null);
 
   //歌手ID 获取详情如果没有{accountId}就用这个ID
   String? artistId;
@@ -85,32 +85,22 @@ class SingerDetailState {
     return getArtistId() != null;
   }
 
-  int? getMusicSize() {
-    if (detailValue?.userDetail != null) {
-      return detailValue!.userDetail!.singerModel?.artist.musicSize;
-    }
-    if (detailValue?.singerDetail != null) {
-      return detailValue!.singerDetail!.artist.musicSize;
-    }
-    return null;
-  }
-
   int? getAlbumSize() {
-    if (detailValue?.userDetail != null) {
-      return detailValue!.userDetail!.singerModel?.artist.albumSize;
-    }
     if (detailValue?.singerDetail != null) {
       return detailValue!.singerDetail!.artist.albumSize;
+    }
+    if (detailValue?.userDetail != null) {
+      return detailValue!.userDetail!.singerModel?.artist.albumSize;
     }
     return null;
   }
 
   int? getMVSize() {
-    if (detailValue?.userDetail != null) {
-      return detailValue!.userDetail!.singerModel?.artist.mvSize;
-    }
     if (detailValue?.singerDetail != null) {
       return detailValue!.singerDetail!.artist.mvSize;
+    }
+    if (detailValue?.userDetail != null) {
+      return detailValue!.userDetail!.singerModel?.artist.mvSize;
     }
     return null;
   }

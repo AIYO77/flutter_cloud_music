@@ -2,7 +2,6 @@ import 'package:async/async.dart';
 import 'package:flutter_cloud_music/api/muisc_api.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/player/lyric.dart';
-import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/player/player_service.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:get/get.dart';
@@ -26,13 +25,13 @@ class LyricController extends GetxController {
   @override
   void onInit() {
     PlayerService.to.player.addListener(() {
-      _shouldLoadLyric(PlayerService.to.player.value.current);
+      _shouldLoadLyric(PlayerService.to.curPlay.value);
     });
     super.onInit();
   }
 
   void currentLyric() {
-    _shouldLoadLyric(PlayerService.to.player.value.current);
+    _shouldLoadLyric(PlayerService.to.curPlay.value);
   }
 
   void _shouldLoadLyric(Song? music) {

@@ -4,6 +4,8 @@ import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:get/get.dart';
 import 'package:music_player/music_player.dart';
 
+import '../model/song_model.dart';
+
 const _keyPlayQueue = "quiet_player_queue";
 const _keyCurrentPlaying = "quiet_current_playing";
 const _keyPlayMode = "quiet_play_mode";
@@ -18,6 +20,9 @@ class PlayerService extends GetxService {
 
   //当前播放的歌曲ID
   final curPlayId = Rx<int?>(null);
+
+  //当前播放的歌曲
+  final curPlay = Rx<Song?>(null);
 
   //播放模式
   final playMode = Rx<PlayMode>(PlayMode.sequence);
@@ -75,6 +80,14 @@ class PlayerService extends GetxService {
     playMode.value = player.playMode;
     watchPlayerValue.value = player.value;
     curPlayId.value = int.tryParse(player.metadata?.mediaId ?? '');
+    if (curPlay.value == null ||
+        curPlay.value?.id.toString() != player.metadata?.mediaId) {
+      if (player.metadata != null) {
+        curPlay.value = Song.fromMatedata(player.metadata!);
+      } else {
+        curPlay.value = null;
+      }
+    }
     isFmPlaying.value = player.queue.isPlayingFm;
     queueIdValue.value = player.queue.queueId;
     queueSizeValue.value = player.queue.queue.length;

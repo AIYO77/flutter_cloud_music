@@ -36,6 +36,15 @@ extension QuitPlayerExt on BuildContext {
     }
   }
 
+  Rx<Song?> get curPlayRx {
+    try {
+      return PlayerService.to.curPlay;
+    } catch (e, stacktrace) {
+      logger.e(stacktrace.toString());
+      rethrow;
+    }
+  }
+
   Rx<PlayMode> get playModelRx {
     try {
       return PlayerService.to.playMode;
@@ -51,8 +60,6 @@ extension QuitPlayerExt on BuildContext {
 }
 
 extension MusicPlayerValueExt on MusicPlayerValue {
-  Song? get current => (metadata == null) ? null : Song.fromMatedata(metadata!);
-
   // int? get currentId => metadata == null ? null : int.parse(metadata!.mediaId);
 
   // int get currentIndex =>
@@ -75,6 +82,22 @@ extension PlaybackStateExt on PlaybackState {
 extension PlayQueueExt on PlayQueue {
   // 是否处于私人FM 播放模式
   bool get isPlayingFm => queueId == kFmPlayQueueId;
+}
+
+extension MusicPlayerExt on MusicPlayer {
+  bool get initialized =>
+      value.metadata != null && value.metadata!.duration > 0;
+
+  /// 播放私人 FM
+  /// [musics] 初始化数据
+  void playFm(List<Song>? songs) {
+    if (songs == null) return;
+    final queue = PlayQueue(
+        queueTitle: "私人FM",
+        queueId: kFmPlayQueueId,
+        queue: songs.toMetadataList());
+    playWithQueue(queue);
+  }
 }
 
 extension PlayModeDescription on PlayMode {

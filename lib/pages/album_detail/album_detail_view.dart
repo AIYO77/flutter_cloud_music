@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/player/widgets/bottom_player_widget.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
@@ -69,9 +68,9 @@ class AlbumDetailPage extends GetView<AlbumDetailController> {
         //歌曲列表
         Obx(() => AlbumDetailSongList(controller.albumDetail.value?.songs)),
         //pading bottom
-        Obx(() => SliverToBoxAdapter(
-              child: padingBottomBox(context.playerValueRx.value),
-            ))
+        SliverToBoxAdapter(
+          child: padingBottomBox(),
+        )
       ],
     );
   }

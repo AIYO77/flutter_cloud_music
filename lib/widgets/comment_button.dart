@@ -2,7 +2,6 @@ import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/api/muisc_api.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
-import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/player/player_service.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
@@ -11,9 +10,11 @@ import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:get/get.dart';
 
 class CommentButton extends StatelessWidget {
-  CommentButton({Key? key}) : super(key: key);
+  final String songId;
 
-  final controller = Get.put(CommentController());
+  CommentButton({required this.songId}) : super(key: Key(songId));
+
+  final controller = GetInstance().putOrFind(() => CommentController());
 
   @override
   Widget build(BuildContext context) {
@@ -47,18 +48,20 @@ class CommentButton extends StatelessWidget {
 
 class CommentController extends GetxController {
   Song? curSong;
+
   //加载歌曲评论数量
   CancelableOperation? _commentLoader;
 
   final commentCount = 0.obs;
+
   @override
   void onInit() {
     PlayerService.to.player.addListener(() {
-      _updateCommentState(PlayerService.to.player.value.current);
+      _updateCommentState(PlayerService.to.curPlay.value);
     });
     // curSong = PlayerService.to.player.value.current;
     super.onInit();
-    _updateCommentState(PlayerService.to.player.value.current);
+    _updateCommentState(PlayerService.to.curPlay.value);
   }
 
   void _updateCommentState(Song? song) {

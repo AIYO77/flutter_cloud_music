@@ -121,9 +121,9 @@ class NewSongListViewState extends State<NewSongListView> {
               //pading bottom
               SliverToBoxAdapter(
                   child: Obx(
-                () => padingBottomBox(context.playerValueRx.value,
+                () => padingBottomBox(
                     append: (parentController.showCheck.value &&
-                            context.playerValueRx.value == null)
+                            context.curPlayRx.value == null)
                         ? Dimens.gap_dp60
                         : 0),
               ))
@@ -265,7 +265,7 @@ class NewSongListViewState extends State<NewSongListView> {
         PlayQueue(
             queueId: '${widget.tagModel.name}新歌',
             queueTitle: '${widget.tagModel.name}新歌',
-            queue: controller.items.value!.map((e) => e.metadata).toList()),
+            queue: controller.items.value!.toMetadataList()),
         metadata: song?.metadata);
   }
 }

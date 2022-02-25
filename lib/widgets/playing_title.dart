@@ -3,6 +3,7 @@ import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
+import 'package:flutter_cloud_music/pages/singer_detail/selector.dart';
 import 'package:flutter_cloud_music/widgets/marquee_on_demand.dart';
 import 'package:get/get.dart';
 import 'package:marquee/marquee.dart';
@@ -54,7 +55,9 @@ class PlayingTitle extends StatelessWidget {
                 textStyle: const TextStyle(fontSize: 17, color: Colors.white),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  launchArtistDetailPage(context, song?.ar);
+                },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,

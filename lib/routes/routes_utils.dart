@@ -1,5 +1,6 @@
 import 'package:flutter_cloud_music/common/model/play_queue_with_music.dart';
 import 'package:flutter_cloud_music/common/player/player_service.dart';
+import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:get/get.dart';
@@ -24,7 +25,7 @@ class RouteUtils {
           PlayerService.to.watchPlayerValue.value?.queue.queueId ==
               playQueue.queueId) {
         //当前播放的列表和歌曲是同一个 掉起播放界面
-        Get.toNamed(Routes.PLAYING);
+        toPlaying();
       } else {
         PlayerService.to.player.playWithQueue(playQueue);
       }
@@ -36,7 +37,7 @@ class RouteUtils {
       if (PlayerService.to.curPlayId.value.toString() == music.mediaId &&
           PlayerService.to.watchPlayerValue.value?.queue.queueId ==
               playQueue.queueId) {
-        Get.toNamed(Routes.PLAYING);
+        toPlaying();
       } else {
         PlayerService.to.player.playWithQueue(playQueue, metadata: music);
       }

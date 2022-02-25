@@ -7,7 +7,11 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
+import 'package:get/get.dart';
 import 'package:music_player/music_player.dart';
+
+import '../common/transition/downToUp_with_fade.dart';
+import '../pages/playing/playing_controller.dart';
 
 class PlayAlbumCover extends StatefulWidget {
   const PlayAlbumCover({Key? key, this.music}) : super(key: key);
@@ -19,6 +23,8 @@ class PlayAlbumCover extends StatefulWidget {
 
 class _PlayAlbumCoverState extends State<PlayAlbumCover>
     with TickerProviderStateMixin {
+  final playController = Get.find<PlayingController>();
+
   late AnimationController _needleController;
 
   late Animation<double> _needleAnimation;
@@ -257,6 +263,7 @@ class _PlayAlbumCoverState extends State<PlayAlbumCover>
                       offset: Offset(_coverTranslateX, 0),
                       child: Hero(
                           tag: HERO_TAG_CUR_PLAY,
+                          createRectTween: createRectTween,
                           child: RotationCoverImage(
                             rotating: _coverRotating && !_beDragging,
                             music: _current,
@@ -275,25 +282,27 @@ class _PlayAlbumCoverState extends State<PlayAlbumCover>
                 ),
               )),
         ),
-        ClipRect(
-          child: Align(
-            alignment: const Alignment(0, -1),
-            child: Transform.translate(
-              offset: const Offset(30, -12),
-              child: RotationTransition(
-                turns: _needleAnimation,
-                alignment:
-                    //计算旋转中心点的偏移,以保重旋转动画的中心在针尾圆形的中点
-                    Alignment(-1 + Adapt.px(23) * 2 / Adapt.px(91.1),
-                        -1 + Adapt.px(23) * 2 / Adapt.px(147)),
-                child: Image.asset(
-                  ImageUtils.getImagePath('play_needle_play'),
-                  height: kHeightSpaceAlbumTop * 2.2,
+        Obx(() => Visibility(
+            visible: playController.showNeedle.value,
+            child: ClipRect(
+              child: Align(
+                alignment: const Alignment(0, -1),
+                child: Transform.translate(
+                  offset: const Offset(30, -12),
+                  child: RotationTransition(
+                    turns: _needleAnimation,
+                    alignment:
+                        //计算旋转中心点的偏移,以保重旋转动画的中心在针尾圆形的中点
+                        Alignment(-1 + Adapt.px(23) * 2 / Adapt.px(91.1),
+                            -1 + Adapt.px(23) * 2 / Adapt.px(147)),
+                    child: Image.asset(
+                      ImageUtils.getImagePath('play_needle_play'),
+                      height: kHeightSpaceAlbumTop * 2.2,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-        )
+            )))
       ],
     );
   }

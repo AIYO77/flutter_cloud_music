@@ -15,7 +15,6 @@ import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
 import 'package:flutter_cloud_music/pages/playing_list/page_playing_list.dart';
-import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:get/get.dart';
 import 'package:music_player/music_player.dart';
 
@@ -56,8 +55,7 @@ class _BottomPlayerBarState extends State<BottomPlayerBar>
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // context.playerService.watchPlayerValue.value?.queue.isPlayingFm
-        Get.toNamed(Routes.PLAYING);
+        toPlaying();
       },
       child: MediaQuery(
         data: context.mediaQuery.copyWith(
@@ -189,16 +187,19 @@ class _BottomContentWidget extends GetView<PlayerContoller> {
     return Row(
       children: [
         Gaps.hGap16,
-        ClipRRect(
-          borderRadius: BorderRadius.circular(Dimens.gap_dp7),
-          child: CachedNetworkImage(
-            imageUrl: music.iconUri ?? '',
-            width: Dimens.gap_dp36,
-            height: Dimens.gap_dp36,
-            placeholder: (context, url) =>
-                Image.asset(ImageUtils.getImagePath('ecf')),
-            errorWidget: (context, url, e) =>
-                Image.asset(ImageUtils.getImagePath('ecf')),
+        Hero(
+          tag: HERO_TAG_CUR_PLAY,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(Dimens.gap_dp7),
+            child: CachedNetworkImage(
+              imageUrl: music.iconUri ?? '',
+              width: Dimens.gap_dp36,
+              height: Dimens.gap_dp36,
+              placeholder: (context, url) =>
+                  Image.asset(ImageUtils.getImagePath('default_cover_play')),
+              errorWidget: (context, url, e) =>
+                  Image.asset(ImageUtils.getImagePath('default_cover_play')),
+            ),
           ),
         ),
         Gaps.hGap10,

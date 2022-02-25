@@ -29,14 +29,13 @@ class PlayingPage extends GetView<PlayingController> {
         children: [
           //背景
           Obx(() => BlurBackground(
-              musicCoverUrl: context.playerValueRx.value?.current?.al.picUrl)),
+              musicCoverUrl: context.curPlayRx.value?.al.picUrl)),
           Material(
             color: Colors.transparent,
             child: Column(
               children: [
                 //标题bar
-                Obx(() =>
-                    PlayingTitle(song: context.playerValueRx.value?.current)),
+                Obx(() => PlayingTitle(song: context.curPlayRx.value)),
                 //唱片动画
                 Obx(() => _CenterSection(music: controller.curPlaying.value)),
                 //点赞等操作
@@ -73,7 +72,9 @@ class _PlayingOperationBar extends StatelessWidget {
               onPressed: () {
                 notImplemented(context);
               }),
-          CommentButton(),
+          Obx(() => CommentButton(
+                songId: context.curPlayRx.value?.id.toString() ?? '',
+              )),
           IconButton(
               iconSize: Dimens.gap_dp24,
               icon: Image.asset(

@@ -27,7 +27,7 @@ class SingerDetailLogic extends GetxController
   @override
   void onInit() {
     super.onInit();
-    state.accountId = Get.arguments['accountId']?.toString();
+    state.accountId.value = Get.arguments['accountId']?.toString();
     state.artistId = Get.arguments['artistId']?.toString();
     state.detail.listen((detail) {
       if (detail?.isSinger == true) {
@@ -50,14 +50,15 @@ class SingerDetailLogic extends GetxController
   }
 
   void _getDetail() {
-    if (GetUtils.isNullOrBlank(state.accountId) == true) {
+    if (GetUtils.isNullOrBlank(state.accountId.value) == true) {
       //获取歌手详情
       MusicApi.getSingerInfo(state.artistId!).then((value) {
+        state.accountId.value = value?.user?.userId.toString();
         state.detail.value = value?.detail;
       });
     } else {
       //获取用户详情（也包含歌手）
-      MusicApi.getUserDetail(state.accountId!).then((value) {
+      MusicApi.getUserDetail(state.accountId.value!).then((value) {
         state.detail.value = value?.detail;
       });
     }
@@ -102,11 +103,13 @@ class SingerDetailLogic extends GetxController
           title: '专辑',
           num: state.getAlbumSize() ?? 0));
     }
-    if (GetUtils.isNullOrBlank(state.accountId) == false) {
+    if (GetUtils.isNullOrBlank(state.accountId.value) == false) {
       state.tabs!.add(SingerTabModel(
           type: SingerTabType.evenPage,
           title: '动态',
-          num: detail.userDetail!.profile.eventCount));
+          num: detail.userDetail?.profile.eventCount ??
+              detail.singerDetail?.eventCount ??
+              0));
     }
     if (state.isSinger()) {
       state.tabs!.add(SingerTabModel(

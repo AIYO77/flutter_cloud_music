@@ -1,12 +1,10 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
-import 'package:flutter_cloud_music/pages/cloud_village/cloud_village_view.dart';
 import 'package:flutter_cloud_music/pages/found/found_view.dart';
 import 'package:flutter_cloud_music/pages/home/widgets/bottom_bar.dart';
 import 'package:flutter_cloud_music/pages/home/widgets/drawer.dart';
 import 'package:flutter_cloud_music/pages/home/widgets/home_top_bar.dart';
-import 'package:flutter_cloud_music/pages/k_song/k_song_view.dart';
 import 'package:flutter_cloud_music/pages/mine/mine_view.dart';
 import 'package:flutter_cloud_music/pages/podcast/podcast_view.dart';
 import 'package:flutter_cloud_music/widgets/keep_alive_wrapper.dart';
@@ -52,8 +50,8 @@ class HomePage extends GetView<HomeController> {
                   KeepAliveWrapper(child: FoundPage()),
                   KeepAliveWrapper(child: PodcastPage()),
                   KeepAliveWrapper(child: MinePage()),
-                  KeepAliveWrapper(child: KSongPage()),
-                  KeepAliveWrapper(child: CloudVillagePage()),
+                  // KeepAliveWrapper(child: KSongPage()),
+                  // KeepAliveWrapper(child: CloudVillagePage()),
                 ],
               )),
               const Positioned(

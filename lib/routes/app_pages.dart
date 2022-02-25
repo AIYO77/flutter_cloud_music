@@ -4,6 +4,7 @@ import 'package:flutter_cloud_music/pages/album_detail/album_detail_binding.dart
 import 'package:flutter_cloud_music/pages/album_detail/album_detail_view.dart';
 import 'package:flutter_cloud_music/pages/home/home_binding.dart';
 import 'package:flutter_cloud_music/pages/home/home_view.dart';
+import 'package:flutter_cloud_music/pages/loading_page/view.dart';
 import 'package:flutter_cloud_music/pages/login/email_login/email_login_binding.dart';
 import 'package:flutter_cloud_music/pages/login/email_login/email_login_view.dart';
 import 'package:flutter_cloud_music/pages/login/login_binding.dart';
@@ -38,6 +39,8 @@ import 'package:flutter_cloud_music/pages/web/web_binding.dart';
 import 'package:flutter_cloud_music/pages/web/web_view.dart';
 import 'package:get/route_manager.dart';
 
+import '../common/transition/downToUp_with_fade.dart';
+import '../middleware/fm_middleware.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -58,6 +61,15 @@ class AppPages {
       binding: HomeBinding(),
       preventDuplicates: true,
       transition: Transition.fadeIn,
+    ),
+
+    //加载过度页
+    GetPage(
+      name: Routes.PAGE_MID_LOADING,
+      page: () => LoadingPage(),
+      preventDuplicates: true,
+      opaque: false,
+      transition: Transition.noTransition,
     ),
 
     //歌单广场
@@ -141,11 +153,11 @@ class AppPages {
 
     //私人FM
     GetPage(
-      middlewares: [EnsureAuthMiddleware()],
+      middlewares: [FMMiddleware()],
       name: Routes.PRIVATE_FM,
       page: () => const PlayingFmPage(),
       binding: PlayingFmBinding(),
-      transition: Transition.downToUp,
+      customTransition: SlideDownWithFadeTransition(),
       preventDuplicates: true,
     ),
 
@@ -155,7 +167,7 @@ class AppPages {
       name: Routes.PLAYING,
       page: () => const PlayingPage(),
       binding: PlayingBinding(),
-      transition: Transition.downToUp,
+      customTransition: SlideDownWithFadeTransition(),
       // preventDuplicates: true,
     ),
 

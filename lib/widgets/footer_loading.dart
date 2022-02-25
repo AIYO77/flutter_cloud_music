@@ -17,7 +17,7 @@ class FooterLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => CustomFooter(
-        height: (context.playerValueRx.value?.current == null)
+        height: (context.curPlayRx.value == null)
             ? Dimens.gap_dp50 + Adapt.bottomPadding()
             : Dimens.gap_dp140 + Adapt.bottomPadding(),
         builder: (context, mode) {

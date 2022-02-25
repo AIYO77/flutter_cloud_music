@@ -9,7 +9,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/ext/ext.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
-import 'package:flutter_cloud_music/common/player/player.dart';
+import 'package:flutter_cloud_music/common/player/player_service.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
@@ -20,7 +20,6 @@ import 'package:flutter_cloud_music/typedef/function.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:music_player/music_player.dart';
 
 final box = GetStorage();
 
@@ -36,6 +35,14 @@ Future<void> toUserDetail({dynamic accountId, dynamic artistId}) async {
   return Get.toNamed(Routes.SINGER_DETAIL,
       arguments: {'accountId': accountId, 'artistId': artistId},
       preventDuplicates: false);
+}
+
+Future<void> toPlaying() async {
+  PlayerService.to.isFmPlaying.value.yes(() {
+    Get.toNamed(Routes.PRIVATE_FM);
+  }).no(() {
+    Get.toNamed(Routes.PLAYING);
+  });
 }
 
 Future toast(dynamic message) async {
@@ -196,10 +203,12 @@ bool isSoftKeyboardDisplay(MediaQueryData data) {
   return data.viewInsets.bottom / data.size.height > 0.3;
 }
 
-Widget padingBottomBox(MusicPlayerValue? value, {double append = 0}) {
+Widget padingBottomBox({double append = 0}) {
   final bottom = Adapt.bottomPadding() + append;
-  return SizedBox(
-      height: value?.current == null ? bottom : bottom + Dimens.gap_dp58);
+  return Obx(() => SizedBox(
+      height: PlayerService.to.curPlay.value == null
+          ? bottom
+          : bottom + Dimens.gap_dp58));
 }
 
 ///根据月份和天数来获取星座
@@ -240,5 +249,9 @@ String getSignWithMd({required int m, required int d}) {
 }
 
 Widget placeholderWidget(BuildContext context, String url) => Container(
+      color: Colours.load_image_placeholder(),
+    );
+
+Widget errorWidget(BuildContext context, String url, dynamic e) => Container(
       color: Colours.load_image_placeholder(),
     );

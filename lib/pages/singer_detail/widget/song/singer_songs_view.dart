@@ -66,7 +66,7 @@ class SingerSongsView extends StatelessWidget {
                       PlayQueue(
                           queueId: controller.id.toString(),
                           queueTitle: '',
-                          queue: list.map((e) => e.metadata).toList()),
+                          queue: list.toMetadataList()),
                       metadata: clickSong.metadata);
                 } else {
                   toast('该歌曲暂无法播放');
@@ -107,9 +107,9 @@ class SingerSongsView extends StatelessWidget {
               ),
             ),
           ),
-        Obx(() => SliverToBoxAdapter(
-              child: padingBottomBox(context.playerValueRx.value),
-            ))
+        SliverToBoxAdapter(
+          child: padingBottomBox(),
+        )
       ],
     );
   }

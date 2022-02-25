@@ -20,7 +20,6 @@ import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/routes/routes_utils.dart';
 import 'package:flutter_cloud_music/typedef/function.dart';
 import 'package:flutter_cloud_music/widgets/custom_tap.dart';
-import 'package:flutter_cloud_music/widgets/frame_animation_image.dart';
 import 'package:get/get.dart';
 
 class GeneralSongTwo extends StatelessWidget {
@@ -102,10 +101,7 @@ class GeneralSongTwo extends StatelessWidget {
                       ),
                       WidgetSpan(child: Gaps.hGap4),
                       TextSpan(
-                        text: songInfo.ar
-                            .map((e) => e.name)
-                            .toList()
-                            .reduce((value, element) => '$value/$element'),
+                        text: songInfo.arString(),
                         style: TextStyle(
                             fontSize: Dimens.font_sp10,
                             color: const Color.fromARGB(255, 166, 166, 166)),

@@ -4,6 +4,7 @@ import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
+import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_controller.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/widget/follow_widget.dart';
@@ -14,6 +15,7 @@ class TopNormalInfo extends StatelessWidget {
   final controller = Get.find<PlaylistDetailController>();
 
   TopNormalInfo({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -56,60 +58,82 @@ class TopNormalInfo extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        CachedNetworkImage(
-                          imageUrl: ImageUtils.getImageUrlFromSize(
-                              controller
-                                  .detail.value?.playlist.creator.avatarUrl,
-                              Size(Dimens.gap_dp25, Dimens.gap_dp25)),
-                          errorWidget: (context, url, e) {
-                            return Gaps.ovalImgHolder(const Size(25, 25));
-                          },
-                          placeholder: (context, url) {
-                            return Gaps.ovalImgHolder(const Size(25, 25));
-                          },
-                          imageBuilder: (context, provider) {
-                            final user =
-                                controller.detail.value?.playlist.creator;
-                            return SizedBox(
-                              width: user?.avatarDetail == null ? 25 : 30,
-                              height: 25,
-                              child: Stack(
-                                alignment: Alignment.topLeft,
-                                children: [
-                                  ClipOval(
-                                    child: Image(
-                                      image: provider,
-                                      width: 25,
-                                      height: 25,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  if (user?.avatarDetail != null)
-                                    Positioned(
-                                      bottom: 0,
-                                      right: 0,
-                                      child: ClipOval(
-                                        child: CachedNetworkImage(
-                                            width: 12,
-                                            height: 12,
-                                            imageUrl: user!
-                                                .avatarDetail!.identityIconUrl),
-                                      ),
-                                    )
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                        Gaps.hGap2,
-                        //creator name
-                        Text(
-                          controller.detail.value?.playlist.creator.nickname ??
-                              '',
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: Colours.white.withOpacity(0.7)),
-                        ),
+                        GestureDetector(
+                            onTap: () {
+                              toUserDetail(
+                                  accountId: controller
+                                      .detail.value?.playlist.creator.userId);
+                            },
+                            child: RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(children: [
+                                  WidgetSpan(
+                                      alignment: PlaceholderAlignment.middle,
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            ImageUtils.getImageUrlFromSize(
+                                                controller
+                                                    .detail
+                                                    .value
+                                                    ?.playlist
+                                                    .creator
+                                                    .avatarUrl,
+                                                Size(Dimens.gap_dp25,
+                                                    Dimens.gap_dp25)),
+                                        errorWidget: (context, url, e) {
+                                          return Gaps.ovalImgHolder(
+                                              const Size(25, 25));
+                                        },
+                                        placeholder: (context, url) {
+                                          return Gaps.ovalImgHolder(
+                                              const Size(25, 25));
+                                        },
+                                        imageBuilder: (context, provider) {
+                                          final user = controller
+                                              .detail.value?.playlist.creator;
+                                          return SizedBox(
+                                            width: user?.avatarDetail == null
+                                                ? 25
+                                                : 30,
+                                            height: 25,
+                                            child: Stack(
+                                              alignment: Alignment.topLeft,
+                                              children: [
+                                                ClipOval(
+                                                  child: Image(
+                                                    image: provider,
+                                                    width: 25,
+                                                    height: 25,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                if (user?.avatarDetail != null)
+                                                  Positioned(
+                                                    bottom: 0,
+                                                    right: 0,
+                                                    child: ClipOval(
+                                                      child: CachedNetworkImage(
+                                                          width: 12,
+                                                          height: 12,
+                                                          imageUrl: user!
+                                                              .avatarDetail!
+                                                              .identityIconUrl),
+                                                    ),
+                                                  )
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      )),
+                                  WidgetSpan(child: Gaps.hGap2),
+                                  TextSpan(
+                                      text: controller.detail.value?.playlist
+                                          .creator.nickname,
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          color:
+                                              Colours.white.withOpacity(0.7))),
+                                ]))),
                         Gaps.hGap1,
                         //focuse creator
                         if (controller.detail.value?.playlist.creator != null)

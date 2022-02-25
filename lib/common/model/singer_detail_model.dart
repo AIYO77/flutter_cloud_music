@@ -1,3 +1,4 @@
+import 'package:flutter_cloud_music/common/model/user_detail_model.dart';
 import 'package:flutter_cloud_music/common/model/user_info_model.dart';
 import 'package:flutter_cloud_music/pages/singer_detail/state.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -15,16 +16,22 @@ class SingerDetailModel extends Object {
   @JsonKey(name: 'artist')
   Artist artist;
 
+  @JsonKey(name: 'eventCount')
+  int? eventCount;
+
   @JsonKey(name: 'user')
   UserInfo? user;
 
   @JsonKey(name: 'secondaryExpertIdentiy')
   List<SecondaryExpertIdentiy>? secondaryExpertIdentiy;
 
+  UserDetailModel? userDetailModel;
+
   SingerDetailModel(
     this.videoCount,
     this.identify,
     this.artist,
+    this.eventCount,
     this.user,
     this.secondaryExpertIdentiy,
   );
@@ -41,7 +48,7 @@ class SingerDetailModel extends Object {
   SingerOrUserDetail? _detail;
 
   SingerOrUserDetail get detail {
-    _detail ??= SingerOrUserDetail(true, this, null);
+    _detail ??= SingerOrUserDetail(true, this, userDetailModel);
     return _detail!;
   }
 }
