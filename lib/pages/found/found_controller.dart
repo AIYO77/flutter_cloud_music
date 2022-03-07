@@ -27,8 +27,10 @@ class FoundController extends SuperController<FoundData?> {
     SLIDE_PLAYABLE_DRAGON_BALL_MORE_TAB: Adapt.px(200),
     SLIDE_RCMDLIKE_VOICELIST: Adapt.px(220)
   };
+
   //是否滚动
   final isScrolled = Rx<bool>(false);
+
   //默认搜索关键词
   final defuleSearch = Rx<DefaultSearchModel?>(null);
 
@@ -40,8 +42,7 @@ class FoundController extends SuperController<FoundData?> {
 
   late StreamSubscription stream;
 
-  Future<void> getFoundRecList(
-      {bool refresh = false, bool isFirst = false}) async {
+  Future<void> getFoundRecList({bool refresh = false}) async {
     final cacheData = box.read<Map<String, dynamic>>(CACHE_HOME_FOUND_DATA);
     if (cacheData != null && !refresh) {
       isSucLoad.value = true;
@@ -64,16 +65,14 @@ class FoundController extends SuperController<FoundData?> {
   @override
   void onReady() {
     super.onReady();
-    _requestData(true);
+    _requestData();
     stream = eventBus.on<LoginEvent>().listen((event) {
-      if (event.isLogin) {
-        _requestData(false);
-      }
+      _requestData();
     });
   }
 
-  void _requestData(bool isFirst) {
-    getFoundRecList(isFirst: true);
+  void _requestData() {
+    getFoundRecList();
     getDefaultSearch();
   }
 

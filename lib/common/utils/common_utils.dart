@@ -163,14 +163,14 @@ bool isChinese(String value) {
   return RegExp(r"[\u4e00-\u9fa5]").hasMatch(value);
 }
 
-Widget buildUserAvatar(String url, Size size) {
+Widget buildUserAvatar(String? url, Size size) {
   return SizedBox.fromSize(
     size: size,
     child: CircleAvatar(
       radius: size.height / 2,
       backgroundColor: Colors.transparent,
       child: CachedNetworkImage(
-        imageUrl: url,
+        imageUrl: url ?? '',
         placeholder: (context, url) {
           return _buildAvaterHolder(size);
         },
@@ -188,14 +188,25 @@ Widget buildUserAvatar(String url, Size size) {
 }
 
 Widget _buildAvaterHolder(Size size) {
-  return SizedBox(
-    width: size.width,
-    height: size.height,
-    child: Image.asset(
-      ImageUtils.getImagePath('ce2'),
-      fit: BoxFit.cover,
-      color: Colours.pink,
-    ),
+  return Stack(
+    children: [
+      Container(
+        width: size.width,
+        height: size.height,
+        decoration: BoxDecoration(
+            color: Get.theme.cardColor,
+            borderRadius: BorderRadius.all(Radius.circular(size.height / 2))),
+      ),
+      SizedBox(
+        width: size.width,
+        height: size.height,
+        child: Image.asset(
+          ImageUtils.getImagePath('ce2'),
+          fit: BoxFit.cover,
+          color: const Color(0xfff8bfbd),
+        ),
+      )
+    ],
   );
 }
 

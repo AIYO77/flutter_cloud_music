@@ -21,6 +21,8 @@ import 'package:flutter_cloud_music/pages/new_song_album/new_song_album_binding.
 import 'package:flutter_cloud_music/pages/new_song_album/new_song_album_view.dart';
 import 'package:flutter_cloud_music/pages/not_found/not_found_binding.dart';
 import 'package:flutter_cloud_music/pages/not_found/not_found_view.dart';
+import 'package:flutter_cloud_music/pages/pl_manage/pl_manage_binding.dart';
+import 'package:flutter_cloud_music/pages/pl_manage/pl_manage_view.dart';
 import 'package:flutter_cloud_music/pages/playing/playing_binding.dart';
 import 'package:flutter_cloud_music/pages/playing/playing_view.dart';
 import 'package:flutter_cloud_music/pages/playing_fm/playing_fm_binding.dart';
@@ -208,12 +210,20 @@ class AppPages {
         preventDuplicates: false,
         transition: Transition.rightToLeft),
 
+    //歌单管理
+    GetPage(
+        name: Routes.PL_MANAGE,
+        page: () => const PlManagePage(),
+        binding: PlManageBinding(),
+        preventDuplicates: true,
+        transition: Transition.downToUp),
+
     //web
     GetPage(
         name: Routes.WEB,
         page: () => const WebPage(),
         binding: WebBinding(),
-        preventDuplicates: true)
+        preventDuplicates: true),
   ];
 
   //未知路由

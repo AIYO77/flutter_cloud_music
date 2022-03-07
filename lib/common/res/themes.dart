@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/utils/common_utils.dart';
+import 'package:get/get.dart';
 
 import 'colors.dart';
 
@@ -18,6 +20,12 @@ class Themes {
               fontSize: 17.0,
               fontWeight: FontWeight.w600),
           elevation: 0),
+      dialogTheme: const DialogTheme(
+          backgroundColor: Colors.black87,
+          elevation: 24.0,
+          alignment: Alignment.center,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(14.0)))),
       textTheme: const TextTheme(
           headline1: TextStyle(
               color: Colours.headline1_color,
@@ -56,6 +64,12 @@ class Themes {
             fontSize: 17.0,
             fontWeight: FontWeight.w600),
         elevation: 0),
+    dialogTheme: const DialogTheme(
+        backgroundColor: Colors.black,
+        elevation: 24.0,
+        alignment: Alignment.center,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(14.0)))),
     textTheme: TextTheme(
         headline1: const TextStyle(
             color: Colours.dark_headline1_color,
@@ -76,4 +90,23 @@ class Themes {
             fontWeight: FontWeight.normal),
         caption: TextStyle(color: Colours.dark_subtitle_text, fontSize: 12)),
   );
+
+  static Future<void> setThemeModeIsLight(ThemeMode mode) async {
+    await box.write('isLight', mode == ThemeMode.light);
+  }
+
+  static ThemeMode themeMode() {
+    final isLight = box.read<bool>('isLight');
+    return isLight == null
+        ? ThemeMode.system
+        : isLight
+            ? ThemeMode.light
+            : ThemeMode.dark;
+  }
+
+  static Future<void> changeTheme() async {
+    final mode = Get.isDarkMode ? ThemeMode.light : ThemeMode.dark;
+    await setThemeModeIsLight(mode);
+    Get.changeThemeMode(mode);
+  }
 }

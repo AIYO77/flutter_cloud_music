@@ -31,7 +31,7 @@ Song _$SongFromJson(Map<String, dynamic> json) => Song(
           : OriginSongSimpleData.fromJson(
               json['originSongSimpleData'] as Map<String, dynamic>),
       json['st'] as int,
-    );
+    )..reason = json['reason'] as String?;
 
 Map<String, dynamic> _$SongToJson(Song instance) => <String, dynamic>{
       'name': instance.name,
@@ -49,6 +49,7 @@ Map<String, dynamic> _$SongToJson(Song instance) => <String, dynamic>{
       'privilege': instance.privilege,
       'actionType': instance.actionType,
       'originSongSimpleData': instance.originSongSimpleData,
+      'reason': instance.reason,
     };
 
 Ar _$ArFromJson(Map<String, dynamic> json) => Ar(

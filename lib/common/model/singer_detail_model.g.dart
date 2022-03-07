@@ -21,7 +21,10 @@ SingerDetailModel _$SingerDetailModelFromJson(Map<String, dynamic> json) =>
           ?.map(
               (e) => SecondaryExpertIdentiy.fromJson(e as Map<String, dynamic>))
           .toList(),
-    );
+    )..userDetailModel = json['userDetailModel'] == null
+        ? null
+        : UserDetailModel.fromJson(
+            json['userDetailModel'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$SingerDetailModelToJson(SingerDetailModel instance) =>
     <String, dynamic>{
@@ -31,6 +34,7 @@ Map<String, dynamic> _$SingerDetailModelToJson(SingerDetailModel instance) =>
       'eventCount': instance.eventCount,
       'user': instance.user,
       'secondaryExpertIdentiy': instance.secondaryExpertIdentiy,
+      'userDetailModel': instance.userDetailModel,
     };
 
 Identify _$IdentifyFromJson(Map<String, dynamic> json) => Identify(

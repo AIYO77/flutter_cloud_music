@@ -157,7 +157,7 @@ class ProfileVillageInfo extends Object {
   String title;
 
   @JsonKey(name: 'imageUrl')
-  String imageUrl;
+  String? imageUrl;
 
   @JsonKey(name: 'targetUrl')
   String? targetUrl;

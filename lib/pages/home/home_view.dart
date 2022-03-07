@@ -1,9 +1,11 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
+import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/pages/found/found_view.dart';
 import 'package:flutter_cloud_music/pages/home/widgets/bottom_bar.dart';
-import 'package:flutter_cloud_music/pages/home/widgets/drawer.dart';
+import 'package:flutter_cloud_music/pages/home/widgets/drawer/drawer.dart';
 import 'package:flutter_cloud_music/pages/home/widgets/home_top_bar.dart';
 import 'package:flutter_cloud_music/pages/mine/mine_view.dart';
 import 'package:flutter_cloud_music/pages/podcast/podcast_view.dart';
@@ -30,37 +32,44 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     Adapt.initContext(context);
+    logger.i('isDarkMode =  ${context.isDarkMode}');
     return WillPopScope(
         onWillPop: () {
           return _dialogExitApp(context);
         },
-        child: Scaffold(
-          extendBodyBehindAppBar: true,
-          extendBody: true,
-          drawer: const DrawerWidget(),
-          // appBar: AppBar(),
-          body: Stack(
-            children: [
-              Positioned.fill(
-                  child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
-                onPageChanged: controller.changePage,
-                controller: controller.pageController,
+        child: AnnotatedRegion<SystemUiOverlayStyle>(
+            value: context.isDarkMode
+                ? SystemUiOverlayStyle.light
+                : SystemUiOverlayStyle.dark,
+            child: Scaffold(
+              extendBodyBehindAppBar: true,
+              extendBody: true,
+              drawer: DrawerWidget(
+                key: const Key('home drawer'),
+              ),
+              // appBar: AppBar(),
+              body: Stack(
                 children: [
-                  KeepAliveWrapper(child: FoundPage()),
-                  KeepAliveWrapper(child: PodcastPage()),
-                  KeepAliveWrapper(child: MinePage()),
-                  // KeepAliveWrapper(child: KSongPage()),
-                  // KeepAliveWrapper(child: CloudVillagePage()),
+                  Positioned.fill(
+                      child: PageView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    onPageChanged: controller.changePage,
+                    controller: controller.pageController,
+                    children: [
+                      KeepAliveWrapper(child: FoundPage()),
+                      KeepAliveWrapper(child: PodcastPage()),
+                      KeepAliveWrapper(child: MinePage()),
+                      // KeepAliveWrapper(child: KSongPage()),
+                      // KeepAliveWrapper(child: CloudVillagePage()),
+                    ],
+                  )),
+                  const Positioned(
+                    top: 0,
+                    child: HomeTopBar(),
+                  )
                 ],
-              )),
-              const Positioned(
-                top: 0,
-                child: HomeTopBar(),
-              )
-            ],
-          ),
-          bottomNavigationBar: HomeBottomBar(),
-        ));
+              ),
+              bottomNavigationBar: HomeBottomBar(),
+            )));
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter_cloud_music/common/model/album_dynamic_info.dart';
 import 'package:flutter_cloud_music/common/model/artists_model.dart';
 import 'package:flutter_cloud_music/common/model/calendar_events.dart';
 import 'package:flutter_cloud_music/common/model/comment_response.dart';
+import 'package:flutter_cloud_music/common/model/mine_playlist.dart';
 import 'package:flutter_cloud_music/common/model/rcmd_song_daily_model.dart';
 import 'package:flutter_cloud_music/common/model/simple_play_list_model.dart';
 import 'package:flutter_cloud_music/common/model/singer_albums_model.dart';
@@ -32,7 +33,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class MusicApi {
-  //首页内容
+  ///首页内容
   static Future<FoundData?> getFoundRec(
       {bool refresh = false, Map<String, dynamic>? cacheData}) async {
     FoundData? oldData;
@@ -75,11 +76,11 @@ class MusicApi {
 
   static Future<FoundData?> _diffData(
       FoundData recmData, FoundData? oldData) async {
-    if (oldData == null) {
+    if (oldData == null || recmData.blocks.length > oldData.blocks.length) {
       box.write(CACHE_HOME_FOUND_DATA, recmData.toJson());
       return Future.value(recmData);
     } else {
-      //有缓存过数据 进行比较差量更新
+      ///有缓存过数据 进行比较差量更新
       final List<Blocks> diffList = List.empty(growable: true);
 
       final newBlocks = recmData.blocks;
@@ -102,7 +103,7 @@ class MusicApi {
     }
   }
 
-  //默认搜索
+  ///默认搜索
   static Future<DefaultSearchModel?> getDefaultSearch() async {
     DefaultSearchModel? data;
     final response = await httpManager.get('/search/default',
@@ -113,7 +114,7 @@ class MusicApi {
     return data;
   }
 
-  //热门歌单标签
+  ///热门歌单标签
   static Future<List<PlayListTagModel>?> getHotTags() async {
     List<PlayListTagModel>? data;
     final response = await httpManager.get('/playlist/hot', null);
@@ -125,7 +126,7 @@ class MusicApi {
     return data;
   }
 
-  //推荐歌单列表不支持分页
+  ///推荐歌单列表不支持分页
   static Future<PlayListHasMoreModel?> getRcmPlayList() async {
     final response = await httpManager.get('/personalized',
         {"limit": 99, 'timestamp': DateTime.now().millisecondsSinceEpoch});
@@ -139,7 +140,7 @@ class MusicApi {
     return data;
   }
 
-  //获取网友精选碟歌单
+  ///获取网友精选碟歌单
   static Future<PlayListHasMoreModel?> getPlayListFromTag(
     String tag,
     int limit,
@@ -161,7 +162,7 @@ class MusicApi {
     return data;
   }
 
-  //获取精品歌单标签列表
+  ///获取精品歌单标签列表
   static Future<List<String>?> getHighqualityTags() async {
     final response = await httpManager.get('/playlist/highquality/tags', null);
     List<String>? tags;
@@ -173,7 +174,7 @@ class MusicApi {
     return tags;
   }
 
-  //获取精品歌单
+  ///获取精品歌单
   static Future<PlayListHasMoreModel?> getHighqualityList(
     String? tag,
     int limit,
@@ -195,7 +196,7 @@ class MusicApi {
     return data;
   }
 
-  //歌单详情
+  ///歌单详情
   static Future<PlaylistDetailModel?> getPlaylistDetail(String id) async {
     final response =
         await httpManager.get('/playlist/detail', {'id': id, 's': '5'});
@@ -206,7 +207,7 @@ class MusicApi {
     return data;
   }
 
-  //获取歌曲详情 多个逗号隔开
+  ///获取歌曲详情 多个逗号隔开
   static Future<List<Song>?> getSongsInfo(String ids) async {
     final response =
         await httpManager.get('/song/detail', Map.of({'ids': ids}));
@@ -221,7 +222,7 @@ class MusicApi {
     return data?.songs;
   }
 
-  //获取歌曲播放地址
+  ///获取歌曲播放地址
   static Future<String> getPlayUrl(int id, {int br = 320000}) async {
     logger.d('request url id = $id');
     String url = '';
@@ -258,7 +259,7 @@ class MusicApi {
 
   ///根据音乐id获取歌词
   static Future<String?> lyric(int id) async {
-    //有缓存 直接返回
+    ///有缓存 直接返回
     final cached = box.read<String>(id.toString());
     if (cached != null) {
       return cached;
@@ -314,7 +315,7 @@ class MusicApi {
     return Future.value(null);
   }
 
-  //获取歌曲评论
+  ///获取歌曲评论
   static Future<CommentResponse?> getMusicComment(int id,
       {int limit = 20, int offset = 0, int? time}) async {
     final response = await httpManager.get('/comment/music',
@@ -325,7 +326,7 @@ class MusicApi {
     return null;
   }
 
-  //获取歌曲评论数量
+  ///获取歌曲评论数量
   static Future<int> getMusicCommentCouunt(int id) async {
     final count = box.read<int>('$id$CACHE_MUSIC_COMMENT_COUNT');
     if (count != null) {
@@ -570,6 +571,15 @@ class MusicApi {
     return null;
   }
 
+  ///获取用户等级
+  static Future<int> getUserLevel() async {
+    final response = await httpManager.get('/user/level', null);
+    if (response.result) {
+      return int.parse(response.data['data']['level'].toString());
+    }
+    return 0;
+  }
+
   ///获取相似歌手
   static Future<List<Ar>?> getSimiArtist(String artistId) async {
     final response = await httpManager.get('/simi/artist', {'id': artistId});
@@ -615,6 +625,46 @@ class MusicApi {
         .get('/artist/video', {'id': artistId, 'cursor': cursor});
     if (response.result) {
       return SingerVideosModel.fromJson(response.data['data']);
+    }
+    return null;
+  }
+
+  ///获取用户歌单
+  static Future<List<MinePlaylist>> getMinePlaylist(dynamic uid) async {
+    final response = await httpManager.get('/user/playlist', {'uid': uid});
+    if (response.result) {
+      return (response.data['playlist'] as List)
+          .map((e) => MinePlaylist.fromJson(e))
+          .toList();
+    }
+    return List.empty();
+  }
+
+  ///获取歌单所有歌曲
+  static Future<List<Song>?> getPlayListAllTrack(dynamic id) async {
+    final response = await httpManager.get('/playlist/track/all', {'id': id});
+    SongsModel? data;
+    if (response.result) {
+      data = SongsModel.fromJson(response.data);
+      for (final song in data.songs) {
+        song.privilege =
+            data.privileges.firstWhere((element) => element.id == song.id);
+      }
+    }
+    return data?.songs;
+  }
+
+  ///心动模式
+  static Future<List<Song>?> startIntelligence(
+      {required dynamic songId, required dynamic pid}) async {
+    final response = await httpManager
+        .get('/playmode/intelligence/list', {'id': songId, 'pid': pid});
+    if (response.result) {
+      final listData = response.data['data'] as List;
+      logger.d('listData size : ${listData.length}');
+      final infos = listData.map((e) => e['songInfo']);
+      logger.d('infos size : ${infos.length}');
+      return infos.map((e) => Song.fromJson(e)).toList();
     }
     return null;
   }

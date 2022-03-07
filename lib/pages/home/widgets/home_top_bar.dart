@@ -13,7 +13,7 @@ class HomeTopBar extends StatelessWidget implements PreferredSizeWidget {
       icon: Icon(
         Icons.menu_sharp,
         size: Dimens.gap_dp24,
-        color: Get.isDarkMode
+        color: context.isDarkMode
             ? Colours.dark_body2_txt_color
             : Colours.body2_txt_color,
       ),

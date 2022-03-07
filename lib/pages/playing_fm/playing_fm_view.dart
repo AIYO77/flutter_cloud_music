@@ -152,10 +152,12 @@ class _FmCover extends StatelessWidget {
                     imageUrl: music?.al.picUrl ?? '',
                     fit: BoxFit.cover,
                     placeholder: (context, url) {
-                      return Image.asset('default_cover_play');
+                      return Image.asset(
+                          ImageUtils.getImagePath('default_cover_play'));
                     },
                     errorWidget: (context, url, e) {
-                      return Image.asset('default_cover_play');
+                      return Image.asset(
+                          ImageUtils.getImagePath('default_cover_play'));
                     },
                   ),
                 ),

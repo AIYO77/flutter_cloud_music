@@ -50,7 +50,7 @@ class HomeBottomBar extends StatelessWidget {
             : null,
         child: Image.asset(
           ImageUtils.getImagePath(path),
-          color: isActive ? Colors.white : Colours.color_189,
+          color: isActive ? Colors.white : Colours.color_150,
         ),
       ),
     );
@@ -84,7 +84,7 @@ class HomeBottomBar extends StatelessWidget {
             currentIndex: controller.currentIndex.value,
             focusColor: Colours.app_main_light,
             height: Dimens.gap_dp50,
-            unFocusColor: Colours.color_189,
+            unFocusColor: Colours.color_150,
             onTap: controller.changePage,
             items: List<BottomBarItem>.generate(
               3,

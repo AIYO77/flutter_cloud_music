@@ -84,7 +84,7 @@ Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
 ProfileVillageInfo _$ProfileVillageInfoFromJson(Map<String, dynamic> json) =>
     ProfileVillageInfo(
       json['title'] as String,
-      json['imageUrl'] as String,
+      json['imageUrl'] as String?,
       json['targetUrl'] as String?,
     );
 

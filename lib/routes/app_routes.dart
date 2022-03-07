@@ -44,6 +44,8 @@ abstract class Routes {
 
   static const PAGE_MID_LOADING = _Paths.PAGE_MID_LOADING;
 
+  static const PL_MANAGE = _Paths.PL_MANAGE;
+
   static String PLAYLIST_DETAIL_ID(String id) => '/playlist/$id';
 
   static String ALBUM_DETAIL_ID(String id) => '/album/$id';
@@ -105,4 +107,7 @@ abstract class _Paths {
 
   //歌手详情
   static const SINGER_DETAIL = '/singer/detail';
+
+  //歌单管理
+  static const PL_MANAGE = '/plManage';
 }

@@ -14,7 +14,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
  * 登陆相关API
  */
 class LoginApi {
-  //获取国家和地区code
+  ///获取国家和地区code
   static Future<List<CountryListModel>?> getCountries() async {
     final response = await httpManager.get('/countries/code/list', null);
     if (response.result) {
@@ -25,7 +25,7 @@ class LoginApi {
     return null;
   }
 
-  //检查手机号是否已注册
+  ///检查手机号是否已注册
   static Future<PhoneExist?> checkPhoneExistence(
       String phone, String countrycode) async {
     final response = await httpManager.get('/cellphone/existence/check',
@@ -36,14 +36,14 @@ class LoginApi {
     return null;
   }
 
-  //发送验证码
+  ///发送验证码
   static Future<bool> sendCode(String phone, String ctcode) async {
     final response = await httpManager
         .get('/captcha/sent', {'phone': phone, 'ctcode': ctcode});
     return response.result;
   }
 
-  //验证码的正确性
+  ///验证码的正确性
   static Future<bool> verCode(
       String phone, String ctcode, String captcha) async {
     final response = await httpManager.get('/captcha/verify',
@@ -51,7 +51,7 @@ class LoginApi {
     return response.result;
   }
 
-  //手机号登陆 可以是密码或者验证码
+  ///手机号登陆 可以是密码或者验证码
   static Future<bool> phoneLogin(String phone, String countrycode,
       {String? password, String? captcha}) async {
     final data = {'phone': phone, 'countrycode': countrycode};
@@ -70,7 +70,7 @@ class LoginApi {
     return resonse.result;
   }
 
-  //邮箱登陆
+  ///邮箱登陆
   static Future<bool> emailLogin(String email, String pwd) async {
     final resonse = await httpManager.post(
         '/login', {'email': email, 'md5_password': Encipher.generateMd5(pwd)});
@@ -81,5 +81,16 @@ class LoginApi {
       EasyLoading.showError(resonse.msg ?? '登陆失败');
     }
     return resonse.result;
+  }
+
+  ///退出登陆
+  static Future<bool> logout() async {
+    final response = await httpManager.post('/logout', null);
+    if (response.result) {
+      AuthService.to.logout();
+    } else {
+      EasyLoading.showError(response.msg ?? '退出登陆失败');
+    }
+    return response.result;
   }
 }

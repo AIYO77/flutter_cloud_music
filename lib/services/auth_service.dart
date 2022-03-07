@@ -40,10 +40,10 @@ class AuthService extends GetxService {
   }
 
   /*退出登陆成功后 清除本地缓存*/
-  void logout() {
+  Future<void> logout() async {
     loginData.value = null;
     cookie = null;
-    box.remove(CACHE_LOGIN_DATA);
+    await box.remove(CACHE_LOGIN_DATA);
     isLoggedIn.value = false;
     eventBus.fire(LoginEvent(false));
   }
