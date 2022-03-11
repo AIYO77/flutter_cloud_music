@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cloud_music/common/ext/ext.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
@@ -177,42 +176,44 @@ class DrawerWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // controller.logout();
-        Get.dialog(CupertinoAlertDialog(
-          title: Text(context.appName()),
-          content: const Text('确定退出当前账号?'),
-          actions: [
-            GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: Container(
-                color: Colors.transparent,
-                height: Dimens.gap_dp50,
-                alignment: Alignment.center,
-                child: Text(
-                  '取消',
-                  style: body2Style().copyWith(
-                      color: Colours.blue, fontWeight: FontWeight.w600),
+        Get.dialog(
+            CupertinoAlertDialog(
+              title: const Text('FlutterMusic'),
+              content: const Text('确定退出当前账号?'),
+              actions: [
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    height: Dimens.gap_dp50,
+                    alignment: Alignment.center,
+                    child: Text(
+                      '取消',
+                      style: body2Style().copyWith(
+                          color: Colours.blue, fontWeight: FontWeight.w600),
+                    ),
+                  ),
                 ),
-              ),
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                    controller.logout();
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    height: Dimens.gap_dp50,
+                    alignment: Alignment.center,
+                    child: Text(
+                      '确定',
+                      style: body2Style().copyWith(color: Colours.blue),
+                    ),
+                  ),
+                )
+              ],
             ),
-            GestureDetector(
-              onTap: () {
-                Get.back();
-                controller.logout();
-              },
-              child: Container(
-                color: Colors.transparent,
-                height: Dimens.gap_dp50,
-                alignment: Alignment.center,
-                child: Text(
-                  '确定',
-                  style: body2Style().copyWith(color: Colours.blue),
-                ),
-              ),
-            )
-          ],
-        ));
+            barrierColor: Colors.black12);
       },
       child: Container(
         height: Dimens.gap_dp48,

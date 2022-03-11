@@ -24,6 +24,7 @@ import 'package:get/get.dart';
 import 'package:keframe/frame_separate_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../widgets/music_refresh.dart';
 import 'found_controller.dart';
 import 'model/found_model.dart';
 import 'widget/found_slied_playlist.dart';
@@ -121,6 +122,7 @@ class FoundPage extends StatelessWidget {
     return SmartRefresher(
         controller: refreshController,
         enablePullUp: true,
+        header: MusicRefresh(),
         onRefresh: _onRefresh,
         footer: Obx(() => CustomFooter(
             height: (context.curPlayRx.value == null)
@@ -174,13 +176,11 @@ class FoundPage extends StatelessWidget {
             top: Dimens.gap_dp56 + context.mediaQueryPadding.top,
             child: controller.obx(
               (state) {
-                Get.log("refresh finish");
                 refreshController.refreshCompleted();
                 return _buildListView(context, state);
               },
               onEmpty: const Text("empty"),
               onError: (err) {
-                Get.log('refresh error $err');
                 toast(err.toString());
                 refreshController.refreshFailed();
                 return Gaps.empty;

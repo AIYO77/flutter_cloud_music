@@ -125,14 +125,8 @@ class PlayListContentView extends StatelessWidget {
               return;
             }
             Get.bottomSheet(
-                Container(
+                SizedBox(
                     height: Adapt.screenH() * 0.6,
-                    decoration: BoxDecoration(
-                      color: Get.theme.cardColor,
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(Dimens.gap_dp8),
-                          topLeft: Radius.circular(Dimens.gap_dp8)),
-                    ),
                     child: Stack(
                       children: [
                         _buildFilterContent(),
@@ -163,6 +157,11 @@ class PlayListContentView extends StatelessWidget {
                             ))
                       ],
                     )),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(Dimens.gap_dp8),
+                        topLeft: Radius.circular(Dimens.gap_dp8))),
+                backgroundColor: Get.theme.cardColor,
                 enableDrag: false);
           },
           child: Container(

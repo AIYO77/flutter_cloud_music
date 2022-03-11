@@ -10,9 +10,6 @@ PlaylistDetailModel _$PlaylistDetailModelFromJson(Map<String, dynamic> json) =>
     PlaylistDetailModel(
       json['code'] as int,
       Playlist.fromJson(json['playlist'] as Map<String, dynamic>),
-      (json['privileges'] as List<dynamic>)
-          .map((e) => PrivilegeModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
     );
 
 Map<String, dynamic> _$PlaylistDetailModelToJson(
@@ -20,7 +17,6 @@ Map<String, dynamic> _$PlaylistDetailModelToJson(
     <String, dynamic>{
       'code': instance.code,
       'playlist': instance.playlist,
-      'privileges': instance.privileges,
     };
 
 Playlist _$PlaylistFromJson(Map<String, dynamic> json) => Playlist(
@@ -63,6 +59,9 @@ Playlist _$PlaylistFromJson(Map<String, dynamic> json) => Playlist(
       json['commentCount'] as int,
       json['officialPlaylistType'] as String?,
       json['subscribed'] as bool?,
+      (json['videos'] as List<dynamic>?)
+          ?.map((e) => MLogResource.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$PlaylistToJson(Playlist instance) => <String, dynamic>{
@@ -99,6 +98,7 @@ Map<String, dynamic> _$PlaylistToJson(Playlist instance) => <String, dynamic>{
       'commentCount': instance.commentCount,
       'officialPlaylistType': instance.officialPlaylistType,
       'subscribed': instance.subscribed,
+      'videos': instance.videos,
     };
 
 TrackIds _$TrackIdsFromJson(Map<String, dynamic> json) => TrackIds(

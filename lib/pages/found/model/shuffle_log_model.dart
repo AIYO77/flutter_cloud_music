@@ -44,10 +44,14 @@ class MLogResource extends Object {
   @JsonKey(name: 'shareUrl')
   String shareUrl;
 
+  @JsonKey(name: 'userProfile')
+  VideoUserProfile? userProfile;
+
   MLogResource(
     this.mlogBaseData,
     this.mlogExtVO,
     this.shareUrl,
+    this.userProfile,
   );
 
   factory MLogResource.fromJson(Map<String, dynamic> srcJson) =>
@@ -112,4 +116,31 @@ class MlogExtVO extends Object {
       _$MlogExtVOFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$MlogExtVOToJson(this);
+}
+
+@JsonSerializable()
+class VideoUserProfile extends Object {
+  @JsonKey(name: 'userId')
+  int userId;
+
+  @JsonKey(name: 'nickname')
+  String nickname;
+
+  @JsonKey(name: 'avatarUrl')
+  String avatarUrl;
+
+  @JsonKey(name: 'followed')
+  bool followed;
+
+  VideoUserProfile(
+    this.userId,
+    this.nickname,
+    this.avatarUrl,
+    this.followed,
+  );
+
+  factory VideoUserProfile.fromJson(Map<String, dynamic> srcJson) =>
+      _$VideoUserProfileFromJson(srcJson);
+
+  Map<String, dynamic> toJson() => _$VideoUserProfileToJson(this);
 }

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
@@ -19,12 +21,15 @@ class GenrralCoverPlayCount extends StatelessWidget {
 
   final String? rightTopTagIcon;
 
+  final bool isVideoPl;
+
   final ParamSingleCallback<ImageProvider>? imageCallback;
 
   const GenrralCoverPlayCount(
       {required this.imageUrl,
       required this.playCount,
       required this.coverSize,
+      this.isVideoPl = false,
       this.coverRadius = 6.0,
       this.rightTopTagIcon,
       this.imageCallback});
@@ -90,6 +95,8 @@ class GenrralCoverPlayCount extends StatelessWidget {
             ),
           ),
 
+        if (isVideoPl) _buildExtWidget(provider),
+
         //播放量
         Positioned(
           right: Dimens.gap_dp4,
@@ -103,5 +110,39 @@ class GenrralCoverPlayCount extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget _buildExtWidget(ImageProvider<Object> provider) {
+    return Positioned.fill(
+        child: Stack(
+      children: [
+        //模糊背景
+        BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Container(),
+        ),
+        Center(
+          child: Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(Dimens.gap_dp5),
+                child: Image(
+                  image: provider,
+                  width: Dimens.gap_dp95,
+                  height: Dimens.gap_dp75,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Image.asset(
+                ImageUtils.getImagePath('d7o'),
+                width: Dimens.gap_dp95,
+                height: Dimens.gap_dp75,
+                fit: BoxFit.fill,
+              )
+            ],
+          ),
+        )
+      ],
+    ));
   }
 }

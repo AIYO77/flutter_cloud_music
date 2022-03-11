@@ -1,3 +1,4 @@
+import 'package:flutter_cloud_music/common/model/user_info_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'login_response.g.dart';
@@ -246,4 +247,11 @@ class Experts extends Object {
       _$ExpertsFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$ExpertsToJson(this);
+}
+
+extension ProfileToUserInfoExt on Profile {
+  UserInfo userinfo() {
+    return UserInfo(followed, avatarUrl, gender, birthday, userId, nickname,
+        signature, description, detailDescription, backgroundUrl, null, null);
+  }
 }

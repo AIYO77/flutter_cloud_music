@@ -28,6 +28,8 @@ const ALG_OP = 'ALG_OP';
 
 const HERO_TAG_CUR_PLAY = 'currentPlay';
 
+const SINGLE_SEARCH = 'single_search';
+
 /* HERO  --------- end ----------- */
 
 /* cache key  --------- start ----------- */

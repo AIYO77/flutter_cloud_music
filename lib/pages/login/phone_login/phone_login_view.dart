@@ -65,17 +65,9 @@ class PhoneLoginPage extends GetView<PhoneLoginController> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Get.bottomSheet(CountryShaeet(
-                        callback: (code) {
-                          controller.countrycode.value = code;
-                        },
-                      ),
-                          isScrollControlled: true,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(Dimens.gap_dp16),
-                                  topRight: Radius.circular(Dimens.gap_dp16))),
-                          backgroundColor: Get.theme.cardColor);
+                      CountrySheet.show((code) {
+                        controller.countrycode.value = code;
+                      });
                     },
                     child: Obx(() => Text(
                           '+${controller.countrycode.value}',

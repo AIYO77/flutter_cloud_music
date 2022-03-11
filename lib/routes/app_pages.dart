@@ -1,5 +1,9 @@
 import 'package:flutter_cloud_music/middleware/auth_middleware.dart';
 import 'package:flutter_cloud_music/middleware/playing_middleware.dart';
+import 'package:flutter_cloud_music/pages/add_song/binding.dart';
+import 'package:flutter_cloud_music/pages/add_song/view.dart';
+import 'package:flutter_cloud_music/pages/add_video/binding.dart';
+import 'package:flutter_cloud_music/pages/add_video/view.dart';
 import 'package:flutter_cloud_music/pages/album_detail/album_detail_binding.dart';
 import 'package:flutter_cloud_music/pages/album_detail/album_detail_view.dart';
 import 'package:flutter_cloud_music/pages/home/home_binding.dart';
@@ -35,6 +39,8 @@ import 'package:flutter_cloud_music/pages/rcmd_song_day/bindings.dart';
 import 'package:flutter_cloud_music/pages/rcmd_song_day/view.dart';
 import 'package:flutter_cloud_music/pages/singer/singer.dart';
 import 'package:flutter_cloud_music/pages/singer_detail/view.dart';
+import 'package:flutter_cloud_music/pages/single_search/binding.dart';
+import 'package:flutter_cloud_music/pages/single_search/view.dart';
 import 'package:flutter_cloud_music/pages/splash/splash_binding.dart';
 import 'package:flutter_cloud_music/pages/splash/splash_view.dart';
 import 'package:flutter_cloud_music/pages/web/web_binding.dart';
@@ -217,6 +223,27 @@ class AppPages {
         binding: PlManageBinding(),
         preventDuplicates: true,
         transition: Transition.downToUp),
+
+    //添加歌曲
+    GetPage(
+        name: Routes.ADD_SONG,
+        page: () => AddSongPage(),
+        binding: AddSongBinding(),
+        transition: Transition.downToUp),
+
+    //添加视频
+    GetPage(
+        name: Routes.ADD_VIDEO,
+        page: () => AddVideoPage(),
+        binding: AddVideoBinding(),
+        transition: Transition.downToUp),
+
+    //单一搜索（目前添加歌曲和添加视频用到）
+    GetPage(
+        name: Routes.SINGLE_SEARCH,
+        page: () => SingleSearchPage(),
+        binding: SingleSearchBinding(),
+        transition: Transition.fadeIn),
 
     //web
     GetPage(

@@ -1,11 +1,13 @@
 import 'dart:math';
 
-import 'package:flutter_cloud_music/common/model/privilege_model.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/model/user_info_model.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:get/get.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../../common/values/constants.dart';
+import '../../found/model/shuffle_log_model.dart';
 
 part 'playlist_detail_model.g.dart';
 
@@ -17,13 +19,9 @@ class PlaylistDetailModel extends Object {
   @JsonKey(name: 'playlist')
   Playlist playlist;
 
-  @JsonKey(name: 'privileges')
-  List<PrivilegeModel> privileges;
-
   PlaylistDetailModel(
     this.code,
     this.playlist,
-    this.privileges,
   );
 
   factory PlaylistDetailModel.fromJson(Map<String, dynamic> srcJson) =>
@@ -34,6 +32,23 @@ class PlaylistDetailModel extends Object {
   @override
   String toString() {
     return toJson().toString();
+  }
+
+  //是否是官方歌单
+  bool isOfficial() {
+    return playlist.officialPlaylistType == ALG_OP;
+  }
+
+  bool isVideoPl() {
+    return playlist.specialType == 200;
+  }
+
+  String getTypename() {
+    if (isVideoPl()) {
+      return '视频歌单';
+    } else {
+      return '歌单';
+    }
   }
 }
 
@@ -138,6 +153,9 @@ class Playlist extends Object {
   @JsonKey(name: 'subscribed')
   bool? subscribed;
 
+  @JsonKey(name: 'videos')
+  List<MLogResource>? videos;
+
   Playlist(
     this.id,
     this.name,
@@ -172,6 +190,7 @@ class Playlist extends Object {
     this.commentCount,
     this.officialPlaylistType,
     this.subscribed,
+    this.videos,
   );
 
   factory Playlist.fromJson(Map<String, dynamic> srcJson) =>

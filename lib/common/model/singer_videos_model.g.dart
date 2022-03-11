@@ -100,7 +100,6 @@ Map<String, dynamic> _$MlogExtVOToJson(MlogExtVO instance) => <String, dynamic>{
 VideoArtists _$VideoArtistsFromJson(Map<String, dynamic> json) => VideoArtists(
       json['id'] as int,
       json['name'] as String,
-      json['img1v1Url'] as String,
       json['followed'] as bool,
     );
 
@@ -108,7 +107,6 @@ Map<String, dynamic> _$VideoArtistsToJson(VideoArtists instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'img1v1Url': instance.img1v1Url,
       'followed': instance.followed,
     };
 

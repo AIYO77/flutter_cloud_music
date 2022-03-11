@@ -28,6 +28,10 @@ MLogResource _$MLogResourceFromJson(Map<String, dynamic> json) => MLogResource(
       MlogBaseData.fromJson(json['mlogBaseData'] as Map<String, dynamic>),
       MlogExtVO.fromJson(json['mlogExtVO'] as Map<String, dynamic>),
       json['shareUrl'] as String,
+      json['userProfile'] == null
+          ? null
+          : VideoUserProfile.fromJson(
+              json['userProfile'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$MLogResourceToJson(MLogResource instance) =>
@@ -35,6 +39,7 @@ Map<String, dynamic> _$MLogResourceToJson(MLogResource instance) =>
       'mlogBaseData': instance.mlogBaseData,
       'mlogExtVO': instance.mlogExtVO,
       'shareUrl': instance.shareUrl,
+      'userProfile': instance.userProfile,
     };
 
 MlogBaseData _$MlogBaseDataFromJson(Map<String, dynamic> json) => MlogBaseData(
@@ -66,4 +71,20 @@ Map<String, dynamic> _$MlogExtVOToJson(MlogExtVO instance) => <String, dynamic>{
       'commentCount': instance.commentCount,
       'playCount': instance.playCount,
       'canCollect': instance.canCollect,
+    };
+
+VideoUserProfile _$VideoUserProfileFromJson(Map<String, dynamic> json) =>
+    VideoUserProfile(
+      json['userId'] as int,
+      json['nickname'] as String,
+      json['avatarUrl'] as String,
+      json['followed'] as bool,
+    );
+
+Map<String, dynamic> _$VideoUserProfileToJson(VideoUserProfile instance) =>
+    <String, dynamic>{
+      'userId': instance.userId,
+      'nickname': instance.nickname,
+      'avatarUrl': instance.avatarUrl,
+      'followed': instance.followed,
     };

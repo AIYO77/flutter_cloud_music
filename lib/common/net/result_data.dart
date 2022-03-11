@@ -12,7 +12,7 @@ class ResultData {
     return '$data';
   }
 
-  bool isSucesse() {
+  bool isSuccess() {
     return result && data['code'] == 200;
   }
 }

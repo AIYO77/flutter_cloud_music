@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_cloud_music/common/ext/ext.dart';
 import 'package:flutter_cloud_music/common/net/init_dio.dart';
 import 'package:flutter_cloud_music/common/player/player_interceptors.dart';
 import 'package:flutter_ume/flutter_ume.dart'; // UME 框架
@@ -15,14 +14,15 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/utils.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:music_player/music_player.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+
+// import 'package:package_info_plus/package_info_plus.dart';
 
 import 'app.dart';
 import 'services/auth_service.dart';
 
 Future<void> main() async {
   await GetStorage.init();
-  packageInfo = await PackageInfo.fromPlatform();
+  // packageInfo = await PackageInfo.fromPlatform();
   WidgetsFlutterBinding.ensureInitialized();
   if (kDebugMode) {
     PluginManager.instance

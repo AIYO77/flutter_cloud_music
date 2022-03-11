@@ -25,6 +25,9 @@ class MinePlaylist extends Object {
   @JsonKey(name: 'id')
   int id;
 
+  @JsonKey(name: 'privacy')
+  int privacy;
+
   @JsonKey(name: 'creator')
   UserInfo creator;
 
@@ -34,6 +37,7 @@ class MinePlaylist extends Object {
     this.name,
     this.coverImgUrl,
     this.id,
+    this.privacy,
     this.creator,
   );
 
@@ -55,5 +59,15 @@ class MinePlaylist extends Object {
 
   bool isIntelligent() {
     return specialType == 5;
+  }
+
+  bool isMineCreate() {
+    return creator.userId == AuthService.to.userId && !isIntelligent();
+  }
+}
+
+extension MinePlaylistExt on MinePlaylist {
+  bool isVideoPl() {
+    return specialType == 200;
   }
 }

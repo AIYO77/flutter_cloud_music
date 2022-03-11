@@ -96,6 +96,8 @@ class Colours {
 
   static const Color color_114 = Color.fromARGB(255, 114, 114, 114);
 
+  static const Color color_165 = Color.fromARGB(255, 165, 165, 165);
+
   static const Color black_15 = Color(0x26000000);
 
   static Color load_image_placeholder() =>

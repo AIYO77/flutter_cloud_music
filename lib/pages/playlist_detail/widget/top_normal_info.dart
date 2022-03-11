@@ -24,6 +24,7 @@ class TopNormalInfo extends StatelessWidget {
           GenrralCoverPlayCount(
             imageUrl: controller.detail.value?.playlist.coverImgUrl ?? '',
             playCount: controller.detail.value?.playlist.playCount ?? 0,
+            isVideoPl: controller.detail.value?.playlist.specialType == 200,
             coverSize: const Size(122, 122),
             coverRadius: Dimens.gap_dp8,
             imageCallback: (provider) async {

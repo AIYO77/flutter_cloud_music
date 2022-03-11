@@ -53,8 +53,10 @@ class _FoundHeaderColorsState extends State<FoundHeaderColors>
       () => SizedBox(
         width: Adapt.screenW(),
         height: controller.isScrolled.value
-            ? Dimens.gap_dp56 + Adapt.topPadding()
-            : Dimens.gap_dp56 + Adapt.topPadding() + Dimens.gap_dp140,
+            ? context.theme.appBarTheme.toolbarHeight! + Adapt.topPadding()
+            : context.theme.appBarTheme.toolbarHeight! +
+                Adapt.topPadding() +
+                Dimens.gap_dp140,
         child: controller.isScrolled.value
             ? Container(
                 color: Get.theme.cardColor,

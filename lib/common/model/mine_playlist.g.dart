@@ -12,6 +12,7 @@ MinePlaylist _$MinePlaylistFromJson(Map<String, dynamic> json) => MinePlaylist(
       json['name'] as String,
       json['coverImgUrl'] as String,
       json['id'] as int,
+      json['privacy'] as int,
       UserInfo.fromJson(json['creator'] as Map<String, dynamic>),
     );
 
@@ -22,5 +23,6 @@ Map<String, dynamic> _$MinePlaylistToJson(MinePlaylist instance) =>
       'name': instance.name,
       'coverImgUrl': instance.coverImgUrl,
       'id': instance.id,
+      'privacy': instance.privacy,
       'creator': instance.creator,
     };

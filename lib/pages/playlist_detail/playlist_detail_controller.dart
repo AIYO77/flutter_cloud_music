@@ -1,14 +1,20 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cloud_music/api/muisc_api.dart';
+import 'package:flutter_cloud_music/common/event/index.dart';
+import 'package:flutter_cloud_music/common/event/mine_pl_content_event.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
+import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
-import 'package:flutter_cloud_music/common/values/constants.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/enum/enum.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/model/playlist_detail_model.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:music_player/music_player.dart';
 
 class PlaylistDetailController extends GetxController {
   String playlistId = ''; //歌单ID
@@ -18,6 +24,7 @@ class PlaylistDetailController extends GetxController {
 
   //top content info key
   final GlobalKey topContentKey = GlobalKey();
+
   //appbar key
   final GlobalKey appBarKey = GlobalKey();
 
@@ -36,8 +43,12 @@ class PlaylistDetailController extends GetxController {
   //全部歌曲集合
   final songs = Rx<List<Song>?>(null);
 
+  final itemSize = Rx<int?>(null);
+
   //是否是第二次打开官方歌单
   bool secondOpenOfficial = false;
+
+  late StreamSubscription _subscription;
 
   @override
   void onInit() {
@@ -53,6 +64,9 @@ class PlaylistDetailController extends GetxController {
       statusBarBrightness: Brightness.dark,
     ));
     super.onInit();
+    _subscription = eventBus.on<MinePlContentEvent>().listen((event) {
+      if (event.isChanged) _getDetail(showLoading: true);
+    });
   }
 
   @override
@@ -64,13 +78,31 @@ class PlaylistDetailController extends GetxController {
       });
 
   @override
-  Future<void> onReady() async {
+  void onReady() {
+    _getDetail();
+  }
+
+  Future<void> _getDetail({bool showLoading = false}) async {
+    if (showLoading) EasyLoading.show();
     final detailModel = await MusicApi.getPlaylistDetail(playlistId);
-    if (detailModel?.playlist.officialPlaylistType == ALG_OP) {
+    if (detailModel?.isOfficial() == true) {
       //官方歌单
       isOfficial.value = true;
       box.write(playlistId, true);
     }
+    if (detailModel?.playlist.specialType == 200 &&
+        GetUtils.isNullOrBlank(detailModel?.playlist.videos) != true) {
+      //视频歌单
+      detail.value = detailModel;
+      itemSize.value = detailModel!.playlist.videos!.length;
+    } else {
+      await _getTracks(detailModel);
+    }
+    EasyLoading.dismiss();
+  }
+
+  //音乐歌单
+  Future<void> _getTracks(PlaylistDetailModel? detailModel) async {
     List<Song>? result;
     if (detailModel?.playlist.trackIds.length !=
         detailModel?.playlist.tracks.length) {
@@ -107,10 +139,13 @@ class PlaylistDetailController extends GetxController {
     }
     detail.value = detailModel;
     songs.value = result;
+    itemSize.value = result?.length;
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    _subscription.cancel();
+  }
 
   double clipOffset() {
     double offset = 0.0;
@@ -135,5 +170,26 @@ class PlaylistDetailController extends GetxController {
       }
     }
     return offset;
+  }
+
+  void playAll(BuildContext context) {
+    if (detail.value != null) {
+      if (detail.value!.playlist.specialType != 200 && songs.value != null) {
+        //播放全部歌曲
+        logger.d('播放全部歌曲');
+        context.player.playWithQueue(PlayQueue(
+            queueId: detail.value!.playlist.id.toString(),
+            queueTitle: detail.value!.playlist.name,
+            queue: songs.value!.toMetadataList()));
+        return;
+      }
+
+      if (detail.value!.playlist.specialType == 200 &&
+          detail.value!.playlist.videos != null) {
+        //播放全部视频
+        logger.d('播放全部视频');
+        return;
+      }
+    }
   }
 }

@@ -42,8 +42,9 @@ dependencies:
       url: https://gitee.com/master_xing/flutter-music-player.git
       ref: 4e4ff0e9ed26b3d1a7e254a0f652e6267da68785
   scrollable_positioned_list: ^0.2.3
-  package_info_plus: ^1.4.0
+#  package_info_plus: ^1.4.0
   flutter_slidable: ^1.2.0
+  audioplayers: ^0.20.1
 
 
 dev_dependencies:
@@ -70,6 +71,7 @@ flutter:
   assets:
     - assets/images/
     - assets/anim/
+    - assets/anim/loading/
     - assets/intell/
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -23,14 +23,14 @@ class _IntelligentDialogState extends State<IntelligentDialog>
     with TickerProviderStateMixin {
   final controller = GetInstance().find<MineController>();
 
-  //帧动画
+  // //帧动画
   Animation<double>? animation;
   late AnimationController animationController;
 
   @override
   void initState() {
     animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 700));
+        vsync: this, duration: const Duration(milliseconds: 800));
     animation = Tween<double>(begin: 0, end: 49).animate(animationController);
     animation!.addListener(() {
       setState(() {});
@@ -41,7 +41,7 @@ class _IntelligentDialogState extends State<IntelligentDialog>
       }
     });
     super.initState();
-    animationController.forward();
+    animationController.forward(from: 0);
     controller.startIntelligent(widget.pid);
   }
 
@@ -52,8 +52,9 @@ class _IntelligentDialogState extends State<IntelligentDialog>
       children: [
         Gaps.vGap7,
         Image.asset(
-          'assets/intell/intell_${animation?.value.toInt() ?? 0}.png',
+          'assets/intell/intell_${animationController.isAnimating ? animation!.value.toInt() : 0}.png',
           height: Dimens.gap_dp50,
+          gaplessPlayback: true,
         ),
         Gaps.vGap7,
         Text(

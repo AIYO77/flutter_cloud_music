@@ -11,12 +11,25 @@ import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:get/get.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
-class CountryShaeet extends StatelessWidget {
+class CountrySheet extends StatelessWidget {
   final controller = GetInstance().put(CountryShaeetController());
 
   final ParamSingleCallback<String> callback;
 
-  CountryShaeet({Key? key, required this.callback}) : super(key: key);
+  CountrySheet({Key? key, required this.callback}) : super(key: key);
+
+  static void show(ParamSingleCallback<String> callback) {
+    Get.bottomSheet(
+        CountrySheet(
+          callback: callback,
+        ),
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(Dimens.gap_dp16),
+                topRight: Radius.circular(Dimens.gap_dp16))),
+        backgroundColor: Get.theme.cardColor);
+  }
 
   @override
   Widget build(BuildContext context) {

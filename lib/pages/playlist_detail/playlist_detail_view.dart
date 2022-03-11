@@ -8,8 +8,9 @@ import 'package:flutter_cloud_music/delegate/general_sliver_delegate.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/delegate/playlist_header_delegate.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/widget/fab_count.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/widget/list_content.dart';
+import 'package:flutter_cloud_music/pages/playlist_detail/widget/play_all.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/widget/top_appbar.dart';
-import 'package:flutter_cloud_music/widgets/playall_cell.dart';
+import 'package:flutter_cloud_music/pages/playlist_detail/widget/video_list.dart';
 import 'package:flutter_cloud_music/widgets/sliver_fab.dart';
 import 'package:get/get.dart';
 
@@ -49,7 +50,8 @@ class PlaylistDetailPage extends GetView<PlaylistDetailController> {
   Widget _buildContent(BuildContext context) {
     return SliverFab(
       topScalingEdge: appbarHeight,
-      floatingWidget: PlaylistFabCount(), //收藏/评论/分享数 悬浮fab
+      floatingWidget: PlaylistFabCount(),
+      //收藏/评论/分享数 悬浮fab
       expandedHeight: controller.expandedHeight,
       floatingPosition:
           FloatingPosition(left: Adapt.px(50), right: Adapt.px(50), top: -6),
@@ -68,14 +70,13 @@ class PlaylistDetailPage extends GetView<PlaylistDetailController> {
               child: Gaps.empty),
         )),
         //全部播放吸顶
-        Obx(() => SliverPersistentHeader(
+        SliverPersistentHeader(
             pinned: true,
-            delegate: GeneralSliverDelegate(
-                child: PlayAllCell(
-              playCount: controller.songs.value?.length ?? 0,
-            )))),
-        //歌曲列表
-        Obx(() => PlayListContent(controller.songs.value)),
+            delegate: GeneralSliverDelegate(child: PlDetailPlayAll())),
+        //列表
+        Obx(() => controller.detail.value?.playlist.specialType == 200
+            ? VideoListContent(controller.detail.value!.playlist.videos)
+            : PlayListContent(controller.songs.value)),
         //pading bottom
         SliverToBoxAdapter(
           child: padingBottomBox(),

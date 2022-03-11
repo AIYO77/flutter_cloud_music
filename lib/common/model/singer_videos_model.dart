@@ -173,16 +173,12 @@ class VideoArtists extends Object {
   @JsonKey(name: 'name')
   String name;
 
-  @JsonKey(name: 'img1v1Url')
-  String img1v1Url;
-
   @JsonKey(name: 'followed')
   bool followed;
 
   VideoArtists(
     this.id,
     this.name,
-    this.img1v1Url,
     this.followed,
   );
 

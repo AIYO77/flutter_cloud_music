@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/ext/ext.dart';
 import 'package:flutter_cloud_music/common/model/album_cover_info.dart';
 import 'package:flutter_cloud_music/common/model/album_detail.dart';
 import 'package:flutter_cloud_music/common/model/album_dynamic_info.dart';
 import 'package:flutter_cloud_music/common/model/artists_model.dart';
 import 'package:flutter_cloud_music/common/model/calendar_events.dart';
 import 'package:flutter_cloud_music/common/model/comment_response.dart';
+import 'package:flutter_cloud_music/common/model/login_response.dart';
 import 'package:flutter_cloud_music/common/model/mine_playlist.dart';
 import 'package:flutter_cloud_music/common/model/rcmd_song_daily_model.dart';
 import 'package:flutter_cloud_music/common/model/simple_play_list_model.dart';
@@ -29,6 +31,7 @@ import 'package:flutter_cloud_music/pages/playlist_collection/model/list_more_mo
 import 'package:flutter_cloud_music/pages/playlist_collection/model/play_list_tag_model.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/model/playlist_detail_model.dart';
 import 'package:flutter_cloud_music/services/auth_service.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -198,8 +201,11 @@ class MusicApi {
 
   ///歌单详情
   static Future<PlaylistDetailModel?> getPlaylistDetail(String id) async {
-    final response =
-        await httpManager.get('/playlist/detail', {'id': id, 's': '5'});
+    final response = await httpManager.get('/playlist/detail', {
+      'id': id,
+      's': '5',
+      'timestamp': DateTime.now().millisecondsSinceEpoch
+    });
     PlaylistDetailModel? data;
     if (response.result) {
       data = PlaylistDetailModel.fromJson(response.data);
@@ -251,8 +257,7 @@ class MusicApi {
       }
     }
     if (url.isEmpty) {
-      //部分音乐可能获取不到播放地址 可以通过这种方式直接播放
-      url = 'https://music.163.com/song/media/outer/url?id=$id.mp3';
+      url = id.playUrl();
     }
     return url;
   }
@@ -281,7 +286,7 @@ class MusicApi {
   static Future<bool?> like(int? musicId, {required bool like}) async {
     final response =
         await httpManager.get("/like", {"id": musicId, "like": like});
-    if (response.isSucesse()) {
+    if (response.isSuccess()) {
       final favorites = box.read<List>(CACHE_FAVORITESONGIDS)?.cast<int>();
       if (favorites != null) {
         if (like) {
@@ -305,7 +310,7 @@ class MusicApi {
     }
     final response =
         await httpManager.get("/likelist", {"uid": AuthService.to.userId});
-    if (response.isSucesse()) {
+    if (response.isSuccess()) {
       final list = (response.data['ids'] as List)
           .map((e) => int.parse(e.toString()))
           .toList();
@@ -364,8 +369,8 @@ class MusicApi {
 
   /// 音乐从私人 FM 中移除至垃圾桶
   static Future<bool> trashMusic(dynamic id) async {
-    final response = await httpManager.post('/fm_trash', {'id': id});
-    return response.result;
+    final response = await httpManager.get('/fm_trash', {'id': id});
+    return response.isSuccess();
   }
 
   ///获取推荐新歌
@@ -498,7 +503,7 @@ class MusicApi {
       'type': type,
       'area': area
     });
-    if (response.isSucesse()) {
+    if (response.isSuccess()) {
       return ArtistsModel.fromJson(response.data);
     }
     return ArtistsModel(List.empty(), false);
@@ -509,7 +514,7 @@ class MusicApi {
   static Future<bool> subArtist(String id, int t) async {
     final response = await httpManager.post('/artist/sub',
         {'id': id, 't': t, 'timestamp': DateTime.now().millisecondsSinceEpoch});
-    return response.result;
+    return response.isSuccess();
   }
 
   /// 收藏/取消收藏用户
@@ -517,7 +522,7 @@ class MusicApi {
   static Future<bool> subUser(String id, int t) async {
     final response = await httpManager.post('/follow',
         {'id': id, 't': t, 'timestamp': DateTime.now().millisecondsSinceEpoch});
-    return response.result;
+    return response.isSuccess();
   }
 
   ///获取歌手信息
@@ -631,7 +636,8 @@ class MusicApi {
 
   ///获取用户歌单
   static Future<List<MinePlaylist>> getMinePlaylist(dynamic uid) async {
-    final response = await httpManager.get('/user/playlist', {'uid': uid});
+    final response = await httpManager.get('/user/playlist',
+        {'uid': uid, 'timestamp': DateTime.now().millisecondsSinceEpoch});
     if (response.result) {
       return (response.data['playlist'] as List)
           .map((e) => MinePlaylist.fromJson(e))
@@ -642,7 +648,8 @@ class MusicApi {
 
   ///获取歌单所有歌曲
   static Future<List<Song>?> getPlayListAllTrack(dynamic id) async {
-    final response = await httpManager.get('/playlist/track/all', {'id': id});
+    final response =
+        await httpManager.get('/playlist/track/all', {'id': id}, noTip: true);
     SongsModel? data;
     if (response.result) {
       data = SongsModel.fromJson(response.data);
@@ -657,8 +664,9 @@ class MusicApi {
   ///心动模式
   static Future<List<Song>?> startIntelligence(
       {required dynamic songId, required dynamic pid}) async {
-    final response = await httpManager
-        .get('/playmode/intelligence/list', {'id': songId, 'pid': pid});
+    final response = await httpManager.get(
+        '/playmode/intelligence/list', {'id': songId, 'pid': pid},
+        noTip: true);
     if (response.result) {
       final listData = response.data['data'] as List;
       logger.d('listData size : ${listData.length}');
@@ -667,5 +675,78 @@ class MusicApi {
       return infos.map((e) => Song.fromJson(e)).toList();
     }
     return null;
+  }
+
+  ///删除歌单
+  static Future<bool> deletePlaylist(List<int> ids) async {
+    final response =
+        await httpManager.post('/playlist/delete', {'id': ids.join(',')});
+    return response.isSuccess();
+  }
+
+  ///根据歌单id顺序 调整歌单顺序
+  static Future<bool> updatePlaylistOrder(List<int> ids) async {
+    final response =
+        await httpManager.post('/playlist/order/update', {'ids': ids});
+    return response.isSuccess();
+  }
+
+  ///创建歌单
+  static Future<MinePlaylist?> createPlaylist(
+      {required String name, required String type, String? privacy}) async {
+    final map = {'name': name, 'type': type};
+    if (privacy != null) {
+      map['privacy'] = privacy;
+    }
+    final response = await httpManager.post('/playlist/create', map);
+    if (response.result) {
+      final pl = response.data['playlist'];
+      return MinePlaylist(
+          pl['trackCount'],
+          pl['specialType'],
+          pl['name'],
+          pl['coverImgUrl'],
+          pl['id'],
+          pl['privacy'],
+          AuthService.to.loginData.value!.profile!.userinfo());
+    }
+    return null;
+  }
+
+  ///最近播放-歌曲
+  static Future<List<Song>> getRecentPlay() async {
+    final response = await httpManager.get('/record/recent/song',
+        {'timestamp': DateTime.now().millisecondsSinceEpoch});
+    if (response.result) {
+      final list = response.data['data']['list'] as List;
+      return list.map((e) => Song.fromJson(e['data'])).toList();
+    }
+    return List.empty();
+  }
+
+  /// 对歌单添加或删除歌曲
+  /// op: 从歌单增加单曲为 add, 删除为 del
+  /// pid: 歌单 id tracks: 歌曲 id,可多个,用逗号隔开
+  static Future<bool> addOrDelTracks(
+      {required String op,
+      required String pid,
+      required List<int> trackIds}) async {
+    final response = await httpManager.post('/playlist/tracks', {
+      'op': op,
+      'pid': pid,
+      'tracks': trackIds.join(','),
+      'timestamp': DateTime.now().millisecondsSinceEpoch
+    });
+    if (response.result) {
+      final code = response.data['body']['code'];
+      if (code == 200) {
+        return true;
+      } else {
+        final errorStr = response.data['body']['message'] as String?;
+        EasyLoading.showError(errorStr ?? '添加失败');
+      }
+    }
+    EasyLoading.dismiss();
+    return false;
   }
 }

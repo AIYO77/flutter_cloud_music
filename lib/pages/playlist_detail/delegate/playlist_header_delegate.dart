@@ -1,15 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
-import 'package:flutter_cloud_music/enum/enum.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_controller.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/widget/top_normal_info.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/widget/top_official_info.dart';
 import 'package:flutter_cloud_music/widgets/general_blur_image.dart';
 import 'package:get/get.dart';
+
+import '../../../enum/enum.dart';
 
 class PlaylistSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
   final controller = Get.find<PlaylistDetailController>();
@@ -24,13 +24,14 @@ class PlaylistSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     final double mainHeight = maxExtent - shrinkOffset; //动态高度
     final offset = mainHeight / maxExtent;
-    Get.log('mainHeight = $mainHeight  offset = $offset');
-    if (offset <= 0.325) {
-      controller.titleStatus.value = PlayListTitleStatus.TitleAndBtn;
-    } else if (offset >= 0.75) {
-      controller.titleStatus.value = PlayListTitleStatus.Normal;
-    } else {
-      controller.titleStatus.value = PlayListTitleStatus.Title;
+    if (controller.detail.value != null) {
+      if (offset <= 0.325) {
+        controller.titleStatus.value = PlayListTitleStatus.TitleAndBtn;
+      } else if (offset >= 0.75) {
+        controller.titleStatus.value = PlayListTitleStatus.Normal;
+      } else {
+        controller.titleStatus.value = PlayListTitleStatus.Title;
+      }
     }
     return ClipPath(
         clipper: _MyCoverRect(offset: offset), child: _buildTopConver(offset));

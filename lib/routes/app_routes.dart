@@ -46,6 +46,12 @@ abstract class Routes {
 
   static const PL_MANAGE = _Paths.PL_MANAGE;
 
+  static const ADD_SONG = _Paths.ADD_SONG;
+
+  static const ADD_VIDEO = _Paths.ADD_VIDEO;
+
+  static const SINGLE_SEARCH = _Paths.SINGLE_SEARCH;
+
   static String PLAYLIST_DETAIL_ID(String id) => '/playlist/$id';
 
   static String ALBUM_DETAIL_ID(String id) => '/album/$id';
@@ -110,4 +116,13 @@ abstract class _Paths {
 
   //歌单管理
   static const PL_MANAGE = '/plManage';
+
+  //添加歌曲到歌单
+  static const ADD_SONG = '/add_song';
+
+  //添加视频到歌单
+  static const ADD_VIDEO = '/add_video';
+
+  //单一的搜索（指定搜索类型）
+  static const SINGLE_SEARCH = '/single_search';
 }

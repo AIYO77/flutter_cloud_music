@@ -4,7 +4,6 @@ import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:get/get.dart';
 
 import '../../../common/res/dimens.dart';
-import '../../../common/values/server.dart';
 import '../mine_controller.dart';
 
 /// Creator: Xing Wei
@@ -21,7 +20,6 @@ class MineTabView extends StatelessWidget {
       final box =
           controller.tabKey.currentContext?.findRenderObject() as RenderBox?;
       final offset = box?.localToGlobal(Offset.zero);
-      logger.i('offset = ${offset?.dy}');
       controller.originOffset ??= offset?.dy;
     });
     return Obx(() {
@@ -29,6 +27,7 @@ class MineTabView extends StatelessWidget {
           color: controller.isTop.value
               ? context.theme.cardColor
               : Colors.transparent,
+          padding: EdgeInsets.symmetric(horizontal: Dimens.gap_dp20),
           child: TabBar(
             key: controller.tabKey,
             labelPadding: EdgeInsets.zero,
