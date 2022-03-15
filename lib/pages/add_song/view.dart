@@ -20,7 +20,7 @@ class AddSongPage extends GetView<AddSongLogic> {
     return Scaffold(
       backgroundColor: context.theme.cardColor,
       appBar: AppBar(
-        title: Text('添加音乐到歌单'),
+        title: const Text('添加音乐到歌单'),
         centerTitle: true,
         actions: [
           GestureDetector(
@@ -53,56 +53,56 @@ class AddSongPage extends GetView<AddSongLogic> {
 
   Widget _buildHeader(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(
-            Dimens.gap_dp15, Dimens.gap_dp10, Dimens.gap_dp15, 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Get.toNamed(Routes.SINGLE_SEARCH);
-              },
-              child: Hero(
-                tag: SINGLE_SEARCH,
-                child: Container(
-                  height: Dimens.gap_dp38,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color:
-                        context.isDarkMode ? Colors.white12 : Colours.color_245,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(Dimens.gap_dp18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Gaps.vGap6,
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(Routes.SINGLE_SEARCH, arguments: SEARCH_SONGS);
+            },
+            child: Hero(
+              tag: SINGLE_SEARCH,
+              child: Container(
+                height: Dimens.gap_dp38,
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(horizontal: Dimens.gap_dp15),
+                decoration: BoxDecoration(
+                  color:
+                      context.isDarkMode ? Colors.white12 : Colours.color_245,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(Dimens.gap_dp18),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.search_rounded,
+                      color: Colours.color_156,
+                      size: Dimens.gap_dp20,
                     ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.search_rounded,
-                        color: Colours.color_156,
-                        size: Dimens.gap_dp20,
-                      ),
-                      Gaps.hGap3,
-                      Text('搜索歌曲',
-                          style: TextStyle(
-                              fontSize: Dimens.font_sp14,
-                              color: Colours.text_gray))
-                    ],
-                  ),
+                    Gaps.hGap3,
+                    Text('搜索歌曲',
+                        style: TextStyle(
+                            fontSize: Dimens.font_sp14,
+                            color: Colours.text_gray))
+                  ],
                 ),
               ),
             ),
-            Padding(
-              padding:
-                  EdgeInsets.only(top: Dimens.gap_dp17, bottom: Dimens.gap_dp8),
-              child: Text(
-                '最近播放',
-                style: body1Style(),
-              ),
-            )
-          ],
-        ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                left: Dimens.gap_dp15,
+                top: Dimens.gap_dp17,
+                bottom: Dimens.gap_dp8),
+            child: Text(
+              '最近播放',
+              style: body1Style(),
+            ),
+          )
+        ],
       ),
     );
   }

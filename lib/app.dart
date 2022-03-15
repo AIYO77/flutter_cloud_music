@@ -5,6 +5,7 @@ import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/services/auth_service.dart';
 import 'package:flutter_cloud_music/services/event_service.dart';
+import 'package:flutter_cloud_music/services/stored_service.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -34,6 +35,7 @@ Widget musicApp() {
           Get.put(AuthService());
           Get.put(PlayerService());
           Get.put(EventService());
+          Get.put(StoredService());
         }),
         getPages: AppPages.routes,
         localizationsDelegates: const [

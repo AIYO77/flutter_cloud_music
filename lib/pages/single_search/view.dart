@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/pages/single_search/widget/search_result.dart';
+import 'package:flutter_cloud_music/pages/single_search/widget/search_suggest.dart';
+import 'package:flutter_cloud_music/widgets/search/search_history.dart';
 import 'package:get/get.dart';
 
 import '../../common/res/colors.dart';
@@ -36,19 +39,21 @@ class SingleSearchPage extends GetView<SingleSearchLogic> {
         ],
       ),
       body: Stack(
-        children: [_buildHistorySearch()],
+        children: [
+          SearchHistoryView(
+            onSelected: (word) {
+              controller.search(word);
+            },
+            axis: Axis.vertical,
+          ),
+          SingleSearchSuggest(),
+          SingleSearchResult()
+        ],
       ),
     );
   }
 
-  Widget _buildHistorySearch() {
-    return Positioned.fill(
-      child: Container(
-        color: Colors.blue,
-      ),
-    );
-  }
-
+  //
   Widget _buildSearchTitle(BuildContext context) {
     return Hero(
       tag: SINGLE_SEARCH,
@@ -63,6 +68,7 @@ class SingleSearchPage extends GetView<SingleSearchLogic> {
           ),
         ),
         child: TextField(
+          controller: controller.editingController,
           focusNode: controller.focusNode,
           style: headlineStyle().copyWith(
               fontWeight: FontWeight.normal, fontSize: Dimens.font_sp16),
@@ -80,7 +86,7 @@ class SingleSearchPage extends GetView<SingleSearchLogic> {
                   fontWeight: FontWeight.normal),
               hintText: '搜索歌曲'),
           onEditingComplete: () {
-            controller.search();
+            controller.search(controller.keywordsValue);
           },
           textInputAction: TextInputAction.search,
           onChanged: (word) {

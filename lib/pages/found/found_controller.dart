@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_cloud_music/api/muisc_api.dart';
+import 'package:flutter_cloud_music/api/search_api.dart';
 import 'package:flutter_cloud_music/common/event/index.dart';
 import 'package:flutter_cloud_music/common/event/login_event.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
@@ -58,7 +59,7 @@ class FoundController extends SuperController<FoundData?> {
   }
 
   Future<void> getDefaultSearch() async {
-    final data = await MusicApi.getDefaultSearch();
+    final data = await SearchApi.getDefaultSearch();
     defuleSearch.value = data;
   }
 

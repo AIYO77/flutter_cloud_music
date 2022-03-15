@@ -198,6 +198,8 @@ class _State extends State<PlaylistTopAppbar> {
           onTap: () {
             Get.back();
             if (detailModel.isVideoPl()) {
+              Get.toNamed(Routes.ADD_VIDEO,
+                  arguments: detailModel.playlist.id.toString());
             } else {
               Get.toNamed(Routes.ADD_SONG,
                   arguments: detailModel.playlist.id.toString());

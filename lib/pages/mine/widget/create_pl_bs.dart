@@ -47,9 +47,12 @@ class _State extends State<CreatePlBottomSheet> {
   //是否设置为隐私歌单，默认否，传'10'则设置成隐私歌单
   String? _plPrivacy;
 
+  late FocusNode _focusNode;
+
   @override
   void initState() {
     super.initState();
+    _focusNode = FocusNode();
     _editingController = TextEditingController();
     _editingController.addListener(() {
       setState(() {
@@ -59,6 +62,8 @@ class _State extends State<CreatePlBottomSheet> {
         EasyLoading.showError('字数超过限制');
       }
     });
+    Future.delayed(const Duration(milliseconds: 100))
+        .whenComplete(() => FocusScope.of(context).requestFocus(_focusNode));
   }
 
   @override
@@ -180,7 +185,7 @@ class _State extends State<CreatePlBottomSheet> {
             children: [
               Expanded(
                   child: TextField(
-                autofocus: true,
+                focusNode: _focusNode,
                 maxLength: _nameMaxLength,
                 controller: _editingController,
                 style: body2Style(),

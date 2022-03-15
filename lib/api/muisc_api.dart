@@ -21,7 +21,6 @@ import 'package:flutter_cloud_music/common/net/init_dio.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
-import 'package:flutter_cloud_music/pages/found/model/default_search_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_ball_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_new_song.dart';
@@ -104,17 +103,6 @@ class MusicApi {
       box.write(CACHE_HOME_FOUND_DATA, newData.toJson());
       return Future.value(newData);
     }
-  }
-
-  ///默认搜索
-  static Future<DefaultSearchModel?> getDefaultSearch() async {
-    DefaultSearchModel? data;
-    final response = await httpManager.get('/search/default',
-        {'timestamp': DateTime.now().millisecondsSinceEpoch});
-    if (response.result) {
-      data = DefaultSearchModel.fromJson(response.data['data']);
-    }
-    return data;
   }
 
   ///热门歌单标签
@@ -731,11 +719,11 @@ class MusicApi {
       {required String op,
       required String pid,
       required List<int> trackIds}) async {
-    final response = await httpManager.post('/playlist/tracks', {
+    final response = await httpManager.get('/playlist/tracks', {
       'op': op,
       'pid': pid,
-      'tracks': trackIds.join(','),
-      'timestamp': DateTime.now().millisecondsSinceEpoch
+      'tracks': trackIds.join(',')
+      // 'timestamp': DateTime.now().millisecondsSinceEpoch
     });
     if (response.result) {
       final code = response.data['body']['code'];

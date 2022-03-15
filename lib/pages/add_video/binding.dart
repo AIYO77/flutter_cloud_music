@@ -5,6 +5,6 @@ import 'logic.dart';
 class AddVideoBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => AddVideoLogic());
+    Get.put(AddVideoLogic());
   }
 }

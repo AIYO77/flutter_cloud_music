@@ -17,6 +17,7 @@ import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:get/get.dart';
 
 import '../../../common/utils/time.dart';
+import '../../../routes/app_routes.dart';
 import '../../found/model/shuffle_log_model.dart';
 
 class VideoListContent extends StatelessWidget {
@@ -227,7 +228,9 @@ class VideoListContent extends StatelessWidget {
                     fontSize: Dimens.font_sp16),
               ),
             ),
-            onPressed: () {}),
+            onPressed: () {
+              Get.toNamed(Routes.ADD_VIDEO, arguments: controller.playlistId);
+            }),
       ),
     );
   }
