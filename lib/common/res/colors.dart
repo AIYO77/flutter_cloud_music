@@ -58,6 +58,12 @@ class Colours {
   static const Color icon_color = Color.fromARGB(255, 39, 39, 39);
   static Color dark_icon_color = Colors.white.withOpacity(0.85);
 
+  /// 深色背景
+  static const Color back1 = Color(0xff1D1F22);
+
+  /// 比深色背景略深一点
+  static const Color back2 = Color(0xff121314);
+
   static const Color label_bg = Color.fromARGB(200, 239, 239, 239);
   static const Color label_bg_dark = Colors.transparent;
 
@@ -97,6 +103,8 @@ class Colours {
   static const Color color_114 = Color.fromARGB(255, 114, 114, 114);
 
   static const Color color_165 = Color.fromARGB(255, 165, 165, 165);
+
+  static const Color color_204 = Color.fromARGB(255, 204, 204, 204);
 
   static const Color black_15 = Color(0x26000000);
 

@@ -43,6 +43,8 @@ import 'package:flutter_cloud_music/pages/single_search/binding.dart';
 import 'package:flutter_cloud_music/pages/single_search/view.dart';
 import 'package:flutter_cloud_music/pages/splash/splash_binding.dart';
 import 'package:flutter_cloud_music/pages/splash/splash_view.dart';
+import 'package:flutter_cloud_music/pages/video/binding.dart';
+import 'package:flutter_cloud_music/pages/video/view.dart';
 import 'package:flutter_cloud_music/pages/web/web_binding.dart';
 import 'package:flutter_cloud_music/pages/web/web_view.dart';
 import 'package:get/route_manager.dart';
@@ -244,6 +246,13 @@ class AppPages {
         page: () => SingleSearchPage(),
         binding: SingleSearchBinding(),
         transition: Transition.fadeIn),
+
+    //视频播放页面
+    GetPage(
+        name: Routes.VIDEO_PLAY,
+        page: () => VideoPage(),
+        binding: VideoBinding(),
+        transition: Transition.rightToLeft),
 
     //web
     GetPage(

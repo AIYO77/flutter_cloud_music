@@ -1,14 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/singer_videos_model.dart';
-import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/common/utils/time.dart';
+import 'package:flutter_cloud_music/pages/found/model/shuffle_log_model.dart';
 import 'package:flutter_cloud_music/pages/singer_detail/widget/video/singer_video_controller.dart';
+import 'package:flutter_cloud_music/pages/video/state.dart';
+import 'package:flutter_cloud_music/pages/video/view.dart';
 import 'package:flutter_cloud_music/widgets/custom_tap.dart';
 import 'package:flutter_cloud_music/widgets/footer_loading.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
@@ -74,7 +76,13 @@ class SingerVideoView extends StatelessWidget {
         final item = records!.elementAt(index);
         return Bounce(
           onPressed: () {
-            // Get.toNamed(Routes.ALBUM_DETAIL_ID(album.id.toString()));
+            final list = records
+                .map((e) => VideoModel(
+                      id: e.resource.mlogBaseData.id,
+                      resource: e.resource,
+                    ))
+                .toList();
+            VideoPage.startWithOffset(list, 'path', {}, index: index);
           },
           child: _buildItem(item),
         );
@@ -150,46 +158,15 @@ class SingerVideoView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              RichText(
-                text: TextSpan(children: [
-                  if (item.resource.mlogBaseData.type == 3)
-                    WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        child: Container(
-                          width: Dimens.gap_dp20,
-                          height: Dimens.gap_dp13,
-                          margin: EdgeInsets.only(right: Dimens.gap_dp3),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color:
-                                      Colours.app_main_light.withOpacity(0.4),
-                                  width: Dimens.gap_dp1),
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(Dimens.gap_dp2))),
-                          child: Text(
-                            'MV',
-                            style: TextStyle(
-                                color: Colours.app_main_light,
-                                fontSize: Dimens.font_sp9,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        )),
-                  TextSpan(
-                      text: item.resource.mlogBaseData.text,
-                      style: headline2Style())
-                ]),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Gaps.vGap8,
+              item.resource.mlogBaseData.buildNameView(),
+              Gaps.vGap6,
               Text(
                 millFormat(item.resource.mlogBaseData.pubTime),
                 style: captionStyle(),
               ),
               Gaps.vGap3,
               Text(
-                '${getPlayCountStrFromInt(item.resource.mlogExtVO.playCount)}播放',
+                '${getPlayCountStrFromInt(item.resource.mlogExtVO.playCount ?? 0)}播放',
                 style: captionStyle(),
               )
             ],

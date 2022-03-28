@@ -59,7 +59,7 @@ class MyDialog extends StatelessWidget {
         removeBottom: true,
         context: context,
         child: Align(
-          alignment: alignment ?? dialogTheme.alignment ?? Alignment.center,
+          alignment: alignment ?? Alignment.center,
           child: ConstrainedBox(
             constraints: BoxConstraints(minWidth: minWidth),
             child: Material(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/pages/add_video/widget/video_list.dart';
+import 'package:flutter_cloud_music/widgets/keep_alive_wrapper.dart';
 import 'package:get/get.dart';
 
 import '../../common/res/colors.dart';
@@ -37,12 +39,8 @@ class AddVideoPage extends GetView<AddVideoLogic> {
         bottom: _buildBottom(context),
       ),
       body: TabBarView(controller: controller.tabController, children: [
-        Container(
-          color: Colors.red,
-        ),
-        Container(
-          color: Colors.blue,
-        )
+        KeepAliveWrapper(child: AddVideoListView('like')),
+        KeepAliveWrapper(child: AddVideoListView('resend')),
       ]),
     );
   }

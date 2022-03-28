@@ -60,7 +60,8 @@ class FoundShuffleMLOG extends StatelessWidget {
                               Radius.circular(Dimens.gap_dp8),
                             ),
                             child: PlayCountWidget(
-                                playCount: model.resource.mlogExtVO.playCount),
+                                playCount:
+                                    model.resource.mlogExtVO.playCount ?? 0),
                           )),
                       //播放图标
                       Positioned(

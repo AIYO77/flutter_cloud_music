@@ -38,6 +38,8 @@ PODS:
   - system_clock (0.0.1):
     - Flutter
   - Toast (4.0.0)
+  - video_player (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - audioplayers (from `.symlinks/plugins/audioplayers/ios`)
@@ -52,6 +54,7 @@ DEPENDENCIES:
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - system_clock (from `.symlinks/plugins/system_clock/ios`)
+  - video_player (from `.symlinks/plugins/video_player/ios`)
 
 SPEC REPOS:
   trunk:
@@ -86,6 +89,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqflite/ios"
   system_clock:
     :path: ".symlinks/plugins/system_clock/ios"
+  video_player:
+    :path: ".symlinks/plugins/video_player/ios"
 
 SPEC CHECKSUMS:
   audioplayers: 455322b54050b30ea4b1af7cd9e9d105f74efa8c
@@ -105,6 +110,7 @@ SPEC CHECKSUMS:
   SwiftAudioEx: df9d62dcae6c2eca358bc36eb972ebac440cd943
   system_clock: 3efb51d18e565092e2a97bc605c6255f328bd13a
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+  video_player: 7e9dad9437c238a97648819f6dd443c8854cf0c7
 
 PODFILE CHECKSUM: bfbe9dc67860454a3d1ca346d1d22becb0955342
 

@@ -1,59 +1,59 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/res/dimens.dart';
+import 'package:flutter_cloud_music/common/utils/image_utils.dart';
+import 'package:flutter_cloud_music/pages/add_video/widget/video_list_controller.dart';
+import 'package:flutter_cloud_music/pages/found/model/shuffle_log_model.dart';
+import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../common/model/search_videos.dart';
-import '../../../common/res/colors.dart';
-import '../../../common/res/dimens.dart';
 import '../../../common/res/gaps.dart';
 import '../../../common/utils/common_utils.dart';
-import '../../../common/utils/image_utils.dart';
 import '../../../common/utils/time.dart';
-import '../../../widgets/footer_loading.dart';
-import '../../add_video/logic.dart';
 import '../logic.dart';
 
 /// Creator: Xing Wei
 /// Email: 654206017@qq.com
-/// Date: 2022/3/15 5:15 下午
+/// Date: 2022/3/16 11:11 上午
 /// Des:
-class ResultVideos extends StatelessWidget {
-  final controller = GetInstance().find<SingleSearchLogic>();
 
-  final pController = GetInstance().find<AddVideoLogic>();
+class AddVideoListView extends StatelessWidget {
+  final String tag;
+  late AddVideoController controller;
 
-  final List<Videos> videos;
+  final _pController = GetInstance().find<AddVideoLogic>();
 
-  ResultVideos(this.videos);
+  AddVideoListView(this.tag) : super(key: Key(tag)) {
+    controller =
+        GetInstance().putOrFind(() => AddVideoController(tag), tag: tag);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SmartRefresher(
-        controller: controller.refreshController,
-        footer: FooterLoading(),
-        onLoading: () {
-          controller.loadMoreResult();
-        },
-        enablePullUp: true,
-        enablePullDown: false,
-        child: ListView.separated(
-          padding: EdgeInsets.symmetric(horizontal: Dimens.gap_dp15),
-          itemBuilder: (context, index) {
-            final video = videos.elementAt(index);
-            return _item(video);
-          },
-          separatorBuilder: (context, index) {
-            return Gaps.vGap5;
-          },
-          itemCount: videos.length,
-        ));
+    return Obx(() => controller.videos.value == null
+        ? Padding(
+            padding: EdgeInsets.only(top: Dimens.gap_dp50),
+            child: MusicLoading(
+              axis: Axis.horizontal,
+            ),
+          )
+        : ListView.separated(
+            padding: EdgeInsets.symmetric(horizontal: Dimens.gap_dp15),
+            itemBuilder: (context, index) {
+              final video = controller.videos.value!.elementAt(index);
+              return _item(video);
+            },
+            separatorBuilder: (context, index) {
+              return Gaps.vGap5;
+            },
+            itemCount: controller.videos.value!.length,
+          ));
   }
 
-  Widget _item(Videos video) {
+  Widget _item(MLogResource video) {
     return GestureDetector(
       onTap: () {
-        pController.addVideoToPl(video.vid);
+        _pController.addVideoToPl(video.mlogBaseData.id);
       },
       behavior: HitTestBehavior.translucent,
       child: SizedBox(
@@ -70,7 +70,7 @@ class ResultVideos extends StatelessWidget {
                   borderRadius:
                       BorderRadius.all(Radius.circular(Dimens.gap_dp5)),
                   child: CachedNetworkImage(
-                    imageUrl: video.coverUrl,
+                    imageUrl: video.mlogBaseData.coverUrl,
                     placeholder: placeholderWidget,
                     errorWidget: errorWidget,
                     height: Dimens.gap_dp51,
@@ -107,7 +107,7 @@ class ResultVideos extends StatelessWidget {
                                       right: Dimens.gap_dp3,
                                       bottom: Dimens.gap_dp3),
                                   child: Text(
-                                    getTimeStamp(video.durationms),
+                                    getTimeStamp(video.mlogBaseData.duration),
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: Dimens.font_sp9),
@@ -133,42 +133,10 @@ class ResultVideos extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RichText(
-                    text: TextSpan(children: [
-                      if (video.type == 0)
-                        WidgetSpan(
-                            alignment: PlaceholderAlignment.middle,
-                            child: Container(
-                              width: Dimens.gap_dp20,
-                              height: Dimens.gap_dp13,
-                              margin: EdgeInsets.only(right: Dimens.gap_dp3),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colours.app_main_light
-                                          .withOpacity(0.4),
-                                      width: Dimens.gap_dp1),
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(Dimens.gap_dp2))),
-                              child: Text(
-                                'MV',
-                                style: TextStyle(
-                                    color: Colours.app_main_light,
-                                    fontSize: Dimens.font_sp9,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            )),
-                      TextSpan(
-                          text: video.title,
-                          style: body2Style()
-                              .copyWith(fontWeight: FontWeight.normal))
-                    ]),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                  video.mlogBaseData.buildNameView(maxLine: 1),
                   Gaps.vGap2,
                   Text(
-                    'by ${video.creator.map((e) => e.userName).join('/')}',
+                    video.mlogExtVO.song?.getArString() ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: captionStyle().copyWith(fontSize: Dimens.font_sp12),

@@ -35,7 +35,8 @@ const SINGLE_SEARCH = 'single_search';
 /* cache key  --------- start ----------- */
 
 const CACHE_HOME_FOUND_DATA = 'home_fond_data';
-const CACHE_FAVORITESONGIDS = 'favoriteSongIds';
+const CACHE_FAVORITE_SONG_IDS = 'favoriteSongIds'; //喜欢的歌曲ID列表
+const CACHE_FAVORITE_VIDEO_IDS = 'favoriteVideoIds'; //喜欢的视频ID列表
 const CACHE_LOGIN_DATA = 'cache_login_data';
 const CACHE_MUSIC_COMMENT_COUNT = 'cache_music_comment_count';
 const CACHE_ALBUM_POLY_DETAIL_URL = 'cache_album_poly_detail_url'; //数字专辑Url

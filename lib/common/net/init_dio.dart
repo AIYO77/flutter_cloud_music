@@ -3,7 +3,6 @@ import 'package:flutter_cloud_music/common/net/code.dart';
 import 'package:flutter_cloud_music/common/net/cookie_interceptor.dart';
 import 'package:flutter_cloud_music/common/net/response_interceptor.dart';
 import 'package:flutter_cloud_music/common/net/result_data.dart';
-import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
 
 class HttpManager {
@@ -66,7 +65,9 @@ class HttpManager {
     return ResultData(
         Code.errorHandleFunction(
             errorResponse.statusCode ?? 500,
-            e.response?.data['msg'] ?? e.response?.data['message'] ?? e.message,
+            e.response?.data?['msg'] ??
+                e.response?.data?['message'] ??
+                e.message,
             noTip),
         false,
         errorResponse.statusCode!);

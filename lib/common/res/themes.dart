@@ -23,7 +23,6 @@ class Themes {
       dialogTheme: const DialogTheme(
           backgroundColor: Colors.black87,
           elevation: 24.0,
-          alignment: Alignment.center,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(14.0)))),
       textTheme: const TextTheme(
@@ -67,7 +66,6 @@ class Themes {
     dialogTheme: const DialogTheme(
         backgroundColor: Colors.black,
         elevation: 24.0,
-        alignment: Alignment.center,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(14.0)))),
     textTheme: TextTheme(

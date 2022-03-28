@@ -4,10 +4,12 @@ import 'package:flutter_cloud_music/common/model/search_songs.dart';
 import 'package:flutter_cloud_music/common/model/search_suggest.dart';
 import 'package:flutter_cloud_music/common/model/search_videos.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
+import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../common/values/constants.dart';
+import '../../routes/app_routes.dart';
 
 class SingleSearchLogic extends GetxController {
   final FocusNode focusNode = FocusNode();
@@ -45,6 +47,7 @@ class SingleSearchLogic extends GetxController {
     editingController.addListener(() {
       keywords.value = editingController.text;
     });
+    logger.d(Get.currentRoute == Routes.HOME);
   }
 
   @override
@@ -117,11 +120,7 @@ class SingleSearchLogic extends GetxController {
         hasMore = video.hasMore;
         dmp = video.videos;
       }
-      if (hasMore) {
-        refreshController.loadComplete();
-      } else {
-        refreshController.loadNoData();
-      }
+
       if (offset == 0) {
         //第一页
         results.value = dmp;
@@ -132,6 +131,12 @@ class SingleSearchLogic extends GetxController {
           oldList.addAll(dmp);
           results.value = List.from(oldList);
         }
+      }
+
+      if (hasMore) {
+        refreshController.loadComplete();
+      } else {
+        refreshController.loadNoData();
       }
     } else {
       refreshController.loadFailed();

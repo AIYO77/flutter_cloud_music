@@ -4,6 +4,7 @@ import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
+import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -18,8 +19,12 @@ class FooterLoading extends StatelessWidget {
     return Obx(
       () => CustomFooter(
         height: (context.curPlayRx.value == null)
-            ? Dimens.gap_dp50 + Adapt.bottomPadding()
-            : Dimens.gap_dp140 + Adapt.bottomPadding(),
+            ? Get.currentRoute == Routes.HOME
+                ? Dimens.gap_dp50
+                : 0 + Adapt.bottomPadding()
+            : Get.currentRoute == Routes.HOME
+                ? Dimens.gap_dp140
+                : Dimens.gap_dp90 + Adapt.bottomPadding(),
         builder: (context, mode) {
           Widget body;
           if (mode == LoadStatus.idle || mode == LoadStatus.loading) {

@@ -275,7 +275,7 @@ class MusicApi {
     final response =
         await httpManager.get("/like", {"id": musicId, "like": like});
     if (response.isSuccess()) {
-      final favorites = box.read<List>(CACHE_FAVORITESONGIDS)?.cast<int>();
+      final favorites = box.read<List>(CACHE_FAVORITE_SONG_IDS)?.cast<int>();
       if (favorites != null) {
         if (like) {
           favorites.add(musicId!);
@@ -283,7 +283,7 @@ class MusicApi {
           favorites.remove(musicId);
         }
 
-        box.write(CACHE_FAVORITESONGIDS, favorites);
+        box.write(CACHE_FAVORITE_SONG_IDS, favorites);
       }
       return true;
     }
@@ -292,7 +292,7 @@ class MusicApi {
 
   ///获取用户红心歌曲id列表
   static Future<List<int>?> likedList() async {
-    final favorites = box.read<List>(CACHE_FAVORITESONGIDS)?.cast<int>();
+    final favorites = box.read<List>(CACHE_FAVORITE_SONG_IDS)?.cast<int>();
     if (favorites != null) {
       return Future.value(favorites);
     }
@@ -302,7 +302,7 @@ class MusicApi {
       final list = (response.data['ids'] as List)
           .map((e) => int.parse(e.toString()))
           .toList();
-      box.write(CACHE_FAVORITESONGIDS, list);
+      box.write(CACHE_FAVORITE_SONG_IDS, list);
       return Future.value(list);
     }
     return Future.value(null);
@@ -732,6 +732,7 @@ class MusicApi {
       } else {
         final errorStr = response.data['body']['message'] as String?;
         EasyLoading.showError(errorStr ?? '添加失败');
+        return false;
       }
     }
     EasyLoading.dismiss();

@@ -52,6 +52,8 @@ abstract class Routes {
 
   static const SINGLE_SEARCH = _Paths.SINGLE_SEARCH;
 
+  static const VIDEO_PLAY = _Paths.VIDEO_PLAY;
+
   static String PLAYLIST_DETAIL_ID(String id) => '/playlist/$id';
 
   static String ALBUM_DETAIL_ID(String id) => '/album/$id';
@@ -125,4 +127,7 @@ abstract class _Paths {
 
   //单一的搜索（指定搜索类型）
   static const SINGLE_SEARCH = '/single_search';
+
+  //视频页面
+  static const VIDEO_PLAY = '/video_play';
 }

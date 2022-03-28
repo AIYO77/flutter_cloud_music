@@ -46,8 +46,10 @@ MlogBaseData _$MlogBaseDataFromJson(Map<String, dynamic> json) => MlogBaseData(
       json['id'] as String,
       json['type'] as int,
       json['text'] as String,
+      json['desc'] as String?,
       json['coverUrl'] as String,
       json['duration'] as int,
+      json['pubTime'] as int,
     );
 
 Map<String, dynamic> _$MlogBaseDataToJson(MlogBaseData instance) =>
@@ -55,15 +57,20 @@ Map<String, dynamic> _$MlogBaseDataToJson(MlogBaseData instance) =>
       'id': instance.id,
       'type': instance.type,
       'text': instance.text,
+      'desc': instance.desc,
       'coverUrl': instance.coverUrl,
       'duration': instance.duration,
+      'pubTime': instance.pubTime,
     };
 
 MlogExtVO _$MlogExtVOFromJson(Map<String, dynamic> json) => MlogExtVO(
       json['likedCount'] as int,
       json['commentCount'] as int,
-      json['playCount'] as int,
+      json['playCount'] as int?,
       json['canCollect'] as bool,
+      json['song'] == null
+          ? null
+          : VideoSong.fromJson(json['song'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$MlogExtVOToJson(MlogExtVO instance) => <String, dynamic>{
@@ -71,6 +78,35 @@ Map<String, dynamic> _$MlogExtVOToJson(MlogExtVO instance) => <String, dynamic>{
       'commentCount': instance.commentCount,
       'playCount': instance.playCount,
       'canCollect': instance.canCollect,
+      'song': instance.song,
+    };
+
+VideoSong _$VideoSongFromJson(Map<String, dynamic> json) => VideoSong(
+      json['id'] as int,
+      json['name'] as String,
+      (json['artists'] as List<dynamic>)
+          .map((e) => VideoSongArtists.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      json['albumName'] as String,
+    );
+
+Map<String, dynamic> _$VideoSongToJson(VideoSong instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'artists': instance.artists,
+      'albumName': instance.albumName,
+    };
+
+VideoSongArtists _$VideoSongArtistsFromJson(Map<String, dynamic> json) =>
+    VideoSongArtists(
+      json['artistId'] as int,
+      json['artistName'] as String,
+    );
+
+Map<String, dynamic> _$VideoSongArtistsToJson(VideoSongArtists instance) =>
+    <String, dynamic>{
+      'artistId': instance.artistId,
+      'artistName': instance.artistName,
     };
 
 VideoUserProfile _$VideoUserProfileFromJson(Map<String, dynamic> json) =>

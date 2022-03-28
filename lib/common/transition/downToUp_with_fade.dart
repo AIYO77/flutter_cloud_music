@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/animation/animation.dart';
-import 'package:flutter/src/animation/curves.dart';
-import 'package:flutter/src/painting/alignment.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 /// Creator: Xing Wei
