@@ -104,7 +104,9 @@ class VideoContent extends StatelessWidget {
                 ],
               )),
               GestureDetector(
-                onTap: onCommentTap,
+                onTap: (){
+                  onCommentTap?.call();
+                },
                 behavior: HitTestBehavior.translucent,
                 child: Container(
                   width: double.infinity,

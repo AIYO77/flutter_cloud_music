@@ -5,6 +5,7 @@ import 'package:flutter_cloud_music/common/physics/auicker_physics.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
+import 'package:flutter_cloud_music/pages/video/widget/video_content.dart';
 import 'package:flutter_cloud_music/pages/video/widget/video_right_buttons.dart';
 import 'package:flutter_cloud_music/pages/video/widget/video_scaffold.dart';
 import 'package:get/get.dart';
@@ -88,7 +89,7 @@ class _VideoPageState extends State<VideoPage> {
                 final player = state.videoListController.playerOfIndex(index);
                 final rightButtons = VideoRightButtons(controller: player);
                 // video
-                Widget currentVideo = Center(
+                final content = Center(
                   child: player?.controllerValue == null
                       ? CachedNetworkImage(
                           imageUrl: player?.videoModel.coverUrl ??
@@ -118,7 +119,13 @@ class _VideoPageState extends State<VideoPage> {
                           child: VideoPlayer(player.controllerValue!),
                         ),
                 );
-                return Container();
+                return VideoContent(
+                  videoController: player!,
+                  video: content,
+                  rightButtonColumn: rightButtons,
+                  userInfoWidget: Container(),
+                  onCommentTap: () {},
+                );
               },
             )),
       ),

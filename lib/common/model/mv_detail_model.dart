@@ -48,7 +48,7 @@ class MvDetailModel extends Object {
   List<MvArtists> artists;
 
   @JsonKey(name: 'alias')
-  List<String> alias;
+  List<String>? alias;
 
   @JsonKey(name: 'commentThreadId')
   String commentThreadId;

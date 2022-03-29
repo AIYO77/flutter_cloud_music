@@ -1,5 +1,6 @@
 import 'package:flutter_cloud_music/common/model/video_detail_model.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
+import 'package:flutter_cloud_music/services/auth_service.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../common/ext/ext.dart';
@@ -54,6 +55,7 @@ class VideoApi {
 
   ///获取我点赞过的视频
   static Future<List<MLogResource>> getMyLikeVideos() async {
+    if (!AuthService.to.isLoggedInValue) return List.empty();
     final response = await httpManager.get('/playlist/mylike',
         {'timestamp': DateTime.now().millisecondsSinceEpoch});
     if (response.result) {

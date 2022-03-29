@@ -23,7 +23,9 @@ MvDetailModel _$MvDetailModelFromJson(Map<String, dynamic> json) =>
       (json['artists'] as List<dynamic>)
           .map((e) => MvArtists.fromJson(e as Map<String, dynamic>))
           .toList(),
-      (json['alias'] as List<dynamic>).map((e) => e as String).toList(),
+      json['alias'] == null
+          ? null
+          : (json['alias'] as List<dynamic>).map((e) => e as String).toList(),
       json['commentThreadId'] as String,
     );
 
