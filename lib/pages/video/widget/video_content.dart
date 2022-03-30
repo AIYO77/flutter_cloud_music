@@ -57,7 +57,7 @@ class VideoContent extends StatelessWidget {
             width: double.infinity,
           ),
         ),
-        Obx(() => videoController.showPauseIcon.value
+        Obx(() => videoController.showPauseIcon.value && !isBuffering
             ? Container(
                 height: double.infinity,
                 width: double.infinity,
@@ -104,7 +104,7 @@ class VideoContent extends StatelessWidget {
                 ],
               )),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   onCommentTap?.call();
                 },
                 behavior: HitTestBehavior.translucent,

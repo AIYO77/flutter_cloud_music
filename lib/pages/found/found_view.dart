@@ -90,7 +90,13 @@ class FoundPage extends StatelessWidget {
         return FoundTabMlogWidget(
             creatives: blocks.creatives!, itemHeight: itemHeight);
       default:
-        return Gaps.empty;
+        return Container(
+          width: Adapt.screenH(),
+          height: Dimens.gap_dp100,
+          alignment: Alignment.center,
+          color: Get.theme.cardColor,
+          child: Text('未知类型: ${blocks.showType}'),
+        );
     }
   }
 

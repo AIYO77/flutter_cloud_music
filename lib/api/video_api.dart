@@ -1,5 +1,6 @@
 import 'package:flutter_cloud_music/common/model/video_detail_model.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
+import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/services/auth_service.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -18,6 +19,27 @@ class VideoApi {
   ///获取播放地址
   ///type 0:MV 1:视频 2:MLog
   static Future<String> getVideoPlayUrl(String id) async {
+    final cacheUrl = box.read<String>(id);
+    if (cacheUrl != null && cacheUrl.isNotEmpty) {
+      //有缓存
+      final uri = Uri.parse(cacheUrl);
+      final createTime = uri.queryParameters['wsTime'];
+      if (createTime != null) {
+        //当前时间
+        final curTime = DateTime.now().millisecondsSinceEpoch;
+        //过期时间 一个小时后
+        final exceedTime = (double.parse(createTime) + 60 * 60) * 1000;
+        if (curTime > exceedTime) {
+          //地址已过期
+          logger.e(
+              '地址已过期 过期时间：${DateTime.fromMillisecondsSinceEpoch(exceedTime.toInt())}');
+        } else {
+          //没有过期
+          logger.i('缓存没有过期 直接使用');
+          return cacheUrl;
+        }
+      }
+    }
     String url = '';
     if (id.isMv()) {
       final response = await httpManager.get('/mv/url', {'id': id});
@@ -30,6 +52,10 @@ class VideoApi {
     } else {
       toast('未知视频ID类型: $id');
     }
+    if (url.isNotEmpty) {
+      url = url.toHttps();
+    }
+    box.write(id, url);
     return url;
   }
 
@@ -123,6 +149,21 @@ class VideoApi {
     final response = await httpManager.get('/video/detail', {'id': id});
     return VideoDetailModel.fromJson(response.data['data']);
   }
+
+  ///相关视频
+  // static Future<List<dynamic>> getVideoRcmd(String id) async {
+  //   if (id.isMv()) {
+  //     // final response = await httpManager.get('/mv/detail', {'mvid': id});
+  //     // return MvDetailModel.fromJson(response.data['data']);
+  //   } else if (id.isVideo()) {
+  //     // return _getVideoInfo(id);
+  //   } else if (id.isMLog()) {
+  //     // final videoId = await _mlogToVideo(id);
+  //     // return _getVideoInfo(videoId);
+  //   } else {
+  //     toast('未知视频ID类型: $id');
+  //   }
+  // }
 
   ///通过mlog获取视频ID
   static Future<String> _mlogToVideo(String id) async {

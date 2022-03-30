@@ -55,3 +55,14 @@ extension VideoTypeExt on String {
     return !isNumericOnly && RegExp(r'[a-z]').hasMatch(this);
   }
 }
+
+extension HttpExt on String {
+  String toHttps() {
+    final isHttps = startsWith('https');
+    if (isHttps) {
+      return this;
+    } else {
+      return replaceFirst(RegExp(r'http'), 'https');
+    }
+  }
+}

@@ -54,8 +54,10 @@ class VideoListController extends ChangeNotifier {
       logger.d('暂停$oldIndex');
     }
     // 开始播放当前的视频
-    playerOfIndex(newIndex)?.controllerValue?.addListener(_didUpdateValue);
-    playerOfIndex(newIndex)?.controller.addListener(_didUpdateValue);
+    // playerOfIndex(newIndex)?.controllerValue?.addListener(_didUpdateValue);
+    playerOfIndex(newIndex)?.controller.listen((p0) {
+      p0?.addListener(_didUpdateValue);
+    });
     playerOfIndex(newIndex)?.play();
     logger.d('播放$newIndex');
     // 处理预加载/释放内存
@@ -64,7 +66,7 @@ class VideoListController extends ChangeNotifier {
       if (i < newIndex - disposeCount || i > newIndex + disposeCount) {
         logger.d('释放$i');
         playerOfIndex(i)?.controllerValue?.removeListener(_didUpdateValue);
-        playerOfIndex(newIndex)?.controller.removeListener(_didUpdateValue);
+        // playerOfIndex(newIndex)?.controller.removeListener(_didUpdateValue);
         playerOfIndex(i)?.dispose();
       } else {
         // 需要预加载
@@ -88,7 +90,9 @@ class VideoListController extends ChangeNotifier {
     index.value = target;
   }
 
-  Future<void> _didUpdateValue() async => notifyListeners();
+  Future<void> _didUpdateValue() async {
+    notifyListeners();
+  }
 
   /// 获取指定index的player
   VPVideoController? playerOfIndex(int index) {
@@ -134,7 +138,7 @@ class VideoListController extends ChangeNotifier {
   void dispose() {
     // 销毁全部
     for (final player in playerList) {
-      player.controller.dispose();
+      player.controllerValue?.dispose();
       player.dispose();
     }
     playerList = [];
@@ -148,12 +152,6 @@ typedef ControllerBuilder<T> = T Function();
 
 /// 抽象类，作为视频控制器必须实现这些方法
 abstract class TikTokVideoController<T> {
-  /// 获取当前的控制器实例
-  ValueNotifier<T?> get controller;
-
-  /// 是否显示暂停按钮
-  Rx<bool> get showPauseIcon;
-
   /// 加载视频，在init后，应当开始下载视频内容
   Future<void> init({ControllerSetter<T?>? afterInit});
 
@@ -164,11 +162,11 @@ abstract class TikTokVideoController<T> {
   Future<void> play();
 
   /// 暂停
-  Future<void> pause({bool showPauseIcon = false});
+  Future<void> pause({bool showPause = true});
 }
 
 class VPVideoController extends TikTokVideoController<VideoPlayerController> {
-  final _showPauseIcon = Rx<bool>(false);
+  final showPauseIcon = Rx<bool>(false);
 
   ///点赞/评论/分享数量信息
   final countInfo = Rx<VideoCountInfo?>(null);
@@ -176,7 +174,7 @@ class VPVideoController extends TikTokVideoController<VideoPlayerController> {
   ///视频信息 创建者 描述等
   final info = Rx<dynamic>(null);
 
-  final _controller = ValueNotifier<VideoPlayerController?>(null);
+  final controller = Rx<VideoPlayerController?>(null);
 
   final VideoModel videoModel;
 
@@ -196,13 +194,10 @@ class VPVideoController extends TikTokVideoController<VideoPlayerController> {
         _info = info,
         _afterInit = afterInit;
 
-  @override
-  ValueNotifier<VideoPlayerController?> get controller => _controller;
-
   VideoPlayerController? get controllerValue => controller.value;
 
   Future<void> _initController() async {
-    _controller.value ??= await _builder.call();
+    controller.value ??= await _builder.call();
     return;
   }
 
@@ -225,7 +220,7 @@ class VPVideoController extends TikTokVideoController<VideoPlayerController> {
     _actLocks.add(completer.future);
     _prepared = false;
     await controllerValue?.dispose();
-    _controller.value = null;
+    controller.value = null;
     _disposeLock = Completer<void>();
     completer.complete();
   }
@@ -254,7 +249,7 @@ class VPVideoController extends TikTokVideoController<VideoPlayerController> {
   }
 
   @override
-  Future<void> pause({bool showPauseIcon = false}) async {
+  Future<void> pause({bool showPause = true}) async {
     await Future.wait(_actLocks);
     _actLocks.clear();
     await init();
@@ -263,7 +258,7 @@ class VPVideoController extends TikTokVideoController<VideoPlayerController> {
       await _disposeLock?.future;
     }
     await controllerValue?.pause();
-    _showPauseIcon.value = true;
+    showPauseIcon.value = showPause;
   }
 
   @override
@@ -276,11 +271,11 @@ class VPVideoController extends TikTokVideoController<VideoPlayerController> {
       await _disposeLock?.future;
     }
     await controllerValue?.play();
-    _showPauseIcon.value = false;
+    showPauseIcon.value = false;
   }
 
-  @override
-  Rx<bool> get showPauseIcon => _showPauseIcon;
+  // @override
+  // Rx<bool> get showPauseIcon => _showPauseIcon;
 
   ///请求视频数据 信息点赞评论数等
   Future<void> _requestVideoInfo() async {

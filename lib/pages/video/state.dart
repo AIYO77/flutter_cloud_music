@@ -26,7 +26,7 @@ class VideoState {
 
   VideoState() {
     videoController = VideoScaffoldController();
-    videoListController = VideoListController(preloadCount: 1);
+    videoListController = VideoListController(preloadCount: 2);
   }
 }
 

@@ -5,6 +5,7 @@ import 'package:flutter_cloud_music/common/physics/auicker_physics.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
+import 'package:flutter_cloud_music/pages/video/controller/video_list_controller.dart';
 import 'package:flutter_cloud_music/pages/video/widget/video_content.dart';
 import 'package:flutter_cloud_music/pages/video/widget/video_right_buttons.dart';
 import 'package:flutter_cloud_music/pages/video/widget/video_scaffold.dart';
@@ -55,9 +56,7 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   void initState() {
-    state.videoListController.addListener(() {
-      setState(() {});
-    });
+    state.videoListController.addListener(_listener);
 
     state.videoController.addListener(() {
       if (state.videoController.value == VideoPagePosition.middle) {
@@ -70,6 +69,16 @@ class _VideoPageState extends State<VideoPage> {
   }
 
   @override
+  void dispose() {
+    state.videoListController.removeListener(_listener);
+    super.dispose();
+  }
+
+  void _listener() {
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
@@ -78,56 +87,36 @@ class _VideoPageState extends State<VideoPage> {
         header: _buildHeader(),
         rightPage: Container(),
         enableGesture: true,
-        page: SafeArea(
-            top: false,
-            child: PageView.builder(
-              physics: const QuickerScrollPhysics(),
-              controller: state.pageController,
-              scrollDirection: Axis.vertical,
-              itemCount: state.videoListController.videoCount,
-              itemBuilder: (context, index) {
-                final player = state.videoListController.playerOfIndex(index);
-                final rightButtons = VideoRightButtons(controller: player);
-                // video
-                final content = Center(
-                  child: player?.controllerValue == null
-                      ? CachedNetworkImage(
-                          imageUrl: player?.videoModel.coverUrl ??
-                              player?.videoModel.resource?.mlogBaseData
-                                  .coverUrl ??
-                              '',
-                          width: Adapt.screenW(),
-                          fit: BoxFit.fitWidth,
-                          placeholder: (context, url) {
-                            return Image.asset(
-                              ImageUtils.getImagePath('img_defult_video'),
-                              width: Adapt.screenW(),
-                              fit: BoxFit.fitWidth,
-                            );
-                          },
-                          errorWidget: (context, url, e) {
-                            return Image.asset(
-                              ImageUtils.getImagePath('img_defult_video'),
-                              width: Adapt.screenW(),
-                              fit: BoxFit.fitWidth,
-                            );
-                          },
-                        )
-                      : AspectRatio(
-                          aspectRatio:
-                              player!.controllerValue!.value.aspectRatio,
-                          child: VideoPlayer(player.controllerValue!),
-                        ),
-                );
-                return VideoContent(
-                  videoController: player!,
-                  video: content,
-                  rightButtonColumn: rightButtons,
-                  userInfoWidget: Container(),
-                  onCommentTap: () {},
-                );
-              },
-            )),
+        page: PageView.builder(
+          key: const Key('video'),
+          physics: const QuickerScrollPhysics(),
+          controller: state.pageController,
+          scrollDirection: Axis.vertical,
+          itemCount: state.videoListController.videoCount,
+          itemBuilder: (context, index) {
+            final player = state.videoListController.playerOfIndex(index);
+            final rightButtons = VideoRightButtons(controller: player);
+            // video
+            final content = player?.controllerValue == null
+                ? Center(
+                    child: _buildCover(player),
+                  )
+                : Center(
+                    child: AspectRatio(
+                      aspectRatio: player!.controllerValue!.value.aspectRatio,
+                      child: VideoPlayer(player.controllerValue!),
+                    ),
+                  );
+            return VideoContent(
+              videoController: player!,
+              video: content,
+              isBuffering: player.controllerValue?.value.isBuffering ?? true,
+              rightButtonColumn: rightButtons,
+              userInfoWidget: Container(),
+              onCommentTap: () {},
+            );
+          },
+        ),
       ),
     );
   }
@@ -161,6 +150,30 @@ class _VideoPageState extends State<VideoPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildCover(VPVideoController? player) {
+    return CachedNetworkImage(
+      imageUrl: player?.videoModel.coverUrl ??
+          player?.videoModel.resource?.mlogBaseData.coverUrl ??
+          '',
+      width: Adapt.screenW(),
+      fit: BoxFit.fitWidth,
+      placeholder: (context, url) {
+        return Image.asset(
+          ImageUtils.getImagePath('img_defult_video'),
+          width: Adapt.screenW(),
+          fit: BoxFit.fitWidth,
+        );
+      },
+      errorWidget: (context, url, e) {
+        return Image.asset(
+          ImageUtils.getImagePath('img_defult_video'),
+          width: Adapt.screenW(),
+          fit: BoxFit.fitWidth,
+        );
+      },
     );
   }
 }

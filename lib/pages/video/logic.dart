@@ -82,6 +82,11 @@ class VideoLogic extends GetxController with WidgetsBindingObserver {
                 ))
             .toList(),
         videoProvider: (int index, List<VPVideoController> list) async {
+          switch (videoState.type) {
+            case VideoState.TYPE_SINGLE:
+              // list.last.videoModel.id
+              break;
+          }
           return List.empty();
         });
   }

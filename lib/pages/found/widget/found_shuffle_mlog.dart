@@ -9,6 +9,8 @@ import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/shuffle_log_model.dart';
 import 'package:flutter_cloud_music/pages/found/widget/element_title_widget.dart';
+import 'package:flutter_cloud_music/pages/video/state.dart';
+import 'package:flutter_cloud_music/pages/video/view.dart';
 import 'package:flutter_cloud_music/widgets/custom_tap.dart';
 import 'package:flutter_cloud_music/widgets/playcount_widget.dart';
 import 'package:get/get.dart';
@@ -26,7 +28,8 @@ class FoundShuffleMLOG extends StatelessWidget {
       width: coverSize.width,
       child: Bounce(
         onPressed: () {
-          // RouteUtils.routeFromActionStr(model.)
+          VideoPage.startWithSingle(
+              VideoModel(id: model.id, resource: model.resource));
         },
         child: Column(
           children: [
