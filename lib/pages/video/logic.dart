@@ -65,27 +65,13 @@ class VideoLogic extends GetxController with WidgetsBindingObserver {
     videoState.videoListController.init(
         pageController: videoState.pageController,
         startIndex: index,
-        initialList: data
-            .map((e) => VPVideoController(
-                  videoModel: e,
-                  builder: () async {
-                    final url = await getVideoUrl(e);
-                    logger.d('播放地址 $url');
-                    return VideoPlayerController.network(url);
-                  },
-                  countInfo: () async {
-                    return VideoApi.getVideoCountInfoWIthType(e.id);
-                  },
-                  info: () async {
-                    return VideoApi.getVideoInfo(e.id);
-                  },
-                ))
-            .toList(),
+        initialList: data.controllers(),
         videoProvider: (int index, List<VPVideoController> list) async {
           switch (videoState.type) {
             case VideoState.TYPE_SINGLE:
-              // list.last.videoModel.id
-              break;
+              final lastId = list.last.videoModel.id;
+              final data = await VideoApi.getRelatedVideo(lastId);
+              return data.controllers();
           }
           return List.empty();
         });

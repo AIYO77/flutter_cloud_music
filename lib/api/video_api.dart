@@ -1,6 +1,7 @@
 import 'package:flutter_cloud_music/common/model/video_detail_model.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
+import 'package:flutter_cloud_music/pages/video/state.dart';
 import 'package:flutter_cloud_music/services/auth_service.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -151,19 +152,31 @@ class VideoApi {
   }
 
   ///相关视频
-  // static Future<List<dynamic>> getVideoRcmd(String id) async {
-  //   if (id.isMv()) {
-  //     // final response = await httpManager.get('/mv/detail', {'mvid': id});
-  //     // return MvDetailModel.fromJson(response.data['data']);
-  //   } else if (id.isVideo()) {
-  //     // return _getVideoInfo(id);
-  //   } else if (id.isMLog()) {
-  //     // final videoId = await _mlogToVideo(id);
-  //     // return _getVideoInfo(videoId);
-  //   } else {
-  //     toast('未知视频ID类型: $id');
-  //   }
-  // }
+  static Future<List<VideoModel>> getRelatedVideo(String id) async {
+    if (id.isMv()) {
+      final response = await httpManager.get('/simi/mv', {'mvid': id});
+      return (response.data['mvs'] as List)
+          .map((e) => VideoModel(id: e['id'], coverUrl: e['cover']))
+          .toList();
+    } else if (id.isVideo()) {
+      return _getRelateVideo(id);
+    } else if (id.isMLog()) {
+      final videoId = await _mlogToVideo(id);
+      return _getRelateVideo(videoId);
+    } else {
+      return List.empty();
+    }
+  }
+
+  static Future<List<VideoModel>> _getRelateVideo(String id) async {
+    final response = await httpManager.get('/related/allvideo', {'id': id});
+    if (response.result) {
+      return (response.data['data'] as List)
+          .map((e) => VideoModel(id: e['vid'], coverUrl: e['coverUrl']))
+          .toList();
+    }
+    return List.empty();
+  }
 
   ///通过mlog获取视频ID
   static Future<String> _mlogToVideo(String id) async {
