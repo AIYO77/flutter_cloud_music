@@ -12,10 +12,6 @@ class VideoState {
   static const String TYPE_SINGLE = 'type_single';
   static const String TYPE_OFFSET = 'type_offset';
 
-  //分页需要
-  String? loadMorePath;
-  Map<String, dynamic>? loadMoreParams;
-
   ///点赞集合
   final favoriteIds = Rx<List<String>?>(null);
 
@@ -29,7 +25,8 @@ class VideoState {
 
   VideoState() {
     videoController = VideoScaffoldController();
-    videoListController = VideoListController(preloadCount: 2);
+    videoListController =
+        VideoListController(loadMoreCount: 2, preloadCount: 2);
   }
 }
 
@@ -48,22 +45,21 @@ class VideoModel {
   }
 }
 
-extension VideoControllerExt on List<VideoModel>{
-
-  List<VPVideoController> controllers(){
+extension VideoControllerExt on List<VideoModel> {
+  List<VPVideoController> controllers() {
     return map((e) => VPVideoController(
-      videoModel: e,
-      builder: () async {
-        final url = await VideoApi.getVideoPlayUrl(e.id);
-        logger.d('播放地址 $url');
-        return VideoPlayerController.network(url);
-      },
-      countInfo: () async {
-        return VideoApi.getVideoCountInfoWIthType(e.id);
-      },
-      info: () async {
-        return VideoApi.getVideoInfo(e.id);
-      },
-    )).toList();
+          videoModel: e,
+          builder: () async {
+            final url = await VideoApi.getVideoPlayUrl(e.id);
+            logger.d('播放地址 $url');
+            return VideoPlayerController.network(url);
+          },
+          countInfo: () async {
+            return VideoApi.getVideoCountInfoWIthType(e.id);
+          },
+          info: () async {
+            return VideoApi.getVideoInfo(e.id);
+          },
+        )).toList();
   }
 }

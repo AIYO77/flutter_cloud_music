@@ -16,14 +16,22 @@ import 'state.dart';
 
 class SingerDetailPage extends StatelessWidget {
   late SingerDetailLogic logic;
-
   late SingerDetailState state;
+
+  String? _accountId;
+  String? _artistId;
 
   @override
   Widget build(BuildContext context) {
-    logic = Get.put(SingerDetailLogic(),
-        tag: (Get.arguments['accountId'] ?? Get.arguments['artistId'])
-            .toString());
+    if (_accountId == null && _artistId == null) {
+      _accountId = Get.arguments['accountId']?.toString();
+      _artistId = Get.arguments['artistId']?.toString();
+    }
+    logic = Get.put(
+        SingerDetailLogic()
+          ..state.artistId = _artistId
+          ..state.accountId.value = _accountId,
+        tag: (_accountId ?? _artistId).toString());
     state = logic.state;
     return Scaffold(
         extendBodyBehindAppBar: true,

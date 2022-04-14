@@ -22,7 +22,7 @@ class VideoDetailModel extends Object {
   String title;
 
   @JsonKey(name: 'description')
-  String description;
+  String? description;
 
   @JsonKey(name: 'durationms')
   int durationms;
@@ -86,9 +86,6 @@ class VideoCreator extends Object {
   @JsonKey(name: 'userId')
   int userId;
 
-  @JsonKey(name: 'userType')
-  int userType;
-
   @JsonKey(name: 'nickname')
   String nickname;
 
@@ -101,7 +98,6 @@ class VideoCreator extends Object {
   VideoCreator(
     this.followed,
     this.userId,
-    this.userType,
     this.nickname,
     this.avatarUrl,
     this.avatarDetail,

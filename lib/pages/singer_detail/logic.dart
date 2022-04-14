@@ -27,8 +27,8 @@ class SingerDetailLogic extends GetxController
   @override
   void onInit() {
     super.onInit();
-    state.accountId.value = Get.arguments['accountId']?.toString();
-    state.artistId = Get.arguments['artistId']?.toString();
+    // state.accountId.value = Get.arguments['accountId']?.toString();
+    // state.artistId = Get.arguments['artistId']?.toString();
     state.detail.listen((detail) {
       if (detail?.isSinger == true) {
         //是歌手
@@ -41,11 +41,6 @@ class SingerDetailLogic extends GetxController
         initTabs(detail);
       }
     });
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
     _getDetail();
   }
 

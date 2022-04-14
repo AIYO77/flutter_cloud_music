@@ -12,7 +12,7 @@ VideoDetailModel _$VideoDetailModelFromJson(Map<String, dynamic> json) =>
       VideoCreator.fromJson(json['creator'] as Map<String, dynamic>),
       json['coverUrl'] as String,
       json['title'] as String,
-      json['description'] as String,
+      json['description'] as String?,
       json['durationms'] as int,
       json['playTime'] as int,
       json['praisedCount'] as int,
@@ -47,7 +47,6 @@ Map<String, dynamic> _$VideoDetailModelToJson(VideoDetailModel instance) =>
 VideoCreator _$VideoCreatorFromJson(Map<String, dynamic> json) => VideoCreator(
       json['followed'] as bool,
       json['userId'] as int,
-      json['userType'] as int,
       json['nickname'] as String,
       json['avatarUrl'] as String,
       json['avatarDetail'] == null
@@ -59,7 +58,6 @@ Map<String, dynamic> _$VideoCreatorToJson(VideoCreator instance) =>
     <String, dynamic>{
       'followed': instance.followed,
       'userId': instance.userId,
-      'userType': instance.userType,
       'nickname': instance.nickname,
       'avatarUrl': instance.avatarUrl,
       'avatarDetail': instance.avatarDetail,

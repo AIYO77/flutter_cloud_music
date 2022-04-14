@@ -59,8 +59,6 @@ class HomePage extends GetView<HomeController> {
                       KeepAliveWrapper(child: FoundPage()),
                       KeepAliveWrapper(child: PodcastPage()),
                       KeepAliveWrapper(child: MinePage()),
-                      // KeepAliveWrapper(child: KSongPage()),
-                      // KeepAliveWrapper(child: CloudVillagePage()),
                     ],
                   )),
                   const Positioned(

@@ -58,14 +58,16 @@ class VideoContent extends StatelessWidget {
           ),
         ),
         Obx(() => videoController.showPauseIcon.value && !isBuffering
-            ? Container(
-                height: double.infinity,
-                width: double.infinity,
-                alignment: Alignment.center,
-                child: Icon(
-                  Icons.play_circle_outline_rounded,
-                  size: 120,
-                  color: Colors.white.withOpacity(0.4),
+            ? IgnorePointer(
+                child: Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  child: Icon(
+                    Icons.play_circle_outline_rounded,
+                    size: 120,
+                    color: Colors.white.withOpacity(0.4),
+                  ),
                 ),
               )
             : Gaps.empty)

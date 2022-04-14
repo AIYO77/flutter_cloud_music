@@ -31,10 +31,10 @@ class VideoRightButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Dimens.gap_dp30,
+      width: Dimens.gap_dp40,
       margin: EdgeInsets.only(
         bottom: Dimens.gap_dp25,
-        right: Dimens.gap_dp14,
+        right: Dimens.gap_dp10,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,

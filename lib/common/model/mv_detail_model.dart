@@ -2,6 +2,7 @@
 /// Email: 654206017@qq.com
 /// Date: 2022/3/25 2:58 下午
 /// Des:
+import 'package:flutter_cloud_music/common/model/video_detail_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'mv_detail_model.g.dart';
@@ -88,14 +89,24 @@ class MvArtists extends Object {
   @JsonKey(name: 'followed')
   bool followed;
 
+  @JsonKey(name: 'img1v1Url')
+  String? img1v1Url;
+
   MvArtists(
     this.id,
     this.name,
     this.followed,
+    this.img1v1Url,
   );
 
   factory MvArtists.fromJson(Map<String, dynamic> srcJson) =>
       _$MvArtistsFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$MvArtistsToJson(this);
+}
+
+extension MvDetailExt on MvArtists {
+  VideoCreator toVideoCreator() {
+    return VideoCreator(followed, id, name, img1v1Url ?? '', null);
+  }
 }

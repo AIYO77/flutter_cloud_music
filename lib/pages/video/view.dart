@@ -5,10 +5,12 @@ import 'package:flutter_cloud_music/common/physics/auicker_physics.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
+import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/pages/video/controller/video_list_controller.dart';
 import 'package:flutter_cloud_music/pages/video/widget/video_content.dart';
 import 'package:flutter_cloud_music/pages/video/widget/video_right_buttons.dart';
 import 'package:flutter_cloud_music/pages/video/widget/video_scaffold.dart';
+import 'package:flutter_cloud_music/pages/video/widget/video_user_info.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
@@ -37,15 +39,11 @@ class VideoPage extends StatefulWidget {
   }
 
   ///分页列表
-  static void startWithOffset(
-      List<VideoModel> list, String path, dynamic params,
-      {int index = 0}) {
+  static void startWithOffset(List<VideoModel> list, {int index = 0}) {
     Get.toNamed(Routes.VIDEO_PLAY, arguments: {
       'type': VideoState.TYPE_OFFSET,
       'data': list,
       'index': index,
-      'path': path,
-      'params': params
     });
   }
 }
@@ -74,6 +72,12 @@ class _VideoPageState extends State<VideoPage> {
     super.dispose();
   }
 
+  @override
+  void didChangeDependencies() {
+    logger.i('didChangeDependencies');
+    super.didChangeDependencies();
+  }
+
   void _listener() {
     setState(() {});
   }
@@ -95,7 +99,15 @@ class _VideoPageState extends State<VideoPage> {
           itemCount: state.videoListController.videoCount,
           itemBuilder: (context, index) {
             final player = state.videoListController.playerOfIndex(index);
-            final rightButtons = VideoRightButtons(controller: player);
+            final rightButtons = VideoRightButtons(
+              controller: player,
+              onComment: () {
+                logic.showComment(player!.videoModel.id, false);
+              },
+              onFavorite: () {
+                logic.addFavorite(player!.videoModel.id, unalterable: false);
+              },
+            );
             // video
             final content = player?.controllerValue == null
                 ? Center(
@@ -107,13 +119,30 @@ class _VideoPageState extends State<VideoPage> {
                       child: VideoPlayer(player.controllerValue!),
                     ),
                   );
+            //userInfo
+            final userInfo = VideoUserInfoWidget(player!);
             return VideoContent(
-              videoController: player!,
+              videoController: player,
               video: content,
               isBuffering: player.controllerValue?.value.isBuffering ?? true,
               rightButtonColumn: rightButtons,
-              userInfoWidget: Container(),
-              onCommentTap: () {},
+              userInfoWidget: userInfo,
+              onSingleTap: () async {
+                if (player.controllerValue != null) {
+                  if (player.controllerValue!.value.isPlaying) {
+                    await player.pause();
+                  } else {
+                    await player.play();
+                  }
+                  setState(() {});
+                }
+              },
+              onAddFavorite: () {
+                logic.addFavorite(player.videoModel.id);
+              },
+              onCommentTap: () {
+                logic.showComment(player.videoModel.id, true);
+              },
             );
           },
         ),

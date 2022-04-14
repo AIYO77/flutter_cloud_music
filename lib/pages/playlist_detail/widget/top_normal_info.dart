@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_controller.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/widget/follow_widget.dart';
 import 'package:flutter_cloud_music/widgets/generral_cover_playcount.dart';
+import 'package:flutter_cloud_music/widgets/user_avatar.dart';
 import 'package:get/get.dart';
 
 class TopNormalInfo extends StatelessWidget {
@@ -69,63 +69,23 @@ class TopNormalInfo extends StatelessWidget {
                                 textAlign: TextAlign.center,
                                 text: TextSpan(children: [
                                   WidgetSpan(
-                                      alignment: PlaceholderAlignment.middle,
-                                      child: CachedNetworkImage(
-                                        imageUrl:
-                                            ImageUtils.getImageUrlFromSize(
-                                                controller
-                                                    .detail
-                                                    .value
-                                                    ?.playlist
-                                                    .creator
-                                                    .avatarUrl,
-                                                Size(Dimens.gap_dp25,
-                                                    Dimens.gap_dp25)),
-                                        errorWidget: (context, url, e) {
-                                          return Gaps.ovalImgHolder(
-                                              const Size(25, 25));
-                                        },
-                                        placeholder: (context, url) {
-                                          return Gaps.ovalImgHolder(
-                                              const Size(25, 25));
-                                        },
-                                        imageBuilder: (context, provider) {
-                                          final user = controller
-                                              .detail.value?.playlist.creator;
-                                          return SizedBox(
-                                            width: user?.avatarDetail == null
-                                                ? 25
-                                                : 30,
-                                            height: 25,
-                                            child: Stack(
-                                              alignment: Alignment.topLeft,
-                                              children: [
-                                                ClipOval(
-                                                  child: Image(
-                                                    image: provider,
-                                                    width: 25,
-                                                    height: 25,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                                if (user?.avatarDetail != null)
-                                                  Positioned(
-                                                    bottom: 0,
-                                                    right: 0,
-                                                    child: ClipOval(
-                                                      child: CachedNetworkImage(
-                                                          width: 12,
-                                                          height: 12,
-                                                          imageUrl: user!
-                                                              .avatarDetail!
-                                                              .identityIconUrl),
-                                                    ),
-                                                  )
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      )),
+                                    alignment: PlaceholderAlignment.middle,
+                                    child: UserAvatar(
+                                      avatar: ImageUtils.getImageUrlFromSize(
+                                          controller.detail.value?.playlist
+                                              .creator.avatarUrl,
+                                          Size(Dimens.gap_dp25,
+                                              Dimens.gap_dp25)),
+                                      size: Dimens.gap_dp25,
+                                      identityIconUrl: controller
+                                          .detail
+                                          .value
+                                          ?.playlist
+                                          .creator
+                                          .avatarDetail
+                                          ?.identityIconUrl,
+                                    ),
+                                  ),
                                   WidgetSpan(child: Gaps.hGap2),
                                   TextSpan(
                                       text: controller.detail.value?.playlist

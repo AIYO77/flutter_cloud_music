@@ -53,3 +53,14 @@ const SEARCH_PLAYLIST = 1000; //歌单
 const SEARCH_USER = 1002; //用户
 const SEARCH_COMPOSITE = 1018; //综合
 /*search type --------- end ---------*/
+
+/* resource type  --------- start ----------- */
+const RESOURCE_SONGS = 0; //歌曲
+const RESOURCE_MV = 1; //MV
+const RESOURCE_PL = 2; //歌单
+const RESOURCE_AL = 3; //专辑
+const RESOURCE_RADIO = 4; //电台
+const RESOURCE_VIDEO = 5; //视频
+const RESOURCE_EVENT = 6; //动态
+const RESOURCE_MLOG = -1; //mlog
+/* resource type  --------- end ----------- */

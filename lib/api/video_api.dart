@@ -34,6 +34,7 @@ class VideoApi {
           //地址已过期
           logger.e(
               '地址已过期 过期时间：${DateTime.fromMillisecondsSinceEpoch(exceedTime.toInt())}');
+          box.remove(id);
         } else {
           //没有过期
           logger.i('缓存没有过期 直接使用');
@@ -48,7 +49,7 @@ class VideoApi {
     } else if (id.isVideo()) {
       url = await _getVideoUrl(id);
     } else if (id.isMLog()) {
-      final videoId = await _mlogToVideo(id);
+      final videoId = await mlogToVideo(id);
       url = await _getVideoUrl(videoId);
     } else {
       toast('未知视频ID类型: $id');
@@ -78,6 +79,33 @@ class VideoApi {
       EasyLoading.showError(errorStr);
       return false;
     }
+  }
+
+  ///视频点赞
+  static Future<bool> likeVideo(String id, int t) async {
+    if (id.isMv()) {
+      return likeResource(id: id, t: t, type: 1);
+    } else if (id.isVideo()) {
+      return likeResource(id: id, t: t, type: 5);
+    } else {
+      final videoId = await mlogToVideo(id);
+      return likeResource(id: videoId, t: t, type: 5);
+    }
+  }
+
+  ///对 MV,电台,视频,动态点赞
+  ///id: 资源 id
+  ///type: 1: mv 4: 电台  5: 视频 6: 动态
+  ///t: 操作,1 为点赞,其他为取消点赞
+  ///如给动态点赞，不需要传入 id，需要传入 threadId
+  static Future<bool> likeResource({
+    required String id,
+    required int t,
+    required int type,
+  }) async {
+    final response = await httpManager
+        .get('/resource/like', {'id': id, 'type': type, 't': t});
+    return response.isSuccess();
   }
 
   ///获取我点赞过的视频
@@ -113,7 +141,7 @@ class VideoApi {
     } else if (id.isVideo()) {
       info = await _getVideoCountInfo(id);
     } else if (id.isMLog()) {
-      final videoId = await _mlogToVideo(id);
+      final videoId = await mlogToVideo(id);
       info = await _getVideoCountInfo(videoId);
     } else {
       toast('未知视频ID类型: $id');
@@ -139,7 +167,7 @@ class VideoApi {
     } else if (id.isVideo()) {
       return _getVideoInfo(id);
     } else if (id.isMLog()) {
-      final videoId = await _mlogToVideo(id);
+      final videoId = await mlogToVideo(id);
       return _getVideoInfo(videoId);
     } else {
       toast('未知视频ID类型: $id');
@@ -156,12 +184,12 @@ class VideoApi {
     if (id.isMv()) {
       final response = await httpManager.get('/simi/mv', {'mvid': id});
       return (response.data['mvs'] as List)
-          .map((e) => VideoModel(id: e['id'], coverUrl: e['cover']))
+          .map((e) => VideoModel(id: e['id'].toString(), coverUrl: e['cover']))
           .toList();
     } else if (id.isVideo()) {
       return _getRelateVideo(id);
     } else if (id.isMLog()) {
-      final videoId = await _mlogToVideo(id);
+      final videoId = await mlogToVideo(id);
       return _getRelateVideo(videoId);
     } else {
       return List.empty();
@@ -172,14 +200,15 @@ class VideoApi {
     final response = await httpManager.get('/related/allvideo', {'id': id});
     if (response.result) {
       return (response.data['data'] as List)
-          .map((e) => VideoModel(id: e['vid'], coverUrl: e['coverUrl']))
+          .map((e) =>
+              VideoModel(id: e['vid'].toString(), coverUrl: e['coverUrl']))
           .toList();
     }
     return List.empty();
   }
 
   ///通过mlog获取视频ID
-  static Future<String> _mlogToVideo(String id) async {
+  static Future<String> mlogToVideo(String id) async {
     final response = await httpManager.get('/mlog/to/video', {'id': id});
     return response.data['data'].toString();
   }

@@ -5,6 +5,7 @@ import 'package:flutter_cloud_music/common/model/album_detail.dart';
 import 'package:flutter_cloud_music/common/model/album_dynamic_info.dart';
 import 'package:flutter_cloud_music/common/model/artists_model.dart';
 import 'package:flutter_cloud_music/common/model/calendar_events.dart';
+import 'package:flutter_cloud_music/common/model/comment_model.dart';
 import 'package:flutter_cloud_music/common/model/comment_response.dart';
 import 'package:flutter_cloud_music/common/model/login_response.dart';
 import 'package:flutter_cloud_music/common/model/mine_playlist.dart';
@@ -737,5 +738,36 @@ class MusicApi {
     }
     EasyLoading.dismiss();
     return false;
+  }
+
+  ///获取资源的评论
+  /// pageNo:分页参数,第 N 页,默认为 1
+  /// pageSize:分页参数,每页多少条数据,默认 20
+  /// sortType: 排序方式, 1:按推荐排序, 2:按热度排序, 3:按时间排序
+  /// cursor: 当sortType为 3 时且页数不是第一页时需传入,值为上一条数据的 time
+  /// type: 0: 歌曲 1: mv 2: 歌单  3: 专辑 4: 电台 5: 视频 6: 动态
+  static Future<CommentModel?> getResourceComment({
+    required String id,
+    required int type,
+    int pageNo = 1,
+    int pageSize = 20,
+    int sortType = 1, // 排序方式, 1:按推荐排序, 2:按热度排序, 3:按时间排序
+    String? cursor, //当 sortType==3 && 页数不是第一页时需传入 值为上一条数据的time
+  }) async {
+    final par = <String, dynamic>{
+      'id': id,
+      'type': type,
+      'pageNo': pageNo,
+      'pageSize': pageSize,
+      'sortType': sortType
+    };
+    if (cursor != null) {
+      par['cursor'] = cursor;
+    }
+    final response = await httpManager.get('/comment/new', par);
+    if (response.isSuccess()) {
+      return CommentModel.fromJson(response.data['data']);
+    }
+    return null;
   }
 }

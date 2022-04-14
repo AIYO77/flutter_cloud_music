@@ -82,7 +82,7 @@ class SingerVideoView extends StatelessWidget {
                       resource: e.resource,
                     ))
                 .toList();
-            VideoPage.startWithOffset(list, 'path', {}, index: index);
+            VideoPage.startWithList(list, index: index);
           },
           child: _buildItem(item),
         );

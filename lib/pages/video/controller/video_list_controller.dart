@@ -80,8 +80,10 @@ class VideoListController extends ChangeNotifier {
     if (playerList.length - newIndex <= loadMoreCount + 1) {
       _videoProvider?.call(newIndex, playerList).then(
         (list) async {
-          playerList.addAll(list);
-          notifyListeners();
+          if (list.isNotEmpty) {
+            playerList.addAll(list);
+            notifyListeners();
+          }
         },
       );
     }
