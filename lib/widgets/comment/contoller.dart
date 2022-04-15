@@ -3,6 +3,7 @@ import 'package:flutter_cloud_music/api/muisc_api.dart';
 import 'package:flutter_cloud_music/api/video_api.dart';
 import 'package:flutter_cloud_music/common/model/comment_model.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
+import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -21,8 +22,9 @@ enum CommentType {
 }
 
 class CommentController extends GetxController {
-  late RefreshController refreshController;
-  late ScrollController scrollController;
+  final RefreshController refreshController =
+      RefreshController(initialRefresh: false);
+  final ScrollController scrollController = ScrollController();
 
   final comments = Rx<List<Comment>?>(null);
 
@@ -44,21 +46,15 @@ class CommentController extends GetxController {
 
   @override
   void onInit() {
-    refreshController = RefreshController();
-    scrollController = ScrollController();
     super.onInit();
+    logger.i('CommentController onInit');
     commentType.listen((type) {
-      _onRefresh(type);
+      onRefresh(commentType: type);
     });
+    onRefresh();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-    _onRefresh(commentType.value);
-  }
-
-  Future<void> _onRefresh(CommentType commentType) async {
+  Future<void> onRefresh({CommentType commentType = CommentType.REC}) async {
     pageNo = 1;
     comments.value = null;
     if (RESOURCE_MLOG == type && mVideoId == null) {

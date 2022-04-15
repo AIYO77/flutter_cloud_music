@@ -7,6 +7,7 @@ import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
+import 'package:flutter_cloud_music/pages/comment_detail/view.dart';
 import 'package:get/get.dart';
 
 class CommentButton extends StatelessWidget {
@@ -18,31 +19,38 @@ class CommentButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => controller.commentCount.value > 0
-        ? Stack(
-            children: [
-              Image.asset(
-                ImageUtils.getImagePath('cmt_number'),
-                width: Dimens.gap_dp22,
-                color: Colours.color_217,
-              ),
-              Container(
-                height: Dimens.gap_dp24,
-                padding: EdgeInsets.only(left: Dimens.gap_dp16),
-                alignment: Alignment.topRight,
-                child: Text(
-                  getCommentStrFromInt(controller.commentCount.value),
-                  style: TextStyle(
-                      color: Colours.color_217, fontSize: Dimens.font_sp9),
+    return GestureDetector(
+      onTap: () {
+        if (controller.curSong != null) {
+          CommentDetailPage.startSong(controller.curSong!);
+        }
+      },
+      child: Obx(() => controller.commentCount.value > 0
+          ? Stack(
+              children: [
+                Image.asset(
+                  ImageUtils.getImagePath('cmt_number'),
+                  width: Dimens.gap_dp22,
+                  color: Colours.color_217,
                 ),
-              )
-            ],
-          )
-        : Image.asset(
-            ImageUtils.getImagePath('detail_icn_cmt'),
-            width: Dimens.gap_dp24,
-            color: Colours.color_217,
-          ));
+                Container(
+                  height: Dimens.gap_dp24,
+                  padding: EdgeInsets.only(left: Dimens.gap_dp16),
+                  alignment: Alignment.topRight,
+                  child: Text(
+                    getCommentStrFromInt(controller.commentCount.value),
+                    style: TextStyle(
+                        color: Colours.color_217, fontSize: Dimens.font_sp9),
+                  ),
+                )
+              ],
+            )
+          : Image.asset(
+              ImageUtils.getImagePath('detail_icn_cmt'),
+              width: Dimens.gap_dp24,
+              color: Colours.color_217,
+            )),
+    );
   }
 }
 

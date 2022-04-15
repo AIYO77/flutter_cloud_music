@@ -7,6 +7,7 @@ import 'package:flutter_cloud_music/common/model/artists_model.dart';
 import 'package:flutter_cloud_music/common/model/calendar_events.dart';
 import 'package:flutter_cloud_music/common/model/comment_model.dart';
 import 'package:flutter_cloud_music/common/model/comment_response.dart';
+import 'package:flutter_cloud_music/common/model/floor_comment_model.dart';
 import 'package:flutter_cloud_music/common/model/login_response.dart';
 import 'package:flutter_cloud_music/common/model/mine_playlist.dart';
 import 'package:flutter_cloud_music/common/model/rcmd_song_daily_model.dart';
@@ -766,7 +767,25 @@ class MusicApi {
     }
     final response = await httpManager.get('/comment/new', par);
     if (response.isSuccess()) {
-      return CommentModel.fromJson(response.data['data']);
+      return CommentModel.fromJson(response.dataData());
+    }
+    return null;
+  }
+
+  ///楼层评论
+  static Future<FloorCommentModel?> getFloorComment({
+    required String parentCommentId, //楼层评论 id
+    required String resId, //资源id
+    required int type, //资源类型
+  }) async {
+    final response = await httpManager.get('/comment/floor', {
+      'parentCommentId': parentCommentId,
+      'id': resId,
+      'type': type,
+      'limit': 10000 //楼层评论不会太多 不分页
+    });
+    if (response.isSuccess()) {
+      return FloorCommentModel.fromJson(response.dataData());
     }
     return null;
   }

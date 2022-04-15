@@ -23,11 +23,14 @@ class CommentPage extends StatelessWidget {
   // final String id;
   // final int type;
   final ParamSingleCallback<int>? totalCallback;
-
+  final ParamSingleCallback<Comment>? replayCall;
   final Widget? headerWidget;
 
   const CommentPage(
-      {required this.controller, this.headerWidget, this.totalCallback});
+      {required this.controller,
+      this.headerWidget,
+      this.totalCallback,
+      this.replayCall});
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +115,7 @@ class CommentPage extends StatelessWidget {
       return CommentCell(
         Key(comment.commentId.toString()),
         comment: comment,
+        replayCall: replayCall,
       );
     }, childCount: comments?.length ?? 0));
   }

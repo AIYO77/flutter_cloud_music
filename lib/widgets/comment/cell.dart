@@ -6,6 +6,7 @@ import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/common/utils/time.dart';
+import 'package:flutter_cloud_music/typedef/function.dart';
 import 'package:flutter_cloud_music/widgets/user_avatar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/get_utils.dart';
@@ -17,8 +18,10 @@ import 'package:get/get_utils/get_utils.dart';
 
 class CommentCell extends StatelessWidget {
   final Comment comment;
+  final ParamSingleCallback<Comment>? replayCall;
 
-  const CommentCell(Key? key, {required this.comment}) : super(key: key);
+  const CommentCell(Key? key, {required this.comment, this.replayCall})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -114,9 +117,11 @@ class CommentCell extends StatelessWidget {
                 style: headline2Style(),
               ),
             ),
-            if (!GetUtils.isNullOrBlank(comment.showFloorComment.comments)!)
+            if (!GetUtils.isNullOrBlank(comment.showFloorComment?.comments)!)
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  replayCall?.call(comment);
+                },
                 child: Container(
                   width: double.infinity,
                   margin: EdgeInsets.only(
@@ -134,30 +139,35 @@ class CommentCell extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: _buildReplay(comment.showFloorComment),
+                    children: _buildReplay(comment.showFloorComment!),
                   ),
                 ),
               ),
-            if (comment.showFloorComment.showReplyCount &&
-                GetUtils.isNullOrBlank(comment.showFloorComment.comments)!)
-              Padding(
-                padding: EdgeInsets.only(left: Dimens.gap_dp45),
-                child: Text.rich(TextSpan(children: [
-                  TextSpan(
-                      text: '${comment.showFloorComment.replyCount}条回复',
-                      style: TextStyle(
+            if (comment.showFloorComment?.showReplyCount == true &&
+                GetUtils.isNullOrBlank(comment.showFloorComment?.comments)!)
+              GestureDetector(
+                onTap: () {
+                  replayCall?.call(comment);
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(left: Dimens.gap_dp45),
+                  child: Text.rich(TextSpan(children: [
+                    TextSpan(
+                        text: '${comment.showFloorComment!.replyCount}条回复',
+                        style: TextStyle(
+                            color: Colours.blue_dark,
+                            fontSize: Dimens.font_sp13)),
+                    WidgetSpan(
+                        alignment: PlaceholderAlignment.middle,
+                        child: Image.asset(
+                          ImageUtils.getImagePath(
+                            'icon_more',
+                          ),
                           color: Colours.blue_dark,
-                          fontSize: Dimens.font_sp13)),
-                  WidgetSpan(
-                      alignment: PlaceholderAlignment.middle,
-                      child: Image.asset(
-                        ImageUtils.getImagePath(
-                          'icon_more',
-                        ),
-                        color: Colours.blue_dark,
-                        height: Dimens.gap_dp13,
-                      ))
-                ])),
+                          height: Dimens.gap_dp13,
+                        ))
+                  ])),
+                ),
               ),
             Padding(
               padding:

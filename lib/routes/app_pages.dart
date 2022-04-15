@@ -6,6 +6,7 @@ import 'package:flutter_cloud_music/pages/add_video/binding.dart';
 import 'package:flutter_cloud_music/pages/add_video/view.dart';
 import 'package:flutter_cloud_music/pages/album_detail/album_detail_binding.dart';
 import 'package:flutter_cloud_music/pages/album_detail/album_detail_view.dart';
+import 'package:flutter_cloud_music/pages/comment_detail/view.dart';
 import 'package:flutter_cloud_music/pages/home/home_binding.dart';
 import 'package:flutter_cloud_music/pages/home/home_view.dart';
 import 'package:flutter_cloud_music/pages/loading_page/view.dart';
@@ -253,6 +254,12 @@ class AppPages {
         page: () => VideoPage(),
         binding: VideoBinding(),
         transition: Transition.rightToLeft),
+
+    //评论详情
+    GetPage(
+      name: Routes.COMMENT_DETAIL,
+      page: () => CommentDetailPage(),
+    ),
 
     //web
     GetPage(

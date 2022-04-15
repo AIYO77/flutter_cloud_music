@@ -31,12 +31,12 @@ Comment _$CommentFromJson(Map<String, dynamic> json) => Comment(
       json['timeStr'] as String,
       json['needDisplayTime'] as bool,
       json['likedCount'] as int,
-      json['replyCount'] as int,
       json['liked'] as bool,
       json['parentCommentId'] as int,
-      json['repliedMark'] as bool,
-      ShowFloorComment.fromJson(
-          json['showFloorComment'] as Map<String, dynamic>),
+      json['showFloorComment'] == null
+          ? null
+          : ShowFloorComment.fromJson(
+              json['showFloorComment'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
@@ -47,10 +47,8 @@ Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
       'timeStr': instance.timeStr,
       'needDisplayTime': instance.needDisplayTime,
       'likedCount': instance.likedCount,
-      'replyCount': instance.replyCount,
       'liked': instance.liked,
       'parentCommentId': instance.parentCommentId,
-      'repliedMark': instance.repliedMark,
       'showFloorComment': instance.showFloorComment,
     };
 

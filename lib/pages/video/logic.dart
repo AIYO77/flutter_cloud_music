@@ -3,11 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/api/video_api.dart';
 import 'package:flutter_cloud_music/common/ext/ext.dart';
+import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/widgets/comment/comment.dart';
+import 'package:flutter_cloud_music/widgets/comment/floor/floor_comment.dart';
 import 'package:get/get.dart';
 
+import '../../common/model/comment_model.dart';
 import '../../common/utils/common_utils.dart';
 import '../../common/values/constants.dart';
 import '../../routes/app_routes.dart';
@@ -132,21 +135,50 @@ class VideoLogic extends GetxController with WidgetsBindingObserver {
   }
 
   void showComment(String id, bool toComment) {
-    final controller = GetInstance().putOrFind(
-        () => CommentController(
-            id: id,
-            type: id.isMv()
-                ? RESOURCE_MV
-                : id.isVideo()
-                    ? RESOURCE_VIDEO
-                    : RESOURCE_MLOG),
-        tag: id);
+    final type = id.isMv()
+        ? RESOURCE_MV
+        : id.isVideo()
+            ? RESOURCE_VIDEO
+            : RESOURCE_MLOG;
+    final controller = GetInstance()
+        .putOrFind(() => CommentController(id: id, type: type), tag: id);
+    final pageController = PageController();
+    final commentRx = Rx<Comment?>(null);
     Get.bottomSheet(
         SizedBox(
           width: double.infinity,
           height: Adapt.screenH() * 0.66,
-          child: CommentPage(
-            controller: controller,
+          child: PageView(
+            physics: const NeverScrollableScrollPhysics(),
+            controller: pageController,
+            children: [
+              CommentPage(
+                controller: controller,
+                replayCall: (comment) {
+                  commentRx.value = comment;
+                  Future.delayed(const Duration(milliseconds: 50))
+                      .whenComplete(() {
+                    pageController.animateToPage(1,
+                        duration: const Duration(milliseconds: 100),
+                        curve: Curves.fastOutSlowIn);
+                  });
+                },
+              ),
+              Obx(
+                () => commentRx.value == null
+                    ? Gaps.empty
+                    : FloorCommentWidget(
+                        parentComment: commentRx.value!,
+                        resId: id,
+                        type: type,
+                        backCall: () {
+                          pageController.animateToPage(0,
+                              duration: const Duration(milliseconds: 100),
+                              curve: Curves.fastOutSlowIn);
+                        },
+                      ),
+              )
+            ],
           ),
         ),
         isScrollControlled: true,

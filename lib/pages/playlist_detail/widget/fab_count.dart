@@ -11,6 +11,7 @@ import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
+import 'package:flutter_cloud_music/pages/comment_detail/view.dart';
 import 'package:get/get.dart';
 
 import '../playlist_detail_controller.dart';
@@ -61,7 +62,8 @@ class PlaylistFabCount extends StatelessWidget implements PreferredSizeWidget {
               Expanded(
                   child: GestureDetector(
                 onTap: () {
-                  toast('去评论');
+                  CommentDetailPage.startPlayList(
+                      controller.detail.value!.playlist);
                 },
                 child: _buildItem(
                     'detail_icn_cmt',

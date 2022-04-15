@@ -2,6 +2,7 @@ import 'package:flutter_cloud_music/common/values/constants.dart';
 
 abstract class Routes {
   Routes._();
+
   static const ROUTES_HOST = _Paths.ROUTES_HOST;
 
   static const HOME = _Paths.HOME;
@@ -53,6 +54,8 @@ abstract class Routes {
   static const SINGLE_SEARCH = _Paths.SINGLE_SEARCH;
 
   static const VIDEO_PLAY = _Paths.VIDEO_PLAY;
+
+  static const COMMENT_DETAIL = _Paths.COMMENT_DETAIL;
 
   static String PLAYLIST_DETAIL_ID(String id) => '/playlist/$id';
 
@@ -130,4 +133,7 @@ abstract class _Paths {
 
   //视频页面
   static const VIDEO_PLAY = '/video_play';
+
+  //评论详情
+  static const COMMENT_DETAIL = '/comment/detail';
 }

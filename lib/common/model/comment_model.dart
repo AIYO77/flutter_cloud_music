@@ -57,20 +57,14 @@ class Comment extends Object {
   @JsonKey(name: 'likedCount')
   int likedCount;
 
-  @JsonKey(name: 'replyCount')
-  int replyCount;
-
   @JsonKey(name: 'liked')
   bool liked;
 
   @JsonKey(name: 'parentCommentId')
   int parentCommentId;
 
-  @JsonKey(name: 'repliedMark')
-  bool repliedMark;
-
   @JsonKey(name: 'showFloorComment')
-  ShowFloorComment showFloorComment;
+  ShowFloorComment? showFloorComment;
 
   Comment(
     this.user,
@@ -80,10 +74,8 @@ class Comment extends Object {
     this.timeStr,
     this.needDisplayTime,
     this.likedCount,
-    this.replyCount,
     this.liked,
     this.parentCommentId,
-    this.repliedMark,
     this.showFloorComment,
   );
 

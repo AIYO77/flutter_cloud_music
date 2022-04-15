@@ -6,6 +6,7 @@ import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/album_detail/album_detail_controller.dart';
+import 'package:flutter_cloud_music/pages/comment_detail/view.dart';
 import 'package:get/get.dart';
 
 class AlbumDetailFabCount extends StatelessWidget
@@ -55,7 +56,8 @@ class AlbumDetailFabCount extends StatelessWidget
               Expanded(
                   child: GestureDetector(
                 onTap: () {
-                  toast('去评论');
+                  CommentDetailPage.startAlbum(
+                      controller.albumDetail.value!.album);
                 },
                 child: _buildItem(
                     'detail_icn_cmt',

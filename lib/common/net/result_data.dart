@@ -15,4 +15,8 @@ class ResultData {
   bool isSuccess() {
     return result && data['code'] == 200;
   }
+
+  dynamic dataData() {
+    return data['data'];
+  }
 }
