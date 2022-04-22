@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
-import 'package:get/get.dart';
 
 import '../playlist_detail_controller.dart';
 
 class TopOfficialInfoWidget extends StatelessWidget {
-  final controller = Get.find<PlaylistDetailController>();
-  TopOfficialInfoWidget({Key? key}) : super(key: key);
+  final PlaylistDetailController controller;
+
+  const TopOfficialInfoWidget({Key? key, required this.controller})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(

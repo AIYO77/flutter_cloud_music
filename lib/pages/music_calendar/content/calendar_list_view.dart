@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
@@ -127,7 +126,7 @@ class CalenderListView extends StatelessWidget {
             },
             child: Text(
               '关注歌手',
-              style: captionStyle().copyWith(color: Colours.blue),
+              style: captionStyle().copyWith(color: Get.theme.highlightColor),
             ),
           )),
           const TextSpan(text: '获取更多质询吧')

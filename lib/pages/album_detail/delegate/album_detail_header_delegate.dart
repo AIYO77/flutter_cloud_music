@@ -9,13 +9,15 @@ import 'package:flutter_cloud_music/widgets/general_blur_image.dart';
 import 'package:get/get.dart';
 
 class AlbumDetailSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
-  final controller = Get.find<AlbumDetailController>();
+  final AlbumDetailController controller;
 
   double expendHeight;
   double minHeight;
 
   AlbumDetailSliverHeaderDelegate(
-      {required this.expendHeight, required this.minHeight});
+      {required this.controller,
+      required this.expendHeight,
+      required this.minHeight});
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -72,6 +74,7 @@ class AlbumDetailSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
           child: _buildClipContent(
               AlbumCoverView(
                 key: controller.topContentKey,
+                controller: controller,
               ),
               offset),
         )

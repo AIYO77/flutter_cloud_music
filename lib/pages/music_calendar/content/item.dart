@@ -197,7 +197,8 @@ class _CalenderItemState extends State<CalenderItem> {
                     Text(
                       '余下$remain项',
                       style: TextStyle(
-                          color: Colours.blue_dark, fontSize: Dimens.font_sp14),
+                          color: context.theme.highlightColor,
+                          fontSize: Dimens.font_sp14),
                     ),
                     const Expanded(child: Gaps.empty),
                     Image.asset(

@@ -45,7 +45,8 @@ class SearchSuggestList extends StatelessWidget {
                     child: Text(
                       '搜索 “$keyWords”',
                       style: TextStyle(
-                          color: Colours.blue, fontSize: Dimens.font_sp16),
+                          color: context.theme.highlightColor,
+                          fontSize: Dimens.font_sp16),
                     ),
                   ),
                 )

@@ -4,7 +4,6 @@ import 'package:flutter_cloud_music/pages/add_song/binding.dart';
 import 'package:flutter_cloud_music/pages/add_song/view.dart';
 import 'package:flutter_cloud_music/pages/add_video/binding.dart';
 import 'package:flutter_cloud_music/pages/add_video/view.dart';
-import 'package:flutter_cloud_music/pages/album_detail/album_detail_binding.dart';
 import 'package:flutter_cloud_music/pages/album_detail/album_detail_view.dart';
 import 'package:flutter_cloud_music/pages/comment_detail/view.dart';
 import 'package:flutter_cloud_music/pages/home/home_binding.dart';
@@ -34,7 +33,6 @@ import 'package:flutter_cloud_music/pages/playing_fm/playing_fm_binding.dart';
 import 'package:flutter_cloud_music/pages/playing_fm/playing_fm_view.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/playlist_collection_binding.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/playlist_collection_view.dart';
-import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_binding.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_view.dart';
 import 'package:flutter_cloud_music/pages/rcmd_song_day/bindings.dart';
 import 'package:flutter_cloud_music/pages/rcmd_song_day/view.dart';
@@ -91,10 +89,7 @@ class AppPages {
         preventDuplicates: true),
 
     //歌单详情
-    GetPage(
-        name: Routes.PLAYLIST_DETAIL,
-        page: () => PlaylistDetailPage(),
-        binding: PlaylistDetailBinding()),
+    GetPage(name: Routes.PLAYLIST_DETAIL, page: () => PlaylistDetailPage()),
 
     // login
     GetPage(
@@ -179,6 +174,7 @@ class AppPages {
       page: () => const PlayingPage(),
       binding: PlayingBinding(),
       customTransition: SlideDownWithFadeTransition(),
+      preventDuplicates: true,
       // preventDuplicates: true,
     ),
 
@@ -193,8 +189,7 @@ class AppPages {
     //album detail
     GetPage(
       name: Routes.ALBUM_DETAIL,
-      page: () => const AlbumDetailPage(),
-      binding: AlbumDetailBinding(),
+      page: () => AlbumDetailPage(),
       transition: Transition.rightToLeft,
     ),
 

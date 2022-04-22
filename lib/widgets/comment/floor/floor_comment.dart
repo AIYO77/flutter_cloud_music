@@ -46,7 +46,7 @@ class FloorCommentWidget extends StatelessWidget {
           leading: backCall != null
               ? IconButton(
                   onPressed: backCall,
-                  padding: const EdgeInsets.only(left: 12.0),
+                  // padding: const EdgeInsets.only(left: 12.0),
                   icon: Image.asset(
                     ImageUtils.getImagePath('dij'),
                     color: context.theme.appBarTheme.titleTextStyle?.color,
@@ -73,11 +73,14 @@ class FloorCommentWidget extends StatelessWidget {
                             width: double.infinity,
                             color: context.theme.cardColor,
                             child: CommentCell(
-                                Key(controller
-                                    .floorModel.value!.ownerComment.commentId
-                                    .toString()),
-                                comment:
-                                    controller.floorModel.value!.ownerComment),
+                              Key(controller
+                                  .floorModel.value!.ownerComment.commentId
+                                  .toString()),
+                              comment:
+                                  controller.floorModel.value!.ownerComment,
+                              resourceId: controller.resId,
+                              resourceType: controller.type,
+                            ),
                           )),
               ),
             ),
@@ -107,10 +110,13 @@ class FloorCommentWidget extends StatelessWidget {
                       content: data.comments.isEmpty
                           ? MusicLoading()
                           : Column(
-                              children: List<Widget>.from(data.comments.map(
-                                  (e) => CommentCell(
-                                      Key(e.commentId.toString()),
-                                      comment: e)))
+                              children: List<Widget>.from(
+                                  data.comments.map((e) => CommentCell(
+                                        Key(e.commentId.toString()),
+                                        comment: e,
+                                        resourceId: controller.resId,
+                                        resourceType: controller.type,
+                                      )))
                                 ..add(data.header == bestReplay
                                     ? Container(
                                         height: Dimens.gap_dp8,

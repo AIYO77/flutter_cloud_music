@@ -43,8 +43,8 @@ class Colours {
 
   static Color btn_border_color = const Color(0xFFf3928d);
 
-  static const Color blue = Color.fromARGB(255, 55, 145, 235);
-  static const Color blue_dark = Color.fromARGB(255, 90, 124, 170);
+  static const Color blue = Color.fromARGB(255, 90, 124, 170);
+  static const Color blue_dark = Color.fromARGB(255, 77, 147, 215);
 
   static const Color pink = Color.fromARGB(255, 239, 210, 210);
 

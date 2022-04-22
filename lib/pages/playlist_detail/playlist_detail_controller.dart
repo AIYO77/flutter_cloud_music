@@ -58,7 +58,7 @@ class PlaylistDetailController extends GetxController {
     secondOpenOfficial = box.read<bool>(playlistId) ?? false;
 
     expandedHeight =
-        Adapt.px(secondOpenOfficial ? Adapt.screenH() * 0.55 : 256);
+        secondOpenOfficial ? Adapt.screenH() * 0.55 : Adapt.px(256);
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.dark,

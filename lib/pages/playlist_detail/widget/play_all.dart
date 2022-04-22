@@ -14,7 +14,9 @@ import '../playlist_detail_controller.dart';
 /// Des:
 
 class PlDetailPlayAll extends StatelessWidget implements PreferredSizeWidget {
-  final controller = Get.find<PlaylistDetailController>();
+  final PlaylistDetailController controller;
+
+  const PlDetailPlayAll({required this.controller});
 
   @override
   Widget build(BuildContext context) {

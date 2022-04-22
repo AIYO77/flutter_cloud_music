@@ -17,8 +17,10 @@ import '../playlist_detail_controller.dart';
 
 class PlaylistTopAppbar extends StatefulWidget {
   final double appBarHeight;
+  final PlaylistDetailController controller;
 
-  const PlaylistTopAppbar({Key? key, required this.appBarHeight})
+  const PlaylistTopAppbar(
+      {Key? key, required this.appBarHeight, required this.controller})
       : super(key: key);
 
   @override
@@ -26,14 +28,12 @@ class PlaylistTopAppbar extends StatefulWidget {
 }
 
 class _State extends State<PlaylistTopAppbar> {
-  final controller = Get.find<PlaylistDetailController>();
-
   PlayListTitleStatus _titleStatus = PlayListTitleStatus.Normal;
 
   @override
   void initState() {
     super.initState();
-    controller.titleStatus.listen((p0) {
+    widget.controller.titleStatus.listen((p0) {
       Future.delayed(const Duration(milliseconds: 100)).whenComplete(() {
         setState(() {
           _titleStatus = p0;
@@ -64,15 +64,16 @@ class _State extends State<PlaylistTopAppbar> {
           ),
           Expanded(
               child: Center(
-            child:
-                Obx(() => _buildTitle(_titleStatus, controller.detail.value)),
+            child: Obx(() =>
+                _buildTitle(_titleStatus, widget.controller.detail.value)),
           )),
           IconButton(
             onPressed: () {
               if (AuthService.to.isLoggedInValue &&
-                  controller.detail.value?.playlist.creator.userId ==
+                  widget.controller.detail.value?.playlist.creator.userId ==
                       AuthService.to.userId) {
-                Get.bottomSheet(_buildPlManager(controller.detail.value!),
+                Get.bottomSheet(
+                    _buildPlManager(widget.controller.detail.value!),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(Dimens.gap_dp14),

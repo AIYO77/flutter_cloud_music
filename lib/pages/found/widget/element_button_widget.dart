@@ -22,7 +22,7 @@ Widget elementButtonWidget(ElementButton? elementButton,
     },
     height: Dimens.gap_dp24,
     color: Colors.transparent,
-    highlightColor: theme.highlightColor,
+    highlightColor: theme.hintColor,
     elevation: 0,
     padding: const EdgeInsets.all(0),
     minWidth: Dimens.gap_dp40,
@@ -31,7 +31,7 @@ Widget elementButtonWidget(ElementButton? elementButton,
     shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(Dimens.gap_dp12),
         side: BorderSide(
-          color: theme.highlightColor,
+          color: theme.hintColor,
         )),
     child: Row(children: [
       Gaps.hGap12,

@@ -789,4 +789,39 @@ class MusicApi {
     }
     return null;
   }
+
+  ///给评论点赞
+  ///id : 资源 id
+  ///cid : 评论 id
+  ///t : 是否点赞 , 1 为点赞 ,0 为取消点赞
+  ///type:资源类型
+  static Future<bool> likeComment({
+    String? id,
+    String? threadId,
+    required int type,
+    required String cid,
+    required int t,
+  }) async {
+    if (id == null && threadId == null) {
+      throw ArgumentError('id/threadId must satisfy one');
+    }
+    final map = {
+      'type': type,
+      'cid': cid,
+      't': t,
+      'timestamp': DateTime.now().millisecondsSinceEpoch
+    };
+    if (id != null) {
+      map['id'] = id;
+    }
+    if (threadId != null) {
+      map['threadId'] = threadId;
+    }
+    final response = await httpManager.get('/comment/like', map);
+    return response.isSuccess();
+  }
+
+  static Future comment() async{
+
+  }
 }

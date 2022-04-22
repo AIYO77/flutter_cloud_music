@@ -16,11 +16,11 @@ import 'package:get/get.dart';
 import 'package:music_player/music_player.dart';
 
 class PlayListContent extends StatelessWidget {
-  PlayListContent(this.songs);
+  PlayListContent(this.songs, {required this.controller});
 
   List<Song>? songs;
 
-  final controller = Get.find<PlaylistDetailController>();
+  final PlaylistDetailController controller;
 
   @override
   Widget build(BuildContext context) {

@@ -40,7 +40,7 @@ class CommentController extends GetxController {
   //第几页
   int pageNo = 1;
 
-  int? totalCount;
+  final totalCount = Rx<int?>(null);
 
   CommentController({required this.id, required this.type});
 
@@ -57,6 +57,7 @@ class CommentController extends GetxController {
   Future<void> onRefresh({CommentType commentType = CommentType.REC}) async {
     pageNo = 1;
     comments.value = null;
+    refreshController.loadComplete();
     if (RESOURCE_MLOG == type && mVideoId == null) {
       mVideoId = await VideoApi.mlogToVideo(id);
     }
@@ -65,9 +66,9 @@ class CommentController extends GetxController {
             type: mVideoId == null ? type : RESOURCE_VIDEO,
             pageNo: pageNo,
             sortType: commentType.index + 1,
-            pageSize: commentType == CommentType.REC ? 1000 : 20)
+            pageSize: commentType == CommentType.REC ? 100 : 20)
         .then((value) {
-      totalCount = value?.totalCount;
+      totalCount.value = value?.totalCount;
       comments.value = value?.comments;
       if (commentType != CommentType.REC) {
         if (value?.hasMore == true) {

@@ -192,7 +192,8 @@ class DrawerWidget extends StatelessWidget {
                     child: Text(
                       '取消',
                       style: body2Style().copyWith(
-                          color: Colours.blue, fontWeight: FontWeight.w600),
+                          color: context.theme.highlightColor,
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),
@@ -207,7 +208,8 @@ class DrawerWidget extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Text(
                       '确定',
-                      style: body2Style().copyWith(color: Colours.blue),
+                      style: body2Style()
+                          .copyWith(color: context.theme.highlightColor),
                     ),
                   ),
                 )

@@ -5,7 +5,9 @@ import 'package:flutter_cloud_music/common/model/album_detail.dart';
 import 'package:flutter_cloud_music/common/model/comment_model.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
+import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
+import 'package:flutter_cloud_music/common/values/constants.dart';
 import 'package:flutter_cloud_music/pages/comment_detail/controller.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/model/playlist_detail_model.dart';
 import 'package:flutter_cloud_music/widgets/comment/comment.dart';
@@ -20,7 +22,7 @@ import '../../routes/app_routes.dart';
 /// Date: 2022/4/15 3:47 下午
 /// Des: 评论详情
 
-class CommentDetailPage extends StatelessWidget {
+class CommentDetailPage extends StatefulWidget {
   static void startSong(Song song) {
     Get.toNamed(Routes.COMMENT_DETAIL, arguments: song);
   }
@@ -33,6 +35,11 @@ class CommentDetailPage extends StatelessWidget {
     Get.toNamed(Routes.COMMENT_DETAIL, arguments: playlist);
   }
 
+  @override
+  _State createState() => _State();
+}
+
+class _State extends State<CommentDetailPage> {
   /// bottomSheet嵌套scrollview 下拉关闭事件冲突 用下面的方式解决
   final _streamController = StreamController<double>.broadcast();
   final _totalHeight = Adapt.screenH() - Adapt.topPadding() - Dimens.gap_dp44;
@@ -42,35 +49,16 @@ class CommentDetailPage extends StatelessWidget {
   final controller = Get.put(CommentDetailController(),
       tag: Get.arguments.hashCode.toString());
 
+  int commentTotal = 0;
+
   @override
-  Widget build(BuildContext context) {
-    return Obx(
-      () => Scaffold(
-        backgroundColor: context.theme.cardColor,
-        appBar: MyAppBar(
-          centerTitle: '评论(${controller.totalComment.value})',
-        ),
-        body: CommentPage(
-          controller: controller.commentController,
-          headerWidget: Container(),
-          totalCallback: (total) {
-            controller.totalComment.value = total;
-          },
-          replayCall: (comment) {
-            Get.bottomSheet(
-              _buildSheet(context, comment),
-              isScrollControlled: true,
-              backgroundColor: context.theme.cardColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(Dimens.gap_dp20),
-                    topLeft: Radius.circular(Dimens.gap_dp20)),
-              ),
-            );
-          },
-        ),
-      ),
-    );
+  void initState() {
+    super.initState();
+    controller.commentController.totalCount.listen((total) {
+      setState(() {
+        commentTotal = total ?? 0;
+      });
+    });
   }
 
   Widget _buildSheet(BuildContext context, Comment comment) {
@@ -123,5 +111,55 @@ class CommentDetailPage extends StatelessWidget {
                 ),
               ));
         });
+  }
+
+  Widget buildHeader(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          color: context.theme.cardColor,
+          width: double.infinity,
+          padding: EdgeInsets.only(
+              left: Dimens.gap_dp16,
+              bottom: Dimens.gap_dp10,
+              top: Dimens.gap_dp10,
+              right: Dimens.gap_dp16),
+          child: controller.getTypeHeader(),
+        ),
+        Container(
+          color: context.theme.scaffoldBackgroundColor,
+          width: double.infinity,
+          height: Dimens.gap_dp8,
+        )
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: context.theme.cardColor,
+      appBar: MyAppBar(
+        centerTitle: '评论($commentTotal)',
+      ),
+      body: CommentPage(
+        controller: controller.commentController,
+        headerWidget: buildHeader(context),
+        showTotalCount: false,
+        replayCall: (comment) {
+          Get.bottomSheet(
+            _buildSheet(context, comment),
+            isScrollControlled: true,
+            backgroundColor: context.theme.cardColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(Dimens.gap_dp20),
+                  topLeft: Radius.circular(Dimens.gap_dp20)),
+            ),
+          );
+        },
+      ),
+    );
   }
 }

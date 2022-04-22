@@ -12,13 +12,16 @@ import 'package:get/get.dart';
 import '../../../enum/enum.dart';
 
 class PlaylistSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
-  final controller = Get.find<PlaylistDetailController>();
+  final PlaylistDetailController controller;
 
   double expendHeight;
   double minHeight;
 
   PlaylistSliverHeaderDelegate(
-      {required this.expendHeight, required this.minHeight});
+      {required this.controller,
+      required this.expendHeight,
+      required this.minHeight});
+
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -80,6 +83,7 @@ class PlaylistSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
           child: _buildClipContent(
               TopNormalInfo(
                 key: controller.topContentKey,
+                controller: controller,
               ),
               offset),
         )
@@ -120,6 +124,7 @@ class PlaylistSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
                 child: _buildClipContent(
                     TopOfficialInfoWidget(
                       key: controller.topContentKey,
+                      controller: controller,
                     ),
                     offset)),
         ],
@@ -144,7 +149,9 @@ class PlaylistSliverHeaderDelegate extends SliverPersistentHeaderDelegate {
 class _MyContentRect extends CustomClipper<Rect> {
   double yOffset;
   double scrollOffset;
+
   _MyContentRect({required this.yOffset, required this.scrollOffset});
+
   @override
   Rect getClip(Size size) {
     double topClip = 0.0;

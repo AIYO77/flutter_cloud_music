@@ -115,7 +115,8 @@ class PlManageController extends GetxController {
                 child: Text(
                   '取消',
                   style: body2Style().copyWith(
-                      color: Colours.blue, fontWeight: FontWeight.w600),
+                      color: Get.theme.highlightColor,
+                      fontWeight: FontWeight.w600),
                 ),
               ),
             ),

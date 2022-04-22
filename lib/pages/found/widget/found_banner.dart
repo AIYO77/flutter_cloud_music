@@ -92,7 +92,7 @@ class FoundBannerState extends State<FoundBanner> {
                           decoration: BoxDecoration(
                               color: banner.titleColor == "red"
                                   ? Colours.app_main
-                                  : Colours.blue,
+                                  : context.theme.highlightColor,
                               borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(12))),
                           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),

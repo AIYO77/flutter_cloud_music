@@ -17,7 +17,9 @@ import 'package:get/get.dart';
 import '../playlist_detail_controller.dart';
 
 class PlaylistFabCount extends StatelessWidget implements PreferredSizeWidget {
-  final controller = Get.find<PlaylistDetailController>();
+  final PlaylistDetailController controller;
+
+  const PlaylistFabCount({required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,7 @@ class PlaylistFabCount extends StatelessWidget implements PreferredSizeWidget {
                   CommentDetailPage.startPlayList(
                       controller.detail.value!.playlist);
                 },
+                behavior: HitTestBehavior.translucent,
                 child: _buildItem(
                     'detail_icn_cmt',
                     controller.detail.value == null

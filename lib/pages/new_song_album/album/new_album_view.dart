@@ -209,7 +209,7 @@ class NewAlbumPage extends GetView<NewAlbumController> {
                 MaterialButton(
                     focusElevation: 0,
                     color: Colors.transparent,
-                    highlightColor: Get.theme.highlightColor,
+                    highlightColor: Get.theme.hintColor,
                     elevation: 0,
                     height: Dimens.gap_dp26,
                     padding: const EdgeInsets.all(0),
@@ -217,7 +217,7 @@ class NewAlbumPage extends GetView<NewAlbumController> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(Dimens.gap_dp13),
                         side: BorderSide(
-                          color: Get.theme.highlightColor,
+                          color: Get.theme.hintColor,
                         )),
                     child: SizedBox(
                       height: Dimens.gap_dp26,

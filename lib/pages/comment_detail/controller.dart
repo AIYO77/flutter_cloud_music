@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_cloud_music/common/model/album_detail.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
+import 'package:flutter_cloud_music/pages/comment_detail/header.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/model/playlist_detail_model.dart';
 import 'package:get/get.dart';
 
@@ -12,18 +14,18 @@ import '../../widgets/comment/contoller.dart';
 /// Des:
 
 class CommentDetailController extends GetxController {
-  final totalComment = 0.obs;
-
   late CommentController commentController;
 
   //资源Id
   late String resId;
   late int type;
 
+  late dynamic arguments;
+
   @override
   void onInit() {
     super.onInit();
-    final arguments = Get.arguments;
+    arguments = Get.arguments;
     if (arguments is Song) {
       resId = arguments.id.toString();
       type = RESOURCE_SONGS;
@@ -41,5 +43,15 @@ class CommentDetailController extends GetxController {
     }
     commentController = GetInstance()
         .putOrFind(() => CommentController(id: resId, type: type), tag: resId);
+  }
+
+  Widget getTypeHeader() {
+    if (type == RESOURCE_SONGS) {
+      return CommentDetailSongHeader(song: arguments);
+    } else if (type == RESOURCE_AL) {
+      return CommentDetailAlHeader(album: arguments);
+    } else {
+      return CommentDetailPlHeader(playlist: arguments);
+    }
   }
 }

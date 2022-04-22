@@ -22,14 +22,14 @@ class CommentPage extends StatelessWidget {
 
   // final String id;
   // final int type;
-  final ParamSingleCallback<int>? totalCallback;
+  final bool showTotalCount;
   final ParamSingleCallback<Comment>? replayCall;
   final Widget? headerWidget;
 
   const CommentPage(
       {required this.controller,
       this.headerWidget,
-      this.totalCallback,
+      this.showTotalCount = true,
       this.replayCall});
 
   @override
@@ -48,7 +48,7 @@ class CommentPage extends StatelessWidget {
                 child: headerWidget,
               ),
             if (controller.comments.value != null ||
-                controller.totalCount != null)
+                controller.totalCount.value != null)
               SliverPersistentHeader(
                 pinned: true,
                 delegate: GeneralSliverDelegate(
@@ -76,9 +76,9 @@ class CommentPage extends StatelessWidget {
         child: Row(
           children: [
             Gaps.hGap16,
-            if (totalCallback == null)
+            if (showTotalCount)
               Text(
-                '评论(${controller.totalCount})',
+                '评论(${controller.totalCount.value})',
                 style: headline2Style().copyWith(fontSize: Dimens.font_sp14),
               )
             else
@@ -116,6 +116,8 @@ class CommentPage extends StatelessWidget {
         Key(comment.commentId.toString()),
         comment: comment,
         replayCall: replayCall,
+        resourceId: controller.id,
+        resourceType: controller.type,
       );
     }, childCount: comments?.length ?? 0));
   }

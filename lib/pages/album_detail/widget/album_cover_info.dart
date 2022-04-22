@@ -12,9 +12,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class AlbumCoverView extends StatelessWidget {
-  final controller = Get.find<AlbumDetailController>();
+  final AlbumDetailController controller;
 
-  AlbumCoverView({Key? key}) : super(key: key);
+  const AlbumCoverView({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

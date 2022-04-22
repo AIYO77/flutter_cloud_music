@@ -21,11 +21,11 @@ import '../../../routes/app_routes.dart';
 import '../../found/model/shuffle_log_model.dart';
 
 class VideoListContent extends StatelessWidget {
-  VideoListContent(this.videos);
+  VideoListContent(this.videos, {required this.controller});
 
   List<MLogResource>? videos;
 
-  final controller = Get.find<PlaylistDetailController>();
+  final PlaylistDetailController controller;
 
   @override
   Widget build(BuildContext context) {

@@ -15,12 +15,16 @@ import 'package:get/get.dart';
 
 import 'album_detail_controller.dart';
 
-class AlbumDetailPage extends GetView<AlbumDetailController> {
-  const AlbumDetailPage({Key? key}) : super(key: key);
+class AlbumDetailPage extends StatelessWidget {
+  AlbumDetailPage({Key? key}) : super(key: key);
+
+  late AlbumDetailController controller;
+  final tag = DateTime.now().millisecondsSinceEpoch.toString();
 
   @override
   Widget build(BuildContext context) {
-    Get.log(controller.albumId);
+    controller =
+        GetInstance().putOrFind(() => AlbumDetailController(), tag: tag);
     controller.appbarHeight = context.mediaQueryPadding.top + Adapt.px(44);
     return Scaffold(
       appBar: PreferredSize(
@@ -39,7 +43,9 @@ class AlbumDetailPage extends GetView<AlbumDetailController> {
   Widget _buildContent(BuildContext context) {
     return SliverFab(
       topScalingEdge: controller.appbarHeight,
-      floatingWidget: AlbumDetailFabCount(),
+      floatingWidget: AlbumDetailFabCount(
+        controller: controller,
+      ),
       //收藏/评论/分享数 悬浮fab
       expandedHeight: controller.expandedHeight,
       floatingPosition:
@@ -49,6 +55,7 @@ class AlbumDetailPage extends GetView<AlbumDetailController> {
         SliverPersistentHeader(
             pinned: true,
             delegate: AlbumDetailSliverHeaderDelegate(
+                controller: controller,
                 expendHeight: controller.expandedHeight,
                 minHeight: controller.appbarHeight)),
         //间距
@@ -66,7 +73,10 @@ class AlbumDetailPage extends GetView<AlbumDetailController> {
               playCount: controller.albumDetail.value?.songs.length ?? 0,
             )))),
         //歌曲列表
-        Obx(() => AlbumDetailSongList(controller.albumDetail.value?.songs)),
+        Obx(() => AlbumDetailSongList(
+              controller.albumDetail.value?.songs,
+              controller: controller,
+            )),
         //pading bottom
         SliverToBoxAdapter(
           child: padingBottomBox(),

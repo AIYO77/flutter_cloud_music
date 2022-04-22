@@ -6,15 +6,14 @@ import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/pages/album_detail/album_detail_controller.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/widget/song_cell.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
-import 'package:get/get.dart';
 import 'package:music_player/music_player.dart';
 
 class AlbumDetailSongList extends StatelessWidget {
-  AlbumDetailSongList(this.songs);
+  AlbumDetailSongList(this.songs, {required this.controller});
 
   List<Song>? songs;
 
-  final controller = Get.find<AlbumDetailController>();
+  final AlbumDetailController controller;
 
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,9 @@ import 'package:get/get.dart';
 
 class AlbumDetailFabCount extends StatelessWidget
     implements PreferredSizeWidget {
-  final controller = Get.find<AlbumDetailController>();
+  final AlbumDetailController controller;
+
+  const AlbumDetailFabCount({required this.controller});
 
   @override
   Widget build(BuildContext context) {

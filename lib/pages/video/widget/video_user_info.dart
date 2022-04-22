@@ -6,6 +6,7 @@ import 'package:flutter_cloud_music/common/model/video_detail_model.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
+import 'package:flutter_cloud_music/common/utils/adapt.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/widgets/user_avatar.dart';
 import 'package:get/get.dart';
@@ -75,7 +76,7 @@ class _State extends State<VideoUserInfoWidget> {
               gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Colors.black12, Colors.black54],
+              colors: [Colors.black26, Colors.black87],
             ))
           : null,
       child: Column(
@@ -97,22 +98,25 @@ class _State extends State<VideoUserInfoWidget> {
             behavior: HitTestBehavior.translucent,
             child: Container(
               padding: EdgeInsets.symmetric(vertical: Dimens.gap_dp13),
-              child: RichText(
-                text: TextSpan(children: [
-                  TextSpan(
-                    text: showMoreDes ? title + ('\n$des') : title,
-                    style: TextStyle(
-                        color: Colours.color_237, fontSize: Dimens.font_sp16),
-                  ),
-                  if (hasMoreDes && !showMoreDes)
-                    WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        child: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                          size: Dimens.gap_dp20,
-                        )),
-                ]),
+              constraints: BoxConstraints(maxHeight: Adapt.screenH() * 2 / 3),
+              child: SingleChildScrollView(
+                child: RichText(
+                  text: TextSpan(children: [
+                    TextSpan(
+                      text: showMoreDes ? title + ('\n$des') : title,
+                      style: TextStyle(
+                          color: Colours.color_237, fontSize: Dimens.font_sp16),
+                    ),
+                    if (hasMoreDes && !showMoreDes)
+                      WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.white,
+                            size: Dimens.gap_dp20,
+                          )),
+                  ]),
+                ),
               ),
             ),
           )

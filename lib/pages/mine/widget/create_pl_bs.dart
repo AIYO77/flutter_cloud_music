@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/ext/ext.dart';
-import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/widgets/round_checkbox.dart';
@@ -191,7 +190,7 @@ class _State extends State<CreatePlBottomSheet> {
                 style: body2Style(),
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  focusColor: Colours.blue,
+                  focusColor: context.theme.highlightColor,
                   counterText: '',
                   constraints: BoxConstraints(maxHeight: Dimens.gap_dp50),
                   contentPadding: EdgeInsets.zero,

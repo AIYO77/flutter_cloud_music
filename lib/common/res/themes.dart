@@ -10,7 +10,8 @@ class Themes {
       dividerColor: Colours.diver_color,
       shadowColor: Colours.shadow_color,
       iconTheme: const IconThemeData(color: Colours.icon_color),
-      highlightColor: Colors.grey.shade300,
+      highlightColor: Colours.blue,
+      hintColor: Colors.grey.shade300,
       cardColor: Colours.card_color,
       appBarTheme: const AppBarTheme(
           toolbarHeight: 56.0,
@@ -52,7 +53,8 @@ class Themes {
     cardColor: Colours.dark_card_color,
     dividerColor: Colours.dark_diver_color,
     iconTheme: IconThemeData(color: Colours.dark_icon_color),
-    highlightColor: Colors.grey.shade300.withOpacity(0.5),
+    highlightColor: Colours.blue_dark,
+    hintColor: Colors.grey.shade300.withOpacity(0.5),
     shadowColor: Colours.shadow_color_dark,
     scaffoldBackgroundColor: Colours.dark_bg_color,
     appBarTheme: AppBarTheme(

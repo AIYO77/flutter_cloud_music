@@ -23,14 +23,18 @@ import 'playlist_detail_controller.dart';
  * @Last Modified time: 2021-10-08 14:15:15 
  */
 
-class PlaylistDetailPage extends GetView<PlaylistDetailController> {
+class PlaylistDetailPage extends StatelessWidget {
   PlaylistDetailPage({Key? key}) : super(key: key);
 
   double appbarHeight = 0.0;
 
+  int timeMill = DateTime.now().millisecondsSinceEpoch;
+  late PlaylistDetailController controller;
+
   @override
   Widget build(BuildContext context) {
-    Get.log(controller.playlistId);
+    controller = GetInstance()
+        .putOrFind(() => PlaylistDetailController(), tag: timeMill.toString());
     appbarHeight = context.mediaQueryPadding.top + Adapt.px(44);
     return Scaffold(
       appBar: PreferredSize(
@@ -39,6 +43,7 @@ class PlaylistDetailPage extends GetView<PlaylistDetailController> {
           child: PlaylistTopAppbar(
             key: controller.appBarKey,
             appBarHeight: appbarHeight,
+            controller: controller,
           )),
       extendBodyBehindAppBar: true,
       backgroundColor: Get.theme.cardColor,
@@ -50,7 +55,9 @@ class PlaylistDetailPage extends GetView<PlaylistDetailController> {
   Widget _buildContent(BuildContext context) {
     return SliverFab(
       topScalingEdge: appbarHeight,
-      floatingWidget: PlaylistFabCount(),
+      floatingWidget: PlaylistFabCount(
+        controller: controller,
+      ),
       //收藏/评论/分享数 悬浮fab
       expandedHeight: controller.expandedHeight,
       floatingPosition:
@@ -60,6 +67,7 @@ class PlaylistDetailPage extends GetView<PlaylistDetailController> {
         SliverPersistentHeader(
             pinned: true,
             delegate: PlaylistSliverHeaderDelegate(
+                controller: controller,
                 expendHeight: controller.expandedHeight,
                 minHeight: appbarHeight)),
         //间距
@@ -72,11 +80,20 @@ class PlaylistDetailPage extends GetView<PlaylistDetailController> {
         //全部播放吸顶
         SliverPersistentHeader(
             pinned: true,
-            delegate: GeneralSliverDelegate(child: PlDetailPlayAll())),
+            delegate: GeneralSliverDelegate(
+                child: PlDetailPlayAll(
+              controller: controller,
+            ))),
         //列表
         Obx(() => controller.detail.value?.playlist.specialType == 200
-            ? VideoListContent(controller.detail.value!.playlist.videos)
-            : PlayListContent(controller.songs.value)),
+            ? VideoListContent(
+                controller.detail.value!.playlist.videos,
+                controller: controller,
+              )
+            : PlayListContent(
+                controller.songs.value,
+                controller: controller,
+              )),
         //pading bottom
         SliverToBoxAdapter(
           child: padingBottomBox(),

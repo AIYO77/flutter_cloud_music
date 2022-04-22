@@ -12,9 +12,9 @@ import 'package:flutter_cloud_music/widgets/user_avatar.dart';
 import 'package:get/get.dart';
 
 class TopNormalInfo extends StatelessWidget {
-  final controller = Get.find<PlaylistDetailController>();
+  final PlaylistDetailController controller;
 
-  TopNormalInfo({Key? key}) : super(key: key);
+  const TopNormalInfo({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

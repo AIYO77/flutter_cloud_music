@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
@@ -69,7 +68,7 @@ class VerificationCodePage extends GetView<VerificationCodeController> {
                           : '${controller.countdownTime.value}s',
                       style: TextStyle(
                           color: controller.countdownTime.value < 1
-                              ? Colours.blue
+                              ? context.theme.highlightColor
                               : body1Style().color),
                     ),
                   ),

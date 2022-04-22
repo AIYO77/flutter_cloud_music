@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/api/muisc_api.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/player/player_service.dart';
+import 'package:get/get.dart';
 import 'package:get/get_instance/src/get_instance.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -96,7 +97,7 @@ class _State extends State<ResultSongs> {
                                 controller.keywordsValue,
                                 style: TextStyle(
                                     fontSize: Dimens.font_sp16,
-                                    color: Colours.blue),
+                                    color: context.theme.highlightColor),
                               )
                             ],
                           ),
@@ -121,7 +122,7 @@ class _State extends State<ResultSongs> {
                                     controller.keywordsValue,
                                     style: TextStyle(
                                         fontSize: captionStyle().fontSize,
-                                        color: Colours.blue),
+                                        color: context.theme.highlightColor),
                                   )
                                 ],
                               ))
