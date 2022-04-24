@@ -11,7 +11,9 @@ import 'package:flutter_cloud_music/pages/found/widget/found_appbar.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_ball.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_banner.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_header_bg.dart';
+import 'package:flutter_cloud_music/pages/found/widget/found_hot_topic.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_music_calendar.dart';
+import 'package:flutter_cloud_music/pages/found/widget/found_new_slide_dragon_ball.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_new_song_album.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_shuffle_mlog.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_slide_playable_dragon_ball.dart';
@@ -19,6 +21,7 @@ import 'package:flutter_cloud_music/pages/found/widget/found_slide_single_song.d
 import 'package:flutter_cloud_music/pages/found/widget/found_slide_songlist_align.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_slide_voicelist.dart';
 import 'package:flutter_cloud_music/pages/found/widget/found_tab_mlog.dart';
+import 'package:flutter_cloud_music/pages/found/widget/found_yuncun.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:get/get.dart';
 import 'package:keframe/frame_separate_widget.dart';
@@ -57,6 +60,7 @@ class FoundPage extends StatelessWidget {
           curIndex: index,
           itemHeight: itemHeight,
         );
+      case HOMEPAGE_SLIDE_PODCAST_VOICE_MORE_TAB:
       case SHOWTYPE_HOMEPAGE_NEW_SONG_NEW_ALBUM:
         return FoundNewSongAlbum(
           blocks.creatives!,
@@ -89,13 +93,21 @@ class FoundPage extends StatelessWidget {
       case SLIDE_PLAYABLE_DRAGON_BALL_MORE_TAB:
         return FoundTabMlogWidget(
             creatives: blocks.creatives!, itemHeight: itemHeight);
+      case HOMEPAGE_BLOCK_HOT_TOPIC:
+        return FoundHotTopic(blocks: blocks, itemHeight: itemHeight);
+      case HOMEPAGE_YUNCUN_PRODUCED:
+        return FoundYunProduced(blocks: blocks, itemHeight: itemHeight);
+      case SLIDE_PLAYABLE_DRAGON_BALL_NEW_BROADCAST:
+        return FoundNewSlideDragonBall(
+            creativeModel: blocks.creatives!.elementAt(0),
+            itemHeight: itemHeight);
       default:
         return Container(
           width: Adapt.screenH(),
           height: Dimens.gap_dp100,
           alignment: Alignment.center,
           color: Get.theme.cardColor,
-          child: Text('未知类型: ${blocks.showType}'),
+          child: Text('未适配类型: ${blocks.showType}'),
         );
     }
   }
@@ -105,6 +117,7 @@ class FoundPage extends StatelessWidget {
       case SHOWTYPE_BANNER:
         return Gaps.empty;
       case SHOWTYPE_HOMEPAGE_NEW_SONG_NEW_ALBUM:
+      case HOMEPAGE_SLIDE_PODCAST_VOICE_MORE_TAB:
         return nextType == SHOWTYPE_SLIDE_SINGLE_SONG
             ? Gaps.empty
             : Gaps.vGap10;

@@ -21,7 +21,9 @@ UiElementModel _$UiElementModelFromJson(Map<String, dynamic> json) =>
           ? null
           : ElementButton.fromJson(json['button'] as Map<String, dynamic>),
       (json['labelTexts'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      (json['labelUrls'] as List<dynamic>?)?.map((e) => e as String).toList(),
       json['rcmdShowType'] as String?,
+      json['labelType'] as String?,
     );
 
 Map<String, dynamic> _$UiElementModelToJson(UiElementModel instance) =>
@@ -31,7 +33,9 @@ Map<String, dynamic> _$UiElementModelToJson(UiElementModel instance) =>
       'image': instance.image,
       'button': instance.button,
       'labelTexts': instance.labelTexts,
+      'labelUrls': instance.labelUrls,
       'rcmdShowType': instance.rcmdShowType,
+      'labelType': instance.labelType
     };
 
 TitleText _$TitleTextFromJson(Map<String, dynamic> json) => TitleText(

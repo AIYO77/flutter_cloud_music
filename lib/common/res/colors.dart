@@ -51,8 +51,8 @@ class Colours {
   static const Color white = Color(0xFFFFFFFF);
   static const Color white_dark = Color(0xFFF0F0F0);
 
-  static const Color text_label_gray = Color.fromARGB(255, 85, 85, 85);
-  static const Color text_dark_label_gray = Color.fromARGB(255, 197, 197, 197);
+  static const Color text_label_gray = Color.fromARGB(255, 179, 179, 179);
+  static const Color text_dark_label_gray = Color.fromARGB(255, 207, 207, 207);
 
   static const Color subtitle_text = Color.fromARGB(220, 111, 111, 111);
   static Color dark_subtitle_text = Colors.white.withOpacity(0.65);
@@ -111,6 +111,8 @@ class Colours {
   static const Color color_204 = Color.fromARGB(255, 204, 204, 204);
 
   static const Color black_15 = Color(0x26000000);
+
+  static const Color c_30353e = Color(0xff30353e);
 
   static Color load_image_placeholder() =>
       Get.isDarkMode ? white.withOpacity(0.1) : color_245;

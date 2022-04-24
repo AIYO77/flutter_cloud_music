@@ -6,11 +6,12 @@ class Bounce extends StatefulWidget {
   final Duration duration;
   final double scaleFactor;
 
-  const Bounce(
-      {required this.child,
-      this.duration = const Duration(milliseconds: 100),
-      this.scaleFactor = 1.25,
-      required this.onPressed});
+  const Bounce({
+    required this.onPressed,
+    required this.child,
+    this.duration = const Duration(milliseconds: 100),
+    this.scaleFactor = 1.25,
+  });
 
   @override
   BounceState createState() => BounceState();

@@ -26,28 +26,29 @@ class Themes {
           elevation: 24.0,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(14.0)))),
-      textTheme: const TextTheme(
-          headline1: TextStyle(
+      textTheme: TextTheme(
+          headline1: const TextStyle(
               color: Colours.headline1_color,
               fontSize: 13,
               fontWeight: FontWeight.w500),
-          headline2: TextStyle(
+          headline2: const TextStyle(
               color: Colours.headline1_color,
               fontSize: 15,
               fontWeight: FontWeight.w500),
-          subtitle1: TextStyle(
+          subtitle1: const TextStyle(
               color: Colours.headline4_color,
               fontSize: 17,
               fontWeight: FontWeight.w600),
-          bodyText1: TextStyle(
+          bodyText1: const TextStyle(
               color: Colours.body1_txt_color,
               fontSize: 13,
               fontWeight: FontWeight.normal),
-          bodyText2: TextStyle(
+          bodyText2: const TextStyle(
               color: Colours.body2_txt_color,
               fontSize: 16,
               fontWeight: FontWeight.normal),
-          caption: TextStyle(color: Colours.subtitle_text, fontSize: 12)));
+          caption:
+              const TextStyle(color: Colours.subtitle_text, fontSize: 12)));
 
   static final darkTheme = ThemeData.dark().copyWith(
     cardColor: Colours.dark_card_color,

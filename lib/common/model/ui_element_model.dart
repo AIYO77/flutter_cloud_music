@@ -19,8 +19,14 @@ class UiElementModel extends Object {
   @JsonKey(name: 'labelTexts')
   List<String>? labelTexts;
 
+  @JsonKey(name: 'labelUrls')
+  List<String>? labelUrls;
+
   @JsonKey(name: 'rcmdShowType')
   String? rcmdShowType;
+
+  @JsonKey(name: 'labelType')
+  String? labelType;
 
   UiElementModel(
     this.mainTitle,
@@ -28,7 +34,9 @@ class UiElementModel extends Object {
     this.image,
     this.button,
     this.labelTexts,
+    this.labelUrls,
     this.rcmdShowType,
+    this.labelType,
   );
 
   factory UiElementModel.fromJson(Map<String, dynamic> srcJson) =>
@@ -40,7 +48,9 @@ class UiElementModel extends Object {
         'image': image?.toJson(),
         'button': button?.toJson(),
         'labelTexts': labelTexts,
+        'labelUrls': labelUrls,
         'rcmdShowType': rcmdShowType,
+        'labelType': labelType,
       };
 }
 

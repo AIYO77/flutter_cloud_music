@@ -799,13 +799,13 @@ class MusicApi {
     String? id,
     String? threadId,
     required int type,
-    required String cid,
+    required int cid,
     required int t,
   }) async {
     if (id == null && threadId == null) {
       throw ArgumentError('id/threadId must satisfy one');
     }
-    final map = {
+    final map = <String, dynamic>{
       'type': type,
       'cid': cid,
       't': t,
@@ -821,7 +821,5 @@ class MusicApi {
     return response.isSuccess();
   }
 
-  static Future comment() async{
-
-  }
+  static Future comment() async {}
 }

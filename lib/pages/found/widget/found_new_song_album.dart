@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/model/play_queue_with_music.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
@@ -8,11 +9,13 @@ import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/pages/found/model/creative_model.dart';
 import 'package:flutter_cloud_music/pages/found/model/found_new_song.dart';
 import 'package:flutter_cloud_music/routes/routes_utils.dart';
+import 'package:flutter_cloud_music/widgets/custom_tap.dart';
 import 'package:flutter_cloud_music/widgets/general_album_item.dart';
 import 'package:flutter_cloud_music/widgets/general_song_one.dart';
 import 'package:get/get.dart';
 import 'package:music_player/music_player.dart';
 
+import '../../../common/utils/image_utils.dart';
 import 'element_button_widget.dart';
 
 class FoundNewSongAlbum extends StatelessWidget {
@@ -161,6 +164,14 @@ class FoundNewSongAlbum extends StatelessWidget {
               uiElementModel: element.uiElement,
               action: element.action!);
           break;
+        case 'voice':
+          //热门博客
+          childView = _buildVoice(element);
+          break;
+        case 'voiceList':
+          //有声书
+          childView = _buildVoice(element, isVoice: false);
+          break;
       }
       widgets.add(Container(
         padding: EdgeInsets.only(right: Dimens.gap_dp15),
@@ -180,6 +191,104 @@ class FoundNewSongAlbum extends StatelessWidget {
       ));
     }
     return widgets;
+  }
+
+  Widget _buildVoice(Resources resources, {bool isVoice = true}) {
+    final uiElement = resources.uiElement;
+    return Bounce(
+        onPressed: () {
+          RouteUtils.routeFromActionStr(resources.action);
+        },
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(Dimens.gap_dp10),
+              child: CachedNetworkImage(
+                imageUrl: uiElement.image?.imageUrl ?? '',
+                width: Dimens.gap_dp50,
+                height: Dimens.gap_dp50,
+                placeholder: placeholderWidget,
+                errorWidget: errorWidget,
+                imageBuilder: (context, provider) {
+                  return Stack(
+                    children: [
+                      Positioned.fill(
+                          child: Image(
+                        image: provider,
+                        fit: BoxFit.cover,
+                      )),
+                      if (isVoice)
+                        Positioned(
+                          right: Dimens.gap_dp2,
+                          bottom: Dimens.gap_dp2,
+                          child: Image.asset(
+                            ImageUtils.getImagePath('icon_play_small'),
+                            width: Dimens.gap_dp20,
+                            height: Dimens.gap_dp20,
+                            color: Colors.white.withOpacity(0.9),
+                          ),
+                        )
+                    ],
+                  );
+                },
+              ),
+            ),
+            Gaps.hGap10,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    uiElement.mainTitle?.title ?? '',
+                    style: headline1Style(),
+                  ),
+                  Gaps.vGap4,
+                  Row(
+                    children: [
+                      Container(
+                        height: Dimens.gap_dp14,
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.only(right: Dimens.gap_dp2),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: Dimens.gap_dp2),
+                        decoration: BoxDecoration(
+                          color: uiElement.labelType?.toLowerCase() == 'yellow'
+                              ? Colors.orange.withOpacity(0.1)
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(Dimens.gap_dp2),
+                          border: uiElement.labelType?.toLowerCase() != 'yellow'
+                              ? Border.all(
+                                  width: Dimens.gap_dp1,
+                                  color: captionStyle().color!.withOpacity(0.4))
+                              : null,
+                        ),
+                        child: Text(
+                          uiElement.labelTexts?.join('/') ?? '',
+                          style: TextStyle(
+                              fontSize: Dimens.font_sp10,
+                              color:
+                                  uiElement.labelType?.toLowerCase() == 'yellow'
+                                      ? Colors.orange
+                                      : captionStyle().color!.withOpacity(0.8)),
+                        ),
+                      ),
+                      Expanded(
+                          child: Text(
+                        uiElement.subTitle?.title ?? '',
+                        textAlign: TextAlign.start,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: captionStyle(),
+                      ))
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ));
   }
 
   @override
