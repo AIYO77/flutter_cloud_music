@@ -35,7 +35,7 @@ Map<String, dynamic> _$UiElementModelToJson(UiElementModel instance) =>
       'labelTexts': instance.labelTexts,
       'labelUrls': instance.labelUrls,
       'rcmdShowType': instance.rcmdShowType,
-      'labelType': instance.labelType
+      'labelType': instance.labelType,
     };
 
 TitleText _$TitleTextFromJson(Map<String, dynamic> json) => TitleText(

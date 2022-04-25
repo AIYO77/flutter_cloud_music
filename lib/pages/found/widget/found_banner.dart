@@ -5,12 +5,15 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/event/index.dart';
 import 'package:flutter_cloud_music/common/model/banner_model.dart';
+import 'package:flutter_cloud_music/common/player/player.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/res/gaps.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
+import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/found/found_controller.dart';
+import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:flutter_cloud_music/routes/routes_utils.dart';
 import 'package:flutter_cloud_music/widgets/banner_pagination_builder.dart';
 import 'package:get/get.dart';
@@ -51,8 +54,17 @@ class FoundBannerState extends State<FoundBanner> {
     final banner = widget.bannerModel.banner[index];
     return GestureDetector(
       onTap: () {
-        if (banner.url != null) {
+        if (banner.targetType == 1 && banner.song != null) {
+          //新歌
+          context.insertAndPlay(banner.song!);
+        } else if (banner.targetType == 10) {
+          //新碟
+          Get.toNamed(Routes.ALBUM_DETAIL_ID(banner.targetId.toString()));
+        } else if (banner.url != null) {
+          //活动
           RouteUtils.routeFromActionStr(banner.url);
+        } else {
+          toast('type = ${banner.targetType} title = ${banner.typeTitle}');
         }
       },
       child: Container(

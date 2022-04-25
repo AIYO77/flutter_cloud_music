@@ -15,6 +15,8 @@ class TabWidget extends StatefulWidget {
 
   final bool isScrollable;
 
+  final double rightPadding;
+
   const TabWidget({
     Key? key,
     required this.tabItems,
@@ -22,6 +24,7 @@ class TabWidget extends StatefulWidget {
     this.initTabIndex = 0,
     required this.pageItemBuilder,
     this.onPageChanged,
+    this.rightPadding = 0,
   }) : super(key: key);
 
   @override
@@ -80,7 +83,8 @@ class _PlayListTabBarState extends State<TabWidget>
               labelPadding: EdgeInsets.only(
                   left: Dimens.gap_dp15, right: Dimens.gap_dp15),
               isScrollable: widget.isScrollable,
-              padding: EdgeInsets.only(top: Dimens.gap_dp4),
+              padding: EdgeInsets.only(
+                  top: Dimens.gap_dp4, right: widget.rightPadding),
               labelColor: Get.isDarkMode
                   ? Colors.white
                   : const Color.fromARGB(255, 51, 51, 51),

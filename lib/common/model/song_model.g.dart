@@ -19,9 +19,6 @@ Song _$SongFromJson(Map<String, dynamic> json) => Song(
       json['copyright'] as int?,
       json['originCoverType'] as int?,
       json['mv'] as int?,
-      json['videoInfo'] == null
-          ? null
-          : VideoInfo.fromJson(json['videoInfo'] as Map<String, dynamic>),
       json['privilege'] == null
           ? null
           : PrivilegeModel.fromJson(json['privilege'] as Map<String, dynamic>),
@@ -45,7 +42,6 @@ Map<String, dynamic> _$SongToJson(Song instance) => <String, dynamic>{
       'copyright': instance.copyright,
       'originCoverType': instance.originCoverType,
       'mv': instance.mv,
-      'videoInfo': instance.videoInfo,
       'privilege': instance.privilege,
       'actionType': instance.actionType,
       'originSongSimpleData': instance.originSongSimpleData,
@@ -87,36 +83,6 @@ Map<String, dynamic> _$AlbumSimpleToJson(AlbumSimple instance) =>
       'name': instance.name,
       'picUrl': instance.picUrl,
       'pic_str': instance.picStr,
-    };
-
-VideoInfo _$VideoInfoFromJson(Map<String, dynamic> json) => VideoInfo(
-      json['moreThanOne'] as bool,
-      json['video'] == null
-          ? null
-          : Video.fromJson(json['video'] as Map<String, dynamic>),
-    );
-
-Map<String, dynamic> _$VideoInfoToJson(VideoInfo instance) => <String, dynamic>{
-      'moreThanOne': instance.moreThanOne,
-      'video': instance.video,
-    };
-
-Video _$VideoFromJson(Map<String, dynamic> json) => Video(
-      json['vid'] as String?,
-      json['type'] as int,
-      json['title'] as String?,
-      json['playTime'] as int,
-      json['coverUrl'] as String?,
-      json['publishTime'] as int,
-    );
-
-Map<String, dynamic> _$VideoToJson(Video instance) => <String, dynamic>{
-      'vid': instance.vid,
-      'type': instance.type,
-      'title': instance.title,
-      'playTime': instance.playTime,
-      'coverUrl': instance.coverUrl,
-      'publishTime': instance.publishTime,
     };
 
 OriginSongSimpleData _$OriginSongSimpleDataFromJson(

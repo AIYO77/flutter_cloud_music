@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter_cloud_music/api/muisc_api.dart';
+import 'package:flutter_cloud_music/common/event/index.dart';
 import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/model/play_list_tag_model.dart';
+import 'package:flutter_cloud_music/pages/playlist_collection/selection/controller.dart';
 import 'package:get/get.dart';
 
 class PlaylistCollectionController extends GetxController {
@@ -17,6 +21,8 @@ class PlaylistCollectionController extends GetxController {
 
   final tags = Rx<List<PlayListTagModel>?>(null);
 
+  late StreamSubscription _streamSubscription;
+
   @override
   void onInit() {
     if (Get.parameters.containsKey('tabPage')) {
@@ -26,6 +32,10 @@ class PlaylistCollectionController extends GetxController {
       categoryName = Get.parameters['categoryName'].toString();
     }
     super.onInit();
+
+    _streamSubscription = eventBus.on<TagTypeModel>().listen((event) {
+      resetTags(event.tags);
+    });
   }
 
   @override
@@ -45,7 +55,9 @@ class PlaylistCollectionController extends GetxController {
   }
 
   @override
-  void onClose() {}
+  void onClose() {
+    _streamSubscription.cancel();
+  }
 
   Future<void> getHotTags() async {
     final data = await MusicApi.getHotTags();

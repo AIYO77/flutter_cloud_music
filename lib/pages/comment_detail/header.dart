@@ -75,10 +75,7 @@ class _SongState extends State<CommentDetailSongHeader> {
                 Gaps.line,
                 GestureDetector(
                   onTap: () {
-                    context.player.insertToNext(widget.song.metadata);
-                    context.transportControls
-                        .playFromMediaId(widget.song.id.toString());
-                    toPlaying();
+                    context.insertAndPlay(widget.song, openPlayingPage: true);
                   },
                   behavior: HitTestBehavior.translucent,
                   child: Container(

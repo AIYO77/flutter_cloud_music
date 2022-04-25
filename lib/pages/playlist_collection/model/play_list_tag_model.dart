@@ -35,4 +35,9 @@ class PlayListTagModel extends Object {
       _$PlayListTagModelFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$PlayListTagModelToJson(this);
+
+  @override
+  String toString() {
+    return '$category$name';
+  }
 }

@@ -23,6 +23,8 @@ abstract class Routes {
 
   static const PLAYLIST_COLLECTION = _Paths.PLAYLIST_COLLECTION;
 
+  static const PLAYLIST_TAGS = _Paths.PLAYLIST_TAGS;
+
   static const PLAYLIST_DETAIL = _Paths.PLAYLIST_DETAIL;
 
   static const RCMD_SONG_DAY = _Paths.RCMD_SONG_DAY;
@@ -88,6 +90,9 @@ abstract class _Paths {
 
   // 歌单广场
   static const PLAYLIST_COLLECTION = '/playlistCollection';
+
+  //歌单全部标签
+  static const PLAYLIST_TAGS = '/playlistTags';
 
   //歌单详情 id:歌单ID
   static const PLAYLIST_DETAIL = "/playlist/:id";

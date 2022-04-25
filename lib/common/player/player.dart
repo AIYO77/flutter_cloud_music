@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_cloud_music/common/model/song_model.dart';
 import 'package:flutter_cloud_music/common/player/player_service.dart';
+import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:get/get.dart';
@@ -52,6 +53,14 @@ extension QuitPlayerExt on BuildContext {
       logger.e(stacktrace.toString());
       rethrow;
     }
+  }
+
+  Future insertAndPlay(Song song, {bool openPlayingPage = false}) async {
+    player.insertToNext(song.metadata);
+    await Future.delayed(const Duration(milliseconds: 10)).whenComplete(() {
+      transportControls.playFromMediaId(song.id.toString());
+    });
+    if (openPlayingPage) toPlaying();
   }
 
   TransportControls get transportControls => player.transportControls;

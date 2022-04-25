@@ -3,6 +3,7 @@ import 'package:flutter_cloud_music/common/ext/ext.dart';
 import 'package:flutter_cloud_music/common/model/album_cover_info.dart';
 import 'package:flutter_cloud_music/common/model/album_detail.dart';
 import 'package:flutter_cloud_music/common/model/album_dynamic_info.dart';
+import 'package:flutter_cloud_music/common/model/all_pl_tag_model.dart';
 import 'package:flutter_cloud_music/common/model/artists_model.dart';
 import 'package:flutter_cloud_music/common/model/calendar_events.dart';
 import 'package:flutter_cloud_music/common/model/comment_model.dart';
@@ -165,6 +166,15 @@ class MusicApi {
           .toList();
     }
     return tags;
+  }
+
+  ///获取歌单分类
+  static Future<AllPlTagModel?> getPlCatlist() async {
+    final response = await httpManager.get('/playlist/catlist', null);
+    if (response.isSuccess()) {
+      return AllPlTagModel.fromJson(response.data);
+    }
+    return null;
   }
 
   ///获取精品歌单

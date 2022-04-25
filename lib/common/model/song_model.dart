@@ -40,9 +40,6 @@ class Song extends Object {
   @JsonKey(name: 'mv')
   int? mv;
 
-  @JsonKey(name: 'videoInfo')
-  VideoInfo? videoInfo;
-
   @JsonKey(name: 'privilege')
   PrivilegeModel? privilege;
 
@@ -65,7 +62,6 @@ class Song extends Object {
     this.copyright,
     this.originCoverType,
     this.mv,
-    this.videoInfo,
     this.privilege,
     this.actionType,
     this.originSongSimpleData,
@@ -89,9 +85,6 @@ class Song extends Object {
         json['copyright'] as int?,
         json['originCoverType'] as int?,
         json['mv'] as int?,
-        json['videoInfo'] == null
-            ? null
-            : VideoInfo.fromJson(Map<String, dynamic>.from(json['videoInfo'])),
         json['privilege'] == null
             ? null
             : PrivilegeModel.fromJson(
@@ -116,7 +109,6 @@ class Song extends Object {
         'copyright': copyright,
         'originCoverType': originCoverType,
         'mv': mv,
-        'videoInfo': videoInfo?.toJson(),
         'privilege': privilege?.toJson(),
         'actionType': actionType,
         'originSongSimpleData': originSongSimpleData?.toJson(),
@@ -231,63 +223,6 @@ class AlbumSimple extends Object {
       _$AlbumSimpleFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$AlbumSimpleToJson(this);
-}
-
-@JsonSerializable()
-class VideoInfo extends Object {
-  @JsonKey(name: 'moreThanOne')
-  bool moreThanOne;
-
-  @JsonKey(name: 'video')
-  Video? video;
-
-  VideoInfo(
-    this.moreThanOne,
-    this.video,
-  );
-
-  factory VideoInfo.fromJson(Map<String, dynamic> srcJson) =>
-      _$VideoInfoFromJson(srcJson);
-
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'moreThanOne': moreThanOne,
-        'video': video?.toJson(),
-      };
-}
-
-@JsonSerializable()
-class Video extends Object {
-  @JsonKey(name: 'vid')
-  String? vid;
-
-  @JsonKey(name: 'type')
-  int type;
-
-  @JsonKey(name: 'title')
-  String? title;
-
-  @JsonKey(name: 'playTime')
-  int playTime;
-
-  @JsonKey(name: 'coverUrl')
-  String? coverUrl;
-
-  @JsonKey(name: 'publishTime')
-  int publishTime;
-
-  Video(
-    this.vid,
-    this.type,
-    this.title,
-    this.playTime,
-    this.coverUrl,
-    this.publishTime,
-  );
-
-  factory Video.fromJson(Map<String, dynamic> srcJson) =>
-      _$VideoFromJson(srcJson);
-
-  Map<String, dynamic> toJson() => _$VideoToJson(this);
 }
 
 @JsonSerializable()

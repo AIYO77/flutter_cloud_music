@@ -34,7 +34,6 @@ class FoundNewSong extends Object {
         songData.copyright,
         songData.originCoverType,
         songData.mvid,
-        null,
         songPrivilege,
         type,
         null,
@@ -84,6 +83,6 @@ class SongData extends Object {
 
   Song buildSong() {
     return Song(name, id, artists, alias, fee, 100, album, copyright,
-        originCoverType, mvid, null, songPrivilege, null, null, 0);
+        originCoverType, mvid, songPrivilege, null, null, 0);
   }
 }

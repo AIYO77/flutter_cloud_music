@@ -33,6 +33,8 @@ import 'package:flutter_cloud_music/pages/playing_fm/playing_fm_binding.dart';
 import 'package:flutter_cloud_music/pages/playing_fm/playing_fm_view.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/playlist_collection_binding.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/playlist_collection_view.dart';
+import 'package:flutter_cloud_music/pages/playlist_collection/selection/binding.dart';
+import 'package:flutter_cloud_music/pages/playlist_collection/selection/view.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_view.dart';
 import 'package:flutter_cloud_music/pages/rcmd_song_day/bindings.dart';
 import 'package:flutter_cloud_music/pages/rcmd_song_day/view.dart';
@@ -87,6 +89,12 @@ class AppPages {
         page: () => const PlaylistCollectionPage(),
         binding: PlaylistCollectionBinding(),
         preventDuplicates: true),
+
+    //歌单全部标签
+    GetPage(
+        name: Routes.PLAYLIST_TAGS,
+        page: () => PlaylistTagAllPage(),
+        binding: PlaylistTagBinding()),
 
     //歌单详情
     GetPage(name: Routes.PLAYLIST_DETAIL, page: () => PlaylistDetailPage()),

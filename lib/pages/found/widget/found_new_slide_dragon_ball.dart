@@ -53,7 +53,7 @@ class FoundNewSlideDragonBall extends StatelessWidget {
             top: Dimens.gap_dp16,
             bottom: Dimens.gap_dp16),
         decoration: BoxDecoration(
-            color: context.isDarkMode ? Colors.white24 : Colours.c_30353e,
+            color: context.isDarkMode ? Colors.white12 : Colours.c_30353e,
             borderRadius: BorderRadius.circular(Dimens.gap_dp10)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
