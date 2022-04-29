@@ -29,6 +29,7 @@ class StoredService extends GetxService {
       box.write(CACHE_HISTORY_SEARCH, list);
       historySearch.value = list;
     } else {
+      if (oldList.indexOf(keywords) == 0) return;
       if (oldList.contains(keywords)) {
         oldList.remove(keywords);
       }

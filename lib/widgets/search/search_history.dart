@@ -31,57 +31,60 @@ class SearchHistoryView extends StatelessWidget {
   }
 
   Widget _buildHorView(BuildContext context) {
-    return Obx(() =>
-        GetUtils.isNullOrBlank(StoredService.to.historySearch.value) == true
-            ? Gaps.empty
-            : Row(
-                children: [
-                  Container(
-                    width: Dimens.gap_dp50,
-                    height: Dimens.gap_dp32,
-                    color: context.theme.cardColor,
-                    padding: EdgeInsets.only(left: Dimens.gap_dp16),
-                    child: Text(
-                      '历史',
-                      style: headline1Style(),
-                    ),
-                  ),
-                  Expanded(
-                      child: ListView.separated(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: Dimens.gap_dp10),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return _buildItem(
-                                context,
-                                StoredService.to.historySearch.value!
-                                    .elementAt(index));
-                          },
-                          separatorBuilder: (context, index) {
-                            return Gaps.hGap10;
-                          },
-                          itemCount:
-                              StoredService.to.historySearch.value!.length)),
-                  GestureDetector(
-                    onTap: () {
-                      // StoredService.to.clearSearchHistory();
-                      toast('clear');
+    return Obx(() => GetUtils.isNullOrBlank(
+                StoredService.to.historySearch.value) ==
+            true
+        ? Gaps.empty
+        : Row(
+            children: [
+              Container(
+                width: Dimens.gap_dp50,
+                height: Dimens.gap_dp32,
+                color: context.theme.cardColor,
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.only(left: Dimens.gap_dp16),
+                child: Text(
+                  '历史',
+                  style: headline2Style(),
+                ),
+              ),
+              Expanded(
+                  child: SizedBox.fromSize(
+                size: Size.fromHeight(Dimens.gap_dp32),
+                child: ListView.separated(
+                    padding: EdgeInsets.symmetric(horizontal: Dimens.gap_dp10),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return _buildItem(
+                          context,
+                          StoredService.to.historySearch.value!
+                              .elementAt(index));
                     },
-                    behavior: HitTestBehavior.translucent,
-                    child: Container(
-                      width: Dimens.gap_dp50,
-                      height: Dimens.gap_dp32,
-                      color: context.theme.cardColor,
-                      padding: EdgeInsets.only(right: Dimens.gap_dp12),
-                      child: Image.asset(
-                        'playlist_icn_delete',
-                        color: captionStyle().color,
-                        height: Dimens.gap_dp25,
-                      ),
-                    ),
+                    separatorBuilder: (context, index) {
+                      return Gaps.hGap10;
+                    },
+                    itemCount: StoredService.to.historySearch.value!.length),
+              )),
+              GestureDetector(
+                onTap: () {
+                  // StoredService.to.clearSearchHistory();
+                  toast('clear');
+                },
+                behavior: HitTestBehavior.translucent,
+                child: Container(
+                  width: Dimens.gap_dp50,
+                  height: Dimens.gap_dp32,
+                  color: context.theme.cardColor,
+                  padding: EdgeInsets.only(
+                      left: Dimens.gap_dp12, right: Dimens.gap_dp12),
+                  child: Image.asset(
+                    ImageUtils.getImagePath('playlist_icn_delete'),
+                    color: captionStyle().color?.withOpacity(0.7),
                   ),
-                ],
-              ));
+                ),
+              ),
+            ],
+          ));
   }
 
   Widget _buildVerView(BuildContext context) {

@@ -47,10 +47,12 @@ Map<String, dynamic> _$VideosToJson(Videos instance) => <String, dynamic>{
 
 Creator _$CreatorFromJson(Map<String, dynamic> json) => Creator(
       json['userId'] as int,
-      json['userName'] as String,
+      json['userName'] as String?,
+      json['nickname'] as String?,
     );
 
 Map<String, dynamic> _$CreatorToJson(Creator instance) => <String, dynamic>{
       'userId': instance.userId,
       'userName': instance.userName,
+      'nickname': instance.nickname,
     };

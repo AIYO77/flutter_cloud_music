@@ -59,6 +59,8 @@ abstract class Routes {
 
   static const COMMENT_DETAIL = _Paths.COMMENT_DETAIL;
 
+  static const SEARCH = _Paths.SEARCH;
+
   static String PLAYLIST_DETAIL_ID(String id) => '/playlist/$id';
 
   static String ALBUM_DETAIL_ID(String id) => '/album/$id';
@@ -141,4 +143,7 @@ abstract class _Paths {
 
   //评论详情
   static const COMMENT_DETAIL = '/comment/detail';
+
+  //search
+  static const SEARCH = '/search';
 }

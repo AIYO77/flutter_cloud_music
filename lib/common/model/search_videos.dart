@@ -78,15 +78,21 @@ class Creator extends Object {
   int userId;
 
   @JsonKey(name: 'userName')
-  String userName;
+  String? userName;
+
+  @JsonKey(name: 'nickname')
+  String? nickname;
 
   Creator(
     this.userId,
     this.userName,
+    this.nickname,
   );
 
   factory Creator.fromJson(Map<String, dynamic> srcJson) =>
       _$CreatorFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$CreatorToJson(this);
+
+  String get name => userName ?? nickname ?? '佚名';
 }

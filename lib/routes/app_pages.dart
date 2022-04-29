@@ -38,6 +38,8 @@ import 'package:flutter_cloud_music/pages/playlist_collection/selection/view.dar
 import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_view.dart';
 import 'package:flutter_cloud_music/pages/rcmd_song_day/bindings.dart';
 import 'package:flutter_cloud_music/pages/rcmd_song_day/view.dart';
+import 'package:flutter_cloud_music/pages/search/binding.dart';
+import 'package:flutter_cloud_music/pages/search/view.dart';
 import 'package:flutter_cloud_music/pages/singer/singer.dart';
 import 'package:flutter_cloud_music/pages/singer_detail/view.dart';
 import 'package:flutter_cloud_music/pages/single_search/binding.dart';
@@ -48,6 +50,7 @@ import 'package:flutter_cloud_music/pages/video/binding.dart';
 import 'package:flutter_cloud_music/pages/video/view.dart';
 import 'package:flutter_cloud_music/pages/web/web_binding.dart';
 import 'package:flutter_cloud_music/pages/web/web_view.dart';
+import 'package:flutter_cloud_music/widgets/keep_alive_wrapper.dart';
 import 'package:get/route_manager.dart';
 
 import '../common/transition/downToUp_with_fade.dart';
@@ -68,7 +71,7 @@ class AppPages {
 
     GetPage(
       name: Routes.HOME,
-      page: () => const HomePage(),
+      page: () => const KeepAliveWrapper(child: HomePage()),
       binding: HomeBinding(),
       preventDuplicates: true,
       transition: Transition.fadeIn,
@@ -98,6 +101,13 @@ class AppPages {
 
     //歌单详情
     GetPage(name: Routes.PLAYLIST_DETAIL, page: () => PlaylistDetailPage()),
+
+    //search
+    GetPage(
+      name: Routes.SEARCH,
+      page: () => SearchPage(),
+      binding: SearchBinding(),
+    ),
 
     // login
     GetPage(

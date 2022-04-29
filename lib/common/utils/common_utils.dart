@@ -266,3 +266,16 @@ Widget placeholderWidget(BuildContext context, String url) => Container(
 Widget errorWidget(BuildContext context, String url, dynamic e) => Container(
       color: Colours.load_image_placeholder(),
     );
+
+Widget get leading => IconButton(
+      onPressed: () async {
+        FocusManager.instance.primaryFocus?.unfocus();
+        Get.back();
+      },
+      icon: Image.asset(
+        ImageUtils.getImagePath('dij'),
+        color: Get.theme.appBarTheme.titleTextStyle?.color,
+        width: Dimens.gap_dp25,
+        height: Dimens.gap_dp25,
+      ),
+    );

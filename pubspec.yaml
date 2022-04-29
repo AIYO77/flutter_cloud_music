@@ -47,7 +47,6 @@ dependencies:
   audioplayers: ^0.20.1
   video_player: ^2.2.17
 
-
 dev_dependencies:
   build_runner: ^2.1.5
   json_serializable: ^6.0.1

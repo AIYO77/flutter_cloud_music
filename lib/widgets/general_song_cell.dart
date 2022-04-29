@@ -8,6 +8,9 @@ import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:get/get.dart';
 
+import '../pages/video/state.dart';
+import '../pages/video/view.dart';
+
 class GeneralSongCellWidget extends StatelessWidget {
   final Song song;
 
@@ -103,7 +106,8 @@ class GeneralSongCellWidget extends StatelessWidget {
         if ((song.mv ?? -1) > 0)
           GestureDetector(
             onTap: () {
-              toast(song.mv.toString());
+              VideoPage.startWithSingle(VideoModel(
+                  id: song.mv!.toString(), coverUrl: song.al.picUrl));
             },
             child: SizedBox(
               height: Dimens.gap_dp32,

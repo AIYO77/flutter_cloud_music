@@ -34,17 +34,14 @@ class Album extends Object {
   @JsonKey(name: 'publishTime')
   int publishTime;
 
-  @JsonKey(name: 'company')
-  String company;
-
   @JsonKey(name: 'briefDesc')
   String briefDesc;
 
   @JsonKey(name: 'artist')
   Ar artist;
 
-  @JsonKey(name: 'subType')
-  String subType;
+  @JsonKey(name: 'artists')
+  List<Ar>? artists;
 
   @JsonKey(name: 'description')
   String description;
@@ -61,10 +58,9 @@ class Album extends Object {
   Album(
     this.picUrl,
     this.publishTime,
-    this.company,
     this.briefDesc,
     this.artist,
-    this.subType,
+    this.artists,
     this.description,
     this.name,
     this.id,
@@ -75,4 +71,9 @@ class Album extends Object {
       _$AlbumFromJson(srcJson);
 
   Map<String, dynamic> toJson() => _$AlbumToJson(this);
+
+  String timeStr() {
+    final date = DateTime.fromMillisecondsSinceEpoch(publishTime);
+    return '${date.year}-${date.month}-${date.day}';
+  }
 }

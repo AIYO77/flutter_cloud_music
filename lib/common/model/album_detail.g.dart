@@ -24,10 +24,13 @@ Map<String, dynamic> _$AlbumDetailToJson(AlbumDetail instance) =>
 Album _$AlbumFromJson(Map<String, dynamic> json) => Album(
       json['picUrl'] as String,
       json['publishTime'] as int,
-      json['company'] as String,
       json['briefDesc'] as String,
       Ar.fromJson(json['artist'] as Map<String, dynamic>),
-      json['subType'] as String,
+      json['artists'] == null
+          ? null
+          : (json['artists'] as List<dynamic>)
+              .map((e) => Ar.fromJson(e))
+              .toList(),
       json['description'] as String,
       json['name'] as String,
       json['id'] as int,
@@ -37,10 +40,9 @@ Album _$AlbumFromJson(Map<String, dynamic> json) => Album(
 Map<String, dynamic> _$AlbumToJson(Album instance) => <String, dynamic>{
       'picUrl': instance.picUrl,
       'publishTime': instance.publishTime,
-      'company': instance.company,
       'briefDesc': instance.briefDesc,
       'artist': instance.artist,
-      'subType': instance.subType,
+      'artists': instance.artists,
       'description': instance.description,
       'name': instance.name,
       'id': instance.id,

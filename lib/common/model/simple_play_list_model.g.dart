@@ -13,7 +13,14 @@ SimplePlayListModel _$SimplePlayListModelFromJson(Map<String, dynamic> json) =>
       json['picUrl'] as String?,
       json['coverImgUrl'] as String?,
       json['playCount'] as int,
+      json['trackCount'] as int,
       json['updateTime'] as int?,
+      (json['officialTags'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      json['creator'] == null
+          ? null
+          : Creator.fromJson(json['creator'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$SimplePlayListModelToJson(
@@ -24,5 +31,8 @@ Map<String, dynamic> _$SimplePlayListModelToJson(
       'picUrl': instance.picUrl,
       'coverImgUrl': instance.coverImgUrl,
       'playCount': instance.playCount,
+      'trackCount': instance.trackCount,
       'updateTime': instance.updateTime,
+      'officialTags': instance.officialTags,
+      'creator': instance.creator,
     };

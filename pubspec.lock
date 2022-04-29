@@ -517,7 +517,7 @@ packages:
       name: image
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.1.0"
+    version: "3.1.3"
   intl:
     dependency: "direct main"
     description:
@@ -573,7 +573,7 @@ packages:
       name: lint
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.7.2"
+    version: "1.8.2"
   logger:
     dependency: "direct main"
     description:
@@ -1100,5 +1100,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.14.0 <3.0.0"
+  dart: ">=2.15.0-7.0.dev <3.0.0"
   flutter: ">=2.5.0"

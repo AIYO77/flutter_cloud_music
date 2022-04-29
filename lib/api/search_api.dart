@@ -1,3 +1,4 @@
+import 'package:flutter_cloud_music/common/model/hot_search_model.dart';
 import 'package:flutter_cloud_music/common/model/search_suggest.dart';
 import 'package:flutter_cloud_music/common/net/init_dio.dart';
 import 'package:flutter_cloud_music/services/stored_service.dart';
@@ -52,6 +53,18 @@ class SearchApi {
       'offset': offset,
       'type': type,
     });
-    return response.data['result'];
+    if (response.isSuccess()) {
+      return response.data['result'];
+    }
+    return null;
+  }
+
+  ///热门搜索
+  static Future<List<HotSearch>> getHotSearch() async {
+    final response = await httpManager.get('/search/hot/detail', null);
+    if (response.isSuccess()) {
+      return HotSearchModel.fromJson(response.data).data;
+    }
+    return List.empty();
   }
 }

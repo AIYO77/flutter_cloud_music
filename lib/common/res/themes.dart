@@ -9,7 +9,7 @@ class Themes {
       scaffoldBackgroundColor: Colours.bg_color,
       dividerColor: Colours.diver_color,
       shadowColor: Colours.shadow_color,
-      iconTheme: const IconThemeData(color: Colours.icon_color),
+      iconTheme: const IconThemeData(color: Colours.icon_color, size: 15),
       highlightColor: Colours.blue,
       hintColor: Colors.grey.shade300,
       cardColor: Colours.card_color,
@@ -47,8 +47,7 @@ class Themes {
               color: Colours.body2_txt_color,
               fontSize: 16,
               fontWeight: FontWeight.normal),
-          caption:
-              TextStyle(color: Colours.subtitle_text, fontSize: 12)));
+          caption: TextStyle(color: Colours.subtitle_text, fontSize: 12)));
 
   static final darkTheme = ThemeData.dark().copyWith(
     cardColor: Colours.dark_card_color,

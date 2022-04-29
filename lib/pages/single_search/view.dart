@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '../../common/res/colors.dart';
 import '../../common/res/dimens.dart';
 import '../../common/utils/common_utils.dart';
+import '../../common/utils/image_utils.dart';
 import '../../common/values/constants.dart';
 import 'logic.dart';
 
@@ -46,7 +47,13 @@ class SingleSearchPage extends GetView<SingleSearchLogic> {
             },
             axis: Axis.vertical,
           ),
-          SingleSearchSuggest(),
+          Obx(() => SingleSearchSuggest(
+              showSuggests: controller.showSuggests.value,
+              suggests: controller.suggests.value,
+              keywords: controller.keywords.value,
+              onSuggestTap: (word) {
+                controller.search(word);
+              })),
           SingleSearchResult()
         ],
       ),
@@ -67,6 +74,7 @@ class SingleSearchPage extends GetView<SingleSearchLogic> {
             Radius.circular(Dimens.gap_dp18),
           ),
         ),
+        padding: EdgeInsets.only(left: Dimens.gap_dp6),
         child: TextField(
           controller: controller.editingController,
           focusNode: controller.focusNode,
@@ -75,10 +83,11 @@ class SingleSearchPage extends GetView<SingleSearchLogic> {
           decoration: InputDecoration(
               border: InputBorder.none,
               constraints: BoxConstraints(maxHeight: Dimens.gap_dp38),
-              prefixIcon: Icon(
-                Icons.search_rounded,
-                color: Colours.color_156,
-                size: Dimens.gap_dp20,
+              prefixIconConstraints: BoxConstraints(
+                  minWidth: Dimens.gap_dp26, maxHeight: Dimens.gap_dp15),
+              prefixIcon: Image.asset(
+                ImageUtils.getImagePath('search'),
+                color: const Color.fromARGB(255, 155, 155, 155),
               ),
               hintStyle: TextStyle(
                   fontSize: Dimens.font_sp14,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/common/res/colors.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
+import 'package:flutter_cloud_music/typedef/function.dart';
 import 'package:get/get.dart';
 
 class TabWidget extends StatefulWidget {
@@ -10,6 +11,8 @@ class TabWidget extends StatefulWidget {
   final ValueChanged<int>? onPageChanged;
 
   final IndexedWidgetBuilder pageItemBuilder;
+
+  final ParamSingleCallback<PageController>? onPageCreated;
 
   final int initTabIndex;
 
@@ -25,6 +28,7 @@ class TabWidget extends StatefulWidget {
     required this.pageItemBuilder,
     this.onPageChanged,
     this.rightPadding = 0,
+    this.onPageCreated,
   }) : super(key: key);
 
   @override
@@ -42,6 +46,7 @@ class _PlayListTabBarState extends State<TabWidget>
         initialIndex: widget.initTabIndex);
 
     _pageController = PageController(initialPage: widget.initTabIndex);
+    widget.onPageCreated?.call(_pageController);
   }
 
   late TabController _tabController;

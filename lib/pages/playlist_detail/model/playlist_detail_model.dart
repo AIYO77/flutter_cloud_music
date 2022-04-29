@@ -63,35 +63,11 @@ class Playlist extends Object {
   @JsonKey(name: 'coverImgUrl')
   String coverImgUrl;
 
-  @JsonKey(name: 'createTime')
-  int createTime;
-
-  @JsonKey(name: 'status')
-  int status;
-
-  @JsonKey(name: 'opRecommend')
-  bool opRecommend;
-
-  @JsonKey(name: 'highQuality')
-  bool highQuality;
-
-  @JsonKey(name: 'newImported')
-  bool newImported;
-
-  @JsonKey(name: 'updateTime')
-  int updateTime;
-
   @JsonKey(name: 'trackCount')
   int trackCount;
 
   @JsonKey(name: 'specialType')
   int specialType;
-
-  @JsonKey(name: 'privacy')
-  int privacy;
-
-  @JsonKey(name: 'trackUpdateTime')
-  int trackUpdateTime;
 
   @JsonKey(name: 'playCount')
   int playCount;
@@ -160,16 +136,8 @@ class Playlist extends Object {
     this.id,
     this.name,
     this.coverImgUrl,
-    this.createTime,
-    this.status,
-    this.opRecommend,
-    this.highQuality,
-    this.newImported,
-    this.updateTime,
     this.trackCount,
     this.specialType,
-    this.privacy,
-    this.trackUpdateTime,
     this.playCount,
     this.trackNumberUpdateTime,
     this.subscribedCount,

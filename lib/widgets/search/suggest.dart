@@ -25,9 +25,9 @@ class SearchSuggestList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: context.theme.cardColor,
-      child: list == null
+    return Scaffold(
+      backgroundColor: context.theme.cardColor,
+      body: list == null
           ? Gaps.empty
           : list!.isEmpty
               ? GestureDetector(
@@ -36,6 +36,7 @@ class SearchSuggestList extends StatelessWidget {
                   },
                   behavior: HitTestBehavior.translucent,
                   child: Container(
+                    width: double.infinity,
                     padding: EdgeInsets.symmetric(vertical: Dimens.gap_dp16),
                     margin: EdgeInsets.symmetric(horizontal: Dimens.gap_dp15),
                     decoration: BoxDecoration(
@@ -48,8 +49,7 @@ class SearchSuggestList extends StatelessWidget {
                           color: context.theme.highlightColor,
                           fontSize: Dimens.font_sp16),
                     ),
-                  ),
-                )
+                  ))
               : _buildList(context),
     );
   }

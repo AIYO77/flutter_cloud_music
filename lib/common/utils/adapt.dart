@@ -4,6 +4,7 @@ import 'package:get/get_utils/src/extensions/context_extensions.dart';
 
 class Adapt {
   Adapt._();
+
   static double _width = 0;
   static double _height = 0;
   static double _topPadding = 0;
@@ -12,6 +13,8 @@ class Adapt {
   static double? _ratio;
 
   static void initContext(BuildContext context) {
+    context.isDarkMode;
+
     /// 类似于 MediaQuery.of(context).size。
     final size = context.mediaQuerySize;
     _width = size.width;

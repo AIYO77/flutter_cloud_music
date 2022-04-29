@@ -59,8 +59,9 @@ extension QuitPlayerExt on BuildContext {
     player.insertToNext(song.metadata);
     await Future.delayed(const Duration(milliseconds: 10)).whenComplete(() {
       transportControls.playFromMediaId(song.id.toString());
+    }).whenComplete(() {
+      if (openPlayingPage) toPlaying();
     });
-    if (openPlayingPage) toPlaying();
   }
 
   TransportControls get transportControls => player.transportControls;

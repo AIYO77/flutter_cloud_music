@@ -32,9 +32,6 @@ class Artists extends Object {
   @JsonKey(name: 'alias')
   List<String> alias;
 
-  @JsonKey(name: 'briefDesc')
-  String briefDesc;
-
   @JsonKey(name: 'followed')
   bool followed;
 
@@ -44,34 +41,20 @@ class Artists extends Object {
   @JsonKey(name: 'img1v1Url')
   String img1v1Url;
 
-  @JsonKey(name: 'musicSize')
-  int musicSize;
-
   @JsonKey(name: 'name')
   String name;
 
-  @JsonKey(name: 'topicPerson')
-  int topicPerson;
-
   @JsonKey(name: 'trans')
-  String trans;
+  String? trans;
 
   @JsonKey(name: 'mvSize')
   int? mvSize;
 
-  Artists(
-      this.accountId,
-      this.albumSize,
-      this.alias,
-      this.briefDesc,
-      this.followed,
-      this.id,
-      this.img1v1Url,
-      this.musicSize,
-      this.name,
-      this.topicPerson,
-      this.trans,
-      this.mvSize);
+  @JsonKey(name: 'identityIconUrl')
+  String? identityIconUrl;
+
+  Artists(this.accountId, this.albumSize, this.alias, this.followed, this.id,
+      this.img1v1Url, this.name, this.trans, this.mvSize, this.identityIconUrl);
 
   factory Artists.fromJson(Map<String, dynamic> srcJson) =>
       _$ArtistsFromJson(srcJson);
@@ -79,7 +62,7 @@ class Artists extends Object {
   Map<String, dynamic> toJson() => _$ArtistsToJson(this);
 
   String getArName() {
-    if (trans.isNotEmpty) {
+    if (trans != null && trans!.isNotEmpty) {
       return '$name（$trans）';
     } else if (alias.isNotEmpty) {
       return '$name（${alias.join('/')}）';
@@ -89,7 +72,7 @@ class Artists extends Object {
   }
 
   String? getExtraStr() {
-    if (trans.isNotEmpty) {
+    if (trans != null && trans!.isNotEmpty) {
       return '（$trans）';
     } else if (alias.isNotEmpty) {
       return '（${alias.join('/')}）';

@@ -42,6 +42,7 @@ class Dimens {
   static double gap_dp51 = Adapt.px(51.0);
   static double gap_dp52 = Adapt.px(52.0);
   static double gap_dp53 = Adapt.px(53.0);
+  static double gap_dp54 = Adapt.px(54.0);
   static double gap_dp56 = Adapt.px(56.0);
   static double gap_dp58 = Adapt.px(58.0);
   static double gap_dp60 = Adapt.px(60.0);
@@ -64,6 +65,7 @@ class Dimens {
   static double gap_dp43 = Adapt.px(43.0);
   static double gap_dp44 = Adapt.px(44.0);
   static double gap_dp45 = Adapt.px(45.0);
+  static double gap_dp39 = Adapt.px(39.0);
   static double gap_dp40 = Adapt.px(40.0);
   static double gap_dp24 = Adapt.px(24.0);
   static double gap_dp25 = Adapt.px(25.0);
@@ -94,6 +96,7 @@ class Dimens {
   static double gap_dp232 = Adapt.px(232.0);
   static double gap_dp240 = Adapt.px(240.0);
   static double gap_dp260 = Adapt.px(260.0);
+  static double gap_dp360 = Adapt.px(360.0);
 
   //底部播放状态的高度
   static double gap_bottom_play_height = Adapt.px(55.0);

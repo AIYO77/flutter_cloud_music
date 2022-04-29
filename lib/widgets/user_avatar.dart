@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cloud_music/common/res/colors.dart';
 
-import '../common/res/gaps.dart';
 import '../common/utils/image_utils.dart';
 
 /// Creator: Xing Wei
@@ -38,7 +38,7 @@ class UserAvatar extends StatelessWidget {
             ),
           );
         }
-        return Gaps.ovalImgHolder(sizeL);
+        return place;
       },
       placeholder: (context, url) {
         if (holderAsset != null) {
@@ -51,7 +51,7 @@ class UserAvatar extends StatelessWidget {
             ),
           );
         }
-        return Gaps.ovalImgHolder(sizeL);
+        return place;
       },
       imageBuilder: (context, provider) {
         return SizedBox(
@@ -85,4 +85,16 @@ class UserAvatar extends StatelessWidget {
       },
     );
   }
+
+  Widget get place => ClipOval(
+        child: Container(
+          width: size,
+          height: size,
+          color: Colours.color_245,
+          child: Image.asset(
+            ImageUtils.getImagePath('icon_avatar_nor'),
+            color: Colours.color_204,
+          ),
+        ),
+      );
 }

@@ -2,7 +2,6 @@ import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cloud_music/common/utils/adapt.dart';
-import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/pages/found/found_view.dart';
 import 'package:flutter_cloud_music/pages/home/widgets/bottom_bar.dart';
 import 'package:flutter_cloud_music/pages/home/widgets/drawer/drawer.dart';
@@ -32,7 +31,7 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     Adapt.initContext(context);
-    logger.i('isDarkMode =  ${context.isDarkMode}');
+
     return WillPopScope(
         onWillPop: () {
           return _dialogExitApp(context);

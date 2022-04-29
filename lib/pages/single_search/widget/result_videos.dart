@@ -168,7 +168,7 @@ class ResultVideos extends StatelessWidget {
                   ),
                   Gaps.vGap2,
                   Text(
-                    'by ${video.creator.map((e) => e.userName).join('/')}',
+                    'by ${video.creator.map((e) => e.name).join('/')}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: captionStyle().copyWith(fontSize: Dimens.font_sp12),

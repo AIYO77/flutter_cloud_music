@@ -46,6 +46,7 @@ const CACHE_LOGIN_DATA = 'cache_login_data';
 const CACHE_MUSIC_COMMENT_COUNT = 'cache_music_comment_count';
 const CACHE_ALBUM_POLY_DETAIL_URL = 'cache_album_poly_detail_url'; //数字专辑Url
 const CACHE_HISTORY_SEARCH = 'cache_history_search'; //历史搜索
+const CACHE_HOT_SEARCH = 'cache_hot_search'; //热门搜索
 
 /* cache key  --------- end ----------- */
 
@@ -54,6 +55,7 @@ const SEARCH_SONGS = 1; //单曲
 const SEARCH_VIDEOS = 1014; //视频
 const SEARCH_ALBUMS = 10; //专辑
 const SEARCH_SINGER = 100; //歌手
+const SEARCH_LYRIC = 1006; //歌词
 const SEARCH_PLAYLIST = 1000; //歌单
 const SEARCH_USER = 1002; //用户
 const SEARCH_COMPOSITE = 1018; //综合
