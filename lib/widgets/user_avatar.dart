@@ -53,9 +53,11 @@ class UserAvatar extends StatelessWidget {
         }
         return place;
       },
+      width: size * 1.1,
+      height: size,
       imageBuilder: (context, provider) {
         return SizedBox(
-          width: identityIconUrl == null ? size : size * 1.2,
+          width: size * 1.1,
           height: size,
           child: Stack(
             alignment: Alignment.topLeft,
@@ -74,8 +76,8 @@ class UserAvatar extends StatelessWidget {
                   right: 0,
                   child: ClipOval(
                     child: CachedNetworkImage(
-                        width: 0.48 * size,
-                        height: 0.48 * size,
+                        width: 0.4 * size,
+                        height: 0.4 * size,
                         imageUrl: identityIconUrl!),
                   ),
                 )

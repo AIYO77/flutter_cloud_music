@@ -12,7 +12,6 @@ import '../../../common/res/dimens.dart';
 import '../../../common/res/gaps.dart';
 import '../../../common/utils/common_utils.dart';
 import '../../../common/utils/image_utils.dart';
-import '../../../widgets/footer_loading.dart';
 import '../../../widgets/rich_text_widget.dart';
 import '../../add_song/logic.dart';
 import '../logic.dart';
@@ -43,7 +42,6 @@ class _State extends State<ResultSongs> {
   Widget build(BuildContext context) {
     return SmartRefresher(
         controller: controller.refreshController,
-        footer: FooterLoading(),
         onLoading: () {
           controller.loadMoreResult();
         },

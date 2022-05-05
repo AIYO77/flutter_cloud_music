@@ -16,6 +16,7 @@ import 'package:flutter_cloud_music/pages/singer_detail/widget/video/singer_vide
 import 'package:flutter_cloud_music/widgets/follow/follow_widget.dart';
 import 'package:flutter_cloud_music/widgets/keep_alive_wrapper.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
+import 'package:flutter_cloud_music/widgets/undeveloped.dart';
 import 'package:get/get.dart';
 
 import 'state.dart';
@@ -137,9 +138,7 @@ class SingerDetailLogic extends GetxController
           ));
           break;
         case SingerTabType.evenPage:
-          widgets.add(KeepAliveWrapper(
-            child: Container(),
-          ));
+          widgets.add(UnDeveloped());
           break;
         case SingerTabType.mvPage:
           widgets.add(KeepAliveWrapper(

@@ -8,6 +8,7 @@ import '../../../common/res/dimens.dart';
 import '../../../common/utils/adapt.dart';
 import '../../../common/utils/image_utils.dart';
 import '../../../delegate/general_sliver_delegate.dart';
+import '../../../routes/app_routes.dart';
 import '../mine_controller.dart';
 
 /// Creator: Xing Wei
@@ -68,10 +69,15 @@ class MineViewBar extends StatelessWidget {
                             )
                           : null,
                     )),
-                    Image.asset(
-                      ImageUtils.getImagePath('search'),
-                      color: context.iconColor,
-                      height: Dimens.gap_dp24,
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.SEARCH);
+                      },
+                      child: Image.asset(
+                        ImageUtils.getImagePath('search'),
+                        color: context.iconColor,
+                        height: Dimens.gap_dp24,
+                      ),
                     )
                   ],
                 ),

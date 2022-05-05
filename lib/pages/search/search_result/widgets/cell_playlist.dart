@@ -33,7 +33,7 @@ class SearchPlaylistCell extends StatelessWidget {
       },
       child: Container(
         width: double.infinity,
-        height: Dimens.gap_dp60,
+        // height: Dimens.gap_dp60,
         padding: EdgeInsets.symmetric(vertical: Dimens.gap_dp6),
         child: Row(
           children: [

@@ -10,7 +10,6 @@ import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/singer_list/widget/filter_header.dart';
 import 'package:flutter_cloud_music/widgets/follow/follow_widget.dart';
-import 'package:flutter_cloud_music/widgets/footer_loading.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -31,9 +30,6 @@ class SingerListPage extends StatelessWidget {
           child: logic.obx((model) {
             return SmartRefresher(
               controller: state.refreshController,
-              footer: FooterLoading(
-                noMoreTxt: "",
-              ),
               onLoading: () async {
                 logic.loadMore();
               },

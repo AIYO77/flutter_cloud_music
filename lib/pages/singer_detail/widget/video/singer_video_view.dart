@@ -12,7 +12,6 @@ import 'package:flutter_cloud_music/pages/singer_detail/widget/video/singer_vide
 import 'package:flutter_cloud_music/pages/video/state.dart';
 import 'package:flutter_cloud_music/pages/video/view.dart';
 import 'package:flutter_cloud_music/widgets/custom_tap.dart';
-import 'package:flutter_cloud_music/widgets/footer_loading.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -42,9 +41,6 @@ class SingerVideoView extends StatelessWidget {
         }
         return SmartRefresher(
           controller: controller.refreshController,
-          footer: FooterLoading(
-            noMoreTxt: '',
-          ),
           onLoading: () async {
             controller.loadMore();
           },

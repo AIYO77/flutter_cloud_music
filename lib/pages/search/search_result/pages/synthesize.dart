@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_cloud_music/api/search_api.dart';
 import 'package:flutter_cloud_music/common/res/dimens.dart';
+import 'package:flutter_cloud_music/common/utils/adapt.dart';
+import 'package:flutter_cloud_music/common/utils/common_utils.dart';
 import 'package:flutter_cloud_music/common/values/constants.dart';
 import 'package:flutter_cloud_music/pages/search/search_result/model/search_album.dart';
 import 'package:flutter_cloud_music/pages/search/search_result/model/search_artist.dart';
@@ -53,8 +55,9 @@ class _State extends State<SynthesizePage> {
             child: MusicLoading(),
           )
         : ListView(
+            shrinkWrap: true,
             padding: EdgeInsets.zero,
-            children: items,
+            children: items..add(padingBottomBox(append: Dimens.gap_dp24)),
           );
   }
 
@@ -74,6 +77,7 @@ class _State extends State<SynthesizePage> {
                 onMoreTap: () {
                   widget.onMoreTap.call(SEARCH_SONGS);
                 },
+                height: Dimens.gap_dp60 * songs.songs.length,
                 child: ListView(
                   physics: const NeverScrollableScrollPhysics(),
                   children: songs.songs
@@ -91,6 +95,7 @@ class _State extends State<SynthesizePage> {
               onMoreTap: () {
                 widget.onMoreTap.call(SEARCH_PLAYLIST);
               },
+              height: Dimens.gap_dp66 * playlist.playLists.length,
               child: ListView(
                 physics: const NeverScrollableScrollPhysics(),
                 children: playlist.playLists
@@ -113,6 +118,7 @@ class _State extends State<SynthesizePage> {
               onMoreTap: () {
                 widget.onMoreTap.call(SEARCH_SINGER);
               },
+              height: Dimens.gap_dp56 * artist.artists.length,
               child: ListView(
                 physics: const NeverScrollableScrollPhysics(),
                 children: artist.artists
@@ -131,6 +137,7 @@ class _State extends State<SynthesizePage> {
                 onMoreTap: () {
                   widget.onMoreTap.call(SEARCH_ALBUMS);
                 },
+                height: Adapt.px(60.5) * album.albums.length,
                 child: ListView(
                   physics: const NeverScrollableScrollPhysics(),
                   children: album.albums
@@ -144,6 +151,9 @@ class _State extends State<SynthesizePage> {
             items.add(SearchMoreCard(
                 keywords: widget.keywords,
                 title: '相关搜索',
+                height: sim.sim_querys.length <= 4
+                    ? Dimens.gap_dp54
+                    : Dimens.gap_dp80,
                 child: Wrap(
                   spacing: Dimens.gap_dp10,
                   runSpacing: Dimens.gap_dp10,
@@ -162,6 +172,7 @@ class _State extends State<SynthesizePage> {
                 widget.onMoreTap.call(SEARCH_USER);
               },
               title: '用户',
+              height: Dimens.gap_dp56 * user.users.length,
               child: ListView(
                 physics: const NeverScrollableScrollPhysics(),
                 children: user.users

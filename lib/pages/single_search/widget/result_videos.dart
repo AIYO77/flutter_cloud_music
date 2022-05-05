@@ -31,7 +31,7 @@ class ResultVideos extends StatelessWidget {
   Widget build(BuildContext context) {
     return SmartRefresher(
         controller: controller.refreshController,
-        footer: FooterLoading(),
+        footer: const FooterLoading(),
         onLoading: () {
           controller.loadMoreResult();
         },

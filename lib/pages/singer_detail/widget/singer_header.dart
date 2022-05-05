@@ -41,7 +41,7 @@ class SingerHeader extends StatelessWidget {
         Container(
           width: double.infinity,
           margin: EdgeInsets.fromLTRB(
-              Dimens.gap_dp16, Adapt.px(238), Dimens.gap_dp16, 0),
+              Dimens.gap_dp16, Adapt.px(238), Dimens.gap_dp16, Dimens.gap_dp20),
           padding: EdgeInsets.only(
               top: controller.state.getAvatarUrl().isEmpty
                   ? Dimens.gap_dp17

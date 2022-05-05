@@ -6,6 +6,7 @@ import 'package:flutter_cloud_music/common/values/server.dart';
 import 'package:flutter_cloud_music/services/auth_service.dart';
 import 'package:flutter_cloud_music/services/event_service.dart';
 import 'package:flutter_cloud_music/services/stored_service.dart';
+import 'package:flutter_cloud_music/widgets/footer_loading.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,7 @@ Widget musicApp() {
       color: Colours.app_main,
       backgroundColor: Colors.white,
     ),
+    footerBuilder: () => const FooterLoading(),
     child: FlutterEasyLoading(
       child: GetMaterialApp(
         theme: Themes.lightTheme,

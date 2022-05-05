@@ -118,8 +118,8 @@ class VideoListContent extends StatelessWidget {
                 imageUrl: video.mlogBaseData.coverUrl,
                 placeholder: placeholderWidget,
                 errorWidget: errorWidget,
-                height: Dimens.gap_dp51,
-                width: Dimens.gap_dp75,
+                height: Dimens.gap_dp84,
+                width: Dimens.gap_dp150,
                 imageBuilder: (context, image) {
                   return Container(
                     height: Dimens.gap_dp84,
@@ -129,8 +129,8 @@ class VideoListContent extends StatelessWidget {
                       children: [
                         Image(
                           image: image,
-                          height: Dimens.gap_dp51,
-                          width: Dimens.gap_dp75,
+                          height: Dimens.gap_dp84,
+                          width: Dimens.gap_dp150,
                           fit: BoxFit.cover,
                         ),
                         Positioned(

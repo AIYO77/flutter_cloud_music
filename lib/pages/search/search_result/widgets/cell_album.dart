@@ -39,6 +39,8 @@ class SearchAlbumCell extends StatelessWidget {
                   album.picUrl, Size(Dimens.gap_dp50, Dimens.gap_dp50)),
               placeholder: placeholderWidget,
               errorWidget: errorWidget,
+              height: Adapt.px(54.5),
+              width: Adapt.px(54.5),
               imageBuilder: (context, provider) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,

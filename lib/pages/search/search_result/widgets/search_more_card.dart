@@ -18,10 +18,12 @@ class SearchMoreCard extends StatelessWidget {
   final String keywords;
   final String title;
   final Widget child;
+  final double? height;
 
   const SearchMoreCard({
     required this.keywords,
     required this.title,
+    this.height,
     this.moreText,
     this.onMoreTap,
     required this.child,
@@ -37,7 +39,7 @@ class SearchMoreCard extends StatelessWidget {
       ),
       decoration: BoxDecoration(
           color: context.theme.cardColor,
-          borderRadius: BorderRadius.circular(Dimens.gap_dp8),
+          borderRadius: BorderRadius.circular(Dimens.gap_dp10),
           border: Border.all(
               color: context.theme.dividerColor.withOpacity(0.2), width: 0.5),
           boxShadow: [
@@ -47,62 +49,74 @@ class SearchMoreCard extends StatelessWidget {
       padding: EdgeInsets.only(
           top: Dimens.gap_dp18,
           bottom: GetUtils.isNullOrBlank(moreText)! ? Dimens.gap_dp18 : 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            title,
-            style: headlineStyle(),
-          ).paddingOnly(left: Dimens.gap_dp16, bottom: Dimens.gap_dp10),
-          Expanded(child: child.paddingSymmetric(horizontal: Dimens.gap_dp16)),
-          if (!GetUtils.isNullOrBlank(moreText)!) Gaps.line,
-          if (!GetUtils.isNullOrBlank(moreText)!)
-            Material(
-              color: context.theme.cardColor,
-              child: InkWell(
-                onTap: onMoreTap,
-                child: Container(
-                  height: Dimens.gap_dp40,
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  child: Text.rich(
-                    TextSpan(
-                      children: [
-                        WidgetSpan(
+      child: SizedBox(
+        height: 17 +
+            Dimens.gap_dp17 +
+            (height ?? 0) +
+            (!GetUtils.isNullOrBlank(moreText)! ? Dimens.gap_dp50 : 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              title,
+              style: headlineStyle(),
+            ).paddingOnly(left: Dimens.gap_dp16, bottom: Dimens.gap_dp10),
+            Expanded(
+                child: child.paddingSymmetric(horizontal: Dimens.gap_dp16)),
+            if (!GetUtils.isNullOrBlank(moreText)!) Gaps.line,
+            if (!GetUtils.isNullOrBlank(moreText)!)
+              Material(
+                color: context.theme.cardColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(Dimens.gap_dp10),
+                  bottomRight: Radius.circular(Dimens.gap_dp10),
+                )),
+                child: InkWell(
+                  onTap: onMoreTap,
+                  child: Container(
+                    height: Dimens.gap_dp40,
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          WidgetSpan(
+                              alignment: PlaceholderAlignment.middle,
+                              child: RichTextWidget(
+                                Text(
+                                  moreText!,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: captionStyle()
+                                      .copyWith(fontSize: Dimens.font_sp13),
+                                ),
+                                richTexts: [
+                                  BaseRichText(
+                                    keywords,
+                                    style: TextStyle(
+                                        fontSize: Dimens.font_sp13,
+                                        color: context.theme.highlightColor),
+                                  )
+                                ],
+                              )),
+                          WidgetSpan(
                             alignment: PlaceholderAlignment.middle,
-                            child: RichTextWidget(
-                              Text(
-                                moreText!,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: captionStyle()
-                                    .copyWith(fontSize: Dimens.font_sp13),
-                              ),
-                              richTexts: [
-                                BaseRichText(
-                                  keywords,
-                                  style: TextStyle(
-                                      fontSize: Dimens.font_sp13,
-                                      color: context.theme.highlightColor),
-                                )
-                              ],
-                            )),
-                        WidgetSpan(
-                          alignment: PlaceholderAlignment.middle,
-                          child: Image.asset(
-                            ImageUtils.getImagePath('icon_more'),
-                            height: Dimens.gap_dp16,
-                            color: captionStyle().color,
-                          ),
-                        )
-                      ],
+                            child: Image.asset(
+                              ImageUtils.getImagePath('icon_more'),
+                              height: Dimens.gap_dp16,
+                              color: captionStyle().color,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            )
-        ],
+              )
+          ],
+        ),
       ),
     );
   }

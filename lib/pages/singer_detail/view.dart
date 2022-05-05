@@ -46,7 +46,7 @@ class SingerDetailPage extends StatelessWidget {
           return <Widget>[
             Obx(() => SliverAppBar(
                   expandedHeight:
-                      Adapt.px(state.accountId.value == null ? 348 : 401) +
+                      Adapt.px(state.accountId.value == null ? 368 : 421) +
                           state.animValue.value * Adapt.px(152),
                   toolbarHeight: Dimens.gap_dp44,
                   collapsedHeight: Dimens.gap_dp44,

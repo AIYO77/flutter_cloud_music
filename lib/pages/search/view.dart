@@ -25,6 +25,7 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.theme.cardColor,
+      resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(Dimens.gap_dp44 + Adapt.topPadding()),
         child: Padding(
@@ -57,7 +58,7 @@ class SearchPage extends StatelessWidget {
               ),
               Obx(() => state.showResult.value
                   ? SearchResultPage(
-                      key: GlobalKey(),
+                      key: Key(state.keywords.value.hashCode.toString()),
                       keywords: state.keywords.value,
                     )
                   : Gaps.empty)

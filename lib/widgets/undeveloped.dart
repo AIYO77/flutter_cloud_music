@@ -13,7 +13,7 @@ class UnDeveloped extends StatelessWidget {
           Image.asset(ImageUtils.getImagePath('baby_xiexie')),
           Gaps.vGap10,
           Text(
-            '待开发，欢迎pr',
+            '待开发，你也可以试试',
             style: headline2Style(),
           )
         ],

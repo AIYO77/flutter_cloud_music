@@ -293,7 +293,7 @@ class PlayListContentView extends StatelessWidget {
             color: Get.theme.cardColor,
             child: SmartRefresher(
               controller: refreshController,
-              footer: FooterLoading(
+              footer: const FooterLoading(
                 noMoreTxt: "暂无更多歌单",
               ),
               onLoading: () async {

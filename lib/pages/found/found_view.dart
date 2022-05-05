@@ -151,6 +151,7 @@ class FoundPage extends StatelessWidget {
               return Container();
             })),
         child: ListView.separated(
+            padding: EdgeInsets.only(bottom: Dimens.gap_dp20),
             controller: listScroll,
             itemBuilder: (context, index) {
               final blocks = state!.blocks[index];

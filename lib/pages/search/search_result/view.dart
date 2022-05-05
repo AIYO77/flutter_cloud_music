@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/widget/tab_widget.dart';
+import 'package:flutter_cloud_music/pages/search/search_result/pages/result_common.dart';
 import 'package:flutter_cloud_music/pages/search/search_result/pages/synthesize.dart';
 import 'package:flutter_cloud_music/widgets/keep_alive_wrapper.dart';
+import 'package:flutter_cloud_music/widgets/undeveloped.dart';
+import 'package:get/get.dart';
 
 import '../../../common/values/constants.dart';
 import '../../../common/values/server.dart';
@@ -74,7 +77,13 @@ class _State extends State<SearchResultPage> {
                 curve: Curves.ease);
           },
         );
+      case SEARCH_LYRIC:
+        return UnDeveloped();
+      default:
+        return SearchResultCommonPage(
+            key: Key(tab.type.toString()),
+            keywords: widget.keywords,
+            type: tab.type);
     }
-    return Container();
   }
 }

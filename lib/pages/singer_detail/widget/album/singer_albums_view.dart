@@ -9,7 +9,6 @@ import 'package:flutter_cloud_music/common/utils/image_utils.dart';
 import 'package:flutter_cloud_music/pages/singer_detail/widget/album/singer_albums_controller.dart';
 import 'package:flutter_cloud_music/routes/app_routes.dart';
 import 'package:flutter_cloud_music/widgets/custom_tap.dart';
-import 'package:flutter_cloud_music/widgets/footer_loading.dart';
 import 'package:flutter_cloud_music/widgets/music_loading.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -39,9 +38,6 @@ class SingerAlbumsView extends StatelessWidget {
         }
         return SmartRefresher(
           controller: controller.refreshController,
-          footer: FooterLoading(
-            noMoreTxt: '',
-          ),
           onLoading: () async {
             controller.loadMore();
           },

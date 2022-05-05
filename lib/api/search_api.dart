@@ -46,13 +46,13 @@ class SearchApi {
   ///type: 搜索类型
   static Future<dynamic> search(String keywords,
       {int offset = 0, int type = SEARCH_SONGS}) async {
-    StoredService.to.updateSearch(keywords);
     final response = await httpManager.get('/search', {
       'keywords': keywords,
       'limit': 30,
       'offset': offset,
       'type': type,
     });
+    StoredService.to.updateSearch(keywords);
     if (response.isSuccess()) {
       return response.data['result'];
     }
