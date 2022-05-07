@@ -44,7 +44,7 @@ class GlobalRank extends StatelessWidget {
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               crossAxisSpacing: Dimens.gap_dp8,
-              mainAxisSpacing: Dimens.gap_dp12,
+              mainAxisSpacing: Dimens.gap_dp10,
               childAspectRatio: 107 / 149,
             ),
             shrinkWrap: true,
