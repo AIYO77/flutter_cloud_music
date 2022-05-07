@@ -36,6 +36,8 @@ import 'package:flutter_cloud_music/pages/playlist_collection/playlist_collectio
 import 'package:flutter_cloud_music/pages/playlist_collection/selection/binding.dart';
 import 'package:flutter_cloud_music/pages/playlist_collection/selection/view.dart';
 import 'package:flutter_cloud_music/pages/playlist_detail/playlist_detail_view.dart';
+import 'package:flutter_cloud_music/pages/rank/binding.dart';
+import 'package:flutter_cloud_music/pages/rank/view.dart';
 import 'package:flutter_cloud_music/pages/rcmd_song_day/bindings.dart';
 import 'package:flutter_cloud_music/pages/rcmd_song_day/view.dart';
 import 'package:flutter_cloud_music/pages/search/binding.dart';
@@ -273,6 +275,9 @@ class AppPages {
       name: Routes.COMMENT_DETAIL,
       page: () => CommentDetailPage(),
     ),
+
+    //排行榜
+    GetPage(name: Routes.RANK, page: () => RankPage(), binding: RankBinding()),
 
     //web
     GetPage(

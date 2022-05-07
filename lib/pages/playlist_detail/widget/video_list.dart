@@ -118,48 +118,42 @@ class VideoListContent extends StatelessWidget {
                 imageUrl: video.mlogBaseData.coverUrl,
                 placeholder: placeholderWidget,
                 errorWidget: errorWidget,
-                height: Dimens.gap_dp84,
-                width: Dimens.gap_dp150,
+                height: Dimens.gap_dp51,
+                width: Dimens.gap_dp75,
                 imageBuilder: (context, image) {
-                  return Container(
-                    height: Dimens.gap_dp84,
-                    width: Dimens.gap_dp150,
-                    color: Colors.black,
-                    child: Stack(
-                      children: [
-                        Image(
-                          image: image,
-                          height: Dimens.gap_dp84,
-                          width: Dimens.gap_dp150,
-                          fit: BoxFit.cover,
-                        ),
-                        Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            child: Container(
-                              height: Dimens.gap_dp30,
-                              decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                    Colors.transparent,
-                                    Colors.black38
-                                  ])),
-                              alignment: Alignment.bottomRight,
-                              padding: EdgeInsets.only(
-                                  right: Dimens.gap_dp8,
-                                  bottom: Dimens.gap_dp8),
-                              child: Text(
-                                getTimeStamp(video.mlogBaseData.duration),
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: Dimens.font_sp9),
-                              ),
-                            ))
-                      ],
-                    ),
+                  return Stack(
+                    children: [
+                      Image(
+                        image: image,
+                        height: Dimens.gap_dp51,
+                        width: Dimens.gap_dp75,
+                        fit: BoxFit.cover,
+                      ),
+                      Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            height: Dimens.gap_dp30,
+                            decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                  Colors.transparent,
+                                  Colors.black38
+                                ])),
+                            alignment: Alignment.bottomRight,
+                            padding: EdgeInsets.only(
+                                right: Dimens.gap_dp8, bottom: Dimens.gap_dp8),
+                            child: Text(
+                              getTimeStamp(video.mlogBaseData.duration),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: Dimens.font_sp9),
+                            ),
+                          ))
+                    ],
                   );
                 },
               ),

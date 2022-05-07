@@ -43,7 +43,7 @@ class SingerListPage extends StatelessWidget {
                         header: Container(
                           color: Get.isDarkMode
                               ? const Color(0xff292929)
-                              : Colours.color_248,
+                              : Colours.color_242,
                           height: Dimens.gap_dp25,
                           padding:
                               EdgeInsets.symmetric(horizontal: Dimens.gap_dp16),

@@ -51,11 +51,11 @@ class SearchPlaylistCell extends StatelessWidget {
                   children: [
                     Container(
                       height: Dimens.gap_dp4,
-                      width: Dimens.gap_dp39,
+                      width: Dimens.gap_dp54 * 0.77,
                       decoration: BoxDecoration(
                           color: context.isDarkMode
                               ? Colors.white.withOpacity(0.05)
-                              : Colours.color_248,
+                              : Colours.color_242,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(Dimens.gap_dp4),
                               topRight: Radius.circular(Dimens.gap_dp4))),

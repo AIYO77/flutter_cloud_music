@@ -169,7 +169,7 @@ class _State extends State<CommentCell> {
                       borderRadius: BorderRadius.circular(Dimens.gap_dp8),
                       color: context.isDarkMode
                           ? Colors.white12
-                          : Colours.color_248),
+                          : Colours.color_242),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,

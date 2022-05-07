@@ -33,7 +33,7 @@ class SearchSimQueryCell extends StatelessWidget {
         child: Chip(
           labelPadding: EdgeInsets.symmetric(horizontal: Dimens.gap_dp14),
           backgroundColor:
-              context.isDarkMode ? Colors.white12 : Colours.color_248,
+              context.isDarkMode ? Colors.white12 : Colours.color_242,
           label: RichTextWidget(
             Text(
               keywordValue.keyword,

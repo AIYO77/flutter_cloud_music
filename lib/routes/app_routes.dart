@@ -61,6 +61,8 @@ abstract class Routes {
 
   static const SEARCH = _Paths.SEARCH;
 
+  static const RANK = _Paths.RANK;
+
   static String PLAYLIST_DETAIL_ID(String id) => '/playlist/$id';
 
   static String ALBUM_DETAIL_ID(String id) => '/album/$id';
@@ -146,4 +148,7 @@ abstract class _Paths {
 
   //search
   static const SEARCH = '/search';
+
+  //排行榜
+  static const RANK = '/rnpage';
 }

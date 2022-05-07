@@ -76,7 +76,7 @@ class PlaylistTagAllPage extends GetView<TagAllController> {
             child: Container(
               decoration: BoxDecoration(
                   color:
-                      context.isDarkMode ? Colors.white12 : Colours.color_248,
+                      context.isDarkMode ? Colors.white12 : Colours.color_242,
                   borderRadius: BorderRadius.circular(Dimens.gap_dp30)),
               alignment: Alignment.center,
               child: Text.rich(

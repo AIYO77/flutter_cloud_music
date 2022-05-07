@@ -11,6 +11,7 @@ import 'package:flutter_cloud_music/common/model/comment_response.dart';
 import 'package:flutter_cloud_music/common/model/floor_comment_model.dart';
 import 'package:flutter_cloud_music/common/model/login_response.dart';
 import 'package:flutter_cloud_music/common/model/mine_playlist.dart';
+import 'package:flutter_cloud_music/common/model/rank_item_model.dart';
 import 'package:flutter_cloud_music/common/model/rcmd_song_daily_model.dart';
 import 'package:flutter_cloud_music/common/model/simple_play_list_model.dart';
 import 'package:flutter_cloud_music/common/model/singer_albums_model.dart';
@@ -831,5 +832,17 @@ class MusicApi {
     return response.isSuccess();
   }
 
+  //TODO 评论
   static Future comment() async {}
+
+  ///排行榜
+  static Future<List<RankItemModel>> getRanks() async {
+    final response = await httpManager.get('/toplist/detail', null);
+    if (response.isSuccess()) {
+      return (response.data['list'] as List)
+          .map((e) => RankItemModel.fromJson(e))
+          .toList();
+    }
+    return List.empty();
+  }
 }

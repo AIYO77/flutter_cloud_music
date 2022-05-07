@@ -32,9 +32,9 @@ class SearchState {
   }
 }
 
-class SearchType {
+class TypeName {
   final int type;
   final String name;
 
-  const SearchType({required this.type, required this.name});
+  const TypeName({required this.type, required this.name});
 }

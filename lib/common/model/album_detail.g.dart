@@ -26,11 +26,9 @@ Album _$AlbumFromJson(Map<String, dynamic> json) => Album(
       json['publishTime'] as int,
       json['briefDesc'] as String,
       Ar.fromJson(json['artist'] as Map<String, dynamic>),
-      json['artists'] == null
-          ? null
-          : (json['artists'] as List<dynamic>)
-              .map((e) => Ar.fromJson(e))
-              .toList(),
+      (json['artists'] as List<dynamic>?)
+          ?.map((e) => Ar.fromJson(e as Map<String, dynamic>))
+          .toList(),
       json['description'] as String,
       json['name'] as String,
       json['id'] as int,

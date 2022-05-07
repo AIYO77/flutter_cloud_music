@@ -98,7 +98,9 @@ class Colours {
 
   static const Color color_217 = Color.fromARGB(255, 217, 217, 217);
 
-  static const Color color_248 = Color.fromARGB(255, 248, 248, 248);
+  static const Color color_242 = Color.fromARGB(255, 242, 242, 242);
+
+  static const Color color_250 = Color.fromARGB(255, 250, 250, 250);
 
   static const Color color_237 = Color.fromARGB(255, 237, 237, 237);
 

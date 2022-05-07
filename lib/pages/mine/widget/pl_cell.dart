@@ -55,7 +55,7 @@ class MinePlaylistCell extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: context.isDarkMode
                               ? Colors.white.withOpacity(0.05)
-                              : Colours.color_248,
+                              : Colours.color_242,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(Dimens.gap_dp3),
                               topRight: Radius.circular(Dimens.gap_dp3))),
@@ -77,7 +77,7 @@ class MinePlaylistCell extends StatelessWidget {
                                   height: Dimens.gap_dp14,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                      color: Colours.color_248,
+                                      color: Colours.color_242,
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(Dimens.gap_dp6))),
                                   child: Icon(

@@ -4,22 +4,21 @@ import 'package:flutter_cloud_music/pages/search/search_result/pages/result_comm
 import 'package:flutter_cloud_music/pages/search/search_result/pages/synthesize.dart';
 import 'package:flutter_cloud_music/widgets/keep_alive_wrapper.dart';
 import 'package:flutter_cloud_music/widgets/undeveloped.dart';
-import 'package:get/get.dart';
 
 import '../../../common/values/constants.dart';
 import '../../../common/values/server.dart';
 import '../state.dart';
 
 class SearchResultPage extends StatefulWidget {
-  static const tabs = <SearchType>[
-    SearchType(type: SEARCH_COMPOSITE, name: '综合'),
-    SearchType(type: SEARCH_SONGS, name: '单曲'),
-    SearchType(type: SEARCH_PLAYLIST, name: '歌单'),
-    SearchType(type: SEARCH_VIDEOS, name: '视频'),
-    SearchType(type: SEARCH_SINGER, name: '歌手'),
-    SearchType(type: SEARCH_LYRIC, name: '歌词'),
-    SearchType(type: SEARCH_ALBUMS, name: '专辑'),
-    SearchType(type: SEARCH_USER, name: '用户'),
+  static const tabs = <TypeName>[
+    TypeName(type: SEARCH_COMPOSITE, name: '综合'),
+    TypeName(type: SEARCH_SONGS, name: '单曲'),
+    TypeName(type: SEARCH_PLAYLIST, name: '歌单'),
+    TypeName(type: SEARCH_VIDEOS, name: '视频'),
+    TypeName(type: SEARCH_SINGER, name: '歌手'),
+    TypeName(type: SEARCH_LYRIC, name: '歌词'),
+    TypeName(type: SEARCH_ALBUMS, name: '专辑'),
+    TypeName(type: SEARCH_USER, name: '用户'),
   ];
   final String keywords;
 

@@ -172,7 +172,7 @@ class SingerDetailLogic extends GetxController
             alignment: Alignment.topCenter,
             decoration: BoxDecoration(
               color:
-                  Get.isDarkMode ? const Color(0xff292929) : Colours.color_248,
+                  Get.isDarkMode ? const Color(0xff292929) : Colours.color_242,
               borderRadius: BorderRadius.all(
                 Radius.circular(Dimens.gap_dp10),
               ),
