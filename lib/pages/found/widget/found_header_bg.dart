@@ -56,11 +56,12 @@ class _FoundHeaderColorsState extends State<FoundHeaderColors>
             ? context.theme.appBarTheme.toolbarHeight! + Adapt.topPadding()
             : context.theme.appBarTheme.toolbarHeight! +
                 Adapt.topPadding() +
-                Dimens.gap_dp140,
+                Dimens.gap_dp150,
         child: controller.isScrolled.value
             ? Container(
-                color: Get.theme.cardColor,
-                height: Dimens.gap_dp56 + Adapt.topPadding(),
+                color: context.theme.cardColor,
+                height: context.theme.appBarTheme.toolbarHeight! +
+                    Adapt.topPadding(),
                 width: Adapt.screenW(),
               )
             : Stack(

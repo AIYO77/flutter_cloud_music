@@ -20,9 +20,6 @@ class TopAlbumCoverInfo extends Object {
   @JsonKey(name: 'picUrl')
   String picUrl;
 
-  @JsonKey(name: 'company')
-  String company;
-
   @JsonKey(name: 'name')
   String name;
 
@@ -38,7 +35,6 @@ class TopAlbumCoverInfo extends Object {
     this.description,
     this.publishTime,
     this.picUrl,
-    this.company,
     this.name,
     this.id,
     this.size,

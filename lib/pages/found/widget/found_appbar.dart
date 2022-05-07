@@ -91,5 +91,5 @@ class FoundAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize =>
-      Size.fromHeight(Get.theme.appBarTheme.toolbarHeight ?? Dimens.gap_dp44);
+      Size.fromHeight(Get.theme.appBarTheme.toolbarHeight!);
 }

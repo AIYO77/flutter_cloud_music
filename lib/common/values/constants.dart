@@ -1,3 +1,6 @@
+///此项目github地址
+const github_address = 'https://github.com/masterxing/flutter_cloud_music';
+
 /* 首页推荐类型常量 --------- start ----------- */
 
 ///展示类型  每个类型对应一个weight组件

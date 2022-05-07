@@ -193,7 +193,8 @@ class FoundPage extends StatelessWidget {
             child: FoundHeaderColors(),
           ),
           Positioned.fill(
-            top: Dimens.gap_dp56 + context.mediaQueryPadding.top,
+            top: context.theme.appBarTheme.toolbarHeight! +
+                context.mediaQueryPadding.top,
             child: controller.obx(
               (state) {
                 refreshController.refreshCompleted();
