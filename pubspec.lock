@@ -57,6 +57,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.0"
+  basics:
+    dependency: transitive
+    description:
+      name: basics
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.6.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -393,42 +400,42 @@ packages:
       name: flutter_ume
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.1"
+    version: "0.3.0+1"
   flutter_ume_kit_console:
     dependency: "direct dev"
     description:
       name: flutter_ume_kit_console
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.1"
+    version: "0.3.0"
   flutter_ume_kit_device:
     dependency: "direct dev"
     description:
       name: flutter_ume_kit_device
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.1"
+    version: "0.3.0"
   flutter_ume_kit_dio:
     dependency: "direct dev"
     description:
       name: flutter_ume_kit_dio
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.0"
+    version: "0.3.0"
   flutter_ume_kit_perf:
     dependency: "direct dev"
     description:
       name: flutter_ume_kit_perf
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.1"
+    version: "0.3.0"
   flutter_ume_kit_ui:
     dependency: "direct dev"
     description:
       name: flutter_ume_kit_ui
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.1"
+    version: "0.3.0+1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -785,7 +792,7 @@ packages:
       name: quiver
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.1+1"
+    version: "3.1.0"
   rxdart:
     dependency: transitive
     description:
@@ -813,35 +820,35 @@ packages:
       name: shared_preferences
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.12"
+    version: "2.0.13"
   shared_preferences_android:
     dependency: transitive
     description:
       name: shared_preferences_android
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.10"
+    version: "2.0.11"
   shared_preferences_ios:
     dependency: transitive
     description:
       name: shared_preferences_ios
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.9"
+    version: "2.1.0"
   shared_preferences_linux:
     dependency: transitive
     description:
       name: shared_preferences_linux
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.4"
+    version: "2.1.0"
   shared_preferences_macos:
     dependency: transitive
     description:
       name: shared_preferences_macos
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.3"
   shared_preferences_platform_interface:
     dependency: transitive
     description:
@@ -862,7 +869,7 @@ packages:
       name: shared_preferences_windows
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.4"
+    version: "2.1.0"
   shelf:
     dependency: transitive
     description:
@@ -1001,6 +1008,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
+  touch_indicator:
+    dependency: transitive
+    description:
+      name: touch_indicator
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   tuple:
     dependency: transitive
     description:
@@ -1101,4 +1115,4 @@ packages:
     version: "3.1.0"
 sdks:
   dart: ">=2.15.0-7.0.dev <3.0.0"
-  flutter: ">=2.5.0"
+  flutter: ">=2.8.0"

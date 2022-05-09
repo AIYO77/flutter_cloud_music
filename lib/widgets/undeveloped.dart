@@ -25,7 +25,7 @@ class UnDeveloped extends StatelessWidget {
           Text.rich(
               TextSpan(text: '待开发...', style: headline2Style(), children: [
             TextSpan(
-                text: '提PR',
+                text: '提PR~',
                 style: headline2Style().copyWith(color: Colours.blue_dark),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {

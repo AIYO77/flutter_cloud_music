@@ -19,7 +19,7 @@ Doctor summary (to see all details, run flutter doctor -v):
 
 **如果您觉得还不错的话，加个🌟吧~**
 
-# 开发一个音乐App
+# 相关说明
    
    * 本项目，高度还原网易云APP，所有UI按照网易云来实现。
    * 项目中的数据均来自[NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)真实有效
@@ -28,4 +28,5 @@ Doctor summary (to see all details, run flutter doctor -v):
    
    > Api部署在[Vercel](https://vercel.com/)上，响应比较慢。你也可以把[NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)跑在本地，修改项目里的host进行访问。
 
-# 下载体验
+# Demo
+
