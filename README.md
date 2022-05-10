@@ -40,12 +40,12 @@ Doctor summary (to see all details, run flutter doctor -v):
 <img src="gif/singer.gif" width="32%"><img src="gif/pl_detail.gif" width="32%"><img src="gif/mine.gif" width="32%">
 
 ### Light
-<img src="gif/home_.webp" width="24.5%"><img src="gif/plgc.webp" width="24.5%"><img src="gif/plgcm.webp" width="24.5%"><img src="gif/rank.webp" width="24.5%">
+<img src="gif/home_.webp" width="32%"><img src="gif/plgc.webp" width="32%"><img src="gif/plgcm.webp" width="32%"><img src="gif/rank.webp" width="32%">
 
-<img src="gif/rl.webp" width="24.5%"><img src="gif/new.webp" width="24.5%"><img src="gif/search.webp" width="24.5%"><img src="gif/addVideo.webp" width="24.5%">
+<img src="gif/rl.webp" width="32%"><img src="gif/new.webp" width="32%"><img src="gif/search.webp" width="32%"><img src="gif/addVideo.webp" width="32%">
 
 ### Dark
-<img src="gif/home_dark.webp" width="24.5%"><img src="gif/gc_dark.webp" width="24.5%"><img src="gif/singer_dark.webp" width="24.5%"><img src="gif/s_d_dark.webp" width="24.5%">
+<img src="gif/home_dark.webp" width="32%"><img src="gif/gc_dark.webp" width="32%"><img src="gif/singer_dark.webp" width="32%"><img src="gif/s_d_dark.webp" width="32%">
 
 
 
