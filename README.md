@@ -53,3 +53,4 @@ Doctor summary (to see all details, run flutter doctor -v):
 # 声明
 - 此项目仅供学习交流，禁止用于商业及非法用途，如产生法律纠纷与本人无关
 - 并不是一个破解软件，不提供下载付费歌曲！
+# 如果您觉得还不错的话，加个🌟吧~**
