@@ -19,7 +19,8 @@ Doctor summary (to see all details, run flutter doctor -v):
 **如果您觉得还不错的话，加个🌟吧~**
 
 # 相关说明
-   
+
+   * 基于Flutter开发，适配 Android 与 iOS。
    * 高度还原网易云APP，所有UI按照网易云来实现。
    * 项目中的接口数据均来自[NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)真实有效
    * 项目中用到的Widget能覆盖90%
@@ -27,8 +28,37 @@ Doctor summary (to see all details, run flutter doctor -v):
    
    > Api部署在[Vercel](https://vercel.com/)上，响应比较慢。你也可以把[NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)跑在本地，修改项目里的host进行访问。
 
+- ### [如果克隆太慢或者图片看不到，可尝试从码云地址下载](https://gitee.com/master_xing/flutter_cloud_music)
+
+
 # Demo
+### Debug版本下载体验
+<img src="gif/qrcode.png" width="40%">
 
-![](gif/launch.gif)
-![](gif/singer.gif)
+### Gif
+<img src="gif/launch.gif" width="33%">
+<img src="gif/playing.gif" width="33%">
+<img src="gif/video.gif" width="33%">
+<img src="gif/singer.gif" width="33%">
+<img src="gif/pl_detail.gif" width="33%">
+<img src="gif/mine.gif" width="33%">
 
+### Light
+<img src="gif/home_.webp" width="24.5%">
+<img src="gif/plgc.webp" width="24.5%">
+<img src="gif/plgcm.webp" width="24.5%">
+<img src="gif/rank.webp" width="24.5%">
+<img src="gif/rl.webp" width="24.5%">
+<img src="gif/new.webp" width="24.5%">
+<img src="gif/search.webp" width="24.5%">
+<img src="gif/addVideo.webp" width="24.5%">
+
+### Dark
+<img src="gif/home_dark.webp" width="24.5%">
+<img src="gif/gc_dark.webp" width="24.5%">
+<img src="gif/singer_dark.webp" width="24.5%">
+<img src="gif/s_d_dark.webp" width="24.5%">
+
+# 声明
+- 此项目仅供学习交流，禁止用于商业及非法用途，如产生法律纠纷与本人无关
+- 并不是一个破解软件，不提供下载付费歌曲！
