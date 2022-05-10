@@ -14,19 +14,21 @@ Doctor summary (to see all details, run flutter doctor -v):
 [✓] Xcode - develop for iOS and macOS (Xcode 13.1)
 [✓] Android Studio (version 2020.3)
 [✓] VS Code (version 1.59.0)
-[✓] HTTP Host Availability
 ```
 
 **如果您觉得还不错的话，加个🌟吧~**
 
 # 相关说明
    
-   * 本项目，高度还原网易云APP，所有UI按照网易云来实现。
-   * 项目中的数据均来自[NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)真实有效
+   * 高度还原网易云APP，所有UI按照网易云来实现。
+   * 项目中的接口数据均来自[NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)真实有效
    * 项目中用到的Widget能覆盖90%
    * 音乐播放部分使用原生插件实现
    
    > Api部署在[Vercel](https://vercel.com/)上，响应比较慢。你也可以把[NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)跑在本地，修改项目里的host进行访问。
 
 # Demo
+
+![](gif/launch.gif)
+![](gif/singer.gif)
 
