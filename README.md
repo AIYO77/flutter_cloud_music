@@ -36,28 +36,19 @@ Doctor summary (to see all details, run flutter doctor -v):
 <img src="gif/qrcode.png" width="40%">
 
 ### Gif
-<img src="gif/launch.gif" width="30%">
-<img src="gif/playing.gif" width="30%">
-<img src="gif/video.gif" width="30%">
-<img src="gif/singer.gif" width="30%">
-<img src="gif/pl_detail.gif" width="30%">
-<img src="gif/mine.gif" width="30%">
+<img src="gif/launch.gif" width="32%"><img src="gif/playing.gif" width="32%"><img src="gif/video.gif" width="32%">
+<img src="gif/singer.gif" width="32%"><img src="gif/pl_detail.gif" width="32%"><img src="gif/mine.gif" width="32%">
 
 ### Light
-<img src="gif/home_.webp" width="24.5%">
-<img src="gif/plgc.webp" width="24.5%">
-<img src="gif/plgcm.webp" width="24.5%">
-<img src="gif/rank.webp" width="24.5%">
-<img src="gif/rl.webp" width="24.5%">
-<img src="gif/new.webp" width="24.5%">
-<img src="gif/search.webp" width="24.5%">
-<img src="gif/addVideo.webp" width="24.5%">
+<img src="gif/home_.webp" width="24.5%"><img src="gif/plgc.webp" width="24.5%"><img src="gif/plgcm.webp" width="24.5%"><img src="gif/rank.webp" width="24.5%">
+
+<img src="gif/rl.webp" width="24.5%"><img src="gif/new.webp" width="24.5%"><img src="gif/search.webp" width="24.5%"><img src="gif/addVideo.webp" width="24.5%">
 
 ### Dark
-<img src="gif/home_dark.webp" width="24.5%">
-<img src="gif/gc_dark.webp" width="24.5%">
-<img src="gif/singer_dark.webp" width="24.5%">
-<img src="gif/s_d_dark.webp" width="24.5%">
+<img src="gif/home_dark.webp" width="24.5%"><img src="gif/gc_dark.webp" width="24.5%"><img src="gif/singer_dark.webp" width="24.5%"><img src="gif/s_d_dark.webp" width="24.5%">
+
+
+
 
 # 声明
 - 此项目仅供学习交流，禁止用于商业及非法用途，如产生法律纠纷与本人无关
