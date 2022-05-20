@@ -36,8 +36,8 @@ Doctor summary (to see all details, run flutter doctor -v):
 <img src="gif/qrcode.png" width="40%">
 
 ### Gif
-<img src="gif/launch.gif" width="32%"><img src="gif/playing.gif" width="32%"><img src="gif/video.gif" width="32%">
-<img src="gif/singer.gif" width="32%"><img src="gif/pl_detail.gif" width="32%"><img src="gif/mine.gif" width="32%">
+<img src="gif/launch.gif"><img src="gif/playing.gif"><img src="gif/video.gif">
+<img src="gif/singer.gif"><img src="gif/pl_detail.gif"><img src="gif/mine.gif">
 
 ### Light
 <img src="gif/home_.webp" width="32%"><img src="gif/plgc.webp" width="32%"><img src="gif/plgcm.webp" width="32%"><img src="gif/rank.webp" width="32%">
