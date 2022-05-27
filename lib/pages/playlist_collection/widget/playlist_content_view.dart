@@ -69,10 +69,11 @@ class PlayListContentView extends StatelessWidget {
       padding: EdgeInsets.only(
           left: Dimens.gap_dp15, right: Dimens.gap_dp15, top: Dimens.gap_dp12),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          mainAxisSpacing: Dimens.gap_dp10,
-          crossAxisSpacing: Dimens.gap_dp9,
-          childAspectRatio: 0.69),
+        crossAxisCount: 3,
+        mainAxisSpacing: Dimens.gap_dp10,
+        crossAxisSpacing: Dimens.gap_dp9,
+        childAspectRatio: 114.2 / 165.4,
+      ),
       itemBuilder: (context, index) {
         final item = datas!.elementAt(index);
         return _buildItem(item);

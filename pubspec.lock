@@ -42,7 +42,7 @@ packages:
       name: async
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.8.2"
+    version: "2.8.1"
   audioplayers:
     dependency: "direct main"
     description:
@@ -161,7 +161,7 @@ packages:
       name: characters
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.2.0"
+    version: "1.1.0"
   charcode:
     dependency: transitive
     description:
@@ -580,7 +580,7 @@ packages:
       name: lint
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.8.2"
+    version: "1.7.2"
   logger:
     dependency: "direct main"
     description:
@@ -615,14 +615,7 @@ packages:
       name: matcher
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.12.11"
-  material_color_utilities:
-    dependency: transitive
-    description:
-      name: material_color_utilities
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.3"
+    version: "0.12.10"
   meta:
     dependency: transitive
     description:
@@ -827,14 +820,14 @@ packages:
       name: shared_preferences_android
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.11"
+    version: "2.0.10"
   shared_preferences_ios:
     dependency: transitive
     description:
       name: shared_preferences_ios
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.0"
+    version: "2.0.9"
   shared_preferences_linux:
     dependency: transitive
     description:
@@ -1000,7 +993,7 @@ packages:
       name: test_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.4.8"
+    version: "0.4.2"
   timing:
     dependency: transitive
     description:
@@ -1042,7 +1035,7 @@ packages:
       name: vector_math
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.0"
   video_player:
     dependency: "direct main"
     description:
@@ -1114,5 +1107,5 @@ packages:
     source: hosted
     version: "3.1.0"
 sdks:
-  dart: ">=2.15.0-7.0.dev <3.0.0"
-  flutter: ">=2.8.0"
+  dart: ">=2.14.0 <3.0.0"
+  flutter: ">=2.5.0"
